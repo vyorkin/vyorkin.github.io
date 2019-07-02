@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vyorkin.org</title>
-    <link>http://vyorkin.org/ru-ru/</link>
+    <link>https://vyorkin.github.io/ru-ru/</link>
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://vyorkin.github.io/ru-ru/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Обо мне</title>
-      <link>http://vyorkin.org/ru-ru/about/</link>
+      <link>https://vyorkin.github.io/ru-ru/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://vyorkin.org/ru-ru/about/</guid>
+      <guid>https://vyorkin.github.io/ru-ru/about/</guid>
       <description>Привет! Меня зовут Василий и сейчас мне предстоит тут что-то написать.
 Я интересуюсь функциональным программированием, формальными методами и математикой в целом. Точнее, некоторым весьма ограниченным количеством её разделов, в которых я довольно слабо разбираюсь.
 Мне кажется, что по-настоящему я начал изучать ФП зимой 2017 с более глубокого знакомства с языком Haskell. До этого на работе я писал, в основном, на Elixir, Ruby, TypeScript, C#. Конечно, я учил Хаскель и что-то писал на нём и раньше, но в этот раз я решил погрузиться с ушами.</description>

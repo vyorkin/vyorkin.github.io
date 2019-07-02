@@ -3,101 +3,101 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://vyorkin.github.io/about/</loc>
+    <loc>https://vyorkin.org/about/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
-                href="https://vyorkin.github.io/de-de/about/"
+                href="https://vyorkin.org/de-de/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.github.io/ru-ru/about/"
+                href="https://vyorkin.org/ru-ru/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.github.io/about/"
+                href="https://vyorkin.org/about/"
                 />
   </url>
   
   <url>
-    <loc>https://vyorkin.github.io/categories/</loc>
+    <loc>https://vyorkin.org/categories/</loc>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
-                href="https://vyorkin.github.io/de-de/categories/"
+                href="https://vyorkin.org/de-de/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.github.io/ru-ru/categories/"
+                href="https://vyorkin.org/ru-ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.github.io/categories/"
+                href="https://vyorkin.org/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://vyorkin.github.io/series/</loc>
+    <loc>https://vyorkin.org/series/</loc>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
-                href="https://vyorkin.github.io/de-de/series/"
+                href="https://vyorkin.org/de-de/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.github.io/ru-ru/series/"
+                href="https://vyorkin.org/ru-ru/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.github.io/series/"
+                href="https://vyorkin.org/series/"
                 />
   </url>
   
   <url>
-    <loc>https://vyorkin.github.io/tags/</loc>
+    <loc>https://vyorkin.org/tags/</loc>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
-                href="https://vyorkin.github.io/de-de/tags/"
+                href="https://vyorkin.org/de-de/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.github.io/ru-ru/tags/"
+                href="https://vyorkin.org/ru-ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.github.io/tags/"
+                href="https://vyorkin.org/tags/"
                 />
   </url>
   
   <url>
-    <loc>https://vyorkin.github.io/</loc>
+    <loc>https://vyorkin.org/</loc>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
-                href="https://vyorkin.github.io/de-de/"
+                href="https://vyorkin.org/de-de/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.github.io/ru-ru/"
+                href="https://vyorkin.org/ru-ru/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.github.io/"
+                href="https://vyorkin.org/"
                 />
   </url>
   

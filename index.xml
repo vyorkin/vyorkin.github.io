@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>vyorkin.github.io</title>
-    <link>https://vyorkin.github.io/</link>
-    <description>Recent content on vyorkin.github.io</description>
+    <title>vyorkin.org</title>
+    <link>https://vyorkin.org/</link>
+    <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://vyorkin.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About me</title>
-      <link>https://vyorkin.github.io/about/</link>
+      <link>https://vyorkin.org/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://vyorkin.github.io/about/</guid>
+      <guid>https://vyorkin.org/about/</guid>
       <description>Hello! My name is Vasiliy Yorkin and this is my personal website.
 I&amp;rsquo;m interested in statically typed functional programming, type theory and formal verification. These days I spend most of my time exploring the world of FP and category theory.
 I&amp;rsquo;ve started to learn functional programming for real in winter 2017, when Haskell caught my interest and a couple of months later I had a chance to use it at work.</description>

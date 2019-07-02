@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vyorkin.org</title>
+    <link>http://vyorkin.org/de-de/</link>
+    <description>Recent content on vyorkin.org</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://vyorkin.org/de-de/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Über mich</title>
+      <link>http://vyorkin.org/de-de/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://vyorkin.org/de-de/about/</guid>
+      <description>Hi, mein name ist Vasiliy.</description>
+    </item>
+    
+  </channel>
+</rss>

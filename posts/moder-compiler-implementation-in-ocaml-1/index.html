@@ -149,7 +149,9 @@
       </header>
 
       <div>
-        <p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew%5FAppel">Andrew W. Appel</a> titled
+        
+
+<p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew%5FAppel">Andrew W. Appel</a> titled
 <a href="https://www.amazon.com/Modern-Compiler-Implement-Andrew-Appel/dp/0521607647">Modern compiler implementation in ML</a>. I&rsquo;ve picked it up because
 I&rsquo;ve heard some really good reviews about the ML version. Also
 there are other editions available that use C and Java. Each
@@ -161,6 +163,194 @@ compiler.</p>
 <p>I&rsquo;m building a compiler for the first time and it is a
 lot of fun! In these blog post series, I&rsquo;ll be working through
 the book and explaining my solutions to each chapter.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>The author describes Tiger as a simple (but nontrivial) language
+of the Algol family, which could be easily modified to be
+functional or object-oriented (maybe I&rsquo;ll skip the OO-part of
+the book).</p>
+
+<p><details>
+<summary>
+Here is an example program in Tiger
+</summary>
+<p class="details"></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90"><span style="color:#007020;font-weight:bold">type </span>tree <span style="color:#666">=</span> <span style="">{</span>
+  key: string,
+  left: tree,
+  right: tree
+<span style="">}</span>
+
+<span style="color:#007020;font-weight:bold">function </span>prettyprint(tree: tree) : string <span style="color:#666">=</span>
+  let
+    var output :<span style="color:#666">=</span> <span style="color:#4070a0">&#34;&#34;</span>
+
+    <span style="color:#007020;font-weight:bold">function write</span>(s: string) <span style="color:#666">=</span>
+      output :<span style="color:#666">=</span> concat(output, s)
+
+    <span style="color:#007020;font-weight:bold">function </span>show(n: <span style="color:#007020">int</span>, t: tree) <span style="color:#666">=</span>
+      let
+        <span style="color:#007020;font-weight:bold">function </span>indent(s: string) <span style="color:#666">=</span> (
+          for i :<span style="color:#666">=</span> <span style="color:#40a070">1</span> to n <span style="color:#007020;font-weight:bold">do
+</span><span style="color:#007020;font-weight:bold">             write</span>(<span style="color:#4070a0">&#34; &#34;</span>);
+             output :<span style="color:#666">=</span> concat(output, s);
+             <span style="color:#007020;font-weight:bold">write</span>(<span style="color:#4070a0">&#34;\n&#34;</span>)
+        )
+      in
+        <span style="color:#007020;font-weight:bold">if </span>t <span style="color:#666">=</span> nil
+        <span style="color:#007020;font-weight:bold">then </span>ident(<span style="color:#4070a0">&#34;.&#34;</span>)
+        <span style="color:#007020;font-weight:bold">else</span> (
+          indent(t.key);
+          show(n <span style="color:#666">+</span> <span style="color:#40a070">1</span>, t.left);
+          show(n <span style="color:#666">+</span> <span style="color:#40a070">1</span>, t.right)
+        )
+      <span style="color:#007020;font-weight:bold">end
+</span><span style="color:#007020;font-weight:bold">  </span>in
+    show(<span style="color:#40a070">0</span>, tree);
+    output
+  <span style="color:#007020;font-weight:bold">end</span></code></pre></div>
+<p></p>
+</details></p>
+
+<p>For my implementation I&rsquo;ve decided to use OCaml. It is <a href="http://adam.chlipala.net/mlcomp/">close</a>
+<a href="https://stackoverflow.com/questions/699689/what-are-the-differences-between-sml-and-ocaml/699755#699755">enough</a> to SML so with even basic ML experience it should be
+fairly straightworward to port the code examples.</p>
+
+<h3 id="straight-line-programs">Straight-line programs</h3>
+
+<p>The first &ldquo;warm-up&rdquo; assignment is to implement a program
+analyzer and interpreter for the <strong>straight-line</strong> programming
+language. We have the following types:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#007020;font-weight:bold">type</span> id <span style="color:#666">=</span> <span style="color:#902000">string</span>
+
+<span style="color:#007020;font-weight:bold">type</span> binop <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">Plus</span> <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Minus</span> <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Times</span> <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Div</span>
+
+<span style="color:#007020;font-weight:bold">type</span> stm <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">Compound</span> <span style="color:#007020;font-weight:bold">of</span> stm <span style="color:#666">*</span> stm
+         <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Assign</span> <span style="color:#007020;font-weight:bold">of</span> id <span style="color:#666">*</span> exp
+         <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Print</span> <span style="color:#007020;font-weight:bold">of</span> exp <span style="color:#902000">list</span>
+
+ <span style="color:#007020;font-weight:bold">and</span> exp <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">Id</span> <span style="color:#007020;font-weight:bold">of</span> id
+         <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Num</span> <span style="color:#007020;font-weight:bold">of</span> <span style="color:#902000">int</span>
+         <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Op</span> <span style="color:#007020;font-weight:bold">of</span> exp <span style="color:#666">*</span> binop <span style="color:#666">*</span> exp
+         <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Eseq</span> <span style="color:#007020;font-weight:bold">of</span> stm <span style="color:#666">*</span> exp</code></pre></div>
+<p>So for the following sample straight-line program</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90">a :<span style="color:#666">=</span> <span style="color:#40a070">5</span> <span style="color:#666">+</span> <span style="color:#40a070">3</span>;
+b :<span style="color:#666">=</span> (<span style="color:#007020;font-weight:bold">print</span>(a, a <span style="color:#666">-</span> <span style="color:#40a070">1</span>), a <span style="color:#666">*</span> <span style="color:#40a070">10</span>);
+<span style="color:#007020;font-weight:bold">print</span>(b)</code></pre></div>
+<p>The corresponding AST would be</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#0e84b5;font-weight:bold">Compound</span><span style="color:#666">(</span>
+  <span style="color:#0e84b5;font-weight:bold">Assign</span><span style="color:#666">(</span><span style="color:#4070a0">&#34;a&#34;</span><span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Op</span><span style="color:#666">(</span><span style="color:#0e84b5;font-weight:bold">Num</span> 5<span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Plus</span><span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Num</span> 3<span style="color:#666">)),</span>
+  <span style="color:#0e84b5;font-weight:bold">Compound</span><span style="color:#666">(</span>
+    <span style="color:#0e84b5;font-weight:bold">Assign</span><span style="color:#666">(</span><span style="color:#4070a0">&#34;b&#34;</span><span style="color:#666">,</span>
+      <span style="color:#0e84b5;font-weight:bold">Eseq</span><span style="color:#666">(</span>
+        <span style="color:#0e84b5;font-weight:bold">Print</span> <span style="color:#666">[</span><span style="color:#0e84b5;font-weight:bold">Id</span> <span style="color:#4070a0">&#34;a&#34;</span><span style="color:#666">;</span> <span style="color:#0e84b5;font-weight:bold">Op</span><span style="color:#666">(</span><span style="color:#0e84b5;font-weight:bold">Id</span> <span style="color:#4070a0">&#34;a&#34;</span><span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Minus</span><span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Num</span> 1<span style="color:#666">)],</span>
+        <span style="color:#0e84b5;font-weight:bold">Op</span><span style="color:#666">(</span><span style="color:#0e84b5;font-weight:bold">Num</span> 10<span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Times</span><span style="color:#666">,</span> <span style="color:#0e84b5;font-weight:bold">Id</span> <span style="color:#4070a0">&#34;a&#34;</span><span style="color:#666">))),</span>
+    <span style="color:#0e84b5;font-weight:bold">Print</span> <span style="color:#666">[</span><span style="color:#0e84b5;font-weight:bold">Id</span> <span style="color:#4070a0">&#34;b&#34;</span><span style="color:#666">]))</span></code></pre></div>
+<p>The first task is to write a function</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#007020;font-weight:bold">val</span> maxargs <span style="color:#666">:</span> stm <span style="color:#666">-&gt;</span> <span style="color:#902000">int</span></code></pre></div>
+<p>that tells the maximum number of args of any <code>print</code> statement
+within any subexpression of a given statement.</p>
+
+<p>Sounds easy, right? The implementation is pretty straightforward
+too:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#007020;font-weight:bold">open</span> <span style="color:#0e84b5;font-weight:bold">Base</span>
+<span style="color:#007020;font-weight:bold">open</span> <span style="color:#0e84b5;font-weight:bold">Straightline</span>
+
+<span style="color:#007020;font-weight:bold">let</span> <span style="color:#007020;font-weight:bold">rec</span> maxargs stm <span style="color:#666">=</span>
+  <span style="color:#007020;font-weight:bold">let</span> maxargs_exp <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">function</span>
+    <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Eseq</span> <span style="color:#666">(</span>stm<span style="color:#666">,</span> <span style="color:#666">_)</span> <span style="color:#666">-&gt;</span> maxargs stm
+    <span style="color:#666">|</span> <span style="color:#666">_</span> <span style="color:#666">-&gt;</span> 0
+  <span style="color:#007020;font-weight:bold">in</span> <span style="color:#007020;font-weight:bold">match</span> stm <span style="color:#007020;font-weight:bold">with</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Print</span> exps <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> len <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">List</span>.length exps <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#007020;font-weight:bold">let</span> exp_lens <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">List</span>.map <span style="color:#666">~</span>f<span style="color:#666">:</span>maxargs_exp exps <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#007020;font-weight:bold">let</span> max_exp_len <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">List</span>.max_elt <span style="color:#666">~</span>compare<span style="color:#666">:</span><span style="color:#0e84b5;font-weight:bold">Int</span>.compare exp_lens <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#0e84b5;font-weight:bold">Int</span>.max len <span style="color:#666">(</span><span style="color:#0e84b5;font-weight:bold">Option</span>.value <span style="color:#666">~</span>default<span style="color:#666">:</span>0 max_exp_len<span style="color:#666">)</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Compound</span> <span style="color:#666">(</span>exp1<span style="color:#666">,</span> exp2<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> l1 <span style="color:#666">=</span> maxargs exp1 <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#007020;font-weight:bold">let</span> l2 <span style="color:#666">=</span> maxargs exp2 <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#0e84b5;font-weight:bold">Int</span>.max l1 l2
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Assign</span> <span style="color:#666">(_,</span> exp<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    maxargs_exp exp</code></pre></div>
+<p>Next, we need to write another function that &ldquo;interprets&rdquo;
+program in this language.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#007020;font-weight:bold">val</span> eval <span style="color:#666">:</span> stm <span style="color:#666">-&gt;</span> <span style="color:#902000">unit</span></code></pre></div>
+<p>The code</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#007020;font-weight:bold">open</span> <span style="color:#0e84b5;font-weight:bold">Base</span>
+<span style="color:#007020;font-weight:bold">open</span> <span style="color:#0e84b5;font-weight:bold">Stdio</span>
+<span style="color:#007020;font-weight:bold">open</span> <span style="color:#0e84b5;font-weight:bold">Straightline</span>
+
+<span style="color:#007020;font-weight:bold">let</span> eval x op y <span style="color:#666">=</span>
+  <span style="color:#007020;font-weight:bold">match</span> op <span style="color:#007020;font-weight:bold">with</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Plus</span>  <span style="color:#666">-&gt;</span> x <span style="color:#666">+</span> y
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Minus</span> <span style="color:#666">-&gt;</span> x <span style="color:#666">-</span> y
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Times</span> <span style="color:#666">-&gt;</span> x <span style="color:#666">*</span> y
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Div</span>   <span style="color:#666">-&gt;</span> x <span style="color:#666">/</span> y
+
+<span style="color:#007020;font-weight:bold">let</span> <span style="color:#007020;font-weight:bold">rec</span> interp_stm stm env <span style="color:#666">=</span>
+  <span style="color:#007020;font-weight:bold">let</span> print env0 exp <span style="color:#666">=</span>
+    <span style="color:#007020;font-weight:bold">let</span> <span style="color:#666">(</span>v<span style="color:#666">,</span> env1<span style="color:#666">)</span> <span style="color:#666">=</span> interp_exp exp env0 <span style="color:#007020;font-weight:bold">in</span>
+    print_endline <span style="color:#666">(</span><span style="color:#0e84b5;font-weight:bold">Int</span>.to_string v<span style="color:#666">);</span>
+    env1
+  <span style="color:#007020;font-weight:bold">in</span>
+  <span style="color:#007020;font-weight:bold">match</span> stm <span style="color:#007020;font-weight:bold">with</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Print</span> exps <span style="color:#666">-&gt;</span>
+    <span style="color:#0e84b5;font-weight:bold">List</span>.fold_left <span style="color:#666">~</span>init<span style="color:#666">:</span>env <span style="color:#666">~</span>f<span style="color:#666">:</span>print exps
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Assign</span> <span style="color:#666">(</span>key<span style="color:#666">,</span> exp<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> <span style="color:#666">(</span>data<span style="color:#666">,</span> env1<span style="color:#666">)</span> <span style="color:#666">=</span> interp_exp exp env <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#0e84b5;font-weight:bold">Map</span>.set env1 <span style="color:#666">~</span>key <span style="color:#666">~</span>data
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Compound</span> <span style="color:#666">(</span>stm1<span style="color:#666">,</span> stm2<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> env1 <span style="color:#666">=</span> interp_stm stm1 env <span style="color:#007020;font-weight:bold">in</span>
+    interp_stm stm2 env1
+
+<span style="color:#007020;font-weight:bold">and</span> interp_exp exp env <span style="color:#666">=</span>
+  <span style="color:#007020;font-weight:bold">match</span> exp <span style="color:#007020;font-weight:bold">with</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Id</span> k <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> v <span style="color:#666">=</span> <span style="color:#0e84b5;font-weight:bold">Map</span>.find_exn env k <span style="color:#007020;font-weight:bold">in</span> <span style="color:#666">(</span>v<span style="color:#666">,</span> env<span style="color:#666">)</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Num</span> x <span style="color:#666">-&gt;</span> <span style="color:#666">(</span>x<span style="color:#666">,</span> env<span style="color:#666">)</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Op</span> <span style="color:#666">(</span>exp1<span style="color:#666">,</span> op<span style="color:#666">,</span> exp2<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> <span style="color:#666">(</span>x<span style="color:#666">,</span> env1<span style="color:#666">)</span> <span style="color:#666">=</span> interp_exp exp1 env <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#007020;font-weight:bold">let</span> <span style="color:#666">(</span>y<span style="color:#666">,</span> env2<span style="color:#666">)</span> <span style="color:#666">=</span> interp_exp exp2 env1 <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#007020;font-weight:bold">let</span> r <span style="color:#666">=</span> eval x op y <span style="color:#007020;font-weight:bold">in</span>
+    <span style="color:#666">(</span>r<span style="color:#666">,</span> env2<span style="color:#666">)</span>
+  <span style="color:#666">|</span> <span style="color:#0e84b5;font-weight:bold">Eseq</span> <span style="color:#666">(</span>stm<span style="color:#666">,</span> exp<span style="color:#666">)</span> <span style="color:#666">-&gt;</span>
+    <span style="color:#007020;font-weight:bold">let</span> env1 <span style="color:#666">=</span> interp_stm stm env <span style="color:#007020;font-weight:bold">in</span>
+    interp_exp exp env1</code></pre></div>
+<p>Here we&rsquo;re just recursively traversing a tree, keeping a map of
+identifiers, evaluating arithmetic operations and printing
+values.</p>
+
+<h2 id="excersises">Excersises</h2>
+
+<p>A couple of more excercises about trees, nothing super exciting.
+So I won&rsquo;t paste the rest of my solutions here. To implement a
+balanced-tree (ex. d) I&rsquo;ve read the chapter about Red-Black
+Tree&rsquo;s in <a href="https://www.amazon.com/Purely-Functional-Data-Structures-Okasaki/dp/0521663504">Okasaki book.</a> The code is <a href="https://github.com/vyorkin/tiger/blob/master/chapter1/rb%5Ftree.ml">here</a>.</p>
+
+<p>Well, thats all for chapter 1! The next one is about lexical
+analysis where we&rsquo;ll write a simple lexer for the Tiger
+language.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>By the time I&rsquo;ve decided to start writing this post I&rsquo;ve already
+finished reading 6th chapter and here are some first impressions:</p>
+
+<ul>
+<li>The book is very clear and enjoyable to read. Programming
+assignments and excercises are very well thought out</li>
+<li>Implementing the typechecker (chapter 5) wasn&rsquo;t easy, for me
+it took a week to make it work and typecheck correctly every
+given example program</li>
+<li>Chapter 6 feels easier (less code to write), but requires some
+basic knowledge about microprocessor architectures (SPARK,
+MIPS)</li>
+</ul>
+
+<p>I wouldn&rsquo;t recommend starting with this book to someone with
+zero compiler design knowledge. But it is definitely a must read
+for people who already know the basics of compiler construction.</p>
 
       </div>
 

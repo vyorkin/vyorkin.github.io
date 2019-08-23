@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>vyorkin.org</title>
-    <link>https://vyorkin.org/</link>
-    <description>Recent content on vyorkin.org</description>
+    <title>Posts on vyorkin.org</title>
+    <link>https://vyorkin.org/posts/</link>
+    <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 23 Aug 2019 10:31:00 +0300</lastBuildDate>
     
-	<atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,17 +18,6 @@
       
       <guid>https://vyorkin.org/posts/moder-compiler-implementation-in-ocaml-1/</guid>
       <description>Recently I&amp;rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&amp;rsquo;ve picked it up because I&amp;rsquo;ve heard some really good reviews about the ML version. Also there are other editions available that use C and Java. Each chapter of the book covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler.</description>
-    </item>
-    
-    <item>
-      <title>About me</title>
-      <link>https://vyorkin.org/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://vyorkin.org/about/</guid>
-      <description>Hello! My name is Vasiliy Yorkin and this is my personal website.
-I&amp;rsquo;m interested in statically typed functional programming, type theory and formal verification. These days I spend most of my time exploring the world of FP and category theory.
-I&amp;rsquo;ve started to learn functional programming for real in winter 2017, when Haskell caught my interest and a couple of months later I had a chance to use it at work.</description>
     </item>
     
   </channel>

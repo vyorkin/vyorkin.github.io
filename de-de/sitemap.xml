@@ -4,7 +4,6 @@
   
   <url>
     <loc>https://vyorkin.org/de-de/categories/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -24,7 +23,6 @@
   
   <url>
     <loc>https://vyorkin.org/de-de/series/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,7 +42,6 @@
   
   <url>
     <loc>https://vyorkin.org/de-de/tags/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -64,7 +61,6 @@
   
   <url>
     <loc>https://vyorkin.org/de-de/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"

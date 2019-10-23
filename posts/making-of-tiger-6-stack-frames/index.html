@@ -11,16 +11,16 @@
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Making of Tiger #6, Stack frames"/>
-<meta name="twitter:description" content="Intro In this chapter we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading this chapter to make sure I understand things clearly.
+<meta name="twitter:description" content="Intro In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
 Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat the stack as a big array, with a special register &ndash; the stack pointer (SP)."/>
 
     <meta property="og:title" content="Making of Tiger #6, Stack frames" />
-<meta property="og:description" content="Intro In this chapter we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading this chapter to make sure I understand things clearly.
+<meta property="og:description" content="Intro In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
 Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat the stack as a big array, with a special register &ndash; the stack pointer (SP)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/" />
-<meta property="article:published_time" content="2019-08-27T13:00:00&#43;03:00"/>
-<meta property="article:modified_time" content="2019-08-27T13:00:00&#43;03:00"/>
+<meta property="article:published_time" content="2019-08-27T13:00:00+03:00" />
+<meta property="article:modified_time" content="2019-08-27T13:00:00+03:00" />
 
 
     
@@ -55,7 +55,7 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.55.4" />
+    <meta name="generator" content="Hugo 0.58.3" />
   </head>
 
   <body class=" ">
@@ -155,8 +155,8 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
 
 <h2 id="intro">Intro</h2>
 
-<p>In this chapter we&rsquo;re going to add support for stack frames.
-Here I&rsquo;ve made some notes while reading this chapter to make sure I
+<p>In this post we&rsquo;re going to add support for stack frames.
+Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I
 understand things clearly.</p>
 
 <h3 id="stack">Stack</h3>
@@ -974,6 +974,8 @@ it&rsquo;s work.</p>
 <p>Now lets go and update our <code>Semant</code> module.</p>
 
 <p>I won&rsquo;t paste the whole implementation, the code is <a href="https://github.com/vyorkin/tiger/blob/master/chapter6/lib/semant.ml">here</a>.</p>
+
+<h2 id="summary">Summary</h2>
 
       </div>
 

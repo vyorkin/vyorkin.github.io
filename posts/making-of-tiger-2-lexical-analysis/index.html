@@ -209,8 +209,8 @@ OCaml book</a>.</p>
 <p>We’ll start with the simplest possible example of building a
 lexer for <a href="https://en.wikipedia.org/wiki/Morse%5Fcode">morse code</a>, the full source code is <a href="https://github.com/vyorkin/tiger/blob/master/play/menhir/morse-code-simple/lexer.mll">here</a>.</p>
 
-<p>The <code>dune</code> file for our playground project is going to looks
-like this:</p>
+<p>The <code>dune</code> file for our playground project is going to look like
+this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(ocamllex
  (modules lexer))
 
@@ -220,11 +220,9 @@ like this:</p>
  (preprocess (pps ppx_deriving.show)))
 
 (env (dev (flags (<span style="color:#e6db74">:standard</span> -warn-error -A))))</code></pre></div>
-<p>Nothing fancy here.</p>
-
-<p>The <code>driver.ml</code> module is our entry point. It simply reads the
-given file, runs our lexer and displays the resulting
-S-expression.</p>
+<p>Nothing fancy here. Next one is the <code>driver.ml</code> module, this is
+our entry point. It simply reads the given file, runs our lexer
+and displays the resulting S-expression.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Core</span>
 <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Syntax</span>
 
@@ -247,14 +245,14 @@ S-expression.</p>
   run
   <span style="color:#f92672">|&gt;</span> Command.basic_spec <span style="color:#f92672">~</span>summary<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Run the lexer and display tokens&#34;</span> spec
   <span style="color:#f92672">|&gt;</span> Command.run</code></pre></div>
-<p>We need a module to describe our tokens, we’ll call it
+<p>We need a module to describe our tokens, lets call it
 <code>syntax.ml</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> exp <span style="color:#f92672">=</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">SYM</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#75715e">(* symbol *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">SEP</span> <span style="color:#75715e">(* separator *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">EOF</span> <span style="color:#75715e">(* end of file *)</span>
   <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span></code></pre></div>
-<p>And the lexer generator itself.</p>
+<p>And the lexer generator itself:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">{</span>
   <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Lexing</span>
   <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Syntax</span>
@@ -280,7 +278,8 @@ rule read <span style="color:#f92672">=</span> parse
   <span style="color:#f92672">|</span> white   <span style="color:#f92672">{</span> <span style="color:#a6e22e">SEP</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#f92672">_</span>       <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#f92672">(</span>Printf.sprintf <span style="color:#e6db74">&#34;At offset %d: unexpected character.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">(</span>lexeme_start lexbuf<span style="color:#f92672">)))</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> eof     <span style="color:#f92672">{</span> <span style="color:#a6e22e">EOF</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Ok, now we can parse the “hello world” sequence:</p>
+<p>Now we can parse the “hello world” sequence written in Morse
+Code:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nil" data-lang="nil">.... . .-.. .-.. ---
 .-- --- .-. .-.. -..</code></pre></div>
 <p>The output will be:</p>
@@ -289,6 +288,9 @@ SEP
 (SYM <span style="color:#e6db74">&#34;.--&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;---&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-.&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-..&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;-..&#34;</span>)
 EOF</code></pre></div>
 <h2 id="tiger-lexer">Tiger lexer</h2>
+
+<p>Having that basic understanding of how to use the <code>ocamllex</code> to
+build lexers, we can try to build one for our Tiger language.</p>
 
 <p>The <code>dune</code> file is going to remain the same as in the “morse
 code” example above. There is a <strong>Tiger Language Reference Manual

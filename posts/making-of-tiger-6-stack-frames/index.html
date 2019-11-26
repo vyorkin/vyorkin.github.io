@@ -12,11 +12,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Making of Tiger #6, Stack frames"/>
 <meta name="twitter:description" content="Intro In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
-Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat the stack as a big array, with a special register &ndash; the stack pointer (SP)."/>
+Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat stack as a big array, with a special register &ndash; the stack pointer (SP)."/>
 
     <meta property="og:title" content="Making of Tiger #6, Stack frames" />
 <meta property="og:description" content="Intro In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
-Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat the stack as a big array, with a special register &ndash; the stack pointer (SP)." />
+Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat stack as a big array, with a special register &ndash; the stack pointer (SP)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/" />
 <meta property="article:published_time" content="2019-08-27T13:00:00+03:00" />
@@ -163,7 +163,7 @@ understand things clearly.</p>
 
 <p>A stack is a region of memory that grows downward and shrinks
 upward (like icicles). The top of the stack is it&rsquo;s <code>lowest</code>
-memory address. We treat the stack as a big array, with a
+memory address. We treat stack as a big array, with a
 special register &ndash; the <strong>stack pointer (SP)</strong>.</p>
 
 <p>The stack <strong>grows</strong> only at the entry to a function, by the

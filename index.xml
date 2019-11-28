@@ -6,10 +6,20 @@
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Nov 2019 19:10:00 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 28 Nov 2019 20:36:00 +0300</lastBuildDate>
     
 	<atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Making of Tiger #3, Parsing</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-3-parsing/</link>
+      <pubDate>Thu, 28 Nov 2019 20:36:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/making-of-tiger-3-parsing/</guid>
+      <description>Intro In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+ Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.</description>
+    </item>
     
     <item>
       <title>Making of Tiger #2, Lexical Analysis</title>
@@ -49,7 +59,7 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
       
       <guid>https://vyorkin.org/about/</guid>
       <description>Hello! My name is Vasiliy Yorkin and this is my personal website.
-I&amp;rsquo;m interested in statically typed functional programming, type theory and formal verification. These days I spend most of my time exploring the world of FP and category theory.
+I&amp;rsquo;m interested in statically typed functional programming, Martin Löf’s type theory, dependent types, intuitionistic mathematics in general and formal verification. These days I spend most of my time exploring the world of FP, formal methods and category theory.
 I&amp;rsquo;ve started to learn functional programming for real in winter 2017, when Haskell caught my interest and a couple of months later I had a chance to use it at work.</description>
     </item>
     

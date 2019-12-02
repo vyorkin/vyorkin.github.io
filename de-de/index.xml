@@ -18,7 +18,8 @@
       <guid>https://vyorkin.org/de-de/about/</guid>
       <description>Hi! Mein Name ist Vasiliy Yorkin und dies ist meine persönliche Website.
 Ich interessiere mich für statisch typisierte funktionale Programmierung, Typ Theorie und formale Verifikation. In diesen Tagen verbringe ich den größten Teil der FP- und Kategorietheorie zu erkunden.
-Ich habe angefangen, im Winter 2017 das funktionale Programmieren zu lernen, als Haskell mein Interesse geweckt hat und ein paar Monate später hatte ich die Chance, es bei der Arbeit zu nutzen.</description>
+In diesem Blog schreibe ich über Haskell, PureScript und OCaml, aber manchmal über Nix (und NixOS), Coq und andere Technologien und Ideen bin ich Wert darauf legen.
+Manchmal twittere ich über diese und andere Themen weiter Twitter.</description>
     </item>
     
   </channel>

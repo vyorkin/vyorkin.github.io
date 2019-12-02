@@ -60,7 +60,7 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
       <guid>https://vyorkin.org/about/</guid>
       <description>Hello! My name is Vasiliy Yorkin and this is my personal website.
 I&amp;rsquo;m interested in statically typed functional programming, Martin Löf’s type theory, dependent types, intuitionistic mathematics in general and formal verification. These days I spend most of my time exploring the world of FP, formal methods and category theory.
-I&amp;rsquo;ve started to learn functional programming for real in winter 2017, when Haskell caught my interest and a couple of months later I had a chance to use it at work.</description>
+In this blog I&amp;rsquo;m going to write about some of the things I do. Particularly about Haskell, PureScript and OCaml, but sometimes about Nix (and NixOS), Coq and other technologies and ideas I&amp;rsquo;m care about.</description>
     </item>
     
   </channel>

@@ -4,6 +4,7 @@
   
   <url>
     <loc>https://vyorkin.org/ru-ru/categories/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -22,26 +23,43 @@
   </url>
   
   <url>
-    <loc>https://vyorkin.org/ru-ru/series/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/series/"
-                />
+    <loc>https://vyorkin.org/ru-ru/tags/ocaml/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vyorkin.org/series/"
+                href="https://vyorkin.org/tags/ocaml/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/series/"
+                href="https://vyorkin.org/ru-ru/tags/ocaml/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vyorkin.org/ru-ru/posts/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/posts/"
                 />
   </url>
   
   <url>
     <loc>https://vyorkin.org/ru-ru/tags/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -61,6 +79,7 @@
   
   <url>
     <loc>https://vyorkin.org/ru-ru/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -75,6 +94,30 @@
                 rel="alternate"
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://vyorkin.org/ru-ru/posts/about-lwt/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vyorkin.org/ru-ru/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/series/"
                 />
   </url>
   

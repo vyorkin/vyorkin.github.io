@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>vyorkin.org</title>
-    <link>https://vyorkin.org/ru-ru/</link>
-    <description>Recent content on vyorkin.org</description>
+    <title>ocaml on vyorkin.org</title>
+    <link>https://vyorkin.org/ru-ru/categories/ocaml/</link>
+    <description>Recent content in ocaml on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 03 Dec 2019 15:59:00 +0300</lastBuildDate>
     
-	<atom:link href="https://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://vyorkin.org/ru-ru/categories/ocaml/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,18 +22,6 @@
 Виды “многозадачностей” Этот параграф можно пропустить
 Если в двух словах, то вытесняющую и кооперативнуюмногозадачность можно объяснить следующим образом:
  Вытесняющая многозадачность означает, что у нас есть некийпланировщик, принимающий решения о том, когда будетвыполняться какой поток, обычно принимая во внимание приоритетпотоков и выделяя им некие кванты времени.</description>
-    </item>
-    
-    <item>
-      <title>Обо мне</title>
-      <link>https://vyorkin.org/ru-ru/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://vyorkin.org/ru-ru/about/</guid>
-      <description>Привет! Меня зовут Василий, а это что-то вроде блога.
-Я интересуюсь функциональным программированием, формальными методами и математикой в целом. Точнее, некоторым весьма ограниченным количеством её разделов, в которых я довольно слабо разбираюсь.
-Здесь я (когда-нибудь) собираюсь писать обо вcём, что мне кажется интересным. В данный момент это Haskell, PureScript, OCaml, Coq, Nix (и NixOS), Emacs, алгоритмы, компиляторы, формальные методы, теория категорий и другие клёвые вещи.
-Я иногда пишу в твиттере, но крайне редко.</description>
     </item>
     
   </channel>

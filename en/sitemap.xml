@@ -7,13 +7,13 @@
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/categories/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -45,6 +45,16 @@
   <url>
     <loc>https://vyorkin.org/tags/ocaml/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/ocaml/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/ocaml/"
+                />
   </url>
   
   <url>
@@ -55,6 +65,16 @@
   <url>
     <loc>https://vyorkin.org/posts/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/posts/"
+                />
   </url>
   
   <url>
@@ -62,13 +82,13 @@
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/tags/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/tags/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -87,13 +107,13 @@
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/"
                 />
     <xhtml:link
                 rel="alternate"

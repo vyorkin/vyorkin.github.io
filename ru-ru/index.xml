@@ -6,10 +6,20 @@
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Dec 2019 15:59:00 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 07 Dec 2019 10:46:00 +0300</lastBuildDate>
     
 	<atom:link href="https://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Заметки про типы в Coq (WIP)</title>
+      <link>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</link>
+      <pubDate>Sat, 07 Dec 2019 10:46:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</guid>
+      <description>Gallina и CIC Формальный язык, который используется в Coq для описания математических утверждений и доказательств называется курица. Серьёзно, они назвали его по-испански – Gallina (т.е. gallina blanca это “белая курица”). Этот формальный язык основан на теории типов, которая называется Исчисление Индуктивных Конструкций (Calculus of Inductive Constructions, сокращённо CIC).
+Логические утверждения отождествляются с некоторыми типами, а их доказательства с термами соответствующих типов. Таким образом, чтобы доказать утверждение необходимо сконструировать (предъявить) терм нужного типа.</description>
+    </item>
     
     <item>
       <title>Заметка о Lwt</title>

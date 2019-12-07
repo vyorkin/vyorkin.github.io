@@ -6,10 +6,22 @@
     <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Nov 2019 20:36:00 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 07 Dec 2019 18:23:00 +0300</lastBuildDate>
     
 	<atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Proving TAPL in Coq (ch 3, WIP)</title>
+      <link>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</link>
+      <pubDate>Sat, 07 Dec 2019 18:23:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</guid>
+      <description>In order to understand things clearly and to learn Coq proof assistant at the same time, I&amp;rsquo;ve decided to do some proves while reading the TAPL book.
+The code is on the GitHub.
+For the excercises I want to use the ssreflect proof language instead of ltac. I&amp;rsquo;ll keep solutions to each chapter in a separate file. We&amp;rsquo;ll always work in the following context:
+Set Implicit Arguments. Unset Strict Implicit.</description>
+    </item>
     
     <item>
       <title>Making of Tiger #3, Parsing</title>

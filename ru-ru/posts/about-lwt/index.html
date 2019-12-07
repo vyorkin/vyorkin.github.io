@@ -11,18 +11,18 @@
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Заметка о Lwt"/>
-<meta name="twitter:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющеймногозадачности) в OCaml на основе Promises.
-В дальнейшем я буду использовать слова “поток” и промис каквзаимозаменямые.
+<meta name="twitter:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
+В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.
 Виды “многозадачностей” Этот параграф можно пропустить
-Если в двух словах, то вытесняющую и кооперативнуюмногозадачность можно объяснить следующим образом:
- Вытесняющая многозадачность означает, что у нас есть некийпланировщик, принимающий решения о том, когда будетвыполняться какой поток, обычно принимая во внимание приоритетпотоков и выделяя им некие кванты времени."/>
+Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:
+ Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени."/>
 
     <meta property="og:title" content="Заметка о Lwt" />
-<meta property="og:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющеймногозадачности) в OCaml на основе Promises.
-В дальнейшем я буду использовать слова “поток” и промис каквзаимозаменямые.
+<meta property="og:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
+В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.
 Виды “многозадачностей” Этот параграф можно пропустить
-Если в двух словах, то вытесняющую и кооперативнуюмногозадачность можно объяснить следующим образом:
- Вытесняющая многозадачность означает, что у нас есть некийпланировщик, принимающий решения о том, когда будетвыполняться какой поток, обычно принимая во внимание приоритетпотоков и выделяя им некие кванты времени." />
+Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:
+ Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/ru-ru/posts/about-lwt/" />
 <meta property="article:published_time" content="2019-12-03T15:59:00+03:00" />
@@ -61,7 +61,7 @@
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.58.0" />
   </head>
 
   <body class=" ">
@@ -155,28 +155,44 @@
 
 <p><a href="https://github.com/ocsigen/lwt">Lwt</a> это одна из наиболее популярных OCaml библиотек,
 разрабатываемая сообществом. По сути это просто реализация
-<a href="https://en.wikipedia.org/wiki/Cooperative%5Fmultitasking">кооперативной многозадачности</a> (как альтернативы <a href="https://en.wikipedia.org/wiki/Preemption%5F(computing)">вытесняющеймногозадачности</a>) в OCaml на основе <a href="https://en.wikipedia.org/wiki/Futures%5Fand%5Fpromises">Promises</a>.</p>
+<a href="https://en.wikipedia.org/wiki/Cooperative%5Fmultitasking">кооперативной многозадачности</a> (как альтернативы <a href="https://en.wikipedia.org/wiki/Preemption%5F(computing)">вытесняющей
+многозадачности</a>) в OCaml на основе <a href="https://en.wikipedia.org/wiki/Futures%5Fand%5Fpromises">Promises</a>.</p>
 
-<p><em>В дальнейшем я буду использовать слова “поток” и промис каквзаимозаменямые</em>.</p>
+<p><em>В дальнейшем я буду использовать слова “поток” и промис как
+взаимозаменямые</em>.</p>
 
 <h2 id="виды-многозадачностей">Виды “многозадачностей”</h2>
 
 <p><em>Этот параграф можно пропустить</em></p>
 
-<p>Если в двух словах, то вытесняющую и кооперативнуюмногозадачность можно объяснить следующим образом:</p>
+<p>Если в двух словах, то вытесняющую и кооперативную
+многозадачность можно объяснить следующим образом:</p>
 
 <ul>
-<li><p><strong>Вытесняющая многозадачность</strong> означает, что у нас есть некийпланировщик, принимающий решения о том, когда будетвыполняться какой поток, обычно принимая во внимание приоритетпотоков и выделяя им некие кванты времени. Этот видмногозадачности используется в большинстве современных ОС.</p></li>
+<li><p><strong>Вытесняющая многозадачность</strong> означает, что у нас есть некий
+планировщик, принимающий решения о том, когда будет
+выполняться какой поток, обычно принимая во внимание приоритет
+потоков и выделяя им некие кванты времени. Этот вид
+многозадачности используется в большинстве современных ОС.</p></li>
 
-<li><p><strong>Кооперативная многозадачность</strong> – планировщик не принимаетрешение о переключении потоков. Поток должен явносигнализировать о том, что он готов прерваться и предоставитьпроцессорное время другим потокам.</p></li>
+<li><p><strong>Кооперативная многозадачность</strong> – планировщик не принимает
+решение о переключении потоков. Поток должен явно
+сигнализировать о том, что он готов прерваться и предоставить
+процессорное время другим потокам.</p></li>
 </ul>
 
 <h2 id="асинхронное-программирование-с-lwt-и-промисы">Асинхронное программирование с Lwt и промисы</h2>
 
-<p>Lwt предоставляет нам тип данных <code>'a Lwt.t</code>. Можно относиться кнему, как к “потоку”. Это обычный промис, содержащий некотороезначение типа <code>'a</code>, которое может быть вычислено, например,
-когда-то в будущем, но только один раз. В терминах OCaml этопросто <code>'a ref</code>, который будет заполнен позже. Изначальнозначения в нём нет и промис находится в состоянии <code>Sleep</code> (pending).
+<p>Lwt предоставляет нам тип данных <code>'a Lwt.t</code>. Можно относиться к
+нему, как к “потоку”. Это обычный промис, содержащий некоторое
+значение типа <code>'a</code>, которое может быть вычислено, например,
+когда-то в будущем, но только один раз. В терминах OCaml это
+просто <code>'a ref</code>, который будет заполнен позже. Изначально
+значения в нём нет и промис находится в состоянии <code>Sleep</code> (pending).
 Когда вычисление завершено успешно, Lwt помещает результат типа
-<code>'a</code> в наш промис и его состояние становится <code>Return</code> (resolved). Вслучае же неудачи его состояние изменяется на <code>Fail</code> (rejected) и внего помещается произошедшая ошибка.</p>
+<code>'a</code> в наш промис и его состояние становится <code>Return</code> (resolved). В
+случае же неудачи его состояние изменяется на <code>Fail</code> (rejected) и в
+него помещается произошедшая ошибка.</p>
 
 <h3 id="api">API</h3>
 
@@ -187,25 +203,36 @@
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">Sleep</span></code></pre></div>
 <p>Lwt предоставляет несколько полезных ф-ций:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> return <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a Ltw.t</code></pre></div>
-<p>Понятно, что эта ф-ция тривиально упаковывает уже известнозначение в промис. Соответственно, этот промис сразу находится всостоянии <code>Return</code> (resolved).</p>
+<p>Понятно, что эта ф-ция тривиально упаковывает уже известно
+значение в промис. Соответственно, этот промис сразу находится в
+состоянии <code>Return</code> (resolved).</p>
 
 <p>Значения, упакованные в <code>Lwt.t</code>, не могут быть просто извлечены
-(т.к. вычисление может быть ещё не завершено). Для этого мыдолжны использовать оператор <code>bind</code>:</p>
+(т.к. вычисление может быть ещё не завершено). Для этого мы
+должны использовать оператор <code>bind</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> <span style="color:#f92672">(&gt;&gt;=):</span> <span style="color:#66d9ef">&#39;</span>a Lwt.t <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t</code></pre></div>
-<p>Такая конструкция позволяет нам делать композицию промисов в“монадическом” стиле.</p>
+<p>Такая конструкция позволяет нам делать композицию промисов в
+“монадическом” стиле.</p>
 
-<p><code>f &gt;&gt;= g</code> создаст нам промис, который ждёт пока завершится“поток” <code>f : 'a Lwt.t</code>, получает результат его вычислений (некий
-<code>x : 'a</code>) и передаёт его в ф-цию <code>g : 'a -&gt; 'b Ltw.t</code>, котораязапускает поток <code>'b Ltw.t</code>. Если <code>f</code> находится в состоянии
+<p><code>f &gt;&gt;= g</code> создаст нам промис, который ждёт пока завершится
+“поток” <code>f : 'a Lwt.t</code>, получает результат его вычислений (некий
+<code>x : 'a</code>) и передаёт его в ф-цию <code>g : 'a -&gt; 'b Ltw.t</code>, которая
+запускает поток <code>'b Ltw.t</code>. Если <code>f</code> находится в состоянии
 <strong>pending</strong>, то и <code>f &gt;&gt;= g</code> будет в состоянии <code>pending</code>.
 Соответственно, если <code>f</code> завершится с ошибкой, то и <code>f &gt;&gt;= g</code>
 завершится с той же самой ошибкой.</p>
 
 <p>Несколько других полезных ф-ций:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> join <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> Lwt.t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t</code></pre></div>
-<p><code>join</code> получает список потоков и ожидает пока они всезавершатся. Если хотя бы один из них завершится с ошибкой
-(перейдёт в состояние rejected), то и результирующий потокзавершится с той же ошибкой (после того, как все остальныепотоки завершат свои вычисления).</p>
+<p><code>join</code> получает список потоков и ожидает пока они все
+завершатся. Если хотя бы один из них завершится с ошибкой
+(перейдёт в состояние rejected), то и результирующий поток
+завершится с той же ошибкой (после того, как все остальные
+потоки завершат свои вычисления).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> choose <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a t</code></pre></div>
-<p><code>choose</code> ждёт пока выполнится хотя бы один поток. Если такихоказалось несколько, то в качестве результата выбирается один изних cлучайным образом.</p>
+<p><code>choose</code> ждёт пока выполнится хотя бы один поток. Если таких
+оказалось несколько, то в качестве результата выбирается один из
+них cлучайным образом.</p>
 
 <p>На самом деле их огромное множество и все их можно найти <a href="http://ocsigen.org/lwt/dev/api/Lwt%5Flist">тут</a>.</p>
 
@@ -220,7 +247,8 @@
 
 <p><em>Следующие примеры я взял из официального туториала</em></p>
 
-<p>Чтение из STDIN без Lwt, выполнение блокируется пока непоступит пользовательский ввод:</p>
+<p>Чтение из STDIN без Lwt, выполнение блокируется пока не
+поступит пользовательский ввод:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
   <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Pervasives.read_line () <span style="color:#66d9ef">in</span>
   print_endline <span style="color:#e6db74">&#34;Now unblocked!&#34;</span><span style="color:#f92672">;</span>
@@ -230,20 +258,26 @@
   <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
   print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
   ignore line_promise</code></pre></div>
-<p>В данном случае, это не совсем то, что нам нужно, т.к. программасразу завершает работу, так и не дождавшись пользовательскоговвода. Чтобы заблокироваться и подождать пока промис выполнится,
+<p>В данном случае, это не совсем то, что нам нужно, т.к. программа
+сразу завершает работу, так и не дождавшись пользовательского
+ввода. Чтобы заблокироваться и подождать пока промис выполнится,
 мы можем использовать ф-цию <code>Lwt_main.run</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
   <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
   print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
   <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Lwt_main.run line_promise <span style="color:#66d9ef">in</span>
   ignore line</code></pre></div>
-<p><code>Lwt_main.run</code> используется только 1 раз, чтобы подожать показавершится промис самого верхнего уровня. Когда этот промисвыполнится, программа завершает работу.</p>
+<p><code>Lwt_main.run</code> используется только 1 раз, чтобы подожать пока
+завершится промис самого верхнего уровня. Когда этот промис
+выполнится, программа завершает работу.</p>
 
 <h3 id="ещё-примеры">Ещё примеры:</h3>
 
-<p>Опять же, я не заморачивался и взял примеры из официальноготуториала, тк я слишком ленивый, чтобы придумывать их самому.</p>
+<p>Опять же, я не заморачивался и взял примеры из официального
+туториала, тк я слишком ленивый, чтобы придумывать их самому.</p>
 
-<p>Пример функции, которая печатает “tic” каждую секунду, неблокируя другие “потоки”:</p>
+<p>Пример функции, которая печатает “tic” каждую секунду, не
+блокируя другие “потоки”:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> tic () <span style="color:#f92672">=</span>
   print_endline <span style="color:#e6db74">&#34;tic&#34;</span><span style="color:#f92672">;</span>
   <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> Lwt_unix.sleep 1<span style="color:#f92672">.</span>0 <span style="color:#66d9ef">in</span>
@@ -257,13 +291,15 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
 <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
 <span style="color:#f92672">...</span></code></pre></div>
-<p>А вот так мы можем запустить обе ф-ции конкурентно и сразу жеподождать их завершения:</p>
+<p>А вот так мы можем запустить обе ф-ции конкурентно и сразу же
+подождать их завершения:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> p1 <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
 <span style="color:#66d9ef">let</span> p2 <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
 <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p1 <span style="color:#66d9ef">in</span>
 <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p2 <span style="color:#66d9ef">in</span>
 <span style="color:#f92672">...</span></code></pre></div>
-<p>Пример ф-ции, которая выполняет все вычисления из спискаконкрурентно:</p>
+<p>Пример ф-ции, которая выполняет все вычисления из списка
+конкрурентно:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map f l <span style="color:#f92672">=</span>
   <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
   <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> Lwt.return []
@@ -273,7 +309,8 @@
       <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt v&#39; <span style="color:#f92672">=</span> t <span style="color:#66d9ef">in</span>
       <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt l&#39; <span style="color:#f92672">=</span> rt <span style="color:#66d9ef">in</span>
       Lwt.return <span style="color:#f92672">(</span>v&#39; <span style="color:#f92672">::</span> l&#39;<span style="color:#f92672">)</span></code></pre></div>
-<p>Следующая ф-ция наоборот, ожидает пока выполнится каждоепредыдущее вычисление из списка, прежде чем запустить следующее:</p>
+<p>Следующая ф-ция наоборот, ожидает пока выполнится каждое
+предыдущее вычисление из списка, прежде чем запустить следующее:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map_serial f l <span style="color:#f92672">=</span>
   <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
   <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> return []
@@ -286,11 +323,13 @@
 <h2 id="полезные-ссылки">Полезные ссылки</h2>
 
 <ul>
-<li><a href="https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/ads/promises.html">Promises</a> в книге Functional Programming in OCaml</li>
+<li><a href="https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/ads/promises.html">Promises </a> в книге Functional Programming in OCaml</li>
 <li><a href="https://gitter.im/ocaml-lwt/Lobby">Lwt Gitter</a></li>
 <li>Туториал <a href="https://ocsigen.org/tuto/6.4/manual/lwt">Lwt in 5 minutes</a></li>
 <li><a href="https://ocsigen.org/lwt/4.4.0/manual/manual">Lwt мануал</a></li>
-<li><a href="https://www.baturin.org/code/lwt-counter-server/">Туториал</a> про то, как сделать простой сервер на сокетах, позволяющийклиентам подключаться, увеличивать счётчик и читать егозначение.</li>
+<li><a href="https://www.baturin.org/code/lwt-counter-server/">Туториал</a> про то, как сделать простой сервер на сокетах, позволяющий
+клиентам подключаться, увеличивать счётчик и читать его
+значение.</li>
 </ul>
 
       </div>

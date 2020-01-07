@@ -249,12 +249,14 @@ function instead:</p>
 <span style="color:#66d9ef">match</span> t <span style="color:#66d9ef">with</span>
 <span style="color:#f92672">|</span> T_cond T_true t1 t2 <span style="color:#f92672">=&gt;</span> t1
 <span style="color:#f92672">|</span> T_cond T_false t1 t2 <span style="color:#f92672">=&gt;</span> t2
-<span style="color:#f92672">|</span> T_cond cond t1 t2 <span style="color:#f92672">=&gt;</span> T_cond <span style="color:#f92672">(</span>step cond<span style="color:#f92672">)</span> t1 t2
+<span style="color:#f92672">|</span> T_cond cond t1 t2 <span style="color:#f92672">=&gt;</span> T_cond <span style="color:#f92672">(</span>one_step cond<span style="color:#f92672">)</span> t1 t2
 <span style="color:#f92672">|</span> t <span style="color:#f92672">=&gt;</span> t
-<span style="color:#66d9ef">end</span><span style="color:#f92672">.</span>
-
-<span style="color:#f92672">Theorem</span> one_step_is_det t t&#39; t&#39;&#39;<span style="color:#f92672">:</span>
-  step t <span style="color:#f92672">=</span> t&#39; <span style="color:#f92672">/\</span> step t <span style="color:#f92672">=</span> t&#39;&#39; <span style="color:#f92672">-&gt;</span> t&#39; <span style="color:#f92672">=</span> t&#39;&#39;<span style="color:#f92672">.</span>
+<span style="color:#66d9ef">end</span><span style="color:#f92672">.</span></code></pre></div>
+<p>A separate notation for our fixpoint-definition:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;t ==&gt;&gt; t&#39;&#34;</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span>one_step t <span style="color:#f92672">=</span> t&#39;<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>at level 50<span style="color:#f92672">).</span></code></pre></div>
+<p>Now, it is much simplier to proove it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> one_step_is_det t t&#39; t&#39;&#39;<span style="color:#f92672">:</span>
+  t <span style="color:#f92672">==&gt;&gt;</span> t&#39; <span style="color:#f92672">/\</span> t <span style="color:#f92672">==&gt;&gt;</span> t&#39;&#39; <span style="color:#f92672">-&gt;</span> t&#39; <span style="color:#f92672">=</span> t&#39;&#39;<span style="color:#f92672">.</span>
 <span style="color:#f92672">Proof</span><span style="color:#f92672">.</span>
   <span style="color:#66d9ef">move</span><span style="color:#f92672">=&gt;</span> [] H1 H2<span style="color:#f92672">.</span>
   <span style="color:#66d9ef">rewrite</span> <span style="color:#f92672">-</span>H1 <span style="color:#f92672">-</span>H2<span style="color:#f92672">.</span>
@@ -265,7 +267,14 @@ function instead:</p>
   <span style="color:#75715e">(* Idiomatic proof *)</span>
   <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">move</span><span style="color:#f92672">=&gt;</span> [] <span style="color:#f92672">-&gt;.</span>
 <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span></code></pre></div>
-<p>To be continued</p>
+<p>Let’s define a notion of the “normal form”.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Definition</span> nf t <span style="color:#f92672">:=</span> t <span style="color:#f92672">==&gt;&gt;</span> t<span style="color:#f92672">.</span></code></pre></div>
+<p><strong>Theorem 3.5.7</strong>: Every value is in normal form.</p>
+
+<p>The proof is trivial:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> vnf <span style="color:#f92672">:</span> nf <span style="color:#f92672">[[</span> true <span style="color:#f92672">]]</span> <span style="color:#f92672">/\</span> nf <span style="color:#f92672">[[</span> false <span style="color:#f92672">]].</span>
+<span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">by</span> []<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span></code></pre></div>
+<p><strong>Theorem 3.5.8</strong>: If <code>t</code> is in normal form, then <code>t</code> is a value.</p>
 
 <h2 id="summary">Summary</h2>
 
@@ -294,7 +303,7 @@ function instead:</p>
     
       <p>Vasiliy Yorkin</p>
     
-     © 2019
+     © 2020
     
     
   </section>

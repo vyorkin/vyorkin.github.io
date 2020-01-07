@@ -180,7 +180,7 @@ right away</li>
 accessing variables deep within the stack</li>
 </ul>
 
-<p>An SF consists of:</p>
+<p>A stack frame consists of:</p>
 
 <ul>
 <li>Some of local variables (others are kept in CPU registers)</li>
@@ -226,9 +226,9 @@ a stack).</p>
 
 <p>A term we use for convenience.</p>
 
-<p>On entry to some function <code>f</code> it allocates a new SF by
+<p>On entry to some function <code>f</code> we allocate a new stack frame (SF) by
 subtracting the frame size from the SP and the old FP is saved
-in the SF.</p>
+in the stack frame (SF).</p>
 
 <p>Basically, if the frame size is fixed: <code>FP = SP + size(SF)</code>.</p>
 
@@ -247,7 +247,7 @@ in the SF.</p>
 <li><code>FP = SF[k + 1]</code> (fetch back the saved FP)</li>
 </ul>
 
-<p>The size of SF is not known until quite late in the compilation
+<p>The size of stack frame (SF) is not known until quite late in the compilation
 process, but we want to know the offsets of function arguments
 and local variables much earlier. We put args and locals right
 near the FP at offsets that are known early (<a href="#temporaries-and-labels">temporaries</a> and
@@ -279,7 +279,7 @@ registers. The rest args are passed in memory.</p>
 <p>The <code>f</code> receives its args in registers \( r_1, r_2 \) and \( r_3
 \), but it must pass the args <code>x</code>, <code>y</code> and <code>z</code> in the same
 registers \( r_1, r_2 \) and \( r_3 \). So the <code>f</code> should save
-those registers to the its SF before calling <code>g</code> and we&rsquo;re back
+those registers to its stack frame before calling <code>g</code> and we&rsquo;re back
 to the memory traffic problem.</p>
 
 <p>So how the usage of registers saved any time?</p>
@@ -308,7 +308,7 @@ callers own frame.</p>
 
 <p>If the callee needed to write any of these arguments
 (including those passed in registers) to memory, it would write
-them to the very beginning of its own SF.</p>
+them to the very beginning of its own stack frame.</p>
 
 <p>For simplicity we&rsquo;ll assume that by default everything is passed
 and kept in registers, except for cases when:</p>
@@ -389,17 +389,17 @@ enclosing the current one</li>
   <span style="color:#66d9ef">end</span></code></pre></div>
 <ul>
 <li><strong>1</strong>: <code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>&rsquo;s own
-FP as <code>show</code>&rsquo;s SL</li>
-<li><strong>2</strong>: <code>show</code> stores its SL into its own SF</li>
-<li><strong>3</strong>: <code>show</code> calls <code>indent</code>, passing its own FP as <code>indent</code>&rsquo;s
+frame pointer (FP) as <code>show</code>&rsquo;s static link (SL)</li>
+<li><strong>2</strong>: <code>show</code> stores its static link (SL) into its own stack frame</li>
+<li><strong>3</strong>: <code>show</code> calls <code>indent</code>, passing its own frame pointer (FP) as <code>indent</code>&rsquo;s
 SL</li>
-<li><strong>4</strong>: <code>show</code> calls <code>show</code>, passing its own SL as
-the SL</li>
+<li><strong>4</strong>: <code>show</code> calls <code>show</code>, passing its own static link as
+SL</li>
 <li><strong>5</strong>: <code>indent</code> uses the value <code>n</code> from <code>show</code>&rsquo;s frame, it can
-find <code>n</code> by using the SL (which points at the SF of <code>show</code>)</li>
+find <code>n</code> by using the SL (which points at the stack frame of <code>show</code>)</li>
 </ul>
 
-<p>Each call requires a one or more fetches using SL&rsquo;s to resolve
+<p>Each call requires a one or more fetches using static links to resolve
 variables declared in outers functions.</p>
 
 <h2 id="interface">Interface</h2>
@@ -635,8 +635,8 @@ function (that is yet to be determined)</li>
 that escapes and <code>false</code> for each that doesn&rsquo;t</li>
 </ul>
 
-<p>The SF should contain information about formal parameters and
-local variables allocated:</p>
+<p>The stack frame should contain information about formal
+parameters and local variables allocated:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
   <span style="color:#75715e">(* label at which the function&#39;s machine code begins *)</span>
   label<span style="color:#f92672">:</span> Temp.label<span style="color:#f92672">;</span>
@@ -770,7 +770,7 @@ address is yet to be determined</li>
 <span style="color:#75715e">(** Returns a new [label], whose assembly-language name is
 </span><span style="color:#75715e">    the given string (if given), otherwise it is generated. *)</span>
 <span style="color:#66d9ef">val</span> mk_label <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> option <span style="color:#f92672">-&gt;</span> label</code></pre></div>
-<p>The implmenetation is trivial:</p>
+<p>The implementation is trivial:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">S</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>
 
 <span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
@@ -1014,7 +1014,7 @@ it&rsquo;s work.</p>
     
       <p>Vasiliy Yorkin</p>
     
-     © 2019
+     © 2020
     
     
   </section>

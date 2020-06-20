@@ -53,7 +53,7 @@
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.58.0" />
+    <meta name="generator" content="Hugo 0.70.0" />
   </head>
 
   <body class=" ">
@@ -145,32 +145,22 @@
       </header>
 
       <div>
-        
-
-<p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew%5FAppel">Andrew W. Appel</a> titled
+        <p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew%5FAppel">Andrew W. Appel</a> titled
 <a href="https://www.amazon.com/Modern-Compiler-Implement-Andrew-Appel/dp/0521607647">Modern compiler implementation in ML</a>. I&rsquo;ve picked it up because
 I&rsquo;ve heard some really good reviews about the ML version of it.
 Also there are other editions available that use C and Java.
 Each chapter covers a single phase of the compilation process
 and comes with some initial ML code and programming excercies.
 At the end you will have a working optimizing compiler.</p>
-
 <p>I&rsquo;m building a compiler for the first time and it is a
 lot of fun. In these blog post series, I&rsquo;ll be working through
 the book and explaining my solutions to each chapter.</p>
-
 <h2 id="getting-started">Getting started</h2>
-
 <p>The author describes Tiger as a simple (but nontrivial) language
 of the <a href="https://en.wikipedia.org/wiki/ALGOL">Algol family</a>, which could be easily modified to be
 functional or object-oriented (maybe I&rsquo;ll skip the OO-part of
 the book).</p>
-
-<p><details>
-<summary>
-Here is an example program in Tiger
-</summary>
-<p class="details"></p>
+<!-- raw HTML omitted -->
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90"><span style="color:#66d9ef">type </span>tree <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">{</span>
   key: string,
   left: tree,
@@ -204,16 +194,12 @@ Here is an example program in Tiger
 </span><span style="color:#66d9ef">  </span>in
     show(<span style="color:#ae81ff">0</span>, tree);
     output
-  <span style="color:#66d9ef">end</span></code></pre></div>
-<p></p>
-</details></p>
-
+  <span style="color:#66d9ef">end</span>
+</code></pre></div><!-- raw HTML omitted -->
 <p>For my implementation I&rsquo;ve decided to use OCaml. It is <a href="http://adam.chlipala.net/mlcomp/">close</a>
 <a href="https://stackoverflow.com/questions/699689/what-are-the-differences-between-sml-and-ocaml/699755#699755">enough</a> to SML so with even basic ML experience it should be
 fairly straightworward to port the code examples.</p>
-
 <h3 id="straight-line-programs">Straight-line programs</h3>
-
 <p>The first &ldquo;warm-up&rdquo; assignment is to implement a program
 analyzer and interpreter for the <strong>straight-line</strong> programming
 language. We have the following types:</p>
@@ -228,12 +214,12 @@ language. We have the following types:</p>
  <span style="color:#f92672">and</span> exp <span style="color:#f92672">=</span> <span style="color:#a6e22e">Id</span> <span style="color:#66d9ef">of</span> id
          <span style="color:#f92672">|</span> <span style="color:#a6e22e">Num</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">int</span>
          <span style="color:#f92672">|</span> <span style="color:#a6e22e">Op</span> <span style="color:#66d9ef">of</span> exp <span style="color:#f92672">*</span> binop <span style="color:#f92672">*</span> exp
-         <span style="color:#f92672">|</span> <span style="color:#a6e22e">Eseq</span> <span style="color:#66d9ef">of</span> stm <span style="color:#f92672">*</span> exp</code></pre></div>
-<p>So for the following sample straight-line program</p>
+         <span style="color:#f92672">|</span> <span style="color:#a6e22e">Eseq</span> <span style="color:#66d9ef">of</span> stm <span style="color:#f92672">*</span> exp
+</code></pre></div><p>So for the following sample straight-line program</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90">a :<span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>;
 b :<span style="color:#f92672">=</span> (<span style="color:#66d9ef">print</span>(a, a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>), a <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-<span style="color:#66d9ef">print</span>(b)</code></pre></div>
-<p>The corresponding AST would be</p>
+<span style="color:#66d9ef">print</span>(b)
+</code></pre></div><p>The corresponding AST would be</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#a6e22e">Compound</span><span style="color:#f92672">(</span>
   <span style="color:#a6e22e">Assign</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Op</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Num</span> 5<span style="color:#f92672">,</span> <span style="color:#a6e22e">Plus</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Num</span> 3<span style="color:#f92672">)),</span>
   <span style="color:#a6e22e">Compound</span><span style="color:#f92672">(</span>
@@ -241,12 +227,11 @@ b :<span style="color:#f92672">=</span> (<span style="color:#66d9ef">print</span
       <span style="color:#a6e22e">Eseq</span><span style="color:#f92672">(</span>
         <span style="color:#a6e22e">Print</span> <span style="color:#f92672">[</span><span style="color:#a6e22e">Id</span> <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Op</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Id</span> <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Minus</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Num</span> 1<span style="color:#f92672">)],</span>
         <span style="color:#a6e22e">Op</span><span style="color:#f92672">(</span><span style="color:#a6e22e">Num</span> 10<span style="color:#f92672">,</span> <span style="color:#a6e22e">Times</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Id</span> <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">))),</span>
-    <span style="color:#a6e22e">Print</span> <span style="color:#f92672">[</span><span style="color:#a6e22e">Id</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">]))</span></code></pre></div>
-<p>The first task is to write a function</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> maxargs <span style="color:#f92672">:</span> stm <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">int</span></code></pre></div>
-<p>This function tells the maximum number of args of any <code>print</code>
+    <span style="color:#a6e22e">Print</span> <span style="color:#f92672">[</span><span style="color:#a6e22e">Id</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">]))</span>
+</code></pre></div><p>The first task is to write a function</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> maxargs <span style="color:#f92672">:</span> stm <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">int</span>
+</code></pre></div><p>This function tells the maximum number of args of any <code>print</code>
 statement within any subexpression of a given statement.</p>
-
 <p>Sounds easy, right? The implementation is pretty straightforward
 too:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Base</span>
@@ -267,11 +252,11 @@ too:</p>
     <span style="color:#66d9ef">let</span> l2 <span style="color:#f92672">=</span> maxargs exp2 <span style="color:#66d9ef">in</span>
     Int.max l1 l2
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">Assign</span> <span style="color:#f92672">(_,</span> exp<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
-    maxargs_exp exp</code></pre></div>
-<p>Next, we need to write another function that &ldquo;interprets&rdquo;
+    maxargs_exp exp
+</code></pre></div><p>Next, we need to write another function that &ldquo;interprets&rdquo;
 program in this language.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> eval <span style="color:#f92672">:</span> stm <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span></code></pre></div>
-<p>The code</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> eval <span style="color:#f92672">:</span> stm <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span>
+</code></pre></div><p>The code</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Base</span>
 <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Stdio</span>
 <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Straightline</span>
@@ -311,27 +296,21 @@ program in this language.</p>
     <span style="color:#f92672">(</span>r<span style="color:#f92672">,</span> env2<span style="color:#f92672">)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">Eseq</span> <span style="color:#f92672">(</span>stm<span style="color:#f92672">,</span> exp<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
     <span style="color:#66d9ef">let</span> env1 <span style="color:#f92672">=</span> interp_stm stm env <span style="color:#66d9ef">in</span>
-    interp_exp exp env1</code></pre></div>
-<p>Here we&rsquo;re just recursively traversing a tree, keeping a map of
+    interp_exp exp env1
+</code></pre></div><p>Here we&rsquo;re just recursively traversing a tree, keeping a map of
 identifiers, evaluating arithmetic operations and printing
 values.</p>
-
 <h2 id="excersises">Excersises</h2>
-
 <p>A couple of more excercises about trees, nothing super exciting.
 So I won&rsquo;t paste the rest of my solutions here. To implement a
 balanced-tree (ex. d) I&rsquo;ve read the chapter about Red-Black
 Trees in <a href="https://www.amazon.com/Purely-Functional-Data-Structures-Okasaki/dp/0521663504">Okasaki book.</a> The code is <a href="https://github.com/vyorkin/tiger/blob/master/chapter1/rb%5Ftree.ml">here</a>.</p>
-
 <p>Well, thats all for part 1! The next one is about lexical
 analysis where we&rsquo;ll write a simple lexer for the Tiger
 language.</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p>By the time I&rsquo;ve decided to start writing this post I&rsquo;ve already
 finished reading 6th chapter and here are some first impressions:</p>
-
 <ul>
 <li>The book is clear and enjoyable to read. Programming
 assignments and exercises are well thought out</li>
@@ -342,7 +321,6 @@ given example program</li>
 basic knowledge about microprocessor architectures (SPARK,
 MIPS)</li>
 </ul>
-
 <p>I wouldn&rsquo;t recommend starting with this book to someone with
 zero compiler design knowledge. But it is definitely a must read
 for people who already know the basics of compiler construction.</p>

@@ -59,7 +59,7 @@ Analysis-part (front end) is responsible for breaking the program apart to under
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.58.0" />
+    <meta name="generator" content="Hugo 0.70.0" />
   </head>
 
   <body class=" ">
@@ -155,22 +155,16 @@ Analysis-part (front end) is responsible for breaking the program apart to under
       </header>
 
       <div>
-        
-
-<h2 id="intro">Intro</h2>
-
+        <h2 id="intro">Intro</h2>
 <p>We need a way to translate a program written in one
 (human-friendly) language to another (machine-specific)
 language. Generally, this work is splitted into 2 parts:
 <strong>analysis</strong> and <strong>synthesis</strong>.</p>
-
 <p>The <strong>synthesis</strong>-part (back end) is responsible for the code
 generation and optimizations.</p>
-
 <p><strong>Analysis</strong>-part (front end) is responsible for breaking the
 program apart to understand its structure and meaning. There are
 3 commonly used <strong>analysis</strong> phases:</p>
-
 <ol>
 <li><strong>Lexical</strong> – breaking a sequence of characters into sequence
 of individual <strong>tokens</strong> (words)</li>
@@ -180,31 +174,24 @@ of tokens</li>
 that declarations and statements of program are semantically
 correct, this usually includes type checking</li>
 </ol>
-
 <p>So, in this blog posts we’ll focus on implementing the <strong>lexical
 analysis</strong> phase.</p>
-
 <p>A lexical <strong>token</strong> is a string with an assigned and identified
 meaning. This is a <strong>unit</strong> in a grammar of a programming
 language.</p>
-
 <ul>
 <li>Example <strong>tokens</strong>: identifiers, keywords, separators, operators</li>
 <li>Example <strong>non-tokens</strong>: white-spaces, tabs, newlines, comments,
 preprocessor directives, macroses</li>
 </ul>
-
 <p>Now, I’m going to skip everything related to finite automata and
 regular expressions and go straight to the implementation of
 <strong>lexer</strong> (lexical analyzer). You can find a good intro to lexing
 and parsing using <code>ocamllex</code> and <code>menhir</code> in the <a href="http://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html">Read World
 OCaml book</a>.</p>
-
 <h2 id="example-lexer--morse-code">Example lexer (morse code)</h2>
-
 <p>We’ll start with the simplest possible example of building a
 lexer for <a href="https://en.wikipedia.org/wiki/Morse%5Fcode">morse code</a>, the full source code is <a href="https://github.com/vyorkin/tiger/blob/master/play/menhir/morse-code-simple/lexer.mll">here</a>.</p>
-
 <p>The <code>dune</code> file for our playground project is going to look like
 this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(ocamllex
@@ -215,8 +202,8 @@ this:</p>
  (libraries core stdio)
  (preprocess (pps ppx_deriving.show)))
 
-(env (dev (flags (<span style="color:#e6db74">:standard</span> -warn-error -A))))</code></pre></div>
-<p>Nothing fancy here. Next one is the <code>driver.ml</code> module, this is
+(env (dev (flags (<span style="color:#e6db74">:standard</span> -warn-error -A))))
+</code></pre></div><p>Nothing fancy here. Next one is the <code>driver.ml</code> module, this is
 our entry point. It simply reads the given file, runs our lexer
 and displays the resulting S-expression.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Core</span>
@@ -240,15 +227,15 @@ and displays the resulting S-expression.</p>
   <span style="color:#66d9ef">let</span> spec <span style="color:#f92672">=</span> Command.Spec.<span style="color:#f92672">(</span>empty <span style="color:#f92672">+&gt;</span> anon <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;filename&#34;</span> <span style="color:#f92672">%:</span> <span style="color:#66d9ef">string</span><span style="color:#f92672">))</span> <span style="color:#66d9ef">in</span>
   run
   <span style="color:#f92672">|&gt;</span> Command.basic_spec <span style="color:#f92672">~</span>summary<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Run the lexer and display tokens&#34;</span> spec
-  <span style="color:#f92672">|&gt;</span> Command.run</code></pre></div>
-<p>We need a module to describe our tokens, lets call it
+  <span style="color:#f92672">|&gt;</span> Command.run
+</code></pre></div><p>We need a module to describe our tokens, lets call it
 <code>syntax.ml</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> exp <span style="color:#f92672">=</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">SYM</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#75715e">(* symbol *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">SEP</span> <span style="color:#75715e">(* separator *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">EOF</span> <span style="color:#75715e">(* end of file *)</span>
-  <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span></code></pre></div>
-<p>And the lexer generator itself:</p>
+  <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
+</code></pre></div><p>And the lexer generator itself:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">{</span>
   <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Lexing</span>
   <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Syntax</span>
@@ -273,34 +260,26 @@ rule read <span style="color:#f92672">=</span> parse
   <span style="color:#f92672">|</span> sym     <span style="color:#f92672">{</span> <span style="color:#a6e22e">SYM</span> <span style="color:#f92672">(</span>lexeme lexbuf<span style="color:#f92672">)</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> white   <span style="color:#f92672">{</span> <span style="color:#a6e22e">SEP</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#f92672">_</span>       <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#f92672">(</span>Printf.sprintf <span style="color:#e6db74">&#34;At offset %d: unexpected character.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">(</span>lexeme_start lexbuf<span style="color:#f92672">)))</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> eof     <span style="color:#f92672">{</span> <span style="color:#a6e22e">EOF</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Now we can parse the “hello world” sequence written in Morse
+  <span style="color:#f92672">|</span> eof     <span style="color:#f92672">{</span> <span style="color:#a6e22e">EOF</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>Now we can parse the “hello world” sequence written in Morse
 Code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nil" data-lang="nil">.... . .-.. .-.. ---
-.-- --- .-. .-.. -..</code></pre></div>
-<p>The output will be:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">.... . .-.. .-.. ---
+.-- --- .-. .-.. -..
+</code></pre></div><p>The output will be:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(SYM <span style="color:#e6db74">&#34;....&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-..&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-..&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;---&#34;</span>)
 SEP
 (SYM <span style="color:#e6db74">&#34;.--&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;---&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-.&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;.-..&#34;</span>) SEP (SYM <span style="color:#e6db74">&#34;-..&#34;</span>)
-EOF</code></pre></div>
-<h2 id="tiger-lexer">Tiger lexer</h2>
-
+EOF
+</code></pre></div><h2 id="tiger-lexer">Tiger lexer</h2>
 <p>Having that basic understanding of how to use the <code>ocamllex</code> to
 build lexers, we can try to build one for our Tiger language.</p>
-
 <p>The <code>dune</code> file is going to remain the same as in the “morse
 code” example above. There is a <strong>Tiger Language Reference Manual
 in Appendix A</strong> of the book where you can find the information
 about the tokens we need: identifiers, comments, declarations,
 data types, etc.</p>
-
 <p>For now, we don’t need to define a real AST data type.</p>
-
-<p><details>
-<summary>
-The “mock” <strong>syntax.ml</strong> module would suffice.
-</summary>
-<p class="details"></p>
+<!-- raw HTML omitted -->
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> exp <span style="color:#f92672">=</span>
     <span style="color:#f92672">|</span> <span style="color:#a6e22e">TYPE</span>
     <span style="color:#f92672">|</span> <span style="color:#a6e22e">VAR</span>
@@ -346,10 +325,8 @@ The “mock” <strong>syntax.ml</strong> module would suffice.
     <span style="color:#f92672">|</span> <span style="color:#a6e22e">INT</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">int</span>
     <span style="color:#f92672">|</span> <span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span>
     <span style="color:#f92672">|</span> <span style="color:#a6e22e">EOF</span>
-    <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span></code></pre></div>
-<p></p>
-</details></p>
-
+    <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
+</code></pre></div><!-- raw HTML omitted -->
 <p>We want to focus on the lexer part. First, we might want to open
 some commonly used modules and define a custom exception type
 for lexing errors.</p>
@@ -359,45 +336,43 @@ for lexing errors.</p>
 <span style="color:#66d9ef">open</span> <span style="color:#a6e22e">Base</span>
 
 <span style="color:#66d9ef">exception</span> <span style="color:#a6e22e">SyntaxError</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span>
-<span style="color:#f92672">}</span></code></pre></div>
-<p>Next, we need a few regular expressions:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> digit <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Next, we need a few regular expressions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">
+<span style="color:#66d9ef">let</span> digit <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">]</span>
 <span style="color:#75715e">(* There are no negative integer literals in Tiger *)</span>
 <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> digit<span style="color:#f92672">+</span>
 <span style="color:#66d9ef">let</span> frac <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.&#39;</span> digit<span style="color:#f92672">*</span>
 <span style="color:#66d9ef">let</span> exp <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;e&#39;</span> <span style="color:#e6db74">&#39;E&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;-&#39;</span> <span style="color:#e6db74">&#39;+&#39;</span><span style="color:#f92672">]?</span> <span style="color:#66d9ef">int</span>
 <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">=</span> digit<span style="color:#f92672">*</span> frac<span style="color:#f92672">?</span> exp<span style="color:#f92672">?</span>
 <span style="color:#66d9ef">let</span> white <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;\t&#39;</span><span style="color:#f92672">]+</span>
-<span style="color:#66d9ef">let</span> newline <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\r&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span></code></pre></div>
-<p>According to <strong>Appendix A</strong>:</p>
-
+<span style="color:#66d9ef">let</span> newline <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\r&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>According to <strong>Appendix A</strong>:</p>
 <blockquote>
 <p>An <strong>identifier</strong> is a sequence of letters, digits and
 underscores, starting with a letter. Uppercase letters are
 distinguished from lowercase.</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> alphanum <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;z&#39;</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;Z&#39;</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;9&#39;</span> <span style="color:#e6db74">&#39;_&#39;</span><span style="color:#f92672">]</span>
-<span style="color:#66d9ef">let</span> id <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">]</span> alphanum<span style="color:#f92672">*</span></code></pre></div>
-<p>Lexing rules.</p>
+<span style="color:#66d9ef">let</span> id <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">]</span> alphanum<span style="color:#f92672">*</span>
+</code></pre></div><p>Lexing rules.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">rule read <span style="color:#f92672">=</span> parse
   <span style="color:#75715e">(* Whitespaces *)</span>
-  <span style="color:#f92672">|</span> white <span style="color:#f92672">{</span> read lexbuf <span style="color:#f92672">}</span></code></pre></div>
-<p>We want to skip the new lines.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> newline <span style="color:#f92672">{</span> new_line lexbuf<span style="color:#f92672">;</span> read lexbuf <span style="color:#f92672">}</span></code></pre></div>
-<p>We have a separate function to read strings (see the
+  <span style="color:#f92672">|</span> white <span style="color:#f92672">{</span> read lexbuf <span style="color:#f92672">}</span>
+</code></pre></div><p>We want to skip the new lines.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> newline <span style="color:#f92672">{</span> new_line lexbuf<span style="color:#f92672">;</span> read lexbuf <span style="color:#f92672">}</span>
+</code></pre></div><p>We have a separate function to read strings (see the
 implementation below).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;&#34;&#39;</span> <span style="color:#f92672">{</span> read_string <span style="color:#f92672">(</span>Buffer.create 16<span style="color:#f92672">)</span> lexbuf <span style="color:#f92672">}</span></code></pre></div>
-<p>Again, according the <strong>Appendix A</strong>:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;&#34;&#39;</span> <span style="color:#f92672">{</span> read_string <span style="color:#f92672">(</span>Buffer.create 16<span style="color:#f92672">)</span> lexbuf <span style="color:#f92672">}</span>
+</code></pre></div><p>Again, according the <strong>Appendix A</strong>:</p>
 <blockquote>
 <p>A comment may appear between any two tokens.
 Comments start with <code>/*</code> and end with <code>*/</code> and may be nested.</p>
 </blockquote>
-
 <p>We’ll have a separate function for reading comments (scroll down
 to see its code).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;/*&#34;</span> <span style="color:#f92672">{</span> read_comment <span style="color:#f92672">[</span>lexbuf<span style="color:#f92672">.</span>lex_curr_p<span style="color:#f92672">]</span> lexbuf <span style="color:#f92672">}</span></code></pre></div>
-<p>Basic keywords:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;/*&#34;</span> <span style="color:#f92672">{</span> read_comment <span style="color:#f92672">[</span>lexbuf<span style="color:#f92672">.</span>lex_curr_p<span style="color:#f92672">]</span> lexbuf <span style="color:#f92672">}</span>
+</code></pre></div><p>Basic keywords:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;type&#34;</span>     <span style="color:#f92672">{</span> <span style="color:#a6e22e">TYPE</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;var&#34;</span>      <span style="color:#f92672">{</span> <span style="color:#a6e22e">VAR</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;function&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">FUNCTION</span> <span style="color:#f92672">}</span>
@@ -407,17 +382,17 @@ to see its code).</p>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;in&#34;</span>       <span style="color:#f92672">{</span> <span style="color:#a6e22e">IN</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;nil&#34;</span>      <span style="color:#f92672">{</span> <span style="color:#a6e22e">NIL</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;let&#34;</span>      <span style="color:#f92672">{</span> <span style="color:#a6e22e">LET</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;array&#34;</span>    <span style="color:#f92672">{</span> <span style="color:#a6e22e">ARRAY</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>We need 4 tokens for loops:</p>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;array&#34;</span>    <span style="color:#f92672">{</span> <span style="color:#a6e22e">ARRAY</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>We need 4 tokens for loops:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;do&#34;</span>    <span style="color:#f92672">{</span> <span style="color:#a6e22e">DO</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;to&#34;</span>    <span style="color:#f92672">{</span> <span style="color:#a6e22e">TO</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;for&#34;</span>   <span style="color:#f92672">{</span> <span style="color:#a6e22e">FOR</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;while&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">WHILE</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Conditionals (<code>if-then-else</code>):</p>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;while&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">WHILE</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>Conditionals (<code>if-then-else</code>):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;else&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">ELSE</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;then&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">THEN</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;if&#34;</span>   <span style="color:#f92672">{</span> <span style="color:#a6e22e">IF</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Operators:</p>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;if&#34;</span>   <span style="color:#f92672">{</span> <span style="color:#a6e22e">IF</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>Operators:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#75715e">(* General *)</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;:=&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">ASSIGN</span> <span style="color:#f92672">}</span>
 
@@ -437,8 +412,8 @@ to see its code).</p>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">DIVIDE</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">TIMES</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">MINUS</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">PLUS</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Separators:</p>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">PLUS</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>Separators:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">DOT</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;{&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">LBRACE</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;}&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">RBRACE</span> <span style="color:#f92672">}</span>
@@ -448,13 +423,13 @@ to see its code).</p>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">RPAREN</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">SEMICOLON</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">COLON</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">COMMA</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>Numebers, identifiers, error and EOF handling:</p>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">COMMA</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>Numebers, identifiers, error and EOF handling:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">  <span style="color:#f92672">|</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">{</span> <span style="color:#a6e22e">INT</span> <span style="color:#f92672">(</span>Int.of_string <span style="color:#f92672">(</span>Lexing.lexeme lexbuf<span style="color:#f92672">))</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> id  <span style="color:#f92672">{</span> <span style="color:#a6e22e">ID</span> <span style="color:#f92672">(</span>Lexing.lexeme lexbuf<span style="color:#f92672">)</span> <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#f92672">_</span>   <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Unexpected character: &#34;</span> <span style="color:#f92672">^</span> Lexing.lexeme lexbuf<span style="color:#f92672">))</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> eof <span style="color:#f92672">{</span> <span style="color:#a6e22e">EOF</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>The rule to match string literals:</p>
+  <span style="color:#f92672">|</span> eof <span style="color:#f92672">{</span> <span style="color:#a6e22e">EOF</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>The rule to match string literals:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">and</span> read_string buf <span style="color:#f92672">=</span> parse
   <span style="color:#75715e">(* If we reach the terminating double quote, then
 </span><span style="color:#75715e">   * we return the contents of the buffer as a STRING. *)</span>
@@ -472,8 +447,8 @@ to see its code).</p>
       read_string buf lexbuf
     <span style="color:#f92672">}</span>
   <span style="color:#f92672">|</span> <span style="color:#f92672">_</span>   <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Illegal string character: &#34;</span> <span style="color:#f92672">^</span> Lexing.lexeme lexbuf<span style="color:#f92672">))</span> <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> eof <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#e6db74">&#34;String is not terminated&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">}</span></code></pre></div>
-<p>The rule to match comments (including nested comments), keeping
+  <span style="color:#f92672">|</span> eof <span style="color:#f92672">{</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#e6db74">&#34;String is not terminated&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>The rule to match comments (including nested comments), keeping
 a list of where comments open:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">and</span> read_comment opened <span style="color:#f92672">=</span> parse
   <span style="color:#75715e">(* Opening comment *)</span>
@@ -493,9 +468,8 @@ a list of where comments open:</p>
   <span style="color:#f92672">|</span> eof
     <span style="color:#f92672">{</span> lexbuf<span style="color:#f92672">.</span>lex_curr_p <span style="color:#f92672">&lt;-</span> List.hd_exn opened<span style="color:#f92672">;</span>
       <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">SyntaxError</span> <span style="color:#e6db74">&#34;Unterminated comment&#34;</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">}</span></code></pre></div>
-<h2 id="summary">Summary</h2>
-
+    <span style="color:#f92672">}</span>
+</code></pre></div><h2 id="summary">Summary</h2>
 <p>We’ve learned some new things, like <code>ocamllex</code>, but overall, it
 wasn’t too hard to follow the book. The full OCaml source code
 for the second chapter can be found <a href="https://github.com/vyorkin/tiger/blob/master/chapter2/lexer.mll">here</a>. In the next part we’re

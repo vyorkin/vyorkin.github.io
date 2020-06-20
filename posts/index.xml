@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on vyorkin.org</title>
@@ -20,7 +20,7 @@
       <description>In order to understand things clearly and to learn Coq proof assistant at the same time, I&amp;rsquo;ve decided to do some proves while reading the TAPL book.
 The code is on the GitHub.
 For the excercises I want to use the ssreflect proof language instead of ltac. I&amp;rsquo;ll keep solutions to each chapter in a separate file. We&amp;rsquo;ll always work in the following context:
-Set Implicit Arguments. Unset Strict Implicit.</description>
+Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive.</description>
     </item>
     
     <item>

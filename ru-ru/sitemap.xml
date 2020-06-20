@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -63,11 +63,6 @@
   </url>
   
   <url>
-    <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
-    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://vyorkin.org/ru-ru/tags/ocaml/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
@@ -80,6 +75,11 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/tags/ocaml/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
+    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
   </url>
   
   <url>

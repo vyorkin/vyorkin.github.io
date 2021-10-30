@@ -4,23 +4,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="ru-ru">
+    <meta name="color-scheme" content="light dark">
+
+    
 
     <meta name="author" content="Василий Ёркин">
-    <meta name="description" content="Блог Василия Ёркина.">
-    <meta name="keywords" content="fp, фп, функциональное программирование, compilers, компиляторы, haskell, хаскель, purescript, пьюрскрипт, ocaml, окамл, coq, nix, никс, dhall, дхалл, emacs, имакс, емакс">
+    <meta name="description" content="Что такое Lwt    Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
+В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.
+Виды “многозадачностей”    Этот параграф можно пропустить
+Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:
+  Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени.">
+    <meta name="keywords" content="Василий Ёркин">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Заметка о Lwt"/>
-<meta name="twitter:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
+<meta name="twitter:description" content="Что такое Lwt    Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
 В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.
-Виды “многозадачностей” Этот параграф можно пропустить
+Виды “многозадачностей”    Этот параграф можно пропустить
 Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:
   Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени."/>
 
     <meta property="og:title" content="Заметка о Lwt" />
-<meta property="og:description" content="Что такое Lwt Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
+<meta property="og:description" content="Что такое Lwt    Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.
 В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.
-Виды “многозадачностей” Этот параграф можно пропустить
+Виды “многозадачностей”    Этот параграф можно пропустить
 Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:
   Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени." />
 <meta property="og:type" content="article" />
@@ -30,9 +38,6 @@
 
 
 
-    
-      <base href="https://vyorkin.org/ru-ru/posts/about-lwt/">
-    
     <title>
   Заметка о Lwt · vyorkin.org
 </title>
@@ -41,14 +46,12 @@
       <link rel="canonical" href="https://vyorkin.org/ru-ru/posts/about-lwt/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.fc51578e49ecee08400ecfd5d54ca66d7bd4de25620ff53ddc569a7357245676.css" integrity="sha256-/FFXjkns7ghADs/V1UymbXvU3iViD/U93Faac1ckVnY=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.13fa931069bdca9a3b3787050f7afa5f02c8dfd8900275a396590b432311b980.css" integrity="sha256-E/qTEGm9ypo7N4cFD3r6XwLI39iQAnWjllkLQyMRuYA=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -58,61 +61,82 @@
     
 
     
-    
+
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.88.1" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="preload-transitions colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
-    <a class="navigation-title" href="https://vyorkin.org/">
+    <a class="navigation-title" href="https://vyorkin.org/ru-ru">
       vyorkin.org
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/ru-ru/about/">Обо мне</a>
-          </li>
-        
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/ru-ru/posts/">Блог</a>
-          </li>
-        
-      
-      
-        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/ru-ru/about/">Обо мне</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/ru-ru/posts/">Блог</a>
+            </li>
+          
         
         
           
+          
+          
             
-              <li class="navigation-item menu-separator">
-                <span>|</span>
-              </li>
               
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/">English</a>
+              </li>
             
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/">English</a>
-            </li>
-          
-        
-          
-        
           
             
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/de-de/">German</a>
-            </li>
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">German</a>
+              </li>
+            
           
         
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -123,37 +147,55 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">Заметка о Lwt</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/ru-ru/posts/about-lwt/">
+              Заметка о Lwt
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2019-12-03T15:59:00&#43;03:00'>
                 December 3, 2019
               </time>
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://vyorkin.org/ru-ru/categories/ocaml/">ocaml</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
-    <a href="https://vyorkin.org/ru-ru/tags/ocaml/">ocaml</a></div>
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/ru-ru/tags/ocaml/">ocaml</a>
+    </span></div>
 
         </div>
       </header>
 
       <div>
-        <h2 id="что-такое-lwt">Что такое Lwt</h2>
+        
+        <h2 id="что-такое-lwt">
+  Что такое Lwt
+  <a class="heading-link" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-lwt">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p><a href="https://github.com/ocsigen/lwt">Lwt</a> это одна из наиболее популярных OCaml библиотек,
 разрабатываемая сообществом. По сути это просто реализация
 <a href="https://en.wikipedia.org/wiki/Cooperative%5Fmultitasking">кооперативной многозадачности</a> (как альтернативы <a href="https://en.wikipedia.org/wiki/Preemption%5F(computing)">вытесняющей
 многозадачности</a>) в OCaml на основе <a href="https://en.wikipedia.org/wiki/Futures%5Fand%5Fpromises">Promises</a>.</p>
 <p><em>В дальнейшем я буду использовать слова “поток” и промис как
 взаимозаменямые</em>.</p>
-<h2 id="виды-многозадачностей">Виды “многозадачностей”</h2>
+<h2 id="виды-многозадачностей">
+  Виды “многозадачностей”
+  <a class="heading-link" href="#%d0%b2%d0%b8%d0%b4%d1%8b-%d0%bc%d0%bd%d0%be%d0%b3%d0%be%d0%b7%d0%b0%d0%b4%d0%b0%d1%87%d0%bd%d0%be%d1%81%d1%82%d0%b5%d0%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p><em>Этот параграф можно пропустить</em></p>
 <p>Если в двух словах, то вытесняющую и кооперативную
 многозадачность можно объяснить следующим образом:</p>
@@ -172,7 +214,12 @@
 процессорное время другим потокам.</p>
 </li>
 </ul>
-<h2 id="асинхронное-программирование-с-lwt-и-промисы">Асинхронное программирование с Lwt и промисы</h2>
+<h2 id="асинхронное-программирование-с-lwt-и-промисы">
+  Асинхронное программирование с Lwt и промисы
+  <a class="heading-link" href="#%d0%b0%d1%81%d0%b8%d0%bd%d1%85%d1%80%d0%be%d0%bd%d0%bd%d0%be%d0%b5-%d0%bf%d1%80%d0%be%d0%b3%d1%80%d0%b0%d0%bc%d0%bc%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d1%81-lwt-%d0%b8-%d0%bf%d1%80%d0%be%d0%bc%d0%b8%d1%81%d1%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>Lwt предоставляет нам тип данных <code>'a Lwt.t</code>. Можно относиться к
 нему, как к “потоку”. Это обычный промис, содержащий некоторое
 значение типа <code>'a</code>, которое может быть вычислено, например,
@@ -183,21 +230,26 @@
 <code>'a</code> в наш промис и его состояние становится <code>Return</code> (resolved). В
 случае же неудачи его состояние изменяется на <code>Fail</code> (rejected) и в
 него помещается произошедшая ошибка.</p>
-<h3 id="api">API</h3>
+<h3 id="api">
+  API
+  <a class="heading-link" href="#api">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>Вот как выглядит тип, описывающий состояния:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">&#39;</span>a state <span style="color:#f92672">=</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Return</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">&#39;</span>a
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Fail</span> <span style="color:#66d9ef">of</span> exn
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Sleep</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">type</span> <span style="font-weight:bold">&#39;</span>a state =
+  | <span style="font-weight:bold">Return</span> <span style="font-weight:bold">of</span> <span style="font-weight:bold">&#39;</span>a
+  | <span style="font-weight:bold">Fail</span> <span style="font-weight:bold">of</span> exn
+  | <span style="font-weight:bold">Sleep</span>
 </code></pre></div><p>Lwt предоставляет несколько полезных ф-ций:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> return <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a Ltw.t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> return : <span style="font-weight:bold">&#39;</span>a -&gt; <span style="font-weight:bold">&#39;</span>a <span style="font-weight:bold">Ltw</span>.t
 </code></pre></div><p>Понятно, что эта ф-ция тривиально упаковывает уже известно
 значение в промис. Соответственно, этот промис сразу находится в
 состоянии <code>Return</code> (resolved).</p>
 <p>Значения, упакованные в <code>Lwt.t</code>, не могут быть просто извлечены
 (т.к. вычисление может быть ещё не завершено). Для этого мы
 должны использовать оператор <code>bind</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> <span style="color:#f92672">(&gt;&gt;=):</span> <span style="color:#66d9ef">&#39;</span>a Lwt.t <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> (&gt;&gt;=): <span style="font-weight:bold">&#39;</span>a <span style="font-weight:bold">Lwt</span>.t -&gt; (<span style="font-weight:bold">&#39;</span>a -&gt; <span style="font-weight:bold">&#39;</span>b <span style="font-weight:bold">Lwt</span>.t) -&gt; <span style="font-weight:bold">&#39;</span>b <span style="font-weight:bold">Lwt</span>.t
 </code></pre></div><p>Такая конструкция позволяет нам делать композицию промисов в
 “монадическом” стиле.</p>
 <p><code>f &gt;&gt;= g</code> создаст нам промис, который ждёт пока завершится
@@ -208,94 +260,114 @@
 Соответственно, если <code>f</code> завершится с ошибкой, то и <code>f &gt;&gt;= g</code>
 завершится с той же самой ошибкой.</p>
 <p>Несколько других полезных ф-ций:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> join <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> Lwt.t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> join : <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t <span style="">list</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
 </code></pre></div><p><code>join</code> получает список потоков и ожидает пока они все
 завершатся. Если хотя бы один из них завершится с ошибкой
 (перейдёт в состояние rejected), то и результирующий поток
 завершится с той же ошибкой (после того, как все остальные
 потоки завершат свои вычисления).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> choose <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> choose : <span style="font-weight:bold">&#39;</span>a t <span style="">list</span> -&gt; <span style="font-weight:bold">&#39;</span>a t
 </code></pre></div><p><code>choose</code> ждёт пока выполнится хотя бы один поток. Если таких
 оказалось несколько, то в качестве результата выбирается один из
 них cлучайным образом.</p>
 <p>На самом деле их огромное множество и все их можно найти <a href="http://ocsigen.org/lwt/dev/api/Lwt%5Flist">тут</a>.</p>
-<h3 id="ppx">PPX</h3>
+<h3 id="ppx">
+  PPX
+  <a class="heading-link" href="#ppx">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>У нас есть следующий синтаксический сахар:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt i <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
-<span style="color:#f92672">...</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span>%lwt i = f () <span style="font-weight:bold">in</span>
+...
 </code></pre></div><p>Что эквивалентно следующему фрагменту:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">Lwt.bind <span style="color:#f92672">(</span>f ()<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> i <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">...)</span>
-</code></pre></div><h3 id="примеры">Примеры</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">Lwt</span>.bind (f ()) (<span style="font-weight:bold">fun</span> i -&gt; ...)
+</code></pre></div><h3 id="примеры">
+  Примеры
+  <a class="heading-link" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p><em>Следующие примеры я взял из официального туториала</em></p>
 <p>Чтение из STDIN без Lwt, выполнение блокируется пока не
 поступит пользовательский ввод:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Pervasives.read_line () <span style="color:#66d9ef">in</span>
-  print_endline <span style="color:#e6db74">&#34;Now unblocked!&#34;</span><span style="color:#f92672">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
+  <span style="font-weight:bold">let</span> line : <span style="">string</span> = <span style="font-weight:bold">Pervasives</span>.read_line () <span style="font-weight:bold">in</span>
+  print_endline <span style="font-style:italic">&#34;Now unblocked!&#34;</span>;
   ignore line
 </code></pre></div><p>С промисами Lwt выполнение продолжается:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
-  print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
+  <span style="font-weight:bold">let</span> line_promise : <span style="">string</span> <span style="font-weight:bold">Lwt</span>.t = <span style="font-weight:bold">Lwt_io</span>.(read_line stdin) <span style="font-weight:bold">in</span>
+  print_endline <span style="font-style:italic">&#34;Execution just continues...&#34;</span>;
   ignore line_promise
 </code></pre></div><p>В данном случае, это не совсем то, что нам нужно, т.к. программа
 сразу завершает работу, так и не дождавшись пользовательского
 ввода. Чтобы заблокироваться и подождать пока промис выполнится,
 мы можем использовать ф-цию <code>Lwt_main.run</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
-  print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
-  <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Lwt_main.run line_promise <span style="color:#66d9ef">in</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
+  <span style="font-weight:bold">let</span> line_promise : <span style="">string</span> <span style="font-weight:bold">Lwt</span>.t = <span style="font-weight:bold">Lwt_io</span>.(read_line stdin) <span style="font-weight:bold">in</span>
+  print_endline <span style="font-style:italic">&#34;Execution just continues...&#34;</span>;
+  <span style="font-weight:bold">let</span> line : <span style="">string</span> = <span style="font-weight:bold">Lwt_main</span>.run line_promise <span style="font-weight:bold">in</span>
   ignore line
 </code></pre></div><p><code>Lwt_main.run</code> используется только 1 раз, чтобы подожать пока
 завершится промис самого верхнего уровня. Когда этот промис
 выполнится, программа завершает работу.</p>
-<h3 id="ещё-примеры">Ещё примеры:</h3>
+<h3 id="ещё-примеры">
+  Ещё примеры:
+  <a class="heading-link" href="#%d0%b5%d1%89%d1%91-%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>Опять же, я не заморачивался и взял примеры из официального
 туториала, тк я слишком ленивый, чтобы придумывать их самому.</p>
 <p>Пример функции, которая печатает “tic” каждую секунду, не
 блокируя другие “потоки”:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> tic () <span style="color:#f92672">=</span>
-  print_endline <span style="color:#e6db74">&#34;tic&#34;</span><span style="color:#f92672">;</span>
-  <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> Lwt_unix.sleep 1<span style="color:#f92672">.</span>0 <span style="color:#66d9ef">in</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> tic () =
+  print_endline <span style="font-style:italic">&#34;tic&#34;</span>;
+  <span style="font-weight:bold">let</span>%lwt () = <span style="font-weight:bold">Lwt_unix</span>.sleep 1.0 <span style="font-weight:bold">in</span>
   tic ()
 </code></pre></div><p>Пример запуска нескольких “потоков” и ожидание их результатов.</p>
 <p>Допустим у нас есть пара ф-ций <code>f</code> и <code>g</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> f <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
-<span style="color:#66d9ef">val</span> g <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> f : <span style="">unit</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
+<span style="font-weight:bold">val</span> g : <span style="">unit</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
 </code></pre></div><p>Следующий код запустит их вычисления последовательно:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
-<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
-<span style="color:#f92672">...</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span>%lwt () = f () <span style="font-weight:bold">in</span>
+<span style="font-weight:bold">let</span>%lwt () = g () <span style="font-weight:bold">in</span>
+...
 </code></pre></div><p>А вот так мы можем запустить обе ф-ции конкурентно и сразу же
 подождать их завершения:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> p1 <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
-<span style="color:#66d9ef">let</span> p2 <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
-<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p1 <span style="color:#66d9ef">in</span>
-<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p2 <span style="color:#66d9ef">in</span>
-<span style="color:#f92672">...</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> p1 = f () <span style="font-weight:bold">in</span>
+<span style="font-weight:bold">let</span> p2 = g () <span style="font-weight:bold">in</span>
+<span style="font-weight:bold">let</span>%lwt () = p1 <span style="font-weight:bold">in</span>
+<span style="font-weight:bold">let</span>%lwt () = p2 <span style="font-weight:bold">in</span>
+...
 </code></pre></div><p>Пример ф-ции, которая выполняет все вычисления из списка
 конкрурентно:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map f l <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
-  <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> Lwt.return []
-  <span style="color:#f92672">|</span> v <span style="color:#f92672">::</span> r <span style="color:#f92672">-&gt;</span>
-      <span style="color:#66d9ef">let</span> t <span style="color:#f92672">=</span> f v <span style="color:#66d9ef">in</span>
-      <span style="color:#66d9ef">let</span> rt <span style="color:#f92672">=</span> map f r <span style="color:#66d9ef">in</span>
-      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt v&#39; <span style="color:#f92672">=</span> t <span style="color:#66d9ef">in</span>
-      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt l&#39; <span style="color:#f92672">=</span> rt <span style="color:#66d9ef">in</span>
-      Lwt.return <span style="color:#f92672">(</span>v&#39; <span style="color:#f92672">::</span> l&#39;<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> map f l =
+  <span style="font-weight:bold">match</span> l <span style="font-weight:bold">with</span>
+  | [] -&gt; <span style="font-weight:bold">Lwt</span>.return []
+  | v :: r -&gt;
+      <span style="font-weight:bold">let</span> t = f v <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">let</span> rt = map f r <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">let</span>%lwt v&#39; = t <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">let</span>%lwt l&#39; = rt <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">Lwt</span>.return (v&#39; :: l&#39;)
 </code></pre></div><p>Следующая ф-ция наоборот, ожидает пока выполнится каждое
 предыдущее вычисление из списка, прежде чем запустить следующее:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map_serial f l <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
-  <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> return []
-  <span style="color:#f92672">|</span> v <span style="color:#f92672">::</span> r <span style="color:#f92672">-&gt;</span>
-      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt v&#39; <span style="color:#f92672">=</span> f v <span style="color:#66d9ef">in</span>
-      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt l&#39; <span style="color:#f92672">=</span> map_serial f r <span style="color:#66d9ef">in</span>
-      Lwt.return <span style="color:#f92672">(</span>v&#39; <span style="color:#f92672">::</span> l&#39;<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> map_serial f l =
+  <span style="font-weight:bold">match</span> l <span style="font-weight:bold">with</span>
+  | [] -&gt; return []
+  | v :: r -&gt;
+      <span style="font-weight:bold">let</span>%lwt v&#39; = f v <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">let</span>%lwt l&#39; = map_serial f r <span style="font-weight:bold">in</span>
+      <span style="font-weight:bold">Lwt</span>.return (v&#39; :: l&#39;)
 </code></pre></div><p>Конечно, это только самые “вершки” Lwt.</p>
-<h2 id="полезные-ссылки">Полезные ссылки</h2>
+<h2 id="полезные-ссылки">
+  Полезные ссылки
+  <a class="heading-link" href="#%d0%bf%d0%be%d0%bb%d0%b5%d0%b7%d0%bd%d1%8b%d0%b5-%d1%81%d1%81%d1%8b%d0%bb%d0%ba%d0%b8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ul>
 <li><a href="https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/ads/promises.html">Promises </a> в книге Functional Programming in OCaml</li>
 <li><a href="https://gitter.im/ocaml-lwt/Lobby">Lwt Gitter</a></li>
@@ -308,14 +380,15 @@
 
       </div>
 
+
       <footer>
         
 
 
 
         
-        <div id="commento"></div>
-<script src="https://vyorkin.org/js/commento.js"></script>
+        
+        
       </footer>
     </article>
 
@@ -324,21 +397,44 @@
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-      <p>Василий Ёркин</p>
-    
-     © 2021
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+        2021
+         Василий Ёркин 
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
 
     
+      
+      <script src="https://vyorkin.org/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

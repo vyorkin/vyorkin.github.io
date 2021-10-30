@@ -4,10 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
 
     <meta name="author" content="Vasiliy Yorkin">
     <meta name="description" content="Personal blog of Vasiliy Yorkin">
-    <meta name="keywords" content="functional programming, personal blog, haskell blog, purescript blog, ocaml blog">
+    <meta name="keywords" content="Vasiliy Yorkin">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vyorkin.org"/>
@@ -20,23 +24,18 @@
 
 
 
-    
-      <base href="https://vyorkin.org/">
-    
     <title>vyorkin.org</title>
 
     
       <link rel="canonical" href="https://vyorkin.org/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.fc51578e49ecee08400ecfd5d54ca66d7bd4de25620ff53ddc569a7357245676.css" integrity="sha256-/FFXjkns7ghADs/V1UymbXvU3iViD/U93Faac1ckVnY=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.13fa931069bdca9a3b3787050f7afa5f02c8dfd8900275a396590b432311b980.css" integrity="sha256-E/qTEGm9ypo7N4cFD3r6XwLI39iQAnWjllkLQyMRuYA=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -46,62 +45,81 @@
     
 
     
-    
+
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
+    <link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
     <link rel="alternate" type="application/rss+xml" href="https://vyorkin.org/index.xml" title="vyorkin.org" />
+    
+
     <meta name="generator" content="Hugo 0.88.1" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="preload-transitions colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://vyorkin.org/">
       vyorkin.org
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
-          </li>
-        
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
-          </li>
-        
-      
-      
-        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
+            </li>
+          
         
         
           
-        
+          
           
             
-              <li class="navigation-item menu-separator">
-                <span>|</span>
-              </li>
               
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">Russian</a>
+              </li>
             
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/ru-ru/">Russian</a>
-            </li>
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">German</a>
+              </li>
+            
           
         
-          
-            
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/de-de/">German</a>
-            </li>
-          
-        
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -111,16 +129,21 @@
   <section class="container centered">
   <div class="about">
     
-      <div class="avatar"><img src="https://vyorkin.org/images/me1.jpg" alt="avatar"></div>
+      
+        <div class="avatar"><img src="https://vyorkin.org/images/me1.jpg" alt="avatar"></div>
+      
+    
     
     <h1>Vasiliy Yorkin</h1>
-    <h2>Software engineer, FP-Enthusiast</h2>
+    
+    <h2>Software engineer<br>FP-enthusiast<br></h2>
+    
     
     <ul>
       
         
           <li>
-            <a href="https://github.com/vyorkin/" aria-label="Github" >
+            <a href="https://github.com/vyorkin/" aria-label="Github"   >
               <i class="fab fa-github" aria-hidden="true"></i>
             </a>
           </li>
@@ -128,7 +151,7 @@
       
         
           <li>
-            <a href="https://bitbucket.org/vyorkin" aria-label="Bitbucket" >
+            <a href="https://bitbucket.org/vyorkin" aria-label="Bitbucket"   >
               <i class="fab fa-bitbucket" aria-hidden="true"></i>
             </a>
           </li>
@@ -136,7 +159,7 @@
       
         
           <li>
-            <a href="https://keybase.io/vyorkin" aria-label="Keybase" >
+            <a href="https://keybase.io/vyorkin" aria-label="Keybase"   >
               <i class="fab fa-keybase" aria-hidden="true"></i>
             </a>
           </li>
@@ -144,7 +167,7 @@
       
         
           <li>
-            <a href="https://www.linkedin.com/in/vyorkin/" aria-label="LinkedIn" >
+            <a href="https://www.linkedin.com/in/vyorkin/" aria-label="LinkedIn"   >
               <i class="fab fa-linkedin" aria-hidden="true"></i>
             </a>
           </li>
@@ -152,7 +175,7 @@
       
         
           <li>
-            <a href="https://twitter.com/yorkin/" aria-label="Twitter" >
+            <a href="https://twitter.com/yorkin/" aria-label="Twitter"   >
               <i class="fab fa-twitter" aria-hidden="true"></i>
             </a>
           </li>
@@ -160,7 +183,7 @@
       
         
           <li>
-            <a href="https://t.me/vyorkin" aria-label="Telegram" >
+            <a href="https://t.me/vyorkin" aria-label="Telegram"   >
               <i class="fab fa-telegram" aria-hidden="true"></i>
             </a>
           </li>
@@ -168,7 +191,7 @@
       
         
           <li>
-            <a href="https://www.youtube.com/channel/UCciQ7TEryVe2lyUO5vUZLgg" aria-label="YouTube" >
+            <a href="https://www.youtube.com/channel/UCciQ7TEryVe2lyUO5vUZLgg" aria-label="YouTube"   >
               <i class="fab fa-youtube" aria-hidden="true"></i>
             </a>
           </li>
@@ -176,7 +199,7 @@
       
         
           <li>
-            <a href="https://www.reddit.com/user/vyorkin" aria-label="Reddit" >
+            <a href="https://www.reddit.com/user/vyorkin" aria-label="Reddit"   >
               <i class="fab fa-reddit" aria-hidden="true"></i>
             </a>
           </li>
@@ -184,7 +207,7 @@
       
         
           <li>
-            <a href="https://stackoverflow.com/users/959521/vasiliy-yorkin" aria-label="StackOverflow" >
+            <a href="https://stackoverflow.com/users/959521/vasiliy-yorkin" aria-label="StackOverflow"   >
               <i class="fab fa-stack-overflow" aria-hidden="true"></i>
             </a>
           </li>
@@ -198,21 +221,44 @@
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-      <p>Vasiliy Yorkin</p>
-    
-     © 2021
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+        2021
+         Vasiliy Yorkin 
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
 
     
+      
+      <script src="https://vyorkin.org/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

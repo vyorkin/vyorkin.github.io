@@ -4,19 +4,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
 
     <meta name="author" content="Vasiliy Yorkin">
-    <meta name="description" content="Personal blog of Vasiliy Yorkin">
-    <meta name="keywords" content="functional programming, personal blog, haskell blog, purescript blog, ocaml blog">
+    <meta name="description" content="Intro    In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+ Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir    While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.">
+    <meta name="keywords" content="Vasiliy Yorkin">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Making of Tiger #3, Parsing"/>
-<meta name="twitter:description" content="Intro In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
- Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below."/>
+<meta name="twitter:description" content="Intro    In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+ Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir    While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below."/>
 
     <meta property="og:title" content="Making of Tiger #3, Parsing" />
-<meta property="og:description" content="Intro In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
- Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below." />
+<meta property="og:description" content="Intro    In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+ Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language.  Tiger grammar with Menhir    While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-3-parsing/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-11-28T20:36:00+03:00" />
@@ -24,9 +29,6 @@
 
 
 
-    
-      <base href="https://vyorkin.org/posts/making-of-tiger-3-parsing/">
-    
     <title>
   Making of Tiger #3, Parsing · vyorkin.org
 </title>
@@ -35,14 +37,12 @@
       <link rel="canonical" href="https://vyorkin.org/posts/making-of-tiger-3-parsing/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.fc51578e49ecee08400ecfd5d54ca66d7bd4de25620ff53ddc569a7357245676.css" integrity="sha256-/FFXjkns7ghADs/V1UymbXvU3iViD/U93Faac1ckVnY=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.13fa931069bdca9a3b3787050f7afa5f02c8dfd8900275a396590b432311b980.css" integrity="sha256-E/qTEGm9ypo7N4cFD3r6XwLI39iQAnWjllkLQyMRuYA=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -52,61 +52,82 @@
     
 
     
-    
+
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.88.1" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="preload-transitions colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://vyorkin.org/">
       vyorkin.org
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
-          </li>
-        
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
-          </li>
-        
-      
-      
-        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
+            </li>
+          
         
         
           
-        
+          
           
             
-              <li class="navigation-item menu-separator">
-                <span>|</span>
-              </li>
+          
+            
               
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">Russian</a>
+              </li>
             
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/ru-ru/">Russian</a>
-            </li>
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">German</a>
+              </li>
+            
           
         
-          
-            
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/de-de/">German</a>
-            </li>
-          
-        
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -117,38 +138,59 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">Making of Tiger #3, Parsing</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/making-of-tiger-3-parsing/">
+              Making of Tiger #3, Parsing
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2019-11-28T20:36:00&#43;03:00'>
                 November 28, 2019
               </time>
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://vyorkin.org/categories/compilers/">compilers</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
-    <a href="https://vyorkin.org/tags/compilers/">compilers</a>
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/compilers/">compilers</a>
+    </span>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/tags/tiger/">tiger</a>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/tiger/">tiger</a>
+    </span>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/tags/ocaml/">ocaml</a>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ocaml/">ocaml</a>
+    </span>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/tags/parsing/">parsing</a>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/parsing/">parsing</a>
+    </span>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/tags/menhir/">menhir</a></div>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/menhir/">menhir</a>
+    </span></div>
 
         </div>
       </header>
 
       <div>
-        <h2 id="intro">Intro</h2>
+        
+        <h2 id="intro">
+  Intro
+  <a class="heading-link" href="#intro">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>In this chapter we’re going to build a parser for our Tiger
 language. First, let’s do a quick recap of some important
 concepts of the theory behind programming language parsers:</p>
@@ -158,7 +200,12 @@ concepts of the theory behind programming language parsers:</p>
 it is a <a href="https://en.wikipedia.org/wiki/Context-free%5Fgrammar">context-free grammar</a> in <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur%5Fform">BNF</a> or <a href="https://en.wikipedia.org/wiki/Extended%5FBackus%E2%80%93Naur%5Fform">EBNF </a>form), that
 defines a syntax of a programming language.</li>
 </ul>
-<h2 id="tiger-grammar-with-menhir">Tiger grammar with Menhir</h2>
+<h2 id="tiger-grammar-with-menhir">
+  Tiger grammar with Menhir
+  <a class="heading-link" href="#tiger-grammar-with-menhir">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>While reading the current paragraph I highly recommend
 consulting the <strong>Tiger Language Reference Manual</strong> that has a
 precise description (along with a BNF notation) of everything
@@ -167,9 +214,9 @@ we’re going to define below.</p>
 <a href="https://dune.readthedocs.io/en/stable/dune-files.html#menhir">integrates with Dune</a> quiet nicely. All we need to do is to add
 the <code>menhir</code> stanza to our <code>dune</code> file (the one from the
 previous chapter). So the whole file will look like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(menhir
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(menhir
  (modules parser)
- (flags (<span style="color:#e6db74">&#34;--dump&#34;</span> <span style="color:#e6db74">&#34;--explain&#34;</span>)))
+ (flags (<span style="font-style:italic">&#34;--dump&#34;</span> <span style="font-style:italic">&#34;--explain&#34;</span>)))
 
 (ocamllex
  (modules lexer))
@@ -180,7 +227,7 @@ previous chapter). So the whole file will look like this:</p>
  (libraries core stdio)
  (preprocess (pps ppx_inline_test ppx_expect)))
 
-(env (dev (flags (<span style="color:#e6db74">:standard</span> -warn-error -A))))
+(env (dev (flags (<span style="font-style:italic">:standard</span> -warn-error -A))))
 </code></pre></div><p>Notice the <code>--dump</code> and <code>--explain</code> switches:</p>
 <ul>
 <li>The <code>--dump</code> switch means to write a description of the
@@ -200,97 +247,97 @@ experimental). First, let’s define some
 aliases</a>, priorities and associativity levels. Basically these
 are the same tokens we used in our lexer.</p>
 <p>Base keywords:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>token <span style="color:#a6e22e">TYPE</span>     <span style="color:#e6db74">&#34;type&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">VAR</span>      <span style="color:#e6db74">&#34;var&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">FUNCTION</span> <span style="color:#e6db74">&#34;function&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">BREAK</span>    <span style="color:#e6db74">&#34;break&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">OF</span>       <span style="color:#e6db74">&#34;of&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">END</span>      <span style="color:#e6db74">&#34;end&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">IN</span>       <span style="color:#e6db74">&#34;in&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">NIL</span>      <span style="color:#e6db74">&#34;nil&#34;</span> <span style="color:#75715e">(* nil denotes a value belonging to every record type *)</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LET</span>      <span style="color:#e6db74">&#34;let&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">ARRAY</span>    <span style="color:#e6db74">&#34;array&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%token <span style="font-weight:bold">TYPE</span>     <span style="font-style:italic">&#34;type&#34;</span>
+%token <span style="font-weight:bold">VAR</span>      <span style="font-style:italic">&#34;var&#34;</span>
+%token <span style="font-weight:bold">FUNCTION</span> <span style="font-style:italic">&#34;function&#34;</span>
+%token <span style="font-weight:bold">BREAK</span>    <span style="font-style:italic">&#34;break&#34;</span>
+%token <span style="font-weight:bold">OF</span>       <span style="font-style:italic">&#34;of&#34;</span>
+%token <span style="font-weight:bold">END</span>      <span style="font-style:italic">&#34;end&#34;</span>
+%token <span style="font-weight:bold">IN</span>       <span style="font-style:italic">&#34;in&#34;</span>
+%token <span style="font-weight:bold">NIL</span>      <span style="font-style:italic">&#34;nil&#34;</span> <span style="font-style:italic">(* nil denotes a value belonging to every record type *)</span>
+%token <span style="font-weight:bold">LET</span>      <span style="font-style:italic">&#34;let&#34;</span>
+%token <span style="font-weight:bold">ARRAY</span>    <span style="font-style:italic">&#34;array&#34;</span>
 </code></pre></div><p>Loop-related keywords:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>token <span style="color:#a6e22e">DO</span>    <span style="color:#e6db74">&#34;do&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">TO</span>    <span style="color:#e6db74">&#34;to&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">FOR</span>   <span style="color:#e6db74">&#34;for&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">WHILE</span> <span style="color:#e6db74">&#34;while&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%token <span style="font-weight:bold">DO</span>    <span style="font-style:italic">&#34;do&#34;</span>
+%token <span style="font-weight:bold">TO</span>    <span style="font-style:italic">&#34;to&#34;</span>
+%token <span style="font-weight:bold">FOR</span>   <span style="font-style:italic">&#34;for&#34;</span>
+%token <span style="font-weight:bold">WHILE</span> <span style="font-style:italic">&#34;while&#34;</span>
 </code></pre></div><p>Keywords for conditional expression:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>token <span style="color:#a6e22e">IF</span>   <span style="color:#e6db74">&#34;if&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">THEN</span> <span style="color:#e6db74">&#34;then&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">ELSE</span> <span style="color:#e6db74">&#34;else&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%token <span style="font-weight:bold">IF</span>   <span style="font-style:italic">&#34;if&#34;</span>
+%token <span style="font-weight:bold">THEN</span> <span style="font-style:italic">&#34;then&#34;</span>
+%token <span style="font-weight:bold">ELSE</span> <span style="font-style:italic">&#34;else&#34;</span>
 </code></pre></div><p>Operator tokens:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(* General *)</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">ASSIGN</span> <span style="color:#e6db74">&#34;:=&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-style:italic">(* General *)</span>
+%token <span style="font-weight:bold">ASSIGN</span> <span style="font-style:italic">&#34;:=&#34;</span>
 
-<span style="color:#75715e">(* Logical *)</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">OR</span>  <span style="color:#e6db74">&#34;|&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">AND</span> <span style="color:#e6db74">&#34;&amp;&#34;</span>
+<span style="font-style:italic">(* Logical *)</span>
+%token <span style="font-weight:bold">OR</span>  <span style="font-style:italic">&#34;|&#34;</span>
+%token <span style="font-weight:bold">AND</span> <span style="font-style:italic">&#34;&amp;&#34;</span>
 
-<span style="color:#75715e">(* Comparison *)</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">GE</span>  <span style="color:#e6db74">&#34;&gt;=&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">GT</span>  <span style="color:#e6db74">&#34;&gt;&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LE</span>  <span style="color:#e6db74">&#34;&lt;=&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LT</span>  <span style="color:#e6db74">&#34;&lt;&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">NEQ</span> <span style="color:#e6db74">&#34;&lt;&gt;&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">EQ</span>  <span style="color:#e6db74">&#34;=&#34;</span>
+<span style="font-style:italic">(* Comparison *)</span>
+%token <span style="font-weight:bold">GE</span>  <span style="font-style:italic">&#34;&gt;=&#34;</span>
+%token <span style="font-weight:bold">GT</span>  <span style="font-style:italic">&#34;&gt;&#34;</span>
+%token <span style="font-weight:bold">LE</span>  <span style="font-style:italic">&#34;&lt;=&#34;</span>
+%token <span style="font-weight:bold">LT</span>  <span style="font-style:italic">&#34;&lt;&#34;</span>
+%token <span style="font-weight:bold">NEQ</span> <span style="font-style:italic">&#34;&lt;&gt;&#34;</span>
+%token <span style="font-weight:bold">EQ</span>  <span style="font-style:italic">&#34;=&#34;</span>
 
-<span style="color:#75715e">(* Arithmetics *)</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">DIVIDE</span> <span style="color:#e6db74">&#34;/&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">TIMES</span>  <span style="color:#e6db74">&#34;*&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">PLUS</span>   <span style="color:#e6db74">&#34;+&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">MINUS</span>  <span style="color:#e6db74">&#34;-&#34;</span>
+<span style="font-style:italic">(* Arithmetics *)</span>
+%token <span style="font-weight:bold">DIVIDE</span> <span style="font-style:italic">&#34;/&#34;</span>
+%token <span style="font-weight:bold">TIMES</span>  <span style="font-style:italic">&#34;*&#34;</span>
+%token <span style="font-weight:bold">PLUS</span>   <span style="font-style:italic">&#34;+&#34;</span>
+%token <span style="font-weight:bold">MINUS</span>  <span style="font-style:italic">&#34;-&#34;</span>
 </code></pre></div><p>Tokens for separators:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>token <span style="color:#a6e22e">DOT</span>       <span style="color:#e6db74">&#34;.&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LBRACE</span>    <span style="color:#e6db74">&#34;{&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">RBRACE</span>    <span style="color:#e6db74">&#34;}&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LBRACK</span>    <span style="color:#e6db74">&#34;[&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">RBRACK</span>    <span style="color:#e6db74">&#34;]&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">LPAREN</span>    <span style="color:#e6db74">&#34;(&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">RPAREN</span>    <span style="color:#e6db74">&#34;)&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">SEMICOLON</span> <span style="color:#e6db74">&#34;;&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">COLON</span>     <span style="color:#e6db74">&#34;:&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">COMMA</span>     <span style="color:#e6db74">&#34;,&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%token <span style="font-weight:bold">DOT</span>       <span style="font-style:italic">&#34;.&#34;</span>
+%token <span style="font-weight:bold">LBRACE</span>    <span style="font-style:italic">&#34;{&#34;</span>
+%token <span style="font-weight:bold">RBRACE</span>    <span style="font-style:italic">&#34;}&#34;</span>
+%token <span style="font-weight:bold">LBRACK</span>    <span style="font-style:italic">&#34;[&#34;</span>
+%token <span style="font-weight:bold">RBRACK</span>    <span style="font-style:italic">&#34;]&#34;</span>
+%token <span style="font-weight:bold">LPAREN</span>    <span style="font-style:italic">&#34;(&#34;</span>
+%token <span style="font-weight:bold">RPAREN</span>    <span style="font-style:italic">&#34;)&#34;</span>
+%token <span style="font-weight:bold">SEMICOLON</span> <span style="font-style:italic">&#34;;&#34;</span>
+%token <span style="font-weight:bold">COLON</span>     <span style="font-style:italic">&#34;:&#34;</span>
+%token <span style="font-weight:bold">COMMA</span>     <span style="font-style:italic">&#34;,&#34;</span>
 </code></pre></div><p>Strings, numbers, identifiers and the <code>EOF</code> token:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>token <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">string</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">STRING</span> <span style="color:#e6db74">&#34;string&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>    <span style="color:#a6e22e">INT</span>    <span style="color:#e6db74">&#34;int&#34;</span>
-<span style="color:#f92672">%</span>token <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">string</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ID</span>     <span style="color:#e6db74">&#34;id&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%token &lt;<span style="">string</span>&gt; <span style="font-weight:bold">STRING</span> <span style="font-style:italic">&#34;string&#34;</span>
+%token &lt;<span style="">int</span>&gt;    <span style="font-weight:bold">INT</span>    <span style="font-style:italic">&#34;int&#34;</span>
+%token &lt;<span style="">string</span>&gt; <span style="font-weight:bold">ID</span>     <span style="font-style:italic">&#34;id&#34;</span>
 
-<span style="color:#f92672">%</span>token <span style="color:#a6e22e">EOF</span>
+%token <span style="font-weight:bold">EOF</span>
 </code></pre></div><p>Associativity of operators:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;of&#34;</span>
-<span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;then&#34;</span>
-<span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;else&#34;</span>
-<span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;do&#34;</span>
-<span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;:=&#34;</span>
-<span style="color:#f92672">%</span>left     <span style="color:#e6db74">&#34;|&#34;</span>
-<span style="color:#f92672">%</span>left     <span style="color:#e6db74">&#34;&amp;&#34;</span>
-<span style="color:#f92672">%</span>nonassoc <span style="color:#e6db74">&#34;&gt;=&#34;</span> <span style="color:#e6db74">&#34;&gt;&#34;</span> <span style="color:#e6db74">&#34;&lt;=&#34;</span> <span style="color:#e6db74">&#34;&lt;&#34;</span> <span style="color:#e6db74">&#34;&lt;&gt;&#34;</span> <span style="color:#e6db74">&#34;=&#34;</span>
-<span style="color:#f92672">%</span>left     <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#e6db74">&#34;-&#34;</span>
-<span style="color:#f92672">%</span>left     <span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#e6db74">&#34;/&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%nonassoc <span style="font-style:italic">&#34;of&#34;</span>
+%nonassoc <span style="font-style:italic">&#34;then&#34;</span>
+%nonassoc <span style="font-style:italic">&#34;else&#34;</span>
+%nonassoc <span style="font-style:italic">&#34;do&#34;</span>
+%nonassoc <span style="font-style:italic">&#34;:=&#34;</span>
+%left     <span style="font-style:italic">&#34;|&#34;</span>
+%left     <span style="font-style:italic">&#34;&amp;&#34;</span>
+%nonassoc <span style="font-style:italic">&#34;&gt;=&#34;</span> <span style="font-style:italic">&#34;&gt;&#34;</span> <span style="font-style:italic">&#34;&lt;=&#34;</span> <span style="font-style:italic">&#34;&lt;&#34;</span> <span style="font-style:italic">&#34;&lt;&gt;&#34;</span> <span style="font-style:italic">&#34;=&#34;</span>
+%left     <span style="font-style:italic">&#34;+&#34;</span> <span style="font-style:italic">&#34;-&#34;</span>
+%left     <span style="font-style:italic">&#34;*&#34;</span> <span style="font-style:italic">&#34;/&#34;</span>
 </code></pre></div><p>Now, the grammar rules:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">%</span>start <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">unit</span><span style="color:#f92672">&gt;</span> main
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">%start &lt;<span style="">unit</span>&gt; main
 
-<span style="color:#f92672">%%</span>
+%%
 
-<span style="color:#66d9ef">let</span> main <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">~</span> <span style="color:#f92672">=</span> expr<span style="color:#f92672">;</span> <span style="color:#a6e22e">EOF</span><span style="color:#f92672">;</span> <span style="color:#f92672">&lt;&gt;</span>
+<span style="font-weight:bold">let</span> main :=
+  ~ = expr; <span style="font-weight:bold">EOF</span>; &lt;&gt;
 </code></pre></div><p>Top-level expression:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> expr <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> primitive
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;nil&#34;</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;break&#34;</span>
-  <span style="color:#f92672">|</span> create_rec
-  <span style="color:#f92672">|</span> create_arr
-  <span style="color:#f92672">|</span> lvalue
-  <span style="color:#f92672">|</span> assignment
-  <span style="color:#f92672">|</span> local
-  <span style="color:#f92672">|</span> conditional
-  <span style="color:#f92672">|</span> loop
-  <span style="color:#f92672">|</span> fun_call
-  <span style="color:#f92672">|</span> unary
-  <span style="color:#f92672">|</span> binary
-  <span style="color:#f92672">|</span> seq
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> expr :=
+  | primitive
+  | <span style="font-style:italic">&#34;nil&#34;</span>
+  | <span style="font-style:italic">&#34;break&#34;</span>
+  | create_rec
+  | create_arr
+  | lvalue
+  | assignment
+  | local
+  | conditional
+  | loop
+  | fun_call
+  | unary
+  | binary
+  | seq
 </code></pre></div><p>It might not be obvious from the <code>expr</code> definition, but it also
 includes a thing called <code>no value</code> (an expression that yields no
 value). So when looking at the top-level expression and
@@ -298,217 +345,227 @@ comparing it to the language reference manual, please note that
 in our grammar <code>no_val := &quot;(&quot; &quot;)&quot;</code> (empty <code>seq</code>).</p>
 <p>There are two built-in (predefined) primitive types: <code>int</code> and
 <code>string</code>. The grammar rule for those is pretty straightforward:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> primitive <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;string&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;int&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> primitive :=
+  | <span style="font-style:italic">&#34;string&#34;</span>; { () }
+  | <span style="font-style:italic">&#34;int&#34;</span>; { () }
 </code></pre></div><p>In our language we have only one unary operator – minus:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> unary <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;-&#34;</span><span style="color:#f92672">;</span> expr
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> unary := <span style="font-style:italic">&#34;-&#34;</span>; expr
 </code></pre></div><p>But we have two kinds of binary operators: <code>boolean</code> and
 “logical + arithmetic”, which we’ll simply call <code>bin</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> binary <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> bin
-  <span style="color:#f92672">|</span> boolean
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> binary :=
+  | bin
+  | boolean
 </code></pre></div><p>Scroll down to see the definitions of <code>bin</code> and <code>boolean</code>.</p>
 <p>We have 2 kinds of loops: the <code>while</code> loop and the <code>for</code> loop:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> loop <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> while_loop
-  <span style="color:#f92672">|</span> for_loop
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> loop :=
+  | while_loop
+  | for_loop
 
-<span style="color:#66d9ef">let</span> while_loop <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;while&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;do&#34;</span><span style="color:#f92672">;</span> expr
-<span style="color:#66d9ef">let</span> for_loop   <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;for&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;:=&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;to&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;do&#34;</span><span style="color:#f92672">;</span> expr
+<span style="font-weight:bold">let</span> while_loop := <span style="font-style:italic">&#34;while&#34;</span>; expr; <span style="font-style:italic">&#34;do&#34;</span>; expr
+<span style="font-weight:bold">let</span> for_loop   := <span style="font-style:italic">&#34;for&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; <span style="font-style:italic">&#34;:=&#34;</span>; expr; <span style="font-style:italic">&#34;to&#34;</span>; expr; <span style="font-style:italic">&#34;do&#34;</span>; expr
 </code></pre></div><p>Nothing new or unusual. And the conditional expression rule is
 also quite trivial:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> conditional <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;if&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;then&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;else&#34;</span><span style="color:#f92672">;</span> expr
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;if&#34;</span><span style="color:#f92672">;</span> expr<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;then&#34;</span><span style="color:#f92672">;</span> expr
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> conditional :=
+  | <span style="font-style:italic">&#34;if&#34;</span>; expr; <span style="font-style:italic">&#34;then&#34;</span>; expr; <span style="font-style:italic">&#34;else&#34;</span>; expr
+  | <span style="font-style:italic">&#34;if&#34;</span>; expr; <span style="font-style:italic">&#34;then&#34;</span>; expr
 </code></pre></div><p>Syntax for local bindings is going to be exactly like in OCaml
 or SML:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> local <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;let&#34;</span><span style="color:#f92672">;</span> decs<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;in&#34;</span><span style="color:#f92672">;</span> expr_seq<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;end&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> local := <span style="font-style:italic">&#34;let&#34;</span>; decs; <span style="font-style:italic">&#34;in&#34;</span>; expr_seq; <span style="font-style:italic">&#34;end&#34;</span>
 </code></pre></div><p>Now, a slightly more complex part – declarations.</p>
 <p>As stated in the Tiger language reference manual, a
 declaration-sequence is a sequence of <strong>type</strong>, <strong>value</strong>, and
 <strong>function declarations</strong>. No punctuation separates or terminates
 individual declarations.</p>
 <p>In terms of Menhir we can express it like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> decs <span style="color:#f92672">:=</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span>dec<span style="color:#f92672">);</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> decs := <span style="">list</span>(dec); { () }
 
-<span style="color:#66d9ef">let</span> dec <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> ty_dec  <span style="color:#75715e">(* type *)</span>
-  <span style="color:#f92672">|</span> var_dec <span style="color:#75715e">(* value *)</span>
-  <span style="color:#f92672">|</span> fun_dec <span style="color:#75715e">(* function declaration *)</span>
+<span style="font-weight:bold">let</span> dec :=
+  | ty_dec  <span style="font-style:italic">(* type *)</span>
+  | var_dec <span style="font-style:italic">(* value *)</span>
+  | fun_dec <span style="font-style:italic">(* function declaration *)</span>
 </code></pre></div><p>Ok, we need to define a separate rule for each declaration
 mentioned above.</p>
 <p>To declare a data type in the Tiger language we start with the
 keyword <code>type</code>, after which comes the identifier, the equality
 token and the type declaration body:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> ty_dec <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">;</span> ty
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> ty_dec := <span style="font-style:italic">&#34;type&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; <span style="font-style:italic">&#34;=&#34;</span>; ty
 </code></pre></div><p>The type declaration could be a <strong>record</strong>, an <strong>array</strong> or a <strong>type
 alias</strong> (any identifier):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> ty <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> braced<span style="color:#f92672">(</span>ty_fields<span style="color:#f92672">)</span> <span style="color:#75715e">(* records *)</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;array&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;of&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span> <span style="color:#75715e">(* arrays *)</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> ty :=
+  | braced(ty_fields) <span style="font-style:italic">(* records *)</span>
+  | <span style="font-style:italic">&#34;array&#34;</span>; <span style="font-style:italic">&#34;of&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; { () } <span style="font-style:italic">(* arrays *)</span>
+  | <span style="font-style:italic">&#34;id&#34;</span>; { () }
 
-<span style="color:#66d9ef">let</span> ty_fields <span style="color:#f92672">:=</span> separated_list<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">,</span> ty_field<span style="color:#f92672">);</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-<span style="color:#66d9ef">let</span> ty_field  <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> ty_ann
+<span style="font-weight:bold">let</span> ty_fields := separated_list(<span style="font-style:italic">&#34;,&#34;</span>, ty_field); { () }
+<span style="font-weight:bold">let</span> ty_field  := <span style="font-style:italic">&#34;id&#34;</span>; ty_ann
 </code></pre></div><p>As per language reference manual, there are two possible ways to
 declare a variable: with or without type annotation. The
 following rule reflects this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> var_dec <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;var&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span>         <span style="color:#e6db74">&#34;:=&#34;</span><span style="color:#f92672">;</span> expr
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;var&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> ty_ann<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;:=&#34;</span><span style="color:#f92672">;</span> expr
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> var_dec :=
+  | <span style="font-style:italic">&#34;var&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>;         <span style="font-style:italic">&#34;:=&#34;</span>; expr
+  | <span style="font-style:italic">&#34;var&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; ty_ann; <span style="font-style:italic">&#34;:=&#34;</span>; expr
 </code></pre></div><p>The record and array creation rules below are also considered
 top-level expressions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> create_rec <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> braced<span style="color:#f92672">(</span>init_rec_fields<span style="color:#f92672">)</span>
-<span style="color:#66d9ef">let</span> create_arr <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> bracketed<span style="color:#f92672">(</span>expr<span style="color:#f92672">);</span> <span style="color:#e6db74">&#34;of&#34;</span><span style="color:#f92672">;</span> expr
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> create_rec := <span style="font-style:italic">&#34;id&#34;</span>; braced(init_rec_fields)
+<span style="font-weight:bold">let</span> create_arr := <span style="font-style:italic">&#34;id&#34;</span>; bracketed(expr); <span style="font-style:italic">&#34;of&#34;</span>; expr
 
-<span style="color:#66d9ef">let</span> init_rec_fields <span style="color:#f92672">:=</span> separated_list<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">,</span> init_rec_field<span style="color:#f92672">);</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-<span style="color:#66d9ef">let</span> init_rec_field  <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">;</span> expr
+<span style="font-weight:bold">let</span> init_rec_fields := separated_list(<span style="font-style:italic">&#34;,&#34;</span>, init_rec_field); { () }
+<span style="font-weight:bold">let</span> init_rec_field  := <span style="font-style:italic">&#34;id&#34;</span>; <span style="font-style:italic">&#34;=&#34;</span>; expr
 </code></pre></div><p>Next, we need a function declaration rule:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> fun_dec <span style="color:#f92672">:=</span>
-  <span style="color:#75715e">(* procedures doesn&#39;t return values *)</span>
-  <span style="color:#f92672">|</span> fun_head<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">;</span> fun_body
-  <span style="color:#75715e">(* functions return values and the type is specified after the colon *)</span>
-  <span style="color:#f92672">|</span> fun_head<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">;</span> fun_body
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> fun_dec :=
+  <span style="font-style:italic">(* procedures doesn&#39;t return values *)</span>
+  | fun_head; <span style="font-style:italic">&#34;=&#34;</span>; fun_body
+  <span style="font-style:italic">(* functions return values and the type is specified after the colon *)</span>
+  | fun_head; <span style="font-style:italic">&#34;:&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; <span style="font-style:italic">&#34;=&#34;</span>; fun_body
 
-<span style="color:#66d9ef">let</span> fun_head   <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;function&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> fun_params
-<span style="color:#66d9ef">let</span> fun_body   <span style="color:#f92672">:=</span> expr
-<span style="color:#66d9ef">let</span> fun_params <span style="color:#f92672">:=</span> parenthesized<span style="color:#f92672">(</span>ty_fields<span style="color:#f92672">)</span>
+<span style="font-weight:bold">let</span> fun_head   := <span style="font-style:italic">&#34;function&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; fun_params
+<span style="font-weight:bold">let</span> fun_body   := expr
+<span style="font-weight:bold">let</span> fun_params := parenthesized(ty_fields)
 </code></pre></div><p>According to our language spec:</p>
 <blockquote>
 <p>An <code>l-value</code> is a location, whose value may be read or assigned.
 Variables, procedure parameters, fields or records, and
 elements are all <code>l-values</code>.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> lvalue <span style="color:#f92672">:=</span>
-  <span style="color:#75715e">(* variable *)</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-  <span style="color:#75715e">(* everything else *)</span>
-  <span style="color:#f92672">|</span> lvalue_t
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> lvalue :=
+  <span style="font-style:italic">(* variable *)</span>
+  | <span style="font-style:italic">&#34;id&#34;</span>; { () }
+  <span style="font-style:italic">(* everything else *)</span>
+  | lvalue_t
 
-<span style="color:#66d9ef">let</span> lvalue_t <span style="color:#f92672">:=</span>
-  <span style="color:#75715e">(* simple record field *)</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-  <span style="color:#75715e">(* compound record field *)</span>
-  <span style="color:#f92672">|</span> lvalue_t<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
-  <span style="color:#75715e">(* simple array subscript *)</span>
-  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> bracketed<span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span>
-  <span style="color:#75715e">(* compund array subscript *)</span>
-  <span style="color:#f92672">|</span> lvalue_t<span style="color:#f92672">;</span> bracketed<span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span>
+<span style="font-weight:bold">let</span> lvalue_t :=
+  <span style="font-style:italic">(* simple record field *)</span>
+  | <span style="font-style:italic">&#34;id&#34;</span>; <span style="font-style:italic">&#34;.&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; { () }
+  <span style="font-style:italic">(* compound record field *)</span>
+  | lvalue_t; <span style="font-style:italic">&#34;.&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>; { () }
+  <span style="font-style:italic">(* simple array subscript *)</span>
+  | <span style="font-style:italic">&#34;id&#34;</span>; bracketed(expr)
+  <span style="font-style:italic">(* compund array subscript *)</span>
+  | lvalue_t; bracketed(expr)
 </code></pre></div><p>Assignment of an expression to <code>lvalue</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> assignment <span style="color:#f92672">:=</span> lvalue<span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;:=&#34;</span><span style="color:#f92672">;</span> expr
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> assignment := lvalue; <span style="font-style:italic">&#34;:=&#34;</span>; expr
 </code></pre></div><p>Sequence of expressions delimited by semicolon:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> expr_seq <span style="color:#f92672">:=</span> separated_list<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;;&#34;</span><span style="color:#f92672">,</span> expr<span style="color:#f92672">);</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> expr_seq := separated_list(<span style="font-style:italic">&#34;;&#34;</span>, expr); { () }
 
-<span style="color:#66d9ef">let</span> seq <span style="color:#f92672">:=</span> parenthesized<span style="color:#f92672">(</span>expr_seq<span style="color:#f92672">)</span>
+<span style="font-weight:bold">let</span> seq := parenthesized(expr_seq)
 </code></pre></div><p>Function call rule:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> fun_call <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">;</span> parenthesized<span style="color:#f92672">(</span>fun_args<span style="color:#f92672">)</span>
-<span style="color:#66d9ef">let</span> fun_args <span style="color:#f92672">:=</span> separated_list<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">,</span> expr<span style="color:#f92672">);</span> <span style="color:#f92672">{</span> () <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> fun_call := <span style="font-style:italic">&#34;id&#34;</span>; parenthesized(fun_args)
+<span style="font-weight:bold">let</span> fun_args := separated_list(<span style="font-style:italic">&#34;,&#34;</span>, expr); { () }
 </code></pre></div><p>Arithmetic, comparison and equality expressions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> bin <span style="color:#f92672">:=</span> expr<span style="color:#f92672">;</span> bin_op<span style="color:#f92672">;</span> expr
-<span style="color:#66d9ef">let</span> bin_op <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;&gt;=&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;&gt;&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;&lt;=&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;&lt;&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;&lt;&gt;&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;=&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> bin := expr; bin_op; expr
+<span style="font-weight:bold">let</span> bin_op == <span style="font-style:italic">&#34;+&#34;</span> | <span style="font-style:italic">&#34;-&#34;</span> | <span style="font-style:italic">&#34;*&#34;</span> | <span style="font-style:italic">&#34;/&#34;</span> | <span style="font-style:italic">&#34;&gt;=&#34;</span> | <span style="font-style:italic">&#34;&gt;&#34;</span> | <span style="font-style:italic">&#34;&lt;=&#34;</span> | <span style="font-style:italic">&#34;&lt;&#34;</span> | <span style="font-style:italic">&#34;&lt;&gt;&#34;</span> | <span style="font-style:italic">&#34;=&#34;</span>
 </code></pre></div><p>Boolean expressions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> boolean <span style="color:#f92672">:=</span> expr<span style="color:#f92672">;</span> boolean_op<span style="color:#f92672">;</span> expr
-<span style="color:#66d9ef">let</span> boolean_op <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&amp;&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;|&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> boolean := expr; boolean_op; expr
+<span style="font-weight:bold">let</span> boolean_op == <span style="font-style:italic">&#34;&amp;&#34;</span> | <span style="font-style:italic">&#34;|&#34;</span>
 </code></pre></div><p>Helper rule for a type annotation which we used in the <code>var_dec</code>
 and <code>ty_field</code> above:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> ty_ann <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;id&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> ty_ann := <span style="font-style:italic">&#34;:&#34;</span>; <span style="font-style:italic">&#34;id&#34;</span>
 </code></pre></div><p>Menhir allows us to declare functions, so these are three helper
 functions that we used everywhere else for delimited
 expressions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> parenthesized<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> delimited<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;)&#34;</span><span style="color:#f92672">)</span>
-<span style="color:#66d9ef">let</span> bracketed<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span>     <span style="color:#f92672">==</span> delimited<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;[&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;]&#34;</span><span style="color:#f92672">)</span>
-<span style="color:#66d9ef">let</span> braced<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span>        <span style="color:#f92672">==</span> delimited<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;}&#34;</span><span style="color:#f92672">)</span>
-</code></pre></div><h2 id="test-suite">Test suite</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> parenthesized(x) == delimited(<span style="font-style:italic">&#34;(&#34;</span>, x, <span style="font-style:italic">&#34;)&#34;</span>)
+<span style="font-weight:bold">let</span> bracketed(x)     == delimited(<span style="font-style:italic">&#34;[&#34;</span>, x, <span style="font-style:italic">&#34;]&#34;</span>)
+<span style="font-weight:bold">let</span> braced(x)        == delimited(<span style="font-style:italic">&#34;{&#34;</span>, x, <span style="font-style:italic">&#34;}&#34;</span>)
+</code></pre></div><h2 id="test-suite">
+  Test suite
+  <a class="heading-link" href="#test-suite">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>In order to iterate on our parser quickly we want to automate
 the process of testing it against the <a href="https://github.com/vyorkin/tiger/blob/master/book/testcases/test1.tig">provided example programs</a>.
 The most convenient way to do that would be to create a test
 suite that we could run after every change we make.</p>
 <p>Some of the provided example Tiger programs are intentionally
 broken, so we want to skip those:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> skipped <span style="color:#f92672">=</span>
-  <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;test16.tig&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;test17.tig&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;test19.tig&#34;</span><span style="color:#f92672">;</span>
-   <span style="color:#e6db74">&#34;test20.tig&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;test25.tig&#34;</span><span style="color:#f92672">;</span>
-   <span style="color:#e6db74">&#34;test45.tig&#34;</span><span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;test49.tig&#34;</span><span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> skipped =
+  [<span style="font-style:italic">&#34;test16.tig&#34;</span>; <span style="font-style:italic">&#34;test17.tig&#34;</span>; <span style="font-style:italic">&#34;test19.tig&#34;</span>;
+   <span style="font-style:italic">&#34;test20.tig&#34;</span>; <span style="font-style:italic">&#34;test25.tig&#34;</span>;
+   <span style="font-style:italic">&#34;test45.tig&#34;</span>; <span style="font-style:italic">&#34;test49.tig&#34;</span>]
 </code></pre></div><p>A couple of helper functions to list the example programs
 (recursively):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> is_tig_ext filename <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> <span style="color:#f92672">(_,</span> ext<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Filename.split_extension filename <span style="color:#66d9ef">in</span>
-  <span style="color:#66d9ef">match</span> ext <span style="color:#66d9ef">with</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Some</span> <span style="color:#e6db74">&#34;tig&#34;</span> <span style="color:#f92672">-&gt;</span> true
-  <span style="color:#f92672">|</span> <span style="color:#f92672">_</span> <span style="color:#f92672">-&gt;</span> false
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> is_tig_ext filename =
+  <span style="font-weight:bold">let</span> (_, ext) = <span style="font-weight:bold">Filename</span>.split_extension filename <span style="font-weight:bold">in</span>
+  <span style="font-weight:bold">match</span> ext <span style="font-weight:bold">with</span>
+  | <span style="font-weight:bold">Some</span> <span style="font-style:italic">&#34;tig&#34;</span> -&gt; true
+  | _ -&gt; false
 
-<span style="color:#66d9ef">let</span> is_tig_file f <span style="color:#f92672">=</span>
-  Sys.is_file_exn <span style="color:#f92672">~</span>follow_symlinks<span style="color:#f92672">:</span>true f <span style="color:#f92672">&amp;&amp;</span>
+<span style="font-weight:bold">let</span> is_tig_file f =
+  <span style="font-weight:bold">Sys</span>.is_file_exn ~follow_symlinks:true f &amp;&amp;
   is_tig_ext f
 
-<span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> ls_rec dir <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">if</span> is_tig_file dir
-  <span style="color:#66d9ef">then</span>
-    <span style="color:#66d9ef">if</span> not<span style="color:#f92672">(</span>List.mem skipped <span style="color:#f92672">(</span>Filename.basename dir<span style="color:#f92672">)</span> <span style="color:#f92672">~</span>equal<span style="color:#f92672">:(=))</span> <span style="color:#66d9ef">then</span>
-      <span style="color:#f92672">[</span>dir<span style="color:#f92672">]</span>
-    <span style="color:#66d9ef">else</span>
+<span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> ls_rec dir =
+  <span style="font-weight:bold">if</span> is_tig_file dir
+  <span style="font-weight:bold">then</span>
+    <span style="font-weight:bold">if</span> not(<span style="font-weight:bold">List</span>.mem skipped (<span style="font-weight:bold">Filename</span>.basename dir) ~equal:(=)) <span style="font-weight:bold">then</span>
+      [dir]
+    <span style="font-weight:bold">else</span>
       []
-  <span style="color:#66d9ef">else</span>
+  <span style="font-weight:bold">else</span>
     dir
-    <span style="color:#f92672">|&gt;</span> Sys.ls_dir
-    <span style="color:#f92672">|&gt;</span> List.concat_map
-      <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> sub <span style="color:#f92672">-&gt;</span> ls_rec <span style="color:#f92672">(</span>Filename.concat dir sub<span style="color:#f92672">))</span>
+    |&gt; <span style="font-weight:bold">Sys</span>.ls_dir
+    |&gt; <span style="font-weight:bold">List</span>.concat_map
+      ~f:(<span style="font-weight:bold">fun</span> sub -&gt; ls_rec (<span style="font-weight:bold">Filename</span>.concat dir sub))
 </code></pre></div><p>Let’s add another helper function to get current position along
 with a filename as a string. We’ll need it later to output an
 error location:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> position lexbuf <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> pos <span style="color:#f92672">=</span> lexbuf<span style="color:#f92672">.</span>lex_curr_p <span style="color:#66d9ef">in</span>
-  <span style="color:#66d9ef">let</span> col <span style="color:#f92672">=</span> pos<span style="color:#f92672">.</span>pos_cnum <span style="color:#f92672">-</span> pos<span style="color:#f92672">.</span>pos_bol <span style="color:#f92672">+</span> 1 <span style="color:#66d9ef">in</span>
-  Printf.sprintf <span style="color:#e6db74">&#34;%s:%d:%d&#34;</span> pos<span style="color:#f92672">.</span>pos_fname pos<span style="color:#f92672">.</span>pos_lnum col
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> position lexbuf =
+  <span style="font-weight:bold">let</span> pos = lexbuf.lex_curr_p <span style="font-weight:bold">in</span>
+  <span style="font-weight:bold">let</span> col = pos.pos_cnum - pos.pos_bol + 1 <span style="font-weight:bold">in</span>
+  <span style="font-weight:bold">Printf</span>.sprintf <span style="font-style:italic">&#34;%s:%d:%d&#34;</span> pos.pos_fname pos.pos_lnum col
 </code></pre></div><p>And another two functions to run the parser and print the error
 details in case of failure:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> parse_with_error lexbuf <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">try</span>
-    Parser.main Lexer.read lexbuf<span style="color:#f92672">;</span>
-    assert_bool <span style="color:#e6db74">&#34;Ok&#34;</span> true
-  <span style="color:#66d9ef">with</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">SyntaxError</span> msg <span style="color:#f92672">-&gt;</span>
-    assert_failure <span style="color:#f92672">(</span>position lexbuf <span style="color:#f92672">^</span> <span style="color:#e6db74">&#34; : &#34;</span> <span style="color:#f92672">^</span> msg<span style="color:#f92672">)</span>
-  <span style="color:#f92672">|</span> Parser.<span style="color:#a6e22e">Error</span> <span style="color:#f92672">-&gt;</span>
-    assert_failure <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Syntax error: &#34;</span> <span style="color:#f92672">^</span> position lexbuf<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> parse_with_error lexbuf =
+  <span style="font-weight:bold">try</span>
+    <span style="font-weight:bold">Parser</span>.main <span style="font-weight:bold">Lexer</span>.read lexbuf;
+    assert_bool <span style="font-style:italic">&#34;Ok&#34;</span> true
+  <span style="font-weight:bold">with</span>
+  | <span style="font-weight:bold">SyntaxError</span> msg -&gt;
+    assert_failure (position lexbuf ^ <span style="font-style:italic">&#34; : &#34;</span> ^ msg)
+  | <span style="font-weight:bold">Parser</span>.<span style="font-weight:bold">Error</span> -&gt;
+    assert_failure (<span style="font-style:italic">&#34;Syntax error: &#34;</span> ^ position lexbuf)
 
-<span style="color:#66d9ef">let</span> parse filename ch <span style="color:#f92672">=</span>
-  <span style="color:#66d9ef">let</span> lexbuf <span style="color:#f92672">=</span> Lexing.from_channel ch <span style="color:#66d9ef">in</span>
-  lexbuf<span style="color:#f92672">.</span>lex_curr_p <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">{</span>
-    lexbuf<span style="color:#f92672">.</span>lex_curr_p <span style="color:#66d9ef">with</span> pos_fname <span style="color:#f92672">=</span> Filename.basename filename
-  <span style="color:#f92672">};</span>
+<span style="font-weight:bold">let</span> parse filename ch =
+  <span style="font-weight:bold">let</span> lexbuf = <span style="font-weight:bold">Lexing</span>.from_channel ch <span style="font-weight:bold">in</span>
+  lexbuf.lex_curr_p &lt;- {
+    lexbuf.lex_curr_p <span style="font-weight:bold">with</span> pos_fname = <span style="font-weight:bold">Filename</span>.basename filename
+  };
   parse_with_error lexbuf
 </code></pre></div><p>Here is the function that we’re going to call for each <code>.tig</code>
 file:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> run_parser filename <span style="color:#f92672">_</span> <span style="color:#f92672">=</span>
-  In_channel.with_file filename <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span>parse filename<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> run_parser filename _ =
+  <span style="font-weight:bold">In_channel</span>.with_file filename ~f:(parse filename)
 </code></pre></div><p>Finally, the test suite is going to look like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> suite <span style="color:#f92672">=</span>
-  <span style="color:#e6db74">&#34;tiger programs&#34;</span> <span style="color:#f92672">&gt;:::</span>
-  <span style="color:#66d9ef">let</span> tests_dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;../../../book&#34;</span> <span style="color:#f92672">^</span> Filename.dir_sep <span style="color:#f92672">^</span> <span style="color:#e6db74">&#34;testcases&#34;</span> <span style="color:#66d9ef">in</span>
-  <span style="color:#66d9ef">let</span> tests_path <span style="color:#f92672">=</span> Filename.<span style="color:#f92672">(</span>concat parent_dir_name tests_dir<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
-  <span style="color:#66d9ef">let</span> tig_files <span style="color:#f92672">=</span> ls_rec tests_path <span style="color:#66d9ef">in</span>
-  <span style="color:#f92672">(</span>List.map <span style="color:#f92672">~</span>f<span style="color:#f92672">:</span>
-     <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> filename <span style="color:#f92672">-&gt;</span>
-        Filename.basename filename <span style="color:#f92672">&gt;::</span> run_parser filename<span style="color:#f92672">)</span>
-     tig_files<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> suite =
+  <span style="font-style:italic">&#34;tiger programs&#34;</span> &gt;:::
+  <span style="font-weight:bold">let</span> tests_dir = <span style="font-style:italic">&#34;../../../book&#34;</span> ^ <span style="font-weight:bold">Filename</span>.dir_sep ^ <span style="font-style:italic">&#34;testcases&#34;</span> <span style="font-weight:bold">in</span>
+  <span style="font-weight:bold">let</span> tests_path = <span style="font-weight:bold">Filename</span>.(concat parent_dir_name tests_dir) <span style="font-weight:bold">in</span>
+  <span style="font-weight:bold">let</span> tig_files = ls_rec tests_path <span style="font-weight:bold">in</span>
+  (<span style="font-weight:bold">List</span>.map ~f:
+     (<span style="font-weight:bold">fun</span> filename -&gt;
+        <span style="font-weight:bold">Filename</span>.basename filename &gt;:: run_parser filename)
+     tig_files)
 
-<span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+<span style="font-weight:bold">let</span> () =
   run_test_tt_main suite
 </code></pre></div><p>The dune file for our test suite project will simply run the
 <code>testsuite.exe</code> executable:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(executable
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(executable
  (name testsuite)
  (libraries base core ch3 oUnit))
 
 (alias
  (name runtest)
- (action (run <span style="color:#f92672">.</span>/testsuite.exe)))
+ (action (run ./testsuite.exe)))
 </code></pre></div><p>Now it’ll be much easier to work on the parser implementation.
 Also this test suite might be useful to detect possible
 regressions if we want to change the parser in the future.</p>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>Of course, I didn’t come up with this grammar right away. I
 spent almost a week implementing this parser. I started with a
 simple parser for “straightline programs” and iterated on it
@@ -522,17 +579,18 @@ you want to try constructing an invalid expression to check your
 hypothesis. I used this kind of workflow a lot while working on
 this grammar.</p>
 <p>You can run the interpreter like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">menhir --interpret --interpret-show-cst parser.mly
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">menhir --interpret --interpret-show-cst parser.mly
 </code></pre></div><p>Now you can start typing expressions until you find something
 that breaks your parser. Note that you can’t use token aliases
 inside this REPL.</p>
 <p>For example, here is how you can test a function declaration:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">LET FUNCTION ID LPAREN ID COLON ID RPAREN COLON ID EQ IF ID EQ INT THEN INT ELSE INT TIMES ID LPAREN ID MINUS INT RPAREN IN ID LPAREN INT RPAREN END
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">LET FUNCTION ID LPAREN ID COLON ID RPAREN COLON ID EQ IF ID EQ INT THEN INT ELSE INT TIMES ID LPAREN ID MINUS INT RPAREN IN ID LPAREN INT RPAREN END
 </code></pre></div><p>That’s it for now. The full source code for this chapter <a href="https://github.com/vyorkin/tiger/blob/master/chapter3/lib/parser.mly">is
 here</a>. Next time we’re going to work on the AST for our Tiger
 language.</p>
 
       </div>
+
 
       <footer>
         
@@ -540,8 +598,8 @@ language.</p>
 
 
         
-        <div id="commento"></div>
-<script src="https://vyorkin.org/js/commento.js"></script>
+        
+        
       </footer>
     </article>
 
@@ -550,21 +608,44 @@ language.</p>
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-      <p>Vasiliy Yorkin</p>
-    
-     © 2021
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+        2021
+         Vasiliy Yorkin 
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
 
     
+      
+      <script src="https://vyorkin.org/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

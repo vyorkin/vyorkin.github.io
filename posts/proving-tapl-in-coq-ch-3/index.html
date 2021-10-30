@@ -4,10 +4,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
 
     <meta name="author" content="Vasiliy Yorkin">
-    <meta name="description" content="Personal blog of Vasiliy Yorkin">
-    <meta name="keywords" content="functional programming, personal blog, haskell blog, purescript blog, ocaml blog">
+    <meta name="description" content="In order to understand things clearly and to learn Coq proof assistant at the same time, I&rsquo;ve decided to do some proves while reading the TAPL book.
+The code is on the GitHub.
+For the excercises I want to use the ssreflect proof language instead of ltac. I&rsquo;ll keep solutions to each chapter in a separate file. We&rsquo;ll always work in the following context:
+Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive.">
+    <meta name="keywords" content="Vasiliy Yorkin">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Proving TAPL in Coq (ch 3, WIP)"/>
@@ -28,9 +35,6 @@ Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive
 
 
 
-    
-      <base href="https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/">
-    
     <title>
   Proving TAPL in Coq (ch 3, WIP) · vyorkin.org
 </title>
@@ -39,14 +43,12 @@ Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive
       <link rel="canonical" href="https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.fc51578e49ecee08400ecfd5d54ca66d7bd4de25620ff53ddc569a7357245676.css" integrity="sha256-/FFXjkns7ghADs/V1UymbXvU3iViD/U93Faac1ckVnY=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.13fa931069bdca9a3b3787050f7afa5f02c8dfd8900275a396590b432311b980.css" integrity="sha256-E/qTEGm9ypo7N4cFD3r6XwLI39iQAnWjllkLQyMRuYA=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -56,61 +58,82 @@ Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive
     
 
     
-    
+
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.88.1" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="preload-transitions colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://vyorkin.org/">
       vyorkin.org
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
-          </li>
-        
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
-          </li>
-        
-      
-      
-        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
+            </li>
+          
         
         
           
-        
+          
           
             
-              <li class="navigation-item menu-separator">
-                <span>|</span>
-              </li>
+          
+            
               
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">Russian</a>
+              </li>
             
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/ru-ru/">Russian</a>
-            </li>
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">German</a>
+              </li>
+            
           
         
-          
-            
-            <li class="navigation-item">
-              <a href="https://vyorkin.org/de-de/">German</a>
-            </li>
-          
-        
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -121,29 +144,37 @@ Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">Proving TAPL in Coq (ch 3, WIP)</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/">
+              Proving TAPL in Coq (ch 3, WIP)
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2019-12-07T18:23:00&#43;03:00'>
                 December 7, 2019
               </time>
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://vyorkin.org/categories/tapl/">tapl</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
-    <a href="https://vyorkin.org/tags/coq/">coq</a></div>
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/coq/">coq</a>
+    </span></div>
 
         </div>
       </header>
 
       <div>
+        
         <p>In order to understand things clearly and to learn Coq proof
 assistant at the same time, I&rsquo;ve decided to do some proves while
 reading the TAPL book.</p>
@@ -151,51 +182,51 @@ reading the TAPL book.</p>
 <p>For the excercises I want to use the <a href="https://coq.inria.fr/refman/proof-engine/ssreflect-proof-language.html">ssreflect</a> proof language
 instead of <code>ltac</code>. I&rsquo;ll keep solutions to each chapter in a
 separate file. We&rsquo;ll always work in the following context:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Set</span> <span style="color:#f92672">Implicit</span> <span style="color:#f92672">Arguments</span><span style="color:#f92672">.</span>
-<span style="color:#f92672">Unset</span> <span style="color:#f92672">Strict</span> <span style="color:#f92672">Implicit</span><span style="color:#f92672">.</span>
-<span style="color:#f92672">Unset</span> <span style="color:#f92672">Printing</span> <span style="color:#f92672">Implicit</span> Defensive<span style="color:#f92672">.</span>
-From Coq <span style="color:#f92672">Require</span> <span style="color:#f92672">Import</span> ssreflect<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Set</span> <span style="font-weight:bold">Implicit</span> <span style="font-weight:bold">Arguments</span>.
+<span style="font-weight:bold">Unset</span> <span style="font-weight:bold">Strict</span> <span style="font-weight:bold">Implicit</span>.
+<span style="font-weight:bold">Unset</span> <span style="font-weight:bold">Printing</span> <span style="font-weight:bold">Implicit</span> Defensive.
+From Coq <span style="font-weight:bold">Require</span> <span style="font-weight:bold">Import</span> ssreflect.
 </code></pre></div><p>I&rsquo;ll start with the operational semantics of boolean
 expressions. Here is the definition in Coq:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Inductive</span> term <span style="color:#f92672">:</span> <span style="color:#66d9ef">Type</span> <span style="color:#f92672">:=</span>
-<span style="color:#f92672">|</span> T_true
-<span style="color:#f92672">|</span> T_false
-<span style="color:#f92672">|</span> T_cond <span style="color:#f92672">(</span>cond t1 t2 <span style="color:#f92672">:</span> term<span style="color:#f92672">).</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Inductive</span> term : <span style="">Type</span> :=
+| T_true
+| T_false
+| T_cond (cond t1 t2 : term).
 </code></pre></div><p>Let’s introduce a <a href="https://coq.inria.fr/refman/user-extensions/syntax-extensions.html#custom-entries">custom grammar entry</a> for expressiveness.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq">Declare Custom Entry term<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq">Declare Custom Entry term.
 
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;[ e ]&#34;</span> <span style="color:#f92672">:=</span> e <span style="color:#f92672">(</span>e custom term at level 2<span style="color:#f92672">).</span>
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;( x )&#34;</span> <span style="color:#f92672">:=</span> x <span style="color:#f92672">(</span><span style="color:#66d9ef">in</span> custom term<span style="color:#f92672">,</span> x at level 2<span style="color:#f92672">).</span>
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;[ e ]&#34;</span> := e (e custom term at level 2).
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;( x )&#34;</span> := x (<span style="font-weight:bold">in</span> custom term, x at level 2).
 
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;&#39;true&#39;&#34;</span>  <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span>T_true<span style="color:#f92672">)</span>  <span style="color:#f92672">(</span><span style="color:#66d9ef">in</span> custom term at level 0<span style="color:#f92672">).</span>
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;&#39;false&#39;&#34;</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span>T_false<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">in</span> custom term at level 0<span style="color:#f92672">).</span>
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;&#39;true&#39;&#34;</span>  := (T_true)  (<span style="font-weight:bold">in</span> custom term at level 0).
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;&#39;false&#39;&#34;</span> := (T_false) (<span style="font-weight:bold">in</span> custom term at level 0).
 
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;&#39;if&#39; cond &#39;then&#39; t1 &#39;else&#39; t2&#34;</span> <span style="color:#f92672">:=</span>
-  <span style="color:#f92672">(</span>T_cond cond t1 t2<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">in</span> custom term at level 2<span style="color:#f92672">).</span>
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;&#39;if&#39; cond &#39;then&#39; t1 &#39;else&#39; t2&#34;</span> :=
+  (T_cond cond t1 t2) (<span style="font-weight:bold">in</span> custom term at level 2).
 
-<span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;x&#34;</span> <span style="color:#f92672">:=</span> x <span style="color:#f92672">(</span><span style="color:#66d9ef">in</span> custom term at level 0<span style="color:#f92672">,</span> x constr at level 0<span style="color:#f92672">).</span>
+<span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;x&#34;</span> := x (<span style="font-weight:bold">in</span> custom term at level 0, x constr at level 0).
 </code></pre></div><p>We can check that it works as expected:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Check</span> <span style="color:#f92672">[</span> true <span style="color:#f92672">].</span>
-<span style="color:#f92672">Check</span> <span style="color:#66d9ef">fun</span> cond t1 t2 <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> cond <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2 <span style="color:#f92672">].</span>
-<span style="color:#f92672">Unset</span> <span style="color:#f92672">Printing</span> Notations<span style="color:#f92672">.</span>
-<span style="color:#f92672">Check</span> <span style="color:#66d9ef">fun</span> cond t1 t2 <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> cond <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2 <span style="color:#f92672">].</span>
-<span style="color:#f92672">Set</span> <span style="color:#f92672">Printing</span> Notations<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Check</span> [ true ].
+<span style="font-weight:bold">Check</span> <span style="font-weight:bold">fun</span> cond t1 t2 =&gt; [ <span style="font-weight:bold">if</span> cond <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2 ].
+<span style="font-weight:bold">Unset</span> <span style="font-weight:bold">Printing</span> Notations.
+<span style="font-weight:bold">Check</span> <span style="font-weight:bold">fun</span> cond t1 t2 =&gt; [ <span style="font-weight:bold">if</span> cond <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2 ].
+<span style="font-weight:bold">Set</span> <span style="font-weight:bold">Printing</span> Notations.
 </code></pre></div><p>The <code>==&gt;</code> notation represents an evaluation relation on terms: &ldquo;<code>t</code>
 evaluates to <code>t'</code> in one step&rdquo; (as per p.35)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Reserved</span> <span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;t ==&gt; t&#39;&#34;</span> <span style="color:#f92672">(</span>at level 50<span style="color:#f92672">).</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Reserved</span> <span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;t ==&gt; t&#39;&#34;</span> (at level 50).
 </code></pre></div><p>This relation is defined by three inference rules:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Inductive</span> eval_step <span style="color:#f92672">:</span> term <span style="color:#f92672">-&gt;</span> term <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Prop</span> <span style="color:#f92672">:=</span>
-<span style="color:#f92672">|</span> E_IfTrue  <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> t1 t2<span style="color:#f92672">,</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> true  <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2 <span style="color:#f92672">]</span> <span style="color:#f92672">==&gt;</span> t1
-<span style="color:#f92672">|</span> E_IfFalse <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> t1 t2<span style="color:#f92672">,</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> false <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2 <span style="color:#f92672">]</span> <span style="color:#f92672">==&gt;</span> t2
-<span style="color:#f92672">|</span> E_If <span style="color:#f92672">:</span> <span style="color:#66d9ef">forall</span> c c&#39; t1 t2<span style="color:#f92672">,</span> c <span style="color:#f92672">==&gt;</span> c&#39; <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> c <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2<span style="color:#f92672">]</span> <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> c&#39; <span style="color:#66d9ef">then</span> t1 <span style="color:#66d9ef">else</span> t2 <span style="color:#f92672">]</span>
-where <span style="color:#e6db74">&#34;e ==&gt; e&#39;&#34;</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span>eval_step e e&#39;<span style="color:#f92672">).</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Inductive</span> eval_step : term -&gt; term -&gt; <span style="">Prop</span> :=
+| E_IfTrue  : <span style="font-weight:bold">forall</span> t1 t2, [ <span style="font-weight:bold">if</span> true  <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2 ] ==&gt; t1
+| E_IfFalse : <span style="font-weight:bold">forall</span> t1 t2, [ <span style="font-weight:bold">if</span> false <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2 ] ==&gt; t2
+| E_If : <span style="font-weight:bold">forall</span> c c&#39; t1 t2, c ==&gt; c&#39; -&gt; [ <span style="font-weight:bold">if</span> c <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2] ==&gt; [ <span style="font-weight:bold">if</span> c&#39; <span style="font-weight:bold">then</span> t1 <span style="font-weight:bold">else</span> t2 ]
+where <span style="font-style:italic">&#34;e ==&gt; e&#39;&#34;</span> := (eval_step e e&#39;).
 </code></pre></div><p><strong>Definition</strong>: an instance of an inference rule is obtained by
 consistently replace each metavariable by the same term in the
 rule&rsquo;s conclusion and all its premises (if any).</p>
 <p>The example instance of the <code>E_IfTrue</code> rule:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> ex_inst_e_iftrue <span style="color:#f92672">:</span>
-  <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> true <span style="color:#66d9ef">then</span> true <span style="color:#66d9ef">else</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> false <span style="color:#66d9ef">then</span> false <span style="color:#66d9ef">else</span> false<span style="color:#f92672">)</span> <span style="color:#f92672">]</span> <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">[</span> true <span style="color:#f92672">].</span>
-<span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">apply</span><span style="color:#f92672">:</span> E_IfTrue<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Theorem</span> ex_inst_e_iftrue :
+  [ <span style="font-weight:bold">if</span> true <span style="font-weight:bold">then</span> true <span style="font-weight:bold">else</span> (<span style="font-weight:bold">if</span> false <span style="font-weight:bold">then</span> false <span style="font-weight:bold">else</span> false) ] ==&gt; [ true ].
+<span style="font-weight:bold">Proof</span>. <span style="">by</span> <span style="font-weight:bold">apply</span>: E_IfTrue. <span style="font-weight:bold">Qed</span>.
 </code></pre></div><p><strong>Definition</strong>: The one-step evaluation relation <code>==&gt;</code> is the
 smallest binary relation on terms satisfying the three rules in
 <code>eval_step</code>. When the pair <code>(t, t')</code> is in the evaluation
@@ -203,70 +234,76 @@ relation, we say that &ldquo;the evaluation statement (or judgment) <code>t ==&g
 <p>Let&rsquo;s show an example of a derivable evaluation statememt. We&rsquo;ll
 use these 3 abbreviations (they are taken from the book as is):</p>
 <p>The proof is by construction of a derivation &ldquo;tree&rdquo;:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Module</span> Ex_3_5_3<span style="color:#f92672">.</span>
-  <span style="color:#f92672">Definition</span> s <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> true  <span style="color:#66d9ef">then</span> false <span style="color:#66d9ef">else</span> false <span style="color:#f92672">].</span>
-  <span style="color:#f92672">Definition</span> t <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> s     <span style="color:#66d9ef">then</span> true  <span style="color:#66d9ef">else</span> true  <span style="color:#f92672">].</span>
-  <span style="color:#f92672">Definition</span> u <span style="color:#f92672">:=</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> false <span style="color:#66d9ef">then</span> true  <span style="color:#66d9ef">else</span> true  <span style="color:#f92672">].</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Module</span> Ex_3_5_3.
+  <span style="font-weight:bold">Definition</span> s := [ <span style="font-weight:bold">if</span> true  <span style="font-weight:bold">then</span> false <span style="font-weight:bold">else</span> false ].
+  <span style="font-weight:bold">Definition</span> t := [ <span style="font-weight:bold">if</span> s     <span style="font-weight:bold">then</span> true  <span style="font-weight:bold">else</span> true  ].
+  <span style="font-weight:bold">Definition</span> u := [ <span style="font-weight:bold">if</span> false <span style="font-weight:bold">then</span> true  <span style="font-weight:bold">else</span> true  ].
 
-  <span style="color:#f92672">Theorem</span> ex <span style="color:#f92672">:</span>
-    <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> t <span style="color:#66d9ef">then</span> false <span style="color:#66d9ef">else</span> false <span style="color:#f92672">]</span> <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">[</span> <span style="color:#66d9ef">if</span> u <span style="color:#66d9ef">then</span> false <span style="color:#66d9ef">else</span> false <span style="color:#f92672">].</span>
-  <span style="color:#f92672">Proof</span><span style="color:#f92672">.</span>
-    <span style="color:#66d9ef">apply</span><span style="color:#f92672">:</span> E_If<span style="color:#f92672">.</span>
-    <span style="color:#75715e">(*                             t ==&gt; u
-</span><span style="color:#75715e">       [ if s then true else true  ] ==&gt; [ if false then true else true  ] *)</span>
-    <span style="color:#66d9ef">apply</span><span style="color:#f92672">:</span> E_If<span style="color:#f92672">.</span>
-    <span style="color:#75715e">(*                                 s ==&gt; [ false ]
-</span><span style="color:#75715e">       [ if true then false else false ] ==&gt; [ false ] *)</span>
-    <span style="color:#66d9ef">exact</span><span style="color:#f92672">:</span> E_IfTrue<span style="color:#f92672">.</span>
+  <span style="font-weight:bold">Theorem</span> ex :
+    [ <span style="font-weight:bold">if</span> t <span style="font-weight:bold">then</span> false <span style="font-weight:bold">else</span> false ] ==&gt; [ <span style="font-weight:bold">if</span> u <span style="font-weight:bold">then</span> false <span style="font-weight:bold">else</span> false ].
+  <span style="font-weight:bold">Proof</span>.
+    <span style="font-weight:bold">apply</span>: E_If.
+    <span style="font-style:italic">(*                             t ==&gt; u
+</span><span style="font-style:italic">       [ if s then true else true  ] ==&gt; [ if false then true else true  ] *)</span>
+    <span style="font-weight:bold">apply</span>: E_If.
+    <span style="font-style:italic">(*                                 s ==&gt; [ false ]
+</span><span style="font-style:italic">       [ if true then false else false ] ==&gt; [ false ] *)</span>
+    <span style="">exact</span>: E_IfTrue.
 
-    Restart<span style="color:#f92672">.</span>
+    Restart.
 
-    <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">do</span> 2<span style="color:#f92672">!</span> <span style="color:#66d9ef">apply</span><span style="color:#f92672">:</span> E_If<span style="color:#f92672">;</span> <span style="color:#66d9ef">exact</span><span style="color:#f92672">:</span> E_IfTrue<span style="color:#f92672">.</span>
-  <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
-<span style="color:#f92672">End</span> Ex_3_5_3<span style="color:#f92672">.</span>
+    <span style="">by</span> <span style="font-weight:bold">do</span> 2! <span style="font-weight:bold">apply</span>: E_If; <span style="">exact</span>: E_IfTrue.
+  <span style="font-weight:bold">Qed</span>.
+<span style="font-weight:bold">End</span> Ex_3_5_3.
 </code></pre></div><p><strong>Theorem</strong> [Determinacy of one-step evaluation]:
 if <code>t ==&gt; t'</code> and <code>t ==&gt; t''</code>, then <code>t' = t''</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> eval_step_is_det <span style="color:#f92672">:</span>
-  <span style="color:#66d9ef">forall</span> t t&#39; t&#39;&#39; <span style="color:#f92672">:</span> term<span style="color:#f92672">,</span>
-    <span style="color:#f92672">(</span>t <span style="color:#f92672">==&gt;</span> t&#39;<span style="color:#f92672">)</span> <span style="color:#f92672">/\</span> <span style="color:#f92672">(</span>t <span style="color:#f92672">==&gt;</span> t&#39;&#39;<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> t&#39; <span style="color:#f92672">=</span> t&#39;&#39;<span style="color:#f92672">.</span>
-  <span style="color:#f92672">Proof</span><span style="color:#f92672">.</span>
-  <span style="color:#75715e">(* I haven’t came up with a proof yet *)</span>
-  Abort<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Theorem</span> eval_step_is_det :
+  <span style="font-weight:bold">forall</span> t t&#39; t&#39;&#39; : term,
+    (t ==&gt; t&#39;) /\ (t ==&gt; t&#39;&#39;) -&gt; t&#39; = t&#39;&#39;.
+  <span style="font-weight:bold">Proof</span>.
+  <span style="font-style:italic">(* I haven’t came up with a proof yet *)</span>
+  Abort.
 </code></pre></div><p>It would be much easier to define the one-step evaluation as a
 function instead:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Fixpoint</span> one_step <span style="color:#f92672">(</span>t <span style="color:#f92672">:</span> term<span style="color:#f92672">)</span> <span style="color:#f92672">:</span> term <span style="color:#f92672">:=</span>
-<span style="color:#66d9ef">match</span> t <span style="color:#66d9ef">with</span>
-<span style="color:#f92672">|</span> T_cond T_true t1 t2 <span style="color:#f92672">=&gt;</span> t1
-<span style="color:#f92672">|</span> T_cond T_false t1 t2 <span style="color:#f92672">=&gt;</span> t2
-<span style="color:#f92672">|</span> T_cond cond t1 t2 <span style="color:#f92672">=&gt;</span> T_cond <span style="color:#f92672">(</span>one_step cond<span style="color:#f92672">)</span> t1 t2
-<span style="color:#f92672">|</span> t <span style="color:#f92672">=&gt;</span> t
-<span style="color:#66d9ef">end</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Fixpoint</span> one_step (t : term) : term :=
+<span style="font-weight:bold">match</span> t <span style="font-weight:bold">with</span>
+| T_cond T_true t1 t2 =&gt; t1
+| T_cond T_false t1 t2 =&gt; t2
+| T_cond cond t1 t2 =&gt; T_cond (one_step cond) t1 t2
+| t =&gt; t
+<span style="font-weight:bold">end</span>.
 </code></pre></div><p>A separate notation for our fixpoint-definition:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Notation</span> <span style="color:#e6db74">&#34;t ==&gt;&gt; t&#39;&#34;</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span>one_step t <span style="color:#f92672">=</span> t&#39;<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>at level 50<span style="color:#f92672">).</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Notation</span> <span style="font-style:italic">&#34;t ==&gt;&gt; t&#39;&#34;</span> := (one_step t = t&#39;) (at level 50).
 </code></pre></div><p>Now, it is much simplier to proove it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> one_step_is_det t t&#39; t&#39;&#39;<span style="color:#f92672">:</span>
-  t <span style="color:#f92672">==&gt;&gt;</span> t&#39; <span style="color:#f92672">/\</span> t <span style="color:#f92672">==&gt;&gt;</span> t&#39;&#39; <span style="color:#f92672">-&gt;</span> t&#39; <span style="color:#f92672">=</span> t&#39;&#39;<span style="color:#f92672">.</span>
-<span style="color:#f92672">Proof</span><span style="color:#f92672">.</span>
-  <span style="color:#66d9ef">move</span><span style="color:#f92672">=&gt;</span> [] H1 H2<span style="color:#f92672">.</span>
-  <span style="color:#66d9ef">rewrite</span> <span style="color:#f92672">-</span>H1 <span style="color:#f92672">-</span>H2<span style="color:#f92672">.</span>
-  <span style="color:#66d9ef">done</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Theorem</span> one_step_is_det t t&#39; t&#39;&#39;:
+  t ==&gt;&gt; t&#39; /\ t ==&gt;&gt; t&#39;&#39; -&gt; t&#39; = t&#39;&#39;.
+<span style="font-weight:bold">Proof</span>.
+  <span style="font-weight:bold">move</span>=&gt; [] H1 H2.
+  <span style="font-weight:bold">rewrite</span> -H1 -H2.
+  <span style="">done</span>.
 
-  Restart<span style="color:#f92672">.</span>
+  Restart.
 
-  <span style="color:#75715e">(* Idiomatic proof *)</span>
-  <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">move</span><span style="color:#f92672">=&gt;</span> [] <span style="color:#f92672">-&gt;.</span>
-<span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
+  <span style="font-style:italic">(* Idiomatic proof *)</span>
+  <span style="">by</span> <span style="font-weight:bold">move</span>=&gt; [] -&gt;.
+<span style="font-weight:bold">Qed</span>.
 </code></pre></div><p>Let’s define a notion of the “normal form”.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Definition</span> nf t <span style="color:#f92672">:=</span> t <span style="color:#f92672">==&gt;&gt;</span> t<span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Definition</span> nf t := t ==&gt;&gt; t.
 </code></pre></div><p><strong>Theorem 3.5.7</strong>: Every value is in normal form.</p>
 <p>The proof is trivial:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="color:#f92672">Theorem</span> vnf <span style="color:#f92672">:</span> nf <span style="color:#f92672">[[</span> true <span style="color:#f92672">]]</span> <span style="color:#f92672">/\</span> nf <span style="color:#f92672">[[</span> false <span style="color:#f92672">]].</span>
-<span style="color:#f92672">Proof</span><span style="color:#f92672">.</span> <span style="color:#66d9ef">by</span> []<span style="color:#f92672">.</span> <span style="color:#f92672">Qed</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-coq" data-lang="coq"><span style="font-weight:bold">Theorem</span> vnf : nf [[ true ]] /\ nf [[ false ]].
+<span style="font-weight:bold">Proof</span>. <span style="">by</span> []. <span style="font-weight:bold">Qed</span>.
 </code></pre></div><p><strong>Theorem 3.5.8</strong>: If <code>t</code> is in normal form, then <code>t</code> is a value.</p>
-<h2 id="summary">Summary</h2>
+<h2 id="summary">
+  Summary
+  <a class="heading-link" href="#summary">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>TODO</p>
 
       </div>
+
 
       <footer>
         
@@ -274,8 +311,8 @@ function instead:</p>
 
 
         
-        <div id="commento"></div>
-<script src="https://vyorkin.org/js/commento.js"></script>
+        
+        
       </footer>
     </article>
 
@@ -284,21 +321,44 @@ function instead:</p>
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-      <p>Vasiliy Yorkin</p>
-    
-     © 2021
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+        2021
+         Vasiliy Yorkin 
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
 
     
+      
+      <script src="https://vyorkin.org/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

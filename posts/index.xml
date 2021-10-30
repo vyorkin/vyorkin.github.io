@@ -60,5 +60,14 @@ Stack    A stack is a region of memory that grows downward and shrinks upward (l
       <description>Recently I&amp;rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&amp;rsquo;ve picked it up because I&amp;rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://vyorkin.org/posts/posts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://vyorkin.org/posts/posts/</guid>
+      <description>Making of Tiger    DONEMaking of Tiger #1, Intro    Recently I&amp;rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&amp;rsquo;ve picked it up because I&amp;rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies.</description>
+    </item>
+    
   </channel>
 </rss>

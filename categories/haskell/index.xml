@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>haskell on vyorkin.org</title>
+    <link>https://vyorkin.org/categories/haskell/</link>
+    <description>Recent content in haskell on vyorkin.org</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Aug 2019 00:26:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/haskell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes on parallel &amp; concurrent programming in Haskell</title>
+      <link>https://vyorkin.org/posts/notes-on-parallel-and-concurrent-programming-in-haskell/</link>
+      <pubDate>Fri, 23 Aug 2019 00:26:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/notes-on-parallel-and-concurrent-programming-in-haskell/</guid>
+      <description>\begin{equation} \label{eq:1} C = W\log_{2} (1+\mathrm{SNR}) \end{equation}
+See: http://www.jmilne.org/not/Mamscd.pdf
+\(\require{AMScd}\)
+\begin{CD} K(X) @&amp;gt;{ch}&amp;raquo; H(X;\mathbb Q);\\\
+@VVV @VVV \\\
+K(Y) @&amp;gt;{ch}&amp;raquo; H(Y;\mathbb Q); \end{CD}</description>
+    </item>
+    
+    <item>
+      <title>Writing a simple trading bot in Haskell</title>
+      <link>https://vyorkin.org/posts/writing-a-simple-trading-bot-in-haskell/</link>
+      <pubDate>Fri, 23 Aug 2019 00:23:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/writing-a-simple-trading-bot-in-haskell/</guid>
+      <description>LaTeX formatted equation: \( E = -J \sum_{i=1}^N s_i s_{i+1} \)</description>
+    </item>
+    
+    <item>
+      <title>Building a toy Ethereum-like VM in Haskell</title>
+      <link>https://vyorkin.org/posts/building-a-toy-ethereum-like-vm-in-haskell/</link>
+      <pubDate>Fri, 23 Aug 2019 00:18:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/building-a-toy-ethereum-like-vm-in-haskell/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

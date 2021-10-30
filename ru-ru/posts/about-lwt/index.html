@@ -51,7 +51,7 @@
     
       
       
-      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.13fa931069bdca9a3b3787050f7afa5f02c8dfd8900275a396590b432311b980.css" integrity="sha256-E/qTEGm9ypo7N4cFD3r6XwLI39iQAnWjllkLQyMRuYA=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css" integrity="sha256-cIaG&#43;KuBdukdRPy&#43;SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -161,6 +161,10 @@
                 December 3, 2019
               </time>
             </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              5-minute read
+            </span>
           </div>
           
           <div class="categories">
@@ -237,19 +241,19 @@
   </a>
 </h3>
 <p>Вот как выглядит тип, описывающий состояния:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">type</span> <span style="font-weight:bold">&#39;</span>a state =
-  | <span style="font-weight:bold">Return</span> <span style="font-weight:bold">of</span> <span style="font-weight:bold">&#39;</span>a
-  | <span style="font-weight:bold">Fail</span> <span style="font-weight:bold">of</span> exn
-  | <span style="font-weight:bold">Sleep</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">&#39;</span>a state <span style="color:#f92672">=</span>
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Return</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">&#39;</span>a
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Fail</span> <span style="color:#66d9ef">of</span> exn
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Sleep</span>
 </code></pre></div><p>Lwt предоставляет несколько полезных ф-ций:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> return : <span style="font-weight:bold">&#39;</span>a -&gt; <span style="font-weight:bold">&#39;</span>a <span style="font-weight:bold">Ltw</span>.t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> return <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a Ltw.t
 </code></pre></div><p>Понятно, что эта ф-ция тривиально упаковывает уже известно
 значение в промис. Соответственно, этот промис сразу находится в
 состоянии <code>Return</code> (resolved).</p>
 <p>Значения, упакованные в <code>Lwt.t</code>, не могут быть просто извлечены
 (т.к. вычисление может быть ещё не завершено). Для этого мы
 должны использовать оператор <code>bind</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> (&gt;&gt;=): <span style="font-weight:bold">&#39;</span>a <span style="font-weight:bold">Lwt</span>.t -&gt; (<span style="font-weight:bold">&#39;</span>a -&gt; <span style="font-weight:bold">&#39;</span>b <span style="font-weight:bold">Lwt</span>.t) -&gt; <span style="font-weight:bold">&#39;</span>b <span style="font-weight:bold">Lwt</span>.t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> <span style="color:#f92672">(&gt;&gt;=):</span> <span style="color:#66d9ef">&#39;</span>a Lwt.t <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>b Lwt.t
 </code></pre></div><p>Такая конструкция позволяет нам делать композицию промисов в
 “монадическом” стиле.</p>
 <p><code>f &gt;&gt;= g</code> создаст нам промис, который ждёт пока завершится
@@ -260,13 +264,13 @@
 Соответственно, если <code>f</code> завершится с ошибкой, то и <code>f &gt;&gt;= g</code>
 завершится с той же самой ошибкой.</p>
 <p>Несколько других полезных ф-ций:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> join : <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t <span style="">list</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> join <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> Lwt.t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
 </code></pre></div><p><code>join</code> получает список потоков и ожидает пока они все
 завершатся. Если хотя бы один из них завершится с ошибкой
 (перейдёт в состояние rejected), то и результирующий поток
 завершится с той же ошибкой (после того, как все остальные
 потоки завершат свои вычисления).</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> choose : <span style="font-weight:bold">&#39;</span>a t <span style="">list</span> -&gt; <span style="font-weight:bold">&#39;</span>a t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> choose <span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a t <span style="color:#66d9ef">list</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">&#39;</span>a t
 </code></pre></div><p><code>choose</code> ждёт пока выполнится хотя бы один поток. Если таких
 оказалось несколько, то в качестве результата выбирается один из
 них cлучайным образом.</p>
@@ -278,10 +282,10 @@
   </a>
 </h3>
 <p>У нас есть следующий синтаксический сахар:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span>%lwt i = f () <span style="font-weight:bold">in</span>
-...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt i <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
+<span style="color:#f92672">...</span>
 </code></pre></div><p>Что эквивалентно следующему фрагменту:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">Lwt</span>.bind (f ()) (<span style="font-weight:bold">fun</span> i -&gt; ...)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">Lwt.bind <span style="color:#f92672">(</span>f ()<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> i <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">...)</span>
 </code></pre></div><h3 id="примеры">
   Примеры
   <a class="heading-link" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">
@@ -291,23 +295,23 @@
 <p><em>Следующие примеры я взял из официального туториала</em></p>
 <p>Чтение из STDIN без Lwt, выполнение блокируется пока не
 поступит пользовательский ввод:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
-  <span style="font-weight:bold">let</span> line : <span style="">string</span> = <span style="font-weight:bold">Pervasives</span>.read_line () <span style="font-weight:bold">in</span>
-  print_endline <span style="font-style:italic">&#34;Now unblocked!&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Pervasives.read_line () <span style="color:#66d9ef">in</span>
+  print_endline <span style="color:#e6db74">&#34;Now unblocked!&#34;</span><span style="color:#f92672">;</span>
   ignore line
 </code></pre></div><p>С промисами Lwt выполнение продолжается:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
-  <span style="font-weight:bold">let</span> line_promise : <span style="">string</span> <span style="font-weight:bold">Lwt</span>.t = <span style="font-weight:bold">Lwt_io</span>.(read_line stdin) <span style="font-weight:bold">in</span>
-  print_endline <span style="font-style:italic">&#34;Execution just continues...&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+  print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
   ignore line_promise
 </code></pre></div><p>В данном случае, это не совсем то, что нам нужно, т.к. программа
 сразу завершает работу, так и не дождавшись пользовательского
 ввода. Чтобы заблокироваться и подождать пока промис выполнится,
 мы можем использовать ф-цию <code>Lwt_main.run</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> () =
-  <span style="font-weight:bold">let</span> line_promise : <span style="">string</span> <span style="font-weight:bold">Lwt</span>.t = <span style="font-weight:bold">Lwt_io</span>.(read_line stdin) <span style="font-weight:bold">in</span>
-  print_endline <span style="font-style:italic">&#34;Execution just continues...&#34;</span>;
-  <span style="font-weight:bold">let</span> line : <span style="">string</span> = <span style="font-weight:bold">Lwt_main</span>.run line_promise <span style="font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">let</span> line_promise <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> Lwt.t <span style="color:#f92672">=</span> Lwt_io.<span style="color:#f92672">(</span>read_line stdin<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+  print_endline <span style="color:#e6db74">&#34;Execution just continues...&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">let</span> line <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> Lwt_main.run line_promise <span style="color:#66d9ef">in</span>
   ignore line
 </code></pre></div><p><code>Lwt_main.run</code> используется только 1 раз, чтобы подожать пока
 завершится промис самого верхнего уровня. Когда этот промис
@@ -322,45 +326,45 @@
 туториала, тк я слишком ленивый, чтобы придумывать их самому.</p>
 <p>Пример функции, которая печатает “tic” каждую секунду, не
 блокируя другие “потоки”:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> tic () =
-  print_endline <span style="font-style:italic">&#34;tic&#34;</span>;
-  <span style="font-weight:bold">let</span>%lwt () = <span style="font-weight:bold">Lwt_unix</span>.sleep 1.0 <span style="font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> tic () <span style="color:#f92672">=</span>
+  print_endline <span style="color:#e6db74">&#34;tic&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> Lwt_unix.sleep 1<span style="color:#f92672">.</span>0 <span style="color:#66d9ef">in</span>
   tic ()
 </code></pre></div><p>Пример запуска нескольких “потоков” и ожидание их результатов.</p>
 <p>Допустим у нас есть пара ф-ций <code>f</code> и <code>g</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">val</span> f : <span style="">unit</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
-<span style="font-weight:bold">val</span> g : <span style="">unit</span> -&gt; <span style="">unit</span> <span style="font-weight:bold">Lwt</span>.t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">val</span> f <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
+<span style="color:#66d9ef">val</span> g <span style="color:#f92672">:</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> Lwt.t
 </code></pre></div><p>Следующий код запустит их вычисления последовательно:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span>%lwt () = f () <span style="font-weight:bold">in</span>
-<span style="font-weight:bold">let</span>%lwt () = g () <span style="font-weight:bold">in</span>
-...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
+<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
+<span style="color:#f92672">...</span>
 </code></pre></div><p>А вот так мы можем запустить обе ф-ции конкурентно и сразу же
 подождать их завершения:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> p1 = f () <span style="font-weight:bold">in</span>
-<span style="font-weight:bold">let</span> p2 = g () <span style="font-weight:bold">in</span>
-<span style="font-weight:bold">let</span>%lwt () = p1 <span style="font-weight:bold">in</span>
-<span style="font-weight:bold">let</span>%lwt () = p2 <span style="font-weight:bold">in</span>
-...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> p1 <span style="color:#f92672">=</span> f () <span style="color:#66d9ef">in</span>
+<span style="color:#66d9ef">let</span> p2 <span style="color:#f92672">=</span> g () <span style="color:#66d9ef">in</span>
+<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p1 <span style="color:#66d9ef">in</span>
+<span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt () <span style="color:#f92672">=</span> p2 <span style="color:#66d9ef">in</span>
+<span style="color:#f92672">...</span>
 </code></pre></div><p>Пример ф-ции, которая выполняет все вычисления из списка
 конкрурентно:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> map f l =
-  <span style="font-weight:bold">match</span> l <span style="font-weight:bold">with</span>
-  | [] -&gt; <span style="font-weight:bold">Lwt</span>.return []
-  | v :: r -&gt;
-      <span style="font-weight:bold">let</span> t = f v <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">let</span> rt = map f r <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">let</span>%lwt v&#39; = t <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">let</span>%lwt l&#39; = rt <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">Lwt</span>.return (v&#39; :: l&#39;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map f l <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
+  <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> Lwt.return []
+  <span style="color:#f92672">|</span> v <span style="color:#f92672">::</span> r <span style="color:#f92672">-&gt;</span>
+      <span style="color:#66d9ef">let</span> t <span style="color:#f92672">=</span> f v <span style="color:#66d9ef">in</span>
+      <span style="color:#66d9ef">let</span> rt <span style="color:#f92672">=</span> map f r <span style="color:#66d9ef">in</span>
+      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt v&#39; <span style="color:#f92672">=</span> t <span style="color:#66d9ef">in</span>
+      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt l&#39; <span style="color:#f92672">=</span> rt <span style="color:#66d9ef">in</span>
+      Lwt.return <span style="color:#f92672">(</span>v&#39; <span style="color:#f92672">::</span> l&#39;<span style="color:#f92672">)</span>
 </code></pre></div><p>Следующая ф-ция наоборот, ожидает пока выполнится каждое
 предыдущее вычисление из списка, прежде чем запустить следующее:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="font-weight:bold">let</span> <span style="font-weight:bold">rec</span> map_serial f l =
-  <span style="font-weight:bold">match</span> l <span style="font-weight:bold">with</span>
-  | [] -&gt; return []
-  | v :: r -&gt;
-      <span style="font-weight:bold">let</span>%lwt v&#39; = f v <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">let</span>%lwt l&#39; = map_serial f r <span style="font-weight:bold">in</span>
-      <span style="font-weight:bold">Lwt</span>.return (v&#39; :: l&#39;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map_serial f l <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">match</span> l <span style="color:#66d9ef">with</span>
+  <span style="color:#f92672">|</span> [] <span style="color:#f92672">-&gt;</span> return []
+  <span style="color:#f92672">|</span> v <span style="color:#f92672">::</span> r <span style="color:#f92672">-&gt;</span>
+      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt v&#39; <span style="color:#f92672">=</span> f v <span style="color:#66d9ef">in</span>
+      <span style="color:#66d9ef">let</span><span style="color:#f92672">%</span>lwt l&#39; <span style="color:#f92672">=</span> map_serial f r <span style="color:#66d9ef">in</span>
+      Lwt.return <span style="color:#f92672">(</span>v&#39; <span style="color:#f92672">::</span> l&#39;<span style="color:#f92672">)</span>
 </code></pre></div><p>Конечно, это только самые “вершки” Lwt.</p>
 <h2 id="полезные-ссылки">
   Полезные ссылки
@@ -385,14 +389,48 @@
         
 
 
-
-        
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "vyorkin" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
       </footer>
     </article>
 
-    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
   </section>
 
       </div>

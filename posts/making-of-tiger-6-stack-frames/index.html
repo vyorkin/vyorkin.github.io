@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="author" content="Vasiliy Yorkin">
-    <meta name="description" content="Blog of Vasiliy Y., a software engineer and functional programming enthusiast.">
-    <meta name="keywords" content="functional programming, haskell, purescript, ocaml, coq, nix, dhall, emacs">
+    <meta name="description" content="Personal blog of Vasiliy Yorkin">
+    <meta name="keywords" content="functional programming, personal blog, haskell blog, purescript blog, ocaml blog">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Making of Tiger #6, Stack frames"/>
@@ -18,9 +18,10 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
 <meta property="og:description" content="Intro In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
 Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat stack as a big array, with a special register &ndash; the stack pointer (SP)." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/" />
+<meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-08-27T13:00:00+03:00" />
 <meta property="article:modified_time" content="2019-08-27T13:00:00+03:00" />
+
 
 
     
@@ -55,7 +56,7 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.70.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
   </head>
 
   <body class=" ">
@@ -76,10 +77,6 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
         
           <li class="navigation-item">
             <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
-          </li>
-        
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://vyorkin.org/projects/">Projects</a>
           </li>
         
       
@@ -182,7 +179,7 @@ of the current function)</li>
 record</strong>. Stack frame layout depends on the <a href="https://en.wikipedia.org/wiki/Instruction%5Fset%5Farchitecture">ISA</a> and the
 programming language being compiled.</p>
 <p>Here is a typical stack frame layout:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:    :             (higher addresses)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">:    :             (higher addresses)
 :    :             previous frame
 | i1 | [FP+8]      (2-nd argument)
 | i2 | [FP+4]      (1-st argument)
@@ -306,7 +303,7 @@ enclosing the current one</li>
 </ul>
 <p>Static links are stored in stack frames.</p>
 <p>Example of program with nested functions in Tiger.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90"><span style="color:#66d9ef">type </span>tree <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">{</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-F90" data-lang="F90"><span style="color:#66d9ef">type </span>tree <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">{</span>
   key: string,
   left: tree,
   right: tree
@@ -341,14 +338,14 @@ enclosing the current one</li>
     output
   <span style="color:#66d9ef">end</span>
 </code></pre></div><ul>
-<li><strong>1</strong>: <code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>'s own
-frame pointer (FP) as <code>show</code>'s static link (SL)</li>
+<li><strong>1</strong>: <code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>&rsquo;s own
+frame pointer (FP) as <code>show</code>&rsquo;s static link (SL)</li>
 <li><strong>2</strong>: <code>show</code> stores its static link (SL) into its own stack frame</li>
-<li><strong>3</strong>: <code>show</code> calls <code>indent</code>, passing its own frame pointer (FP) as <code>indent</code>'s
+<li><strong>3</strong>: <code>show</code> calls <code>indent</code>, passing its own frame pointer (FP) as <code>indent</code>&rsquo;s
 SL</li>
 <li><strong>4</strong>: <code>show</code> calls <code>show</code>, passing its own static link as
 SL</li>
-<li><strong>5</strong>: <code>indent</code> uses the value <code>n</code> from <code>show</code>'s frame, it can
+<li><strong>5</strong>: <code>indent</code> uses the value <code>n</code> from <code>show</code>&rsquo;s frame, it can
 find <code>n</code> by using the SL (which points at the stack frame of <code>show</code>)</li>
 </ul>
 <p>Each call requires a one or more fetches using static links to resolve
@@ -493,7 +490,7 @@ conventions (Wikipedia)</a></li>
 conventions (OS Dev)</a></li>
 </ul>
 <p>Here is our interface for a stack frame:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Holds information about formal parameters and
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Holds information about formal parameters and
 </span><span style="color:#75715e">    local variables allocated in this frame *)</span>
 <span style="color:#66d9ef">type</span> t <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 
@@ -525,7 +522,7 @@ that escapes and <code>false</code> for each that doesn&rsquo;t</li>
 </ul>
 <p>The stack frame should contain information about formal
 parameters and local variables allocated:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
   <span style="color:#75715e">(* label at which the function&#39;s machine code begins *)</span>
   label<span style="color:#f92672">:</span> Temp.label<span style="color:#f92672">;</span>
   <span style="color:#75715e">(* locations of all the formals *)</span>
@@ -537,11 +534,11 @@ parameters and local variables allocated:</p>
 <span style="color:#f92672">}</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 </code></pre></div><p>We don&rsquo;t want to implement the <a href="#view-shift">view shift</a> right now, so the
 <code>Instruction.t</code> is defined like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 </code></pre></div><h3 id="abi">ABI</h3>
 <p>Lets add some constants for System V ADM64 ABI to the <code>Frame</code>
 module. We&rsquo;ll need them later.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(* word size in bytes *)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(* word size in bytes *)</span>
 <span style="color:#66d9ef">let</span> word_size <span style="color:#f92672">=</span> 64 <span style="color:#f92672">/</span> 8 <span style="color:#75715e">(* = 8 bytes *)</span>
 
 <span style="color:#75715e">(* special registers *)</span>
@@ -575,14 +572,14 @@ module. We&rsquo;ll need them later.</p>
 <p>The <code>access</code> data type describes location of a formal parameter
 or a local variable that may be placed in a frame or in a
 register:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> access <span style="color:#f92672">=</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> access <span style="color:#f92672">=</span>
    <span style="color:#75715e">(* memory location at the specific offset from the frame pointer *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">InFrame</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">int</span>
   <span style="color:#75715e">(* register location *)</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">InReg</span> <span style="color:#66d9ef">of</span> Temp.t
   <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 </code></pre></div><p>The rest of the <code>Frame</code> module implementation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(* creates a new location for a formal parameter or
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(* creates a new location for a formal parameter or
 </span><span style="color:#75715e">   a local variable, given its index and [esc] flag *)</span>
 <span style="color:#66d9ef">let</span> mk_access i <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>
   <span style="color:#f92672">|</span> true <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">InFrame</span> <span style="color:#f92672">((</span>i <span style="color:#f92672">+</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> <span style="color:#f92672">(-</span>word_size<span style="color:#f92672">))</span> <span style="color:#75715e">(* escapes - alloc in frame *)</span>
@@ -636,7 +633,7 @@ name for a static machine-language location whose exact
 address is yet to be determined</li>
 </ul>
 <p>The <code>Temp</code> module manages these two distinct sets of names:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Abstract name for a local variable that
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Abstract name for a local variable that
 </span><span style="color:#75715e">    is temporarily held in a register *)</span>
 <span style="color:#66d9ef">type</span> t <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 
@@ -651,7 +648,7 @@ address is yet to be determined</li>
 </span><span style="color:#75715e">    the given string (if given), otherwise it is generated. *)</span>
 <span style="color:#66d9ef">val</span> mk_label <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> option <span style="color:#f92672">-&gt;</span> label
 </code></pre></div><p>The implementation is trivial:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">S</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">S</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>
 
 <span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 <span style="color:#66d9ef">type</span> label <span style="color:#f92672">=</span> Symbol.t <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
@@ -697,7 +694,7 @@ it as one by adding another <code>true</code> value at the front the list
 of booleans representing formal parameters. It means that for
 some function <code>f(x,y)</code> (assuming neigher <code>x</code> nor <code>y</code> escapes)
 we&rsquo;ll have the following list:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">[</span>true<span style="color:#f92672">;</span> false<span style="color:#f92672">;</span> false<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">[</span>true<span style="color:#f92672">;</span> false<span style="color:#f92672">;</span> false<span style="color:#f92672">]</span>
 </code></pre></div><p>Notice the extra <code>true</code> at the beginning.</p>
 <h3 id="translate-module">Translate module</h3>
 <p>The <code>Translate</code> module handles the notion of nested scopes (via
@@ -707,7 +704,7 @@ unweildy module that does both: type checking and semantic
 translation.</p>
 <p>Ok, I think at this point we are ready to write some initial
 implementation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> expr <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> expr <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span>
 
 <span style="color:#75715e">(** Represents a nesting level *)</span>
 <span style="color:#66d9ef">type</span> level
@@ -731,7 +728,7 @@ implementation:</p>
 <span style="color:#66d9ef">val</span> alloc_local <span style="color:#f92672">:</span> level <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">bool</span> <span style="color:#f92672">-&gt;</span> access
 </code></pre></div><p>We don&rsquo;t know yet what the <code>expr</code> will be, thats why it is a
 type alias for <code>unit</code>. And here is the basic implementation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> expr <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> expr <span style="color:#f92672">=</span> <span style="color:#66d9ef">unit</span> <span style="color:#f92672">[@@</span>deriving show<span style="color:#f92672">]</span>
 
 <span style="color:#66d9ef">type</span> level <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
   parent<span style="color:#f92672">:</span> level option<span style="color:#f92672">;</span>
@@ -767,7 +764,7 @@ is there to represent a static link.</p>
 in the <code>FunEntry</code>. Also we need to update the <code>VarEntry</code> to
 include the <code>Translate.access</code>.</p>
 <p>Here is how our updated <code>Env</code> module looks like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Type</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Type</span>
 <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Table</span> <span style="color:#f92672">=</span> Symbol.<span style="color:#a6e22e">Table</span>
 
 <span style="color:#66d9ef">type</span> access
@@ -801,7 +798,7 @@ include the <code>Translate.access</code>.</p>
 which should be allocated in the frame we&rsquo;ll have a special
 module named <code>Escape</code>.</p>
 <p>Here its interface in OCaml:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Depth (nesting level) of the function that
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#75715e">(** Depth (nesting level) of the function that
 </span><span style="color:#75715e">    contains the variable declaration *)</span>
 <span style="color:#66d9ef">type</span> depth
 
@@ -872,7 +869,7 @@ it&rsquo;s work.</p>
     
       <p>Vasiliy Yorkin</p>
     
-     © 2020
+     © 2021
     
     
   </section>

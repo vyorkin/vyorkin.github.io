@@ -6,11 +6,7 @@
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 07 Dec 2019 10:46:00 +0300</lastBuildDate>
-    
-	<atom:link href="https://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 07 Dec 2019 10:46:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Заметки про типы в Coq (WIP)</title>
       <link>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</link>

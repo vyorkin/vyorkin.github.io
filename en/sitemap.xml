@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://vyorkin.org/categories/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
@@ -20,14 +19,10 @@
                 hreflang="en"
                 href="https://vyorkin.org/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/coq/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
     <xhtml:link
@@ -40,14 +35,10 @@
                 hreflang="en"
                 href="https://vyorkin.org/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
     <xhtml:link
@@ -65,14 +56,10 @@
                 hreflang="en"
                 href="https://vyorkin.org/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/categories/tapl/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/</loc>
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
     <xhtml:link
@@ -90,29 +77,19 @@
                 hreflang="en"
                 href="https://vyorkin.org/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/compilers/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/categories/compilers/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-3-parsing/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/menhir/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/ocaml/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
     <xhtml:link
@@ -125,44 +102,28 @@
                 hreflang="en"
                 href="https://vyorkin.org/tags/ocaml/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/parsing/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/tiger/</loc>
     <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/lexing/</loc>
     <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-2-lexical-analysis/</loc>
     <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/tags/ocamllex/</loc>
     <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</loc>
     <lastmod>2019-08-27T13:00:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-1-intro/</loc>
     <lastmod>2019-08-23T10:31:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/about/</loc>
     <xhtml:link
                 rel="alternate"
@@ -179,9 +140,7 @@
                 hreflang="en"
                 href="https://vyorkin.org/about/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -199,5 +158,4 @@
                 href="https://vyorkin.org/series/"
                 />
   </url>
-  
 </urlset>

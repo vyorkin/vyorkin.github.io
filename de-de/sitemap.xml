@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://vyorkin.org/de-de/categories/</loc>
     <xhtml:link
@@ -19,9 +18,7 @@
                 hreflang="de-de"
                 href="https://vyorkin.org/de-de/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/de-de/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -38,9 +35,7 @@
                 hreflang="de-de"
                 href="https://vyorkin.org/de-de/series/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/de-de/tags/</loc>
     <xhtml:link
                 rel="alternate"
@@ -57,9 +52,7 @@
                 hreflang="de-de"
                 href="https://vyorkin.org/de-de/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/de-de/</loc>
     <xhtml:link
                 rel="alternate"
@@ -76,9 +69,7 @@
                 hreflang="de-de"
                 href="https://vyorkin.org/de-de/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/de-de/about/</loc>
     <xhtml:link
                 rel="alternate"
@@ -96,5 +87,4 @@
                 href="https://vyorkin.org/de-de/about/"
                 />
   </url>
-  
 </urlset>

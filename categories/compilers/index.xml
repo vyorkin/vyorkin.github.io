@@ -6,11 +6,7 @@
     <description>Recent content in compilers on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Nov 2019 20:36:00 +0300</lastBuildDate>
-    
-	<atom:link href="https://vyorkin.org/categories/compilers/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 28 Nov 2019 20:36:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/compilers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Making of Tiger #3, Parsing</title>
       <link>https://vyorkin.org/posts/making-of-tiger-3-parsing/</link>

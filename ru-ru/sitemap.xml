@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://vyorkin.org/ru-ru/posts/</loc>
     <lastmod>2019-12-07T10:46:00+03:00</lastmod>
@@ -15,9 +14,7 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/</loc>
     <lastmod>2019-12-07T10:46:00+03:00</lastmod>
     <xhtml:link
@@ -35,14 +32,10 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</loc>
     <lastmod>2019-12-07T10:46:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/categories/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
@@ -60,9 +53,7 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/ocaml/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
@@ -75,14 +66,10 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/tags/ocaml/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
     <xhtml:link
@@ -100,14 +87,10 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/about-lwt/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -124,9 +107,7 @@
                 hreflang="ru-ru"
                 href="https://vyorkin.org/ru-ru/series/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/about/</loc>
     <xhtml:link
                 rel="alternate"
@@ -144,5 +125,4 @@
                 href="https://vyorkin.org/ru-ru/about/"
                 />
   </url>
-  
 </urlset>

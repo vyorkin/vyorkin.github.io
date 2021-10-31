@@ -2,8 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://vyorkin.org/ru-ru/categories/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/ru-ru/tags/coq/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/coq/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/coq/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/ru-ru/categories/coq/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/</loc>
-    <lastmod>2019-12-07T10:46:00+03:00</lastmod>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -15,8 +49,26 @@
                 href="https://vyorkin.org/ru-ru/posts/"
                 />
   </url><url>
+    <loc>https://vyorkin.org/ru-ru/tags/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/"
+                />
+  </url><url>
     <loc>https://vyorkin.org/ru-ru/</loc>
-    <lastmod>2019-12-07T10:46:00+03:00</lastmod>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -34,25 +86,7 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</loc>
-    <lastmod>2019-12-07T10:46:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/</loc>
-    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
-                />
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/ocaml/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
@@ -69,24 +103,6 @@
   </url><url>
     <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/ru-ru/tags/</loc>
-    <lastmod>2019-12-03T15:59:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/"
-                />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/about-lwt/</loc>
     <lastmod>2019-12-03T15:59:00+03:00</lastmod>

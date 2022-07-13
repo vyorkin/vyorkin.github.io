@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Василий Ёркин">
+<meta name="description" content="Это вольный перевод-конспект &ldquo;книги&rdquo; Green Threads Explained in 200 Lines of Rust.
+Пользовательские потоки, горутины, файберы &ndash; у них много названий, но далее для простоты мы будем называть их зелёные потоки. Чтобы разобраться как они устроены мы напишем игрушечную реализацию.
+Итак, как мы знаем, есть два вида многозадачности:
+Вытесняющая &ndash; внешний планировщик принимает решения о том когда будет выполняться какой поток и отвечает за переключение между ними. Используется в операционных системах.">
+<meta name="keywords" content="Василий Ёркин">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Зелёные потоки в 200 строчек на Rust. Часть 1"/>
+<meta name="twitter:description" content="Это вольный перевод-конспект &ldquo;книги&rdquo; Green Threads Explained in 200 Lines of Rust.
+Пользовательские потоки, горутины, файберы &ndash; у них много названий, но далее для простоты мы будем называть их зелёные потоки. Чтобы разобраться как они устроены мы напишем игрушечную реализацию.
+Итак, как мы знаем, есть два вида многозадачности:
+Вытесняющая &ndash; внешний планировщик принимает решения о том когда будет выполняться какой поток и отвечает за переключение между ними. Используется в операционных системах."/>
+
+<meta property="og:title" content="Зелёные потоки в 200 строчек на Rust. Часть 1" />
+<meta property="og:description" content="Это вольный перевод-конспект &ldquo;книги&rdquo; Green Threads Explained in 200 Lines of Rust.
+Пользовательские потоки, горутины, файберы &ndash; у них много названий, но далее для простоты мы будем называть их зелёные потоки. Чтобы разобраться как они устроены мы напишем игрушечную реализацию.
+Итак, как мы знаем, есть два вида многозадачности:
+Вытесняющая &ndash; внешний планировщик принимает решения о том когда будет выполняться какой поток и отвечает за переключение между ними. Используется в операционных системах." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/ru-ru/posts/exploring-async-basics/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-13T16:19:00+03:00" />
+<meta property="article:modified_time" content="2022-07-13T16:19:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/ru-ru/posts/exploring-async-basics/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/ru-ru">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/ru-ru/about/">Обо мне</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/ru-ru/posts/">Блог</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://braindump.vyorkin.org">Брейндамп</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/">English</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">German</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/ru-ru/posts/exploring-async-basics/">
+              Зелёные потоки в 200 строчек на Rust. Часть 1
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-07-13T16:19:00&#43;03:00">
+                июля 13, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/ru-ru/categories/rust/">rust</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/ru-ru/categories/arm64/">arm64</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/ru-ru/tags/rust/">rust</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p><em>Это вольный перевод-конспект &ldquo;книги&rdquo; <a href="https://cfsamson.gitbook.io/green-threads-explained-in-200-lines-of-rust/">Green Threads Explained in 200
+Lines of Rust</a></em>.</p>
+<p>Пользовательские потоки, горутины, файберы &ndash; у них много
+названий, но далее для простоты мы будем называть их <strong>зелёные
+потоки</strong>. Чтобы разобраться как они устроены мы напишем
+игрушечную реализацию.</p>
+<p>Итак, как мы знаем, есть два вида многозадачности:</p>
+<ul>
+<li><strong>Вытесняющая</strong> &ndash; внешний планировщик принимает решения о том
+когда будет выполняться какой поток и отвечает за переключение
+между ними. Используется в операционных системах.</li>
+<li><strong>Кооперативная</strong> &ndash; поток сам решает когда нужно отдать
+процессорное время другим задачам. Это имеет смысл делать при
+ожидании чего-либо, например, мы часто ждём I/O. При
+блокировке поток передаёт управление планировщику, который
+переключается на выполнение другой задачи/потока.</li>
+</ul>
+<p>Нас интересует кооперативная.</p>
+<p>Попробуем описать состояние CPU и стек для нашей игрушечной
+реализации зелёных потоков. Поскольку я экспериментирую на
+macbook c процессором M1, то будем писать ассемблер для arm64.</p>
+<p>Нам понадобится макрос <code>asm!</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">use</span><span style="color:#bbb"> </span>core::arch::asm;<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Размер стека выберем не более 48 байт, чтобы было удобно
+смотреть на него в терминале:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>SSIZE: <span style="color:#888;font-weight:bold">isize</span> =<span style="color:#bbb"> </span><span style="color:#00d;font-weight:bold">48</span>;<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Теперь добавим структуру, которая будет описывать состояние (контекст) потока.
+Сейчас нам понадобится только регистр указателя на стек:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#c00;font-weight:bold">#[derive(Debug, Default)]</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#c00;font-weight:bold">#[repr(C)]</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-weight:bold">struct</span> <span style="color:#b06;font-weight:bold">ThreadContext</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sp: <span style="color:#888;font-weight:bold">u64</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Мы будем работать с этой структурой используя ассемблер и хотим
+быть уверены относительно того как она будет размещена в памяти.
+Например, что первые 8 байт это содержимое регистра <code>SP</code>. Для
+этого при описании структуры мы используем директиву
+<a href="https://doc.rust-lang.org/nomicon/other-reprs.html#reprc">repr(C)</a>.</p>
+<p>Нам нужна функция для переключения между потоками. Вот такую
+реализацию можно использовать для arm64:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">thread_switch</span>(new: *<span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>ThreadContext)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>asm!(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Загружаем сохранённый ранее указатель стека
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;MOV SP, {}&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Считываем в ссылочный регистр LR адрес функции из
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// области памяти, на которую указывает SP
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;LDR LR, [SP], #16&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Прыгаем на функцию
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;RET&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">in</span>(reg)<span style="color:#bbb"> </span>(*new).sp<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Не уверен, что я делаю это правильно для arm64, но оно работает.
+Для x86-64 это выглядело бы немного иначе:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">thread_switch</span>(new: *<span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>ThreadContext)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>asm!(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;MOV RSP, [{0} + 0x00]&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;RET&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">in</span>(reg)<span style="color:#bbb"> </span>new,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Мы используем этот трюк, чтобы переключаться между функциями.
+Инструкция <code>MOV RSP, {0}</code> загружает в регистр <code>RSP</code> адрес функции
+на выполнение которой мы хотим переключиться, а <code>RET</code> передаёт
+управление на адрес возврата, расположенный на вершине стека.</p>
+<p>Для эксперимента нам нужна какая-нибудь тривиальная функция:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">foo</span>()<span style="color:#bbb"> </span>-&gt; !<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>println!(<span style="color:#d20;background-color:#fff0f0">&#34;foo&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">loop</span><span style="color:#bbb"> </span>{}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">main</span>()<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>ctx<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>ThreadContext::default();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>stack<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>vec![<span style="color:#00d;font-weight:bold">0_</span><span style="color:#080;font-weight:bold">u8</span>;<span style="color:#bbb"> </span>SSIZE<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span>];<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Мы знаем, что в x86-64 и в arm64 стек выровнен на 16 байт
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Указатель на байты стека (он растёт вниз)
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>stack_bottom<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>stack.as_mut_ptr().offset(SSIZE);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Получаем выровненный на 16-байт адрес стека
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>sb_aligned<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(stack_bottom<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span><span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>!<span style="color:#00d;font-weight:bold">15</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u8</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Нам нужно записать 8 байт (64 бита),
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// Поэтому приводим адрес foo и указатель на стек к u64
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Адрес нашей функции
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>foo_src<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>foo<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Смещаемся назад (вверх) на 16 байт
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// (помним про выравнивание в x86-64 и arm64)
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>foo_dst<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>sb_aligned.offset(-<span style="color:#00d;font-weight:bold">16</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Записываем в стек указатель на foo
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span>std::ptr::write(foo_dst,<span style="color:#bbb"> </span>foo_src);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ctx.sp<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>sb_aligned.offset(-<span style="color:#00d;font-weight:bold">16</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>thread_switch(&amp;<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>ctx);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Мы можем сделать <code>foo as u64</code> потому что функция это уже 64-битный указатель.
+А вот эта строчка нужна, чтобы получить выровненный на 16 байт
+указатель на стек:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>sb_aligned<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(stack_bottom<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span><span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>!<span style="color:#00d;font-weight:bold">15</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u8</span>;<span style="color:#bbb">
+</span></span></span></code></pre></div><hr>
+<p>Продолжение следует&hellip;</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     Василий Ёркин 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -5,13 +5,13 @@
     <loc>https://vyorkin.org/de-de/categories/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
+                hreflang="en"
+                href="https://vyorkin.org/categories/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/categories/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -39,13 +39,13 @@
     <loc>https://vyorkin.org/de-de/tags/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/"
+                hreflang="en"
+                href="https://vyorkin.org/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/tags/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -73,13 +73,13 @@
     <loc>https://vyorkin.org/de-de/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/"
+                hreflang="en"
+                href="https://vyorkin.org/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/"
                 />
     <xhtml:link
                 rel="alternate"

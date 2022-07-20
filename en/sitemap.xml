@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://vyorkin.org/tags/blockchain/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/categories/blockchain/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/categories/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -20,36 +26,50 @@
                 href="https://vyorkin.org/categories/"
                 />
   </url><url>
-    <loc>https://vyorkin.org/tags/compilers/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-10-king/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/categories/compilers/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-11-re-entrancy/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/posts/making-of-tiger-3-parsing/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-12-evelator/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/tags/menhir/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-13-privacy/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/tags/ocaml/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/ocaml/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/tags/ocaml/"
-                />
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-14-gatekeeper-one/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/tags/parsing/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-15-gatekeeper-two/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-16-naught-coin/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-17-preservation/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-3-fallout/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-5-telephone/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-6-token/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-7-delegation/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-8-force/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-9-vault/</loc>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -62,7 +82,7 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/tags/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -79,11 +99,8 @@
                 href="https://vyorkin.org/tags/"
                 />
   </url><url>
-    <loc>https://vyorkin.org/tags/tiger/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url><url>
     <loc>https://vyorkin.org/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+    <lastmod>2022-07-14T01:53:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -100,6 +117,82 @@
                 href="https://vyorkin.org/"
                 />
   </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-18-recovery/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-19-magicnumber/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-20-alien-codex/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-21-denial/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-22-shop/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-23-dex/</loc>
+    <lastmod>2022-07-14T01:52:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-2-fallback/</loc>
+    <lastmod>2022-07-14T01:42:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</loc>
+    <lastmod>2022-07-14T01:26:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/ctf/</loc>
+    <lastmod>2022-07-14T00:40:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/categories/ctf/</loc>
+    <lastmod>2022-07-14T00:40:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/lets-play-ctf-intro/</loc>
+    <lastmod>2022-07-14T00:40:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/security/</loc>
+    <lastmod>2022-07-14T00:40:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/compilers/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/categories/compilers/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/memory/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/ocaml/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/ocaml/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/ocaml/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/tags/stack/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/tiger/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/making-of-tiger-3-parsing/</loc>
+    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/menhir/</loc>
+    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/parsing/</loc>
+    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/tags/lexing/</loc>
     <lastmod>2019-11-26T19:10:00+03:00</lastmod>
   </url><url>
@@ -108,9 +201,6 @@
   </url><url>
     <loc>https://vyorkin.org/tags/ocamllex/</loc>
     <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</loc>
-    <lastmod>2019-08-27T13:00:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-1-intro/</loc>
     <lastmod>2019-08-23T10:31:00+03:00</lastmod>

@@ -23,8 +23,8 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
 Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat stack as a big array, with a special register &ndash; the stack pointer (SP)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-08-27T13:00:00+03:00" />
-<meta property="article:modified_time" content="2019-08-27T13:00:00+03:00" />
+<meta property="article:published_time" content="2021-10-31T12:39:00+03:00" />
+<meta property="article:modified_time" content="2021-10-31T12:39:00+03:00" />
 
 
 
@@ -40,7 +40,7 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.3ec8c3e098d0ff5163314078ea65461d521ee5762f4bead61b802ae0e8311ed0.css" integrity="sha256-PsjD4JjQ/1FjMUB46mVGHVIe5XYvS&#43;rWG4Aq4OgxHtA=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -95,21 +95,19 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
         
           
             <li class="navigation-item">
-              <a class="navigation-link" href="https://vyorkin.org/about/">About</a>
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link" href="https://vyorkin.org/posts/">Blog</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="https://braindump.vyorkin.org">Braindump</a>
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
             </li>
           
         
         
           
           
+          
+            
           
             
               
@@ -119,16 +117,14 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
                 
               
               <li class="navigation-item">
-                <a href="https://vyorkin.org/ru-ru/">Russian</a>
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
-            
-          
             
           
             
               
               <li class="navigation-item">
-                <a href="https://vyorkin.org/de-de/">German</a>
+                <a href="https://vyorkin.org/de-de/">de</a>
               </li>
             
           
@@ -155,8 +151,8 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2019-08-27T13:00:00&#43;03:00">
-                August 27, 2019
+              <time datetime="2021-10-31T12:39:00&#43;03:00">
+                October 31, 2021
               </time>
             </span>
           </div>
@@ -177,6 +173,14 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
       <span class="separator">•</span>
     <span class="tag">
       <a href="https://vyorkin.org/tags/ocaml/">ocaml</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/stack/">stack</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/memory/">memory</a>
     </span></div>
 
         </div>
@@ -231,7 +235,7 @@ of the current function)</li>
 <li>Outgoing/incoming arguments</li>
 </ul>
 <p>Another name for a stack frame is a function <strong>activation
-record</strong>. Stack frame layout depends on the <a href="https://en.wikipedia.org/wiki/Instruction%5Fset%5Farchitecture">ISA</a> and the
+record</strong>. Stack frame layout depends on the <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">ISA</a> and the
 programming language being compiled.</p>
 <p>Here is a typical stack frame layout:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>:    :             (higher addresses)
@@ -333,13 +337,13 @@ to the memory traffic problem.</p>
 The most procedures called are leafs which need not write
 their incoming args to memory. And often they don&rsquo;t need to
 allocatie a stack frame at all.</li>
-<li>Interprocedural <a href="https://en.wikipedia.org/wiki/Register%5Fallocation">register allocation</a>. A technique used by some
+<li>Interprocedural <a href="https://en.wikipedia.org/wiki/Register_allocation">register allocation</a>. A technique used by some
 optimizing compilers to analyze all the functions in an
 entire program at once and assign them different registers in
 which to receive parameters and hold local variables.</li>
 <li>Sometimes <code>f</code> doesn&rsquo;t need its args anymore by the time it
 calls <code>g</code>, so it can just overwrite corresponding registers.</li>
-<li><a href="https://en.wikipedia.org/wiki/Register%5Fwindow">Register windows</a> available on some architectures. Each
+<li><a href="https://en.wikipedia.org/wiki/Register_window">Register windows</a> available on some architectures. Each
 function can allocate a fresh set of registers without memory
 traffic.</li>
 </ol>
@@ -432,17 +436,17 @@ enclosing the current one</li>
 </span></span><span style="display:flex;"><span>    show(<span style="color:#00d;font-weight:bold">0</span>, tree);                         &lt;--- [<span style="color:#00d;font-weight:bold">1</span>]
 </span></span><span style="display:flex;"><span>    output
 </span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">end</span>
-</span></span></code></pre></div><ul>
-<li><strong>1</strong>: <code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>&rsquo;s own
-frame pointer (FP) as <code>show</code>&rsquo;s static link (SL)</li>
-<li><strong>2</strong>: <code>show</code> stores its static link (SL) into its own stack frame</li>
-<li><strong>3</strong>: <code>show</code> calls <code>indent</code>, passing its own frame pointer (FP) as <code>indent</code>&rsquo;s
-SL</li>
-<li><strong>4</strong>: <code>show</code> calls <code>show</code>, passing its own static link as
-SL</li>
-<li><strong>5</strong>: <code>indent</code> uses the value <code>n</code> from <code>show</code>&rsquo;s frame, it can
-find <code>n</code> by using the SL (which points at the stack frame of <code>show</code>)</li>
-</ul>
+</span></span></code></pre></div><ol>
+<li><code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>&rsquo;s own frame
+pointer (FP) as <code>show</code>&rsquo;s static link (SL)</li>
+<li><code>show</code> stores its static link (SL) into its own stack frame</li>
+<li><code>show</code> calls <code>indent</code>, passing its own frame pointer (FP) as
+<code>indent</code>&rsquo;s SL</li>
+<li><code>show</code> calls <code>show</code>, passing its own static link as SL</li>
+<li><code>indent</code> uses the value <code>n</code> from <code>show</code>&rsquo;s frame, it can find
+<code>n</code> by using the SL (which points at the stack frame of
+<code>show</code>)</li>
+</ol>
 <p>Each call requires a one or more fetches using static links to resolve
 variables declared in outer functions.</p>
 <h2 id="interface">
@@ -489,7 +493,6 @@ architecture.</p>
 </tbody>
 </table>
 <!-- raw HTML omitted -->
-<hr>
 <!-- raw HTML omitted -->
 <table>
 <thead>
@@ -523,39 +526,13 @@ architecture.</p>
 </tbody>
 </table>
 <!-- raw HTML omitted -->
-<hr>
-<!-- raw HTML omitted -->
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\(SF\)</td>
-<td>&ndash; stack frame memory region</td>
-</tr>
-<tr>
-<td>\(k\)</td>
-<td>&ndash; number of formal parameters</td>
-</tr>
-<tr>
-<td>\(t\)</td>
-<td>&ndash; temporary location</td>
-</tr>
-<tr>
-<td>\(r_i\)</td>
-<td>&ndash; MIPS registers</td>
-</tr>
-<tr>
-<td>\(i_i\)</td>
-<td>&ndash; SPARC registers</td>
-</tr>
-</tbody>
-</table>
-<!-- raw HTML omitted -->
+<ul>
+<li>\(SF\) &ndash; Stack frame memory region</li>
+<li>\(k\)  &ndash; Number of formal parameters</li>
+<li>\(t\)  &ndash; Temporary location</li>
+<li>\(r_i\) &ndash; MIPS registers</li>
+<li>\(i_i\) &ndash; SPARC registers</li>
+</ul>
 <p>Thats why we&rsquo;ll use an abstract interface for stack frames.</p>
 <p>Most of PC&rsquo;s and laptops are based on the x86 and x64 ISA.
 Mobile devices usually based on the ARM ISA.</p>
@@ -568,7 +545,7 @@ general-purpose registers</li>
 <p><strong>x86</strong></p>
 <ul>
 <li>Has 8 general-purpose registers: <code>eax, ebx, ecx, edx, ebp, esp, esi, edi</code></li>
-<li>32-bit (4-byte) <a href="https://en.wikipedia.org/wiki/Word%5F(computer%5Farchitecture)">words</a></li>
+<li>32-bit (4-byte) <a href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">words</a></li>
 </ul>
 <p><strong>x64</strong></p>
 <ul>
@@ -587,11 +564,11 @@ arguments are passed in left-to-right order in <code>rdi</code>, <code>rsi</code
 onto the stack in reversed (right-to-left) order.</p>
 <p>Helpful links:</p>
 <ul>
-<li><a href="http://refspecs.linuxfoundation.org/elf/x86%5F64-abi-0.99.pdf">System
+<li><a href="http://refspecs.linuxfoundation.org/elf/x86_64-abi-0.99.pdf">System
 V AMD64 ABI</a> (page 12)</li>
-<li><a href="https://en.wikipedia.org/wiki/X86%5Fcalling%5Fconventions">Calling
+<li><a href="https://en.wikipedia.org/wiki/X86_calling_conventions">Calling
 conventions (Wikipedia)</a></li>
-<li><a href="https://wiki.osdev.org/Calling%5FConventions">Calling
+<li><a href="https://wiki.osdev.org/Calling_Conventions">Calling
 conventions (OS Dev)</a></li>
 </ul>
 <p>Here is our interface for a stack frame:</p>
@@ -976,12 +953,6 @@ it&rsquo;s work.</p>
 </h3>
 <p>Now lets go and update our <code>Semant</code> module.</p>
 <p>I won&rsquo;t paste the whole implementation, the code is <a href="https://github.com/vyorkin/tiger/blob/master/chapter6/lib/semant.ml">here</a>.</p>
-<h2 id="summary">
-  Summary
-  <a class="heading-link" href="#summary">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
 
       </div>
 
@@ -1021,13 +992,10 @@ it&rsquo;s work.</p>
   <section class="container">
     ©
     
-      2019 -
+      1985 -
     
     2022
      Vasiliy Yorkin 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
     
   </section>
 </footer>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 Each level/challenge is a set of vulnerable smart contracts that you need to exploit.">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s play CTF, Intro"/>
+<meta name="twitter:description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 Each level/challenge is a set of vulnerable smart contracts that you need to exploit."/>
+
+<meta property="og:title" content="Let&#39;s play CTF, Intro" />
+<meta property="og:description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 Each level/challenge is a set of vulnerable smart contracts that you need to exploit." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/lets-play-ctf-intro/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-14T00:40:00+03:00" />
+<meta property="article:modified_time" content="2022-07-14T00:40:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/lets-play-ctf-intro/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.3ec8c3e098d0ff5163314078ea65461d521ee5762f4bead61b802ae0e8311ed0.css" integrity="sha256-PsjD4JjQ/1FjMUB46mVGHVIe5XYvS&#43;rWG4Aq4OgxHtA=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/lets-play-ctf-intro/">
+              Let&#39;s play CTF, Intro
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-07-14T00:40:00&#43;03:00">
+                July 14, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+          <div class="post-image">
+            <img src="https://vyorkin.org/images/ctf.gif" alt="Featured image"/>
+          </div>
+        
+        <h2 id="ctf-s-war-games">
+  CTF&rsquo;s / War games
+  <a class="heading-link" href="#ctf-s-war-games">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>CTF&rsquo;s (Capture The Flags) are games/challenges focused on the
+Ethereum blockchain that help you to learn security techniques
+and concepts. These are the three popular CTF&rsquo;s worth solving
+(in this order) to master your Ethereum/Solidity offensive
+security skills:</p>
+<ol>
+<li><a href="https://ethernaut.openzeppelin.com/">The Ethernaut</a> is a wargame by <a href="https://www.openzeppelin.com/contracts">OpenZeppelin</a>.</li>
+<li><a href="https://capturetheether.com/">CaptureTheEther</a></li>
+<li><a href="https://www.damnvulnerabledefi.xyz/">Damn Vulnerable DeFi</a></li>
+<li><a href="https://github.com/paradigm-operations/paradigm-ctf-2021">Paradigm CTF 2021</a></li>
+<li><a href="https://ctf.paradigm.xyz/">Paradigm CTF 2022</a></li>
+</ol>
+<p>Each level/challenge is a set of vulnerable smart contracts that
+you need to exploit. Some of these are trivial, some require
+understanding of DeFi protocols and are based on a real security
+holes. There are overlapping/similar challenges in Ethernaut and
+CaptureTheEther, so you can do one or the other.</p>
+<p><strong>Requirements</strong>: Basic knowledge of smart contract development.
+No security background required.</p>
+<h2 id="tools">
+  Tools
+  <a class="heading-link" href="#tools">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>I will use the <a href="https://book.getfoundry.sh/">Foundry</a>
+toolchain. Foundry is reimplementation of
+<a href="https://dapp.tools/">dapptools</a>. It is fast, portable,
+modular, written in Rust and lets us write tests in Solidity.</p>
+<p>We need couple of libraries as well:</p>
+<ul>
+<li><a href="https://github.com/OpenZeppelin/openzeppelin-contracts">openzeppelin-contracts</a> &ndash;
+Famous library for secure smart contract development from OpenZeppelin.</li>
+<li><a href="https://github.com/foundry-rs/forge-std">forge-std</a> &ndash;
+Testing library for use with
+<a href="https://github.com/foundry-rs/foundry">forge and foundry</a>.</li>
+</ul>
+<h2 id="summary">
+  Summary
+  <a class="heading-link" href="#summary">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>This should be enough to get started. Lets begin with the
+Ethernaut challenges. See you in the next post:
+<a href="https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello">Let&rsquo;s play CTF, Ethernaut, #1
+Hello Ethernaut</a>!</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

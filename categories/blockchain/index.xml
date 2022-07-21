@@ -6,7 +6,17 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Jul 2022 00:40:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jul 2022 14:48:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Let&#39;s play CTF, Ethernaut, #1 Hello Ethernaut</title>
+      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</link>
+      <pubDate>Thu, 21 Jul 2022 14:48:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</guid>
+      <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
+    </item>
+    
     <item>
       <title>Let&#39;s play CTF, Intro</title>
       <link>https://vyorkin.org/posts/lets-play-ctf-intro/</link>
@@ -15,16 +25,6 @@
       <guid>https://vyorkin.org/posts/lets-play-ctf-intro/</guid>
       <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
 The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #1 Hello Ethernaut</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</link>
-      <pubDate>Thu, 14 Jul 2022 01:26:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</guid>
-      <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:
-Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
     </item>
     
     <item>

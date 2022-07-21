@@ -6,194 +6,15 @@
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jul 2022 01:53:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Jul 2022 00:40:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Let&#39;s play CTF, Ethernaut, #10 King</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-10-king/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
+      <title>Let&#39;s play CTF, Intro</title>
+      <link>https://vyorkin.org/posts/lets-play-ctf-intro/</link>
+      <pubDate>Tue, 19 Jul 2022 00:40:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-10-king/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #11 Re-entrancy</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-11-re-entrancy/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-11-re-entrancy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #12 Elevator</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-12-evelator/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-12-evelator/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #13 Privacy</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-13-privacy/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-13-privacy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #14 Getekeeper One</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-14-gatekeeper-one/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-14-gatekeeper-one/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #15 Gatekeeper Two</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-15-gatekeeper-two/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-15-gatekeeper-two/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #16 Naught Coin</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-16-naught-coin/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-16-naught-coin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #17 Preservation</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-17-preservation/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-17-preservation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #3 Fallout</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-3-fallout/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-3-fallout/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #5 Telephone</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-5-telephone/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-5-telephone/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #6 Token</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-6-token/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-6-token/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #7 Delegation</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-7-delegation/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-7-delegation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #8 Force</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-8-force/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-8-force/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #9 Vault</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-9-vault/</link>
-      <pubDate>Thu, 14 Jul 2022 01:53:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-9-vault/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #18 Recovery</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-18-recovery/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-18-recovery/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #19 MagicNumber</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-19-magicnumber/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-19-magicnumber/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #20 Alien Codex</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-20-alien-codex/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-20-alien-codex/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #21 Denial</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-21-denial/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-21-denial/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #22 Shop</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-22-shop/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-22-shop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #23 Dex</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-23-dex/</link>
-      <pubDate>Thu, 14 Jul 2022 01:52:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-23-dex/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s play CTF, Ethernaut, #2 Fallback</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-2-fallback/</link>
-      <pubDate>Thu, 14 Jul 2022 01:42:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-2-fallback/</guid>
-      <description></description>
+      <guid>https://vyorkin.org/posts/lets-play-ctf-intro/</guid>
+      <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
     </item>
     
     <item>
@@ -202,20 +23,17 @@
       <pubDate>Thu, 14 Jul 2022 01:26:00 +0300</pubDate>
       
       <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</guid>
-      <description>I&amp;rsquo;m going to copy levels and level factories from the ethernaut repository.
-Here is my initial project layout:
-For now my remappings.txt looks like this:
-openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src/ </description>
+      <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
     </item>
     
     <item>
-      <title>Let&#39;s play CTF, Intro</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-intro/</link>
-      <pubDate>Thu, 14 Jul 2022 00:40:00 +0300</pubDate>
+      <title>Simple betting smart contract</title>
+      <link>https://vyorkin.org/posts/simple-betting-smart-contract/</link>
+      <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/lets-play-ctf-intro/</guid>
-      <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
-The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
+      <guid>https://vyorkin.org/posts/simple-betting-smart-contract/</guid>
+      <description>Test</description>
     </item>
     
     <item>

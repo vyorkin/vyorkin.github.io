@@ -9,24 +9,18 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="I&rsquo;m going to copy levels and level factories from the ethernaut repository.
-Here is my initial project layout:
-For now my remappings.txt looks like this:
-openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src/ ">
+<meta name="description" content="Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Let&#39;s play CTF, Ethernaut, #1 Hello Ethernaut"/>
-<meta name="twitter:description" content="I&rsquo;m going to copy levels and level factories from the ethernaut repository.
-Here is my initial project layout:
-For now my remappings.txt looks like this:
-openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src/ "/>
+<meta name="twitter:description" content="Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:"/>
 
 <meta property="og:title" content="Let&#39;s play CTF, Ethernaut, #1 Hello Ethernaut" />
-<meta property="og:description" content="I&rsquo;m going to copy levels and level factories from the ethernaut repository.
-Here is my initial project layout:
-For now my remappings.txt looks like this:
-openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src/ " />
+<meta property="og:description" content="Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-14T01:26:00+03:00" />
@@ -171,6 +165,10 @@ openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src
   <i class="fa fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ethernaut/">ethernaut</a>
     </span></div>
 
         </div>
@@ -178,14 +176,346 @@ openzeppelin/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src
 
       <div>
         
-        <p>I&rsquo;m going to copy levels and level factories from the
+        <h2 id="intro">
+  Intro
+  <a class="heading-link" href="#intro">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p><a href="https://ethernaut.openzeppelin.com/">The Ethernaut</a> CTF game exists for more than 3 years already and
+has 26 challenges. The first one is a kind of introductory
+challenge that gives you steps on what you need to set up. If
+you have <a href="https://metamask.io/">Metamask</a> and open the browser&rsquo;s console, you should see
+greeting messages:</p>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-console.png"/>
+</figure>
+
+<h2 id="set-up">
+  Set up
+  <a class="heading-link" href="#set-up">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Originally, this game runs on the Rinkeby test network, but
+we&rsquo;re going to play it locally. As I mentioned in the
+<a href="https://vyorkin.org/posts/lets-play-ctf-intro">first post</a>, we will use
+<a href="https://book.getfoundry.sh/">Foundry</a> toolchain and here is
+the initial/empty project layout:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>tree --gitignore
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>├── foundry.toml
+</span></span><span style="display:flex;"><span>├── lib
+</span></span><span style="display:flex;"><span>│   └── forge-std
+</span></span><span style="display:flex;"><span>├── remappings.txt
+</span></span><span style="display:flex;"><span>├── script
+</span></span><span style="display:flex;"><span>│   └── Contract.s.sol
+</span></span><span style="display:flex;"><span>├── src
+</span></span><span style="display:flex;"><span>│   └── Contract.sol
+</span></span><span style="display:flex;"><span>└── test
+</span></span><span style="display:flex;"><span>    └── Contract.t.sol
+</span></span></code></pre></div><p>To make imports easier in the <code>remappings.txt</code> I have these 3
+lines:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>forge-std/=lib/forge-std/src/
+</span></span><span style="display:flex;"><span>ds-test/=lib/forge-std/lib/ds-test/src/
+</span></span><span style="display:flex;"><span>openzeppelin/=lib/openzeppelin-contracts/contracts/
+</span></span></code></pre></div><p>The <a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-0">step-0
+branch</a> represents the current state of our solutions repo.
+This is our starting point.</p>
+<h2 id="framework">
+  Framework
+  <a class="heading-link" href="#framework">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Next, we need to have some kind of framework that will run the
+game.</p>
+<p>The <code>Ethernaut.sol</code> is the game&rsquo;s main smart contract. It is
+responsible for generating level instances. When we ask for a
+new level instance, <code>Ethernaut.sol</code> deploys it to a new <code>address</code>
+and returns it.</p>
+<p>The <code>LevelFactory.sol</code> is the base smart contract for every game
+level factory. We use level factories to deploy levels and check
+player&rsquo;s exploits:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">13</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;openzeppelin/access/Ownable.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">abstract</span> <span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">LevelFactory</span> <span style="color:#080;font-weight:bold">is</span> Ownable {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">createInstance</span>(<span style="color:#888;font-weight:bold">address</span> _player)
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">payable</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">virtual</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">address</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">validateInstance</span>(<span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">payable</span> _instance, <span style="color:#888;font-weight:bold">address</span> _player)
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">virtual</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It contains two functions:</p>
+<ul>
+<li><code>createInstance</code> &ndash; Deploys a new level for a given player and
+returns the <code>address</code> of the deployed level instance.</li>
+<li><code>validateInstance</code> &ndash; Validates state of the level contract
+instance after exploit. In other words it checks the win conditions.</li>
+</ul>
+<div class="mermaid">
+classDiagram
+class LevelFactory {
+    +createInstance(address player) address
+    +validateInstance(address payable instance, address player) bool
+}
+LevelFactory &lt;|-- FooFactory
+LevelFactory &lt;|-- BarFactory
+
+</div>
+
+
+<p>Now, let&rsquo;s have a closer look at the <code>Ethernaut.sol</code> contract:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#888">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">13</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;./LevelFactory.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;openzeppelin/access/Ownable.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Ethernaut</span> <span style="color:#080;font-weight:bold">is</span> Ownable {
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// ----------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// Owner interaction
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// ----------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">mapping</span>(<span style="color:#888;font-weight:bold">address</span> =&gt; <span style="color:#888;font-weight:bold">bool</span>) registeredLevels;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// Only registered levels will be allowed to
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// generate and validate level instances.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">registerLevel</span>(LevelFactory _level) <span style="color:#080;font-weight:bold">public</span> onlyOwner {
+</span></span><span style="display:flex;"><span>        registeredLevels[<span style="color:#888;font-weight:bold">address</span>(_level)] = <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// ----------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// Get/submit level instances
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// ----------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">struct</span> <span style="color:#b06;font-weight:bold">EmittedInstanceData</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">address</span> player;
+</span></span><span style="display:flex;"><span>        LevelFactory level;
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">bool</span> completed;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">mapping</span>(<span style="color:#888;font-weight:bold">address</span> =&gt; EmittedInstanceData) emittedInstances;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">event</span> <span style="color:#b06;font-weight:bold">LevelInstanceCreatedLog</span>(<span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">indexed</span> player, <span style="color:#888;font-weight:bold">address</span> instance);
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">event</span> <span style="color:#b06;font-weight:bold">LevelCompletedLog</span>(<span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">indexed</span> player, LevelFactory level);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">createLevelInstance</span>(LevelFactory _level)
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">payable</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">address</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Ensure level is registered.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#038">require</span>(registeredLevels[<span style="color:#888;font-weight:bold">address</span>(_level)]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Get level factory to create an instance.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#888;font-weight:bold">address</span> instance = _level.createInstance{<span style="color:#038">value</span>: <span style="color:#038">msg</span>.<span style="color:#038">value</span>}(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Store emitted instance relationship with player and level.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        emittedInstances[instance] = EmittedInstanceData(
+</span></span><span style="display:flex;"><span>            <span style="color:#038">msg</span>.<span style="color:#038">sender</span>,
+</span></span><span style="display:flex;"><span>            _level,
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Retrieve created instance via logs.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        emit LevelInstanceCreatedLog(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>, instance);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Return data - not possible to read emitted events via solidity.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#080;font-weight:bold">return</span> instance;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">submitLevelInstance</span>(<span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">payable</span> _instance)
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Get player and level.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        EmittedInstanceData <span style="color:#080;font-weight:bold">storage</span> <span style="color:#038">data</span> = emittedInstances[_instance];
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Instance was emitted for this player.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#038">require</span>(<span style="color:#038">data</span>.player == <span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Not already submitted.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#038">require</span>(<span style="color:#038">data</span>.completed == <span style="color:#080;font-weight:bold">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Have the level check the instance.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#080;font-weight:bold">if</span> (<span style="color:#038">data</span>.level.validateInstance(_instance, <span style="color:#038">msg</span>.<span style="color:#038">sender</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#888">// Register instance as completed.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>            <span style="color:#038">data</span>.completed = <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#888">// Notify success via logs.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>            emit LevelCompletedLog(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>, <span style="color:#038">data</span>.level);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#888">// Return data - not possible to read emitted events
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>            <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Return data - not possible to read emitted events via solidity.
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It has 2 mappings, 3 functions and emits 2 types of events:</p>
+<div class="mermaid">
+classDiagram
+class Ethernaut {
+    mapping~address =&gt; bool~ registeredLevels
+    mapping~address =&gt; EmittedInstanceData~ emittedInstances
+
+    +registerLevel(LevelFactory level)
+    +createLevelInstance(LevelFactory level) address
+    +submitLevelinstance(address payable instance) bool
+}
+class EmittedInstanceData {
+    +address player
+    +LevelFactory level
+    +bool completed
+}
+class LevelInstanceCreatedLog
+class LevelCompletedLog
+Ethernaut .. EmittedInstanceData
+Ethernaut .. LevelInstanceCreatedLog : when new level instance deployed
+Ethernaut .. LevelCompletedLog : when player have passed the level
+
+</div>
+
+
+<ul>
+<li><code>registerLevel</code> &ndash; Registers <code>LevelFactory</code> to be allowed for
+generating and validating level instances.</li>
+<li><code>createLevelInstance</code> &ndash; Ensures that a given <code>LevelFactory</code>
+is registered, deploys a new level instance and stores it&rsquo;s  in
+the <code>emittedInstances</code> mapping. It also emits the
+<code>LevelInstanceCreatedLog</code> event that can be used to read the
+address of deployed instance on the client side.</li>
+<li><code>submitLevelInstance</code> &ndash; Checks the given level instance and
+emits the <code>LevelCompletedLog</code> event in case of success.</li>
+</ul>
+<p>Let&rsquo;s keep files for each level in separate directories:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>└── src
+</span></span><span style="display:flex;"><span>    ├── game
+</span></span><span style="display:flex;"><span>    │   ├── Ethernaut.sol
+</span></span><span style="display:flex;"><span>    │   └── LevelFactory.sol
+</span></span><span style="display:flex;"><span>    ├── levels
+</span></span><span style="display:flex;"><span>    │   └── Fallback
+</span></span><span style="display:flex;"><span>    │       ├── Fallback.sol
+</span></span><span style="display:flex;"><span>    │       └── FallbackFactory.sol
+</span></span><span style="display:flex;"><span>    └── test
+</span></span><span style="display:flex;"><span>        └── Fallback.t.sol
+</span></span></code></pre></div><ul>
+<li><code>{Level}.sol</code> &ndash; Contains the main game logic.</li>
+<li><code>{Level}Factory.sol</code> &ndash; Extends the <code>LevelFactory.sol</code>
+abstract base contract and implements construction and
+validation logic for a specific level.</li>
+</ul>
+<p>We will keep tests for each level in the <code>./src/test</code> folder and
+have the naming convention <code>{Level}.t.sol</code>.</p>
+<p>So this is our framework. The
+<a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-1">step-1</a>
+branch reflects the current state of our repository. I&rsquo;ll copy
+levels and their factories from the
 <a href="https://github.com/OpenZeppelin/ethernaut/tree/master/contracts/contracts/levels">ethernaut
-repository</a>.</p>
-<p>Here is my initial project layout:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"></code></pre></div><p>For now my <code>remappings.txt</code> looks like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>openzeppelin/=lib/openzeppelin-contracts/contracts/
-</span></span><span style="display:flex;"><span>forge-std/=lib/forge-std/src/
+repository</a> as we go.</p>
+<h2 id="first-challenge">
+  First challenge
+  <a class="heading-link" href="#first-challenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The first challenge requires us to find a secret password.
+We only need browser&rsquo;s console and Metamask to solve it.</p>
+<p>Let&rsquo;s take a look at the <code>contract</code>. It has the following methods:</p>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello1.jpg"/>
+</figure>
+
+<p>Notice that the <code>authenticate</code> function takes a password and the
+contract has the <code>password</code> getter function which returns, well,
+a password. All we need to do is to call the <code>authenticate</code>
+function with that password string.</p>
+<p>Then we can submit the solution:</p>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello2.jpg"/>
+</figure>
+
+<p>That&rsquo;s all:</p>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello3.jpg"/>
+</figure>
+
+<p>After submitting we get the message on the web page:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Congratulations! You have completed the tutorial. Have a look at
+</span></span><span style="display:flex;"><span>the Solidity code for the contract you just interacted with below.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You are now ready to complete all the levels of the game, and as
+</span></span><span style="display:flex;"><span>of now, you&#39;re on your own.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Godspeed!!
+</span></span></code></pre></div><p>And the code of the challenge contract:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">6</span>.<span style="color:#00d;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Instance</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">public</span> password;
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint8</span> <span style="color:#080;font-weight:bold">public</span> infoNum = <span style="color:#00d;font-weight:bold">42</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">public</span> theMethodName = <span style="color:#d20;background-color:#fff0f0">&#34;The method name is method7123949.&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">bool</span> <span style="color:#080;font-weight:bold">private</span> cleared = <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// constructor
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#080;font-weight:bold">constructor</span>(<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span> _password) <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>        password = _password;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">info</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">pure</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#d20;background-color:#fff0f0">&#34;You will find what you need in info1().&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">info1</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">pure</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#d20;background-color:#fff0f0">&#39;Try info2(), but with &#34;hello&#34; as a parameter.&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">info2</span>(<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span> param) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">pure</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (
+</span></span><span style="display:flex;"><span>            <span style="color:#038">keccak256</span>(<span style="color:#038">abi</span>.<span style="color:#038">encodePacked</span>(param)) ==
+</span></span><span style="display:flex;"><span>            <span style="color:#038">keccak256</span>(<span style="color:#038">abi</span>.<span style="color:#038">encodePacked</span>(<span style="color:#d20;background-color:#fff0f0">&#34;hello&#34;</span>))
+</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#d20;background-color:#fff0f0">&#34;The property infoNum holds the &#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#d20;background-color:#fff0f0">&#34;number of the next info method to call.&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#d20;background-color:#fff0f0">&#34;Wrong parameter.&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">info42</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">pure</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#d20;background-color:#fff0f0">&#34;theMethodName is the name of the next method.&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">method7123949</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">pure</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#d20;background-color:#fff0f0">&#34;If you know the password, submit it to authenticate().&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">authenticate</span>(<span style="color:#888;font-weight:bold">string</span> <span style="color:#080;font-weight:bold">memory</span> passkey) <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (
+</span></span><span style="display:flex;"><span>            <span style="color:#038">keccak256</span>(<span style="color:#038">abi</span>.<span style="color:#038">encodePacked</span>(passkey)) ==
+</span></span><span style="display:flex;"><span>            <span style="color:#038">keccak256</span>(<span style="color:#038">abi</span>.<span style="color:#038">encodePacked</span>(password))
+</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>            cleared = <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">getCleared</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">view</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> cleared;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+        
       </div>
 
 

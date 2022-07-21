@@ -6,15 +6,15 @@
     <description>Recent content in ctf on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jul 2022 00:40:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Jul 2022 00:40:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Let&#39;s play CTF, Intro</title>
       <link>https://vyorkin.org/posts/lets-play-ctf-intro/</link>
-      <pubDate>Thu, 14 Jul 2022 00:40:00 +0300</pubDate>
+      <pubDate>Tue, 19 Jul 2022 00:40:00 +0300</pubDate>
       
       <guid>https://vyorkin.org/posts/lets-play-ctf-intro/</guid>
       <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
-The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
     </item>
     
   </channel>

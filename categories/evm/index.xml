@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>evm on vyorkin.org</title>
+    <link>https://vyorkin.org/categories/evm/</link>
+    <description>Recent content in evm on vyorkin.org</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 May 2022 12:20:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/evm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Simple betting smart contract</title>
+      <link>https://vyorkin.org/posts/simple-betting-smart-contract/</link>
+      <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/simple-betting-smart-contract/</guid>
+      <description>Test</description>
+    </item>
+    
+  </channel>
+</rss>

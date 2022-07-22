@@ -6,33 +6,33 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Jul 2022 17:58:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Jul 2022 17:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Let&#39;s play CTF, Ethernaut, #2 Fallback</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-2-fallback/</link>
-      <pubDate>Thu, 21 Jul 2022 17:58:00 +0300</pubDate>
+      <title>CTF walkthrough, Ethernaut, #2 Fallback</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</link>
+      <pubDate>Fri, 22 Jul 2022 17:25:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-2-fallback/</guid>
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</guid>
       <description> This is a first example of level factory contract:
 // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13; import &amp;#34;../../game/LevelFactory.sol&amp;#34;; import &amp;#34;./Fallback.sol&amp;#34;; contract FallbackFactory is LevelFactory { function createInstance(address _player) public payable override returns (address) { _player; Fallback instance = new Fallback(); return address(instance); } function validateInstance(address payable _instance, address _player) public override returns (bool) { Fallback instance = Fallback(_instance); return instance.owner() == _player &amp;amp;&amp;amp; address(instance).balance == 0; } } </description>
     </item>
     
     <item>
-      <title>Let&#39;s play CTF, Ethernaut, #1 Hello Ethernaut</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</link>
+      <title>CTF walkthrough, Ethernaut, #1 Hello Ethernaut</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</link>
       <pubDate>Thu, 21 Jul 2022 14:48:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/lets-play-ctf-ethernaut-1-hello/</guid>
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</guid>
       <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:
 Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
     </item>
     
     <item>
-      <title>Let&#39;s play CTF, Intro</title>
-      <link>https://vyorkin.org/posts/lets-play-ctf-intro/</link>
+      <title>CTF walkthrough, Intro</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-intro/</link>
       <pubDate>Tue, 19 Jul 2022 00:40:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/lets-play-ctf-intro/</guid>
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-intro/</guid>
       <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
 The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
     </item>

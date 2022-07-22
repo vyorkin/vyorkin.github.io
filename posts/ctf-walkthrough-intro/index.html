@@ -9,19 +9,22 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Test">
+<meta name="description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Simple betting smart contract"/>
-<meta name="twitter:description" content="Test"/>
+<meta name="twitter:title" content="CTF walkthrough, Intro"/>
+<meta name="twitter:description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit."/>
 
-<meta property="og:title" content="Simple betting smart contract" />
-<meta property="og:description" content="Test" />
+<meta property="og:title" content="CTF walkthrough, Intro" />
+<meta property="og:description" content="CTF&rsquo;s / War games CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the three popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
+The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://vyorkin.org/posts/simple-betting-smart-contract/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-05-20T12:20:00+03:00" />
-<meta property="article:modified_time" content="2022-05-20T12:20:00+03:00" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-intro/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-19T00:40:00+03:00" />
+<meta property="article:modified_time" content="2022-07-19T00:40:00+03:00" />
 
 
 
@@ -29,7 +32,7 @@
   <title>vyorkin.org</title>
 
   
-  <link rel="canonical" href="https://vyorkin.org/posts/simple-betting-smart-contract/">
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-intro/">
   
 
   <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
@@ -139,8 +142,8 @@
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="https://vyorkin.org/posts/simple-betting-smart-contract/">
-              Simple betting smart contract
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-intro/">
+              CTF walkthrough, Intro
             </a>
           </h1>
         </div>
@@ -148,8 +151,8 @@
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-05-20T12:20:00&#43;03:00">
-                May 20, 2022
+              <time datetime="2022-07-19T00:40:00&#43;03:00">
+                July 19, 2022
               </time>
             </span>
           </div>
@@ -158,9 +161,7 @@
   <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/evm/">evm</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/solidity/">solidity</a></div>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
 
           <div class="tags">
   <i class="fa fa-tag" aria-hidden="true"></i>
@@ -169,11 +170,11 @@
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/evm/">evm</a>
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/solidity/">solidity</a>
+      <a href="https://vyorkin.org/tags/security/">security</a>
     </span></div>
 
         </div>
@@ -181,7 +182,76 @@
 
       <div>
         
-        <p>Test</p>
+          <div class="post-image">
+            <img src="https://vyorkin.org/images/ctf.gif" alt="Featured image"/>
+          </div>
+        
+        <h2 id="ctf-s-war-games">
+  CTF&rsquo;s / War games
+  <a class="heading-link" href="#ctf-s-war-games">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>CTF&rsquo;s (Capture The Flags) are games/challenges focused on the
+Ethereum blockchain that help you to learn security techniques
+and concepts. These are the three popular CTF&rsquo;s worth solving
+(in this order) to master your Ethereum/Solidity offensive
+security skills:</p>
+<ol>
+<li><a href="https://ethernaut.openzeppelin.com/">The Ethernaut</a> is a wargame by <a href="https://www.openzeppelin.com/contracts">OpenZeppelin</a>.</li>
+<li><a href="https://capturetheether.com/">CaptureTheEther</a></li>
+<li><a href="https://www.damnvulnerabledefi.xyz/">Damn Vulnerable DeFi</a></li>
+<li><a href="https://github.com/paradigm-operations/paradigm-ctf-2021">Paradigm CTF 2021</a></li>
+<li><a href="https://ctf.paradigm.xyz/">Paradigm CTF 2022</a> (upcoming)</li>
+</ol>
+<p>Each level/challenge is a set of vulnerable smart contracts that
+you need to exploit. Some of these are trivial, some require
+understanding of DeFi protocols and are based on a real security
+holes. There are overlapping/similar challenges in Ethernaut and
+CaptureTheEther, so you can do one or the other.</p>
+<p><strong>Requirements</strong>: Basic knowledge of smart contract development.
+No security background required.</p>
+<h2 id="tools">
+  Tools
+  <a class="heading-link" href="#tools">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>I&rsquo;m going to play these games locally, since they are open
+source. I will use the <a href="https://book.getfoundry.sh/">Foundry</a>
+toolchain. Foundry is reimplementation of
+<a href="https://dapp.tools/">dapptools</a>. It is fast, portable,
+modular, written in Rust and lets us write tests in Solidity.</p>
+<p>We need couple of libraries as well:</p>
+<ul>
+<li><a href="https://github.com/OpenZeppelin/openzeppelin-contracts">openzeppelin-contracts</a> &ndash;
+Famous library for secure smart contract development from OpenZeppelin.</li>
+<li><a href="https://github.com/foundry-rs/forge-std">forge-std</a> &ndash;
+Testing library for use with
+<a href="https://github.com/foundry-rs/foundry">forge and foundry</a>.</li>
+</ul>
+<h2 id="summary">
+  Summary
+  <a class="heading-link" href="#summary">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>This should be enough to get going. Lets start with the
+Ethernaut because it is the most beginner friendly CTF game. See
+you in the next post:
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello">CTF walkthrough,
+Ethernaut, #1 Hello Ethernaut</a>!</p>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li><a href="https://github.com/blockthreat/blocksec-ctfs">blocksec-ctfs</a>
+&ndash; A curated list of blockchain security Wargames, Challenges,
+and CTF competitions and solution writeups.</li>
+</ul>
 
         
       </div>

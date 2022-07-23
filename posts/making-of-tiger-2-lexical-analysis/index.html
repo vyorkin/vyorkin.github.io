@@ -402,9 +402,7 @@ for lexing errors.</p>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span> white = [<span style="color:#d20;background-color:#fff0f0">&#39; &#39;</span> <span style="color:#d20;background-color:#fff0f0">&#39;\t&#39;</span>]+
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span> newline = <span style="color:#d20;background-color:#fff0f0">&#39;\r&#39;</span> | <span style="color:#d20;background-color:#fff0f0">&#39;\n&#39;</span> | <span style="color:#d20;background-color:#fff0f0">&#34;</span><span style="color:#04d;background-color:#fff0f0">\r\n</span><span style="color:#d20;background-color:#fff0f0">&#34;</span>
 </span></span></code></pre></div><p>According to <strong>Appendix A</strong>:</p>
-<p>&gt; An <strong>identifier</strong> is a sequence of letters, digits and
-&gt; underscores, starting with a letter. Uppercase letters are
-&gt; distinguished from lowercase.</p>
+<p><em>An <strong>identifier</strong> is a sequence of letters, digits and underscores, starting with a letter. Uppercase letters are distinguished from lowercase</em>.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span> alphanum = [<span style="color:#d20;background-color:#fff0f0">&#39;a&#39;</span>-<span style="color:#d20;background-color:#fff0f0">&#39;z&#39;</span> <span style="color:#d20;background-color:#fff0f0">&#39;A&#39;</span>-<span style="color:#d20;background-color:#fff0f0">&#39;Z&#39;</span> <span style="color:#d20;background-color:#fff0f0">&#39;0&#39;</span>-<span style="color:#d20;background-color:#fff0f0">&#39;9&#39;</span> <span style="color:#d20;background-color:#fff0f0">&#39;_&#39;</span>]
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span> id = [<span style="color:#d20;background-color:#fff0f0">&#39;a&#39;</span>-<span style="color:#d20;background-color:#fff0f0">&#39;z&#39;</span>] alphanum*
 </span></span></code></pre></div><p>Lexing rules.</p>
@@ -417,8 +415,7 @@ for lexing errors.</p>
 implementation below).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>  | <span style="color:#d20;background-color:#fff0f0">&#39;&#34;&#39;</span> { read_string (<span style="color:#b06;font-weight:bold">Buffer</span>.create 16) lexbuf }
 </span></span></code></pre></div><p>Again, according the <strong>Appendix A</strong>:</p>
-<p>&gt; A comment may appear between any two tokens.
-&gt; Comments start with <code>/*</code> and end with <code>*/</code> and may be nested.</p>
+<p><em>A comment may appear between any two tokens. Comments start with <code>/*</code> and end with <code>*/</code> and may be nested.</em></p>
 <p>We’ll have a separate function for reading comments (scroll down
 to see its code).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>  | <span style="color:#d20;background-color:#fff0f0">&#34;/*&#34;</span> { read_comment [lexbuf.lex_curr_p] lexbuf }

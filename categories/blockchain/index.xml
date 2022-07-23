@@ -6,15 +6,15 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Jul 2022 17:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 23:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CTF walkthrough, Ethernaut, #2 Fallback</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</link>
-      <pubDate>Fri, 22 Jul 2022 17:25:00 +0300</pubDate>
+      <pubDate>Sat, 23 Jul 2022 23:25:00 +0300</pubDate>
       
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</guid>
-      <description> This is a first example of level factory contract:
-// SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13; import &amp;#34;../../game/LevelFactory.sol&amp;#34;; import &amp;#34;./Fallback.sol&amp;#34;; contract FallbackFactory is LevelFactory { function createInstance(address _player) public payable override returns (address) { _player; Fallback instance = new Fallback(); return address(instance); } function validateInstance(address payable _instance, address _player) public override returns (bool) { Fallback instance = Fallback(_instance); return instance.owner() == _player &amp;amp;&amp;amp; address(instance).balance == 0; } } </description>
+      <description>To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallback { using SafeMath for uint256; mapping(address =&amp;gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function contribute() public payable { require(msg.</description>
     </item>
     
     <item>

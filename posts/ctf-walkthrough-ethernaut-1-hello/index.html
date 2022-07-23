@@ -440,14 +440,19 @@ emits the <code>LevelCompletedLog</code> event in case of success.</li>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>...
 </span></span><span style="display:flex;"><span>└── src
 </span></span><span style="display:flex;"><span>    ├── game
-</span></span><span style="display:flex;"><span>    │   ├── Ethernaut.sol
-</span></span><span style="display:flex;"><span>    │   └── LevelFactory.sol
+</span></span><span style="display:flex;"><span>    │   ├── Ethernaut.sol
+</span></span><span style="display:flex;"><span>    │   └── LevelFactory.sol
 </span></span><span style="display:flex;"><span>    ├── levels
-</span></span><span style="display:flex;"><span>    │   └── Fallback
-</span></span><span style="display:flex;"><span>    │       ├── Fallback.sol
-</span></span><span style="display:flex;"><span>    │       └── FallbackFactory.sol
+</span></span><span style="display:flex;"><span>    │   ├── Fallback
+</span></span><span style="display:flex;"><span>    │   │   ├── Fallback.sol
+</span></span><span style="display:flex;"><span>    │   │   └── FallbackFactory.sol
+</span></span><span style="display:flex;"><span>    │   └── Hello
+</span></span><span style="display:flex;"><span>    │       └── Instance.sol
 </span></span><span style="display:flex;"><span>    └── test
-</span></span><span style="display:flex;"><span>        └── Fallback.t.sol
+</span></span><span style="display:flex;"><span>        ├── Fallback.t.sol
+</span></span><span style="display:flex;"><span>        └── common
+</span></span><span style="display:flex;"><span>            ├── LevelTest.sol
+</span></span><span style="display:flex;"><span>            └── Utils.sol
 </span></span></code></pre></div><ul>
 <li><code>{Level}.sol</code> &ndash; Contains the main game logic.</li>
 <li><code>{Level}Factory.sol</code> &ndash; Extends the <code>LevelFactory.sol</code>
@@ -455,10 +460,11 @@ abstract base contract and implements construction and
 validation logic for a specific level.</li>
 </ul>
 <p>We&rsquo;ll keep tests in the <code>./src/test</code> folder and have the naming
-convention <code>{Level}.t.sol</code>. Our test contracts will follow the
-same structure, so it makes sense to have some base contract for
-testing exploits (the idea is taken from
-<a href="https://github.com/StErMi/foundry-ethernaut/blob/main/test/utils/BaseTest.sol">BaseTest.sol</a>):</p>
+convention <code>{Level}.t.sol</code>. Our contracts for testing exploits will follow the
+same structure, so it makes sense to have some base contract
+which I called <code>LevelTest</code> (the idea is based on the
+<a href="https://github.com/StErMi/foundry-ethernaut/blob/main/test/utils/BaseTest.sol">BaseTest</a>
+by StErMi):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
 </span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
 </span></span><span style="display:flex;"><span>
@@ -481,29 +487,32 @@ testing exploits (the idea is taken from
 </span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">payable</span> <span style="color:#080;font-weight:bold">internal</span> player;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">setUp</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">virtual</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#038">require</span>(<span style="color:#888;font-weight:bold">address</span>(levelFactory) != <span style="color:#888;font-weight:bold">address</span>(<span style="color:#00d;font-weight:bold">0</span>), <span style="color:#d20;background-color:#fff0f0">&#34;Level is not set&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#888;font-weight:bold">address</span>(levelFactory) != <span style="color:#888;font-weight:bold">address</span>(<span style="color:#00d;font-weight:bold">0</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#d20;background-color:#fff0f0">&#34;levelFactory is not initialized&#34;</span>
+</span></span><span style="display:flex;"><span>        );
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      utils = <span style="color:#080;font-weight:bold">new</span> Utils();
-</span></span><span style="display:flex;"><span>      ethernaut = <span style="color:#080;font-weight:bold">new</span> Ethernaut();
-</span></span><span style="display:flex;"><span>      ethernaut.registerLevel(levelFactory);
+</span></span><span style="display:flex;"><span>        utils = <span style="color:#080;font-weight:bold">new</span> Utils();
+</span></span><span style="display:flex;"><span>        ethernaut = <span style="color:#080;font-weight:bold">new</span> Ethernaut();
+</span></span><span style="display:flex;"><span>        ethernaut.registerLevel(levelFactory);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      users = utils.createUsers(<span style="color:#00d;font-weight:bold">2</span>);
-</span></span><span style="display:flex;"><span>      owner = users[<span style="color:#00d;font-weight:bold">0</span>];
-</span></span><span style="display:flex;"><span>      player = users[<span style="color:#00d;font-weight:bold">1</span>];
+</span></span><span style="display:flex;"><span>        users = utils.createUsers(<span style="color:#00d;font-weight:bold">2</span>);
+</span></span><span style="display:flex;"><span>        owner = users[<span style="color:#00d;font-weight:bold">0</span>];
+</span></span><span style="display:flex;"><span>        player = users[<span style="color:#00d;font-weight:bold">1</span>];
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      vm.label(owner, <span style="color:#d20;background-color:#fff0f0">&#34;owner&#34;</span>);
-</span></span><span style="display:flex;"><span>      vm.label(player, <span style="color:#d20;background-color:#fff0f0">&#34;player&#34;</span>);
+</span></span><span style="display:flex;"><span>        vm.label(owner, <span style="color:#d20;background-color:#fff0f0">&#34;owner&#34;</span>);
+</span></span><span style="display:flex;"><span>        vm.label(player, <span style="color:#d20;background-color:#fff0f0">&#34;player&#34;</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">create</span>() <span style="color:#080;font-weight:bold">external</span> <span style="color:#080;font-weight:bold">payable</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">address</span>) {
-</span></span><span style="display:flex;"><span>      vm.prank(player);
-</span></span><span style="display:flex;"><span>      <span style="color:#080;font-weight:bold">return</span> ethernaut.createLevelInstance{<span style="color:#038">value</span>: <span style="color:#038">msg</span>.<span style="color:#038">value</span>}(levelFactory);
+</span></span><span style="display:flex;"><span>        vm.prank(player);
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> ethernaut.createLevelInstance{<span style="color:#038">value</span>: <span style="color:#038">msg</span>.<span style="color:#038">value</span>}(levelFactory);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">run</span>() <span style="color:#080;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>      init();
-</span></span><span style="display:flex;"><span>      exploit();
-</span></span><span style="display:flex;"><span>      check();
+</span></span><span style="display:flex;"><span>        init();
+</span></span><span style="display:flex;"><span>        exploit();
+</span></span><span style="display:flex;"><span>        check();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">init</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">virtual</span>;
@@ -511,13 +520,20 @@ testing exploits (the idea is taken from
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">virtual</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">check</span>() <span style="color:#080;font-weight:bold">internal</span> {
-</span></span><span style="display:flex;"><span>      vm.startPrank(player);
-</span></span><span style="display:flex;"><span>      <span style="color:#888;font-weight:bold">bool</span> exploited = ethernaut.submitLevelInstance(levelAddress);
-</span></span><span style="display:flex;"><span>      assertTrue(exploited, <span style="color:#d20;background-color:#fff0f0">&#34;Not exploited&#34;</span>);
-</span></span><span style="display:flex;"><span>      vm.stopPrank();
+</span></span><span style="display:flex;"><span>        vm.startPrank(player);
+</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">bool</span> exploited = ethernaut.submitLevelInstance(levelAddress);
+</span></span><span style="display:flex;"><span>        assertTrue(exploited, <span style="color:#d20;background-color:#fff0f0">&#34;Not exploited&#34;</span>);
+</span></span><span style="display:flex;"><span>        vm.stopPrank();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>The <code>Utils.sol</code> contains 4 helper functions:</p>
+</span></span></code></pre></div><p>In the <code>setUp</code> function we:</p>
+<ul>
+<li>Check that the derived contract has initialized the <code>levelFactory</code>.</li>
+<li>Create owner and player test users and assign their labels for
+debugging.</li>
+</ul>
+<p>The <code>Utils</code> helps us setup test users (contract owner and
+player) with some initial balance. It contains 4 functions:</p>
 <ul>
 <li><code>writeTokenBalance</code> &ndash; Modifies the storage of a token to mint
 new tokens to an address.</li>
@@ -528,7 +544,51 @@ initial balance.</li>
 <li><code>mineBlocks</code> &ndash; Moves <code>block.number</code> forward by a given number of blocks.</li>
 <li><code>mineTime</code> &ndash; Moves forward by a given number of seconds.</li>
 </ul>
-<p>This is our framework. The
+<p>We expect the derived test contact to:</p>
+<ol>
+<li>Initialize the <code>levelFactory</code> variable in its constructor.</li>
+<li>Override the <code>init</code> and <code>exploit</code> functions.</li>
+</ol>
+<p>Here is how a typical test contract might look like:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {Ethernaut} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../game/Ethernaut.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {Foo} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../levels/Foo/Foo.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {FooFactory} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../levels/Foo/FooFactory.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {LevelTest} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;./common/LevelTest.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">FooTest</span> <span style="color:#080;font-weight:bold">is</span> LevelTest {
+</span></span><span style="display:flex;"><span>  Foo <span style="color:#080;font-weight:bold">private</span> level;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// Initialize level factory
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    levelFactory = <span style="color:#080;font-weight:bold">new</span> FooFactory();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">// This test-prefixed function gets called when we run &#34;forge test&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">testFoo</span>() <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    run();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">init</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// Our setup code goes here
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
+</span></span><span style="display:flex;"><span>    levelAddress = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">this</span>.create());
+</span></span><span style="display:flex;"><span>    level = Foo(levelAddress);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assertEq(level.owner(), <span style="color:#888;font-weight:bold">address</span>(levelFactory));
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// Our exploit code goes here
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is our framework. The
 <a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-1">step-1</a>
 branch reflects the current state of our repository. I&rsquo;ll copy
 levels and their factories from the

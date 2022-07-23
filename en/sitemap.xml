@@ -117,10 +117,25 @@
     <loc>https://vyorkin.org/categories/compilers/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
   </url><url>
+    <loc>https://vyorkin.org/tags/lexing/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/making-of-tiger-1-intro/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/making-of-tiger-2-lexical-analysis/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/making-of-tiger-3-parsing/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/memory/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/menhir/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/ocaml/</loc>
@@ -136,32 +151,17 @@
                 href="https://vyorkin.org/tags/ocaml/"
                 />
   </url><url>
+    <loc>https://vyorkin.org/tags/ocamllex/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/parsing/</loc>
+    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/tags/stack/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/tiger/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/making-of-tiger-3-parsing/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/menhir/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/parsing/</loc>
-    <lastmod>2019-11-28T20:36:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/lexing/</loc>
-    <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/making-of-tiger-2-lexical-analysis/</loc>
-    <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/ocamllex/</loc>
-    <lastmod>2019-11-26T19:10:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/making-of-tiger-1-intro/</loc>
-    <lastmod>2019-08-23T10:31:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/about/</loc>
     <xhtml:link

@@ -20,8 +20,8 @@
 <meta property="og:description" content="Recently I&rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&rsquo;ve picked it up because I&rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-1-intro/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-08-23T10:31:00+03:00" />
-<meta property="article:modified_time" content="2019-08-23T10:31:00+03:00" />
+<meta property="article:published_time" content="2021-10-31T12:39:00+03:00" />
+<meta property="article:modified_time" content="2021-10-31T12:39:00+03:00" />
 
 
 
@@ -148,8 +148,8 @@
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2019-08-23T10:31:00&#43;03:00">
-                August 23, 2019
+              <time datetime="2021-10-31T12:39:00&#43;03:00">
+                October 31, 2021
               </time>
             </span>
           </div>
@@ -177,7 +177,7 @@
 
       <div>
         
-        <p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew%5FAppel">Andrew W. Appel</a> titled
+        <p>Recently I&rsquo;ve started reading the book by <a href="https://en.wikipedia.org/wiki/Andrew_Appel">Andrew W. Appel</a> titled
 <a href="https://www.amazon.com/Modern-Compiler-Implement-Andrew-Appel/dp/0521607647">Modern compiler implementation in ML</a>. I&rsquo;ve picked it up because
 I&rsquo;ve heard some really good reviews about the ML version of it.
 Also there are other editions available that use C and Java.
@@ -233,9 +233,10 @@ the book).</p>
 </span></span><span style="display:flex;"><span>    output
 </span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">end</span>
 </span></span></code></pre></div><!-- raw HTML omitted -->
-<p>For my implementation I&rsquo;ve decided to use OCaml. It is <a href="http://adam.chlipala.net/mlcomp/">close</a>
+<p>For my implementation I&rsquo;ve decided to use OCaml. It is
+<a href="http://adam.chlipala.net/mlcomp/">close</a>
 <a href="https://stackoverflow.com/questions/699689/what-are-the-differences-between-sml-and-ocaml/699755#699755">enough</a> to SML so with even basic ML experience it should be
-fairly straightworward to port the code examples.</p>
+fairly straightforward to port the code examples.</p>
 <h3 id="straight-line-programs">
   Straight-line programs
   <a class="heading-link" href="#straight-line-programs">
@@ -298,7 +299,7 @@ too:</p>
 </span></span></code></pre></div><p>Next, we need to write another function that &ldquo;interprets&rdquo;
 program in this language.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">val</span> eval : stm -&gt; <span style="color:#888;font-weight:bold">unit</span>
-</span></span></code></pre></div><p>The code</p>
+</span></span></code></pre></div><p>A simple interpreter could look like this:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">open</span> <span style="color:#b06;font-weight:bold">Base</span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">open</span> <span style="color:#b06;font-weight:bold">Stdio</span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">open</span> <span style="color:#b06;font-weight:bold">Straightline</span>
@@ -351,7 +352,10 @@ values.</p>
 <p>A couple of more excercises about trees, nothing super exciting.
 So I won&rsquo;t paste the rest of my solutions here. To implement a
 balanced-tree (ex. d) I&rsquo;ve read the chapter about Red-Black
-Trees in <a href="https://www.amazon.com/Purely-Functional-Data-Structures-Okasaki/dp/0521663504">Okasaki book.</a> The code is <a href="https://github.com/vyorkin/tiger/blob/master/chapter1/rb%5Ftree.ml">here</a>.</p>
+Trees in
+<a href="https://www.amazon.com/Purely-Functional-Data-Structures-Okasaki/dp/0521663504">Okasaki
+book.</a> The code is
+<a href="https://github.com/vyorkin/tiger/blob/master/chapter1/rb_tree.ml">here</a>.</p>
 <p>Well, thats all for part 1! The next one is about lexical
 analysis where we&rsquo;ll write a simple lexer for the Tiger
 language.</p>

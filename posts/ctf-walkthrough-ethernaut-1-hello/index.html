@@ -159,12 +159,22 @@ Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re g
           
           <div class="categories">
   <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a></div>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
 
           <div class="tags">
   <i class="fa fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
@@ -549,7 +559,7 @@ initial balance.</li>
 <li>Initialize the <code>levelFactory</code> variable in its constructor.</li>
 <li>Override the <code>init</code> and <code>exploit</code> functions.</li>
 </ol>
-<p>Here is how a typical test contract might look like:</p>
+<p>Here is how a typical test contract (<code>Foo.t.sol</code>) might look like:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
 </span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
 </span></span><span style="display:flex;"><span>
@@ -559,34 +569,34 @@ initial balance.</li>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">import</span> {LevelTest} <span style="color:#080;font-weight:bold">from</span> <span style="color:#d20;background-color:#fff0f0">&#34;./common/LevelTest.sol&#34;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">FooTest</span> <span style="color:#080;font-weight:bold">is</span> LevelTest {
-</span></span><span style="display:flex;"><span>  Foo <span style="color:#080;font-weight:bold">private</span> level;
+</span></span><span style="display:flex;"><span>    Foo <span style="color:#080;font-weight:bold">private</span> level;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">constructor</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#888">// Initialize level factory
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    levelFactory = <span style="color:#080;font-weight:bold">new</span> FooFactory();
-</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Initialize level factory
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>        levelFactory = <span style="color:#080;font-weight:bold">new</span> FooFactory();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#888">// This test-prefixed function gets called when we run &#34;forge test&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">testFoo</span>() <span style="color:#080;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    run();
-</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>    <span style="color:#888">// This test-prefixed function gets called when we run &#34;forge test&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">testFoo</span>() <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>        run();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">init</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#888">// Our setup code goes here
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">init</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Our setup code goes here
 </span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
-</span></span><span style="display:flex;"><span>    levelAddress = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">this</span>.create());
-</span></span><span style="display:flex;"><span>    level = Foo(levelAddress);
+</span></span><span style="display:flex;"><span>        levelAddress = <span style="color:#080;font-weight:bold">payable</span>(<span style="color:#038">this</span>.create());
+</span></span><span style="display:flex;"><span>        level = Foo(levelAddress);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    assertEq(level.owner(), <span style="color:#888;font-weight:bold">address</span>(levelFactory));
-</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>        assertEq(level.owner(), <span style="color:#888;font-weight:bold">address</span>(levelFactory));
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>        vm.startPrank(player);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#888">// Our exploit code goes here
+</span></span><span style="display:flex;"><span>        <span style="color:#888">// Our exploit code goes here
 </span></span></span><span style="display:flex;"><span><span style="color:#888"></span>
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>        vm.stopPrank();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This is our framework. The
 <a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-1">step-1</a>

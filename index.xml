@@ -6,7 +6,17 @@
     <description>Recent content on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 23 Jul 2022 23:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jul 2022 15:53:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #3 Fallout</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/</link>
+      <pubDate>Mon, 25 Jul 2022 15:53:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/</guid>
+      <description>To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallout { using SafeMath for uint256; mapping(address =&amp;gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function allocate() public payable { allocations[msg.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #2 Fallback</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</link>
@@ -94,8 +104,8 @@ Stack A stack is a region of memory that grows downward and shrinks upward (like
       
       <guid>https://vyorkin.org/about/</guid>
       <description>Hello! My name is Vasiliy Yorkin and this is my personal website.
-Currently I&amp;rsquo;m doing blockchain R&amp;amp;D with the Substrate framework and EVM/Solidity. I&amp;rsquo;m interested in blockchain security, DeFi, statically typed functional programming, compilers, type theory and formal verification.
-In this blog I&amp;rsquo;m going to write about some of the things I do. Occasionally I tweet about those and other things on Twitter. Most of my open source work is available on GitHub.</description>
+Currently I&amp;rsquo;m doing blockchain R&amp;amp;D with the Substrate framework and EVM/Solidity. I&amp;rsquo;m interested in blockchain security, DeFi, statically typed functional programming, compilers, type theory and formal verification. I audit smart contracts on Immunify and Code4Arena and participate in blockchain hackatons.
+In this blog I&amp;rsquo;m going to write about some of the things I do. Occasionally I tweet about those and other things on Twitter.</description>
     </item>
     
   </channel>

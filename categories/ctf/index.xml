@@ -6,7 +6,37 @@
     <description>Recent content in ctf on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Jul 2022 00:40:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jul 2022 15:53:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #3 Fallout</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/</link>
+      <pubDate>Mon, 25 Jul 2022 15:53:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/</guid>
+      <description>To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallout { using SafeMath for uint256; mapping(address =&amp;gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function allocate() public payable { allocations[msg.</description>
+    </item>
+    
+    <item>
+      <title>CTF walkthrough, Ethernaut, #2 Fallback</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</link>
+      <pubDate>Sat, 23 Jul 2022 23:25:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</guid>
+      <description>To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallback { using SafeMath for uint256; mapping(address =&amp;gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function contribute() public payable { require(msg.</description>
+    </item>
+    
+    <item>
+      <title>CTF walkthrough, Ethernaut, #1 Hello Ethernaut</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</link>
+      <pubDate>Thu, 21 Jul 2022 14:48:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</guid>
+      <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:
+Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Intro</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-intro/</link>

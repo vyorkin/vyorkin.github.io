@@ -6,7 +6,17 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Jul 2022 15:53:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2022 10:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #4 Coin Flip</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-4-coin-flip/</link>
+      <pubDate>Tue, 26 Jul 2022 10:25:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-4-coin-flip/</guid>
+      <description>To complete this challenge we need to predict the outcome of a coin flip game 10 times in a row. Here is the slightly altered version of the original smart contract:
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract CoinFlip { uint256 public consecutiveWins; uint256 lastHash; uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968; constructor() { consecutiveWins = 0; } function flip(bool _guess) public returns (bool) { uint256 blockValue = uint256(blockhash(block.number - 1)); if (lastHash == blockValue) { revert(); } lastHash = blockValue; uint256 coinFlip = blockValue / FACTOR; bool side = coinFlip == 1 ?</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #3 Fallout</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/</link>

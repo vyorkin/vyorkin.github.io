@@ -6,7 +6,18 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Jul 2022 10:25:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2022 15:47:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #5 Telephone</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/</link>
+      <pubDate>Tue, 26 Jul 2022 15:47:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/</guid>
+      <description>We need to claim ownership of the contract below to complete this level:
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis The changeOwner function requires that tx.origin != msg.sender.
+We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #4 Coin Flip</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-4-coin-flip/</link>

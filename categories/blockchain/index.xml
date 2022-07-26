@@ -68,14 +68,5 @@ Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;
 The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
     </item>
     
-    <item>
-      <title>Simple betting smart contract</title>
-      <link>https://vyorkin.org/posts/simple-betting-smart-contract/</link>
-      <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/simple-betting-smart-contract/</guid>
-      <description>Test</description>
-    </item>
-    
   </channel>
 </rss>

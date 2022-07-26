@@ -26,24 +26,6 @@
     </item>
     
     <item>
-      <title>evm</title>
-      <link>https://vyorkin.org/categories/evm/</link>
-      <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/categories/evm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>solidity</title>
-      <link>https://vyorkin.org/categories/solidity/</link>
-      <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/categories/solidity/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>compilers</title>
       <link>https://vyorkin.org/categories/compilers/</link>
       <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>

@@ -6,20 +6,31 @@
     <description>Recent content in compilers on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Oct 2021 12:39:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/compilers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Sep 2019 16:53:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/compilers/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Making of Tiger #1, Intro</title>
-      <link>https://vyorkin.org/posts/making-of-tiger-1-intro/</link>
-      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
+      <title>Making of Tiger #6, Stack frames</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/making-of-tiger-1-intro/</guid>
-      <description>Recently I&amp;rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&amp;rsquo;ve picked it up because I&amp;rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler.</description>
+      <guid>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</guid>
+      <description>Intro In this post we&amp;rsquo;re going to add support for stack frames. Here I&amp;rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
+Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&amp;rsquo;s lowest memory address. We treat stack as a big array, with a special register &amp;ndash; the stack pointer (SP).</description>
+    </item>
+    
+    <item>
+      <title>Making of Tiger #3, Parsing</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-3-parsing/</link>
+      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/making-of-tiger-3-parsing/</guid>
+      <description>Intro In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.</description>
     </item>
     
     <item>
       <title>Making of Tiger #2, Lexical Analysis</title>
       <link>https://vyorkin.org/posts/making-of-tiger-2-lexical-analysis/</link>
-      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
+      <pubDate>Fri, 23 Aug 2019 00:01:00 +0300</pubDate>
       
       <guid>https://vyorkin.org/posts/making-of-tiger-2-lexical-analysis/</guid>
       <description>Intro We need a way to translate a program written in one (human-friendly) language to another (machine-specific) language. Generally, this work is splitted into 2 parts: analysis and synthesis.
@@ -29,23 +40,12 @@ Lexical – breaking a sequence of characters into sequence of individual tokens
     </item>
     
     <item>
-      <title>Making of Tiger #3, Parsing</title>
-      <link>https://vyorkin.org/posts/making-of-tiger-3-parsing/</link>
-      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
+      <title>Making of Tiger #1, Intro</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-1-intro/</link>
+      <pubDate>Thu, 22 Aug 2019 20:27:00 +0300</pubDate>
       
-      <guid>https://vyorkin.org/posts/making-of-tiger-3-parsing/</guid>
-      <description>Intro In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
-Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.</description>
-    </item>
-    
-    <item>
-      <title>Making of Tiger #6, Stack frames</title>
-      <link>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</link>
-      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</guid>
-      <description>Intro In this post we&amp;rsquo;re going to add support for stack frames. Here I&amp;rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
-Stack A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&amp;rsquo;s lowest memory address. We treat stack as a big array, with a special register &amp;ndash; the stack pointer (SP).</description>
+      <guid>https://vyorkin.org/posts/making-of-tiger-1-intro/</guid>
+      <description>Recently I&amp;rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I&amp;rsquo;ve picked it up because I&amp;rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler.</description>
     </item>
     
   </channel>

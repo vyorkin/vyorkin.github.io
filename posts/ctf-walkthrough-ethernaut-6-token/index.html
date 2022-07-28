@@ -9,19 +9,19 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+<meta name="description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
 // SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #6 Token"/>
-<meta name="twitter:description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+<meta name="twitter:description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
 // SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:"/>
 
 <meta property="og:title" content="CTF walkthrough, Ethernaut, #6 Token" />
-<meta property="og:description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+<meta property="og:description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
 // SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:" />
 <meta property="og:type" content="article" />
@@ -189,8 +189,8 @@ Here is the original Token contract:
 
       <div>
         
-        <p>At the beginning we have 20 tokens. To complete this challenge
-we need to get some more.</p>
+        <p>We start with the 20 tokens. To complete this challenge we need
+to get some more.</p>
 <p>Here is the original <code>Token</code> contract:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
 </span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">6</span>.<span style="color:#00d;font-weight:bold">0</span>;

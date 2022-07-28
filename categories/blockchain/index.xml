@@ -6,7 +6,18 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Jul 2022 15:47:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 11:10:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #6 Token</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</link>
+      <pubDate>Thu, 28 Jul 2022 11:10:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</guid>
+      <description>At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+Here is the original Token contract:
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&amp;gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &amp;gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&amp;rsquo;s review the transfer function:</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #5 Telephone</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/</link>

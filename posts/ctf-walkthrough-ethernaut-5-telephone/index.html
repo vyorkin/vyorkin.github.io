@@ -218,7 +218,7 @@ this level:</p>
 owned account) that started the transaction irrespective of the
 stack of contracts invoked:</p>
 <div class="mermaid">
-%%{init: {'theme':base}}%%
+%%{init: {'theme':'base'}}%%
 sequenceDiagram
     actor P as Player
     participant A as Attacker
@@ -255,7 +255,7 @@ arguments and sets the <code>tx.origin</code> as well:</p>
 </span></span></code></pre></div><p>See the
 <a href="https://book.getfoundry.sh/cheatcodes/#cheatcodes-interface">Cheatcodes
 Reference</a> for details.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
 </span></span><span style="display:flex;"><span>    vm.startPrank(player, player);
 </span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">new</span> Attacker().run(level);
 </span></span><span style="display:flex;"><span>    vm.stopPrank();

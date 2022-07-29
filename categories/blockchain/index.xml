@@ -6,15 +6,15 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Jul 2022 17:01:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Jul 2022 13:18:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CTF walkthrough, Ethernaut, #7 Delegation</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</link>
-      <pubDate>Thu, 28 Jul 2022 17:01:00 +0300</pubDate>
+      <pubDate>Fri, 29 Jul 2022 13:18:00 +0300</pubDate>
       
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</guid>
-      <description>The goals is to claim the ownership of the.
-Analysis Exploit Key takeaways References Delegatecall from Solidity by Example. Delegatecall / Callcode and Libraries from the Solidity docs. </description>
+      <description>The goals is to claim the ownership of the Delegate contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation.</description>
     </item>
     
     <item>

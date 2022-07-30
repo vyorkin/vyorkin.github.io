@@ -6,7 +6,18 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Jul 2022 16:29:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Jul 2022 19:01:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #9 Vault</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</link>
+      <pubDate>Sat, 30 Jul 2022 19:01:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</guid>
+      <description>We need to unlock the Vault smart contract to pass the level.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Let&amp;rsquo;s look at the state variables:
+bool public locked; bytes32 private password; The private visibility modifier means that other contracts can&amp;rsquo;t read the password state variable directly.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #8 Force</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/</link>
@@ -14,7 +25,7 @@
       
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/</guid>
       <description>To complete this challenge we need to make the balance of the Force contract greater than zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} TODO Thoughts The contract has nothing in it, except the ASCII-art of a cat. It doesn&amp;rsquo;t have a receive, fallback function, or any other payable function:
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts The contract has nothing in it, except the ASCII-art of a cat. It doesn&amp;rsquo;t have a receive, fallback function, or any other payable function:
 If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.</description>
     </item>
     

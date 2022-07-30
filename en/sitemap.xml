@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://vyorkin.org/tags/blockchain/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/categories/blockchain/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/categories/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -27,19 +27,19 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/tags/ctf/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/categories/ctf/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/</loc>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/ethernaut/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -52,10 +52,10 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/tags/security/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -73,7 +73,7 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/</loc>
-    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
+    <lastmod>2022-07-29T16:29:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -89,6 +89,9 @@
                 hreflang="en"
                 href="https://vyorkin.org/"
                 />
+  </url><url>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</loc>
+    <lastmod>2022-07-29T13:18:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</loc>
     <lastmod>2022-07-28T11:10:00+03:00</lastmod>

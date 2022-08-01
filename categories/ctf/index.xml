@@ -6,7 +6,17 @@
     <description>Recent content in ctf on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Jul 2022 19:01:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 15:56:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #10 King</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king/</link>
+      <pubDate>Mon, 01 Aug 2022 15:56:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king/</guid>
+      <description>The goal of this level is to break the game defined by the King contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value &amp;gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #9 Vault</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</link>
@@ -89,6 +99,15 @@ We know that tx.origin always refers to the EOA (externally owned account) that 
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</guid>
       <description>To complete this level we need become the owner of the contract and reduce its balance to zero.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallback { using SafeMath for uint256; mapping(address =&amp;gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function contribute() public payable { require(msg.</description>
+    </item>
+    
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>
+      <pubDate>Sat, 23 Jul 2022 22:27:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</guid>
+      <description></description>
     </item>
     
     <item>

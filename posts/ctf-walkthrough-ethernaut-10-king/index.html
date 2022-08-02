@@ -372,8 +372,9 @@ implement it so that it breaks the transfer logic.</p>
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<p>When sending ETH always keep in mind that the transaction might
-fail because of the following reasons:</p>
+<p>It is important to handle failed transactions properly. When
+sending ETH always keep in mind that the transaction might fail
+because of the following reasons:</p>
 <ul>
 <li>The receiving contract has <code>receive</code> or <code>fallback</code> function
 that always throws an error/reverts.</li>
@@ -383,7 +384,8 @@ much gas (for no reason).</li>
 contract cannot receive Ether through regular transactions and
 throws an exception.</li>
 </ul>
-<p>It is important to handle failed transactions properly.</p>
+<p><a href="https://consensys.github.io/smart-contract-best-practices/development-recommendations/general/external-calls/#favor-pull-over-push-for-external-calls">Favor
+pull over push for external calls</a>.</p>
 <h2 id="references">
   References
   <a class="heading-link" href="#references">
@@ -391,6 +393,9 @@ throws an exception.</li>
   </a>
 </h2>
 <ul>
+<li><a href="https://consensys.github.io/smart-contract-best-practices/development-recommendations/general/external-calls/#dont-use-transfer-or-send">External
+Calls</a> from Ethereum Smart Contract Best Practices</li>
+<li><a href="https://swcregistry.io/docs/SWC-113">SWC-113</a> &ndash; DoS with Failed Call.</li>
 <li><a href="https://solidity-by-example.org/sending-ether/">Sending
 Ether (transfer, send, call)</a> from Solidity by Example.</li>
 </ul>

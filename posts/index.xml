@@ -6,7 +6,18 @@
     <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2022 15:07:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 19:58:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Ethernaut, #12 Elevator</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-evelator/</link>
+      <pubDate>Wed, 03 Aug 2022 19:58:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-evelator/</guid>
+      <description>To solve this challenge we have to set the top state variable to true.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; interface Building { function isLastFloor(uint256) external returns (bool); } contract Elevator { bool public top; uint256 public floor; function goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } } Analysis Let&amp;rsquo;s go over the goTo function:
+function goTo(uint256 _floor) public { Building building = Building(msg.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>

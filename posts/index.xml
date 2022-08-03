@@ -6,7 +6,27 @@
     <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Aug 2022 15:56:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 15:07:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>
+      <pubDate>Wed, 03 Aug 2022 15:07:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</guid>
+      <description> Intro There are only 16 days left to prepare for the Paradigm CTF 2022. Hence I&amp;rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021.
+Challenge Thoughts Exploit Conclusion References </description>
+    </item>
+    
+    <item>
+      <title>CTF walkthrough, Ethernaut, #11 Re-entrancy</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/</link>
+      <pubDate>Tue, 02 Aug 2022 11:57:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/</guid>
+      <description>The objective of this challenge is to steal all the funds from the contract.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&amp;gt; uint256) public balances; function donate(address _to) public payable { balances[_to] += msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &amp;gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&amp;#34;&amp;#34;); if (result) { _amount; } unchecked { balances[msg.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #10 King</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king/</link>
@@ -57,7 +77,7 @@ If neither a receive Ether nor a payable fallback function is present, the contr
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</guid>
       <description>We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
-// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&amp;gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &amp;gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&amp;rsquo;s review the transfer function:</description>
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&amp;gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &amp;gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&amp;rsquo;s go line by line and see what we can come up with.</description>
     </item>
     
     <item>
@@ -98,16 +118,7 @@ We know that tx.origin always refers to the EOA (externally owned account) that 
       
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/</guid>
       <description>To complete this level we need become the owner of the contract and reduce its balance to zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;openzeppelin/utils/math/SafeMath.sol&amp;#34;; contract Fallback { using SafeMath for uint256; mapping(address =&amp;gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function contribute() public payable { require(msg.</description>
-    </item>
-    
-    <item>
-      <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
-      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>
-      <pubDate>Sat, 23 Jul 2022 22:27:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</guid>
-      <description></description>
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&amp;gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &amp;#34;caller is not the owner&amp;#34;); _; } function contribute() public payable { require(msg.value &amp;lt; 0.001 ether, &amp;#34;msg.</description>
     </item>
     
     <item>

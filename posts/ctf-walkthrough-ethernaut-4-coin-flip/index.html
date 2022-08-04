@@ -261,7 +261,7 @@ probability of getting heads or tails.</li>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>For the above check to work the <code>lastHash</code> is saved on each <code>flip</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>lastHash = blockValue;
-</span></span></code></pre></div><p>The <code>blockValue</code> is divided by <code>FACTOR</code> to determine a coin side.</p>
+</span></span></code></pre></div><p>The <code>blockValue</code> is divided by <code>FACTOR</code> to determine a coin side:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
 </span></span><span style="display:flex;"><span><span style="color:#888;font-weight:bold">bool</span> side = coinFlip == <span style="color:#00d;font-weight:bold">1</span> ? <span style="color:#080;font-weight:bold">true</span> : <span style="color:#080;font-weight:bold">false</span>;
 </span></span></code></pre></div><p>The <code>if-else</code> condition increments or resets the <code>consecutiveWins</code>:</p>
@@ -397,7 +397,8 @@ same logic to &ldquo;guess&rdquo; the <code>flip</code> outcome:</p>
 </h2>
 <ul>
 <li>Blockchains such as <code>Ethereum</code> are deterministic Turing machines.</li>
-<li>The <code>block.number</code>, <code>blockhash</code> and <code>block.timestamp</code> are not reliable sources for randomness.</li>
+<li>The <code>block.number</code>, <code>blockhash</code> and <code>block.timestamp</code> are not
+reliable sources of randomness.</li>
 <li>Good contracts use oracles for random numbers 😇</li>
 </ul>
 <h2 id="references">
@@ -417,7 +418,7 @@ Randomness</a> from Solidity by Example.</li>
 Random Number</a> using Chainlink VRFs.</li>
 </ul>
 <hr>
-<p>You can find the code for this challenge
+<p>You can find the code and solution for this level
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-4/src/test/CoinFlip.t.sol">here</a>.
 Now, let&rsquo;s move on to
 <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone">CTF walkthrough,

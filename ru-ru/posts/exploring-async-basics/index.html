@@ -46,13 +46,19 @@
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.1fcaf868e247e0175202d2fe4516e33a7bdb47365e90fe92409b3f14b2036b72.css" integrity="sha256-H8r4aOJH4BdSAtL&#43;RRbjOnvbRzZekP6SQJs/FLIDa3I=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.f457e937e31d731408def5c4e09a8bc48156362889abb942912d05a8243264a6.css" integrity="sha256-9FfpN&#43;MdcxQI3vXE4JqLxIFWNiiJq7lCkS0FqCQyZKY=" crossorigin="anonymous" media="screen" />
 
 
 
 
 
   
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.58002408d8b6590c4b5ea8cc6e50bb088510809eae7e48d72d44762e7e7481af.css" integrity="sha256-WAAkCNi2WQxLXqjMblC7CIUQgJ6ufkjXLUR2Ln50ga8=" crossorigin="anonymous" media="screen" />
+  
+
 
 
    
@@ -83,8 +89,16 @@
 
 
 
-<body class="preload-transitions colorscheme-light">
+
+
+<body class="preload-transitions colorscheme-dark">
   
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
 
   <main class="wrapper">
     <nav class="navigation">
@@ -202,87 +216,87 @@ Lines of Rust</a></em>.</p>
 реализации зелёных потоков. Поскольку я экспериментирую на
 macbook c процессором M1, то будем писать ассемблер для arm64.</p>
 <p>Нам понадобится макрос <code>asm!</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">use</span><span style="color:#bbb"> </span>core::arch::asm;<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Размер стека выберем не более 48 байт, чтобы было удобно
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">use</span> core::arch::asm;
+</span></span></code></pre></div><p>Размер стека выберем не более 48 байт, чтобы было удобно
 смотреть на него в терминале:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>SSIZE: <span style="color:#888;font-weight:bold">isize</span> =<span style="color:#bbb"> </span><span style="color:#00d;font-weight:bold">48</span>;<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Теперь добавим структуру, которая будет описывать состояние (контекст) потока.
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">const</span> SSIZE: <span style="color:#fff;font-weight:bold">isize</span> = <span style="color:#ff0;font-weight:bold">48</span>;
+</span></span></code></pre></div><p>Теперь добавим структуру, которая будет описывать состояние (контекст) потока.
 Сейчас нам понадобится только регистр указателя на стек:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#c00;font-weight:bold">#[derive(Debug, Default)]</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#c00;font-weight:bold">#[repr(C)]</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-weight:bold">struct</span> <span style="color:#b06;font-weight:bold">ThreadContext</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sp: <span style="color:#888;font-weight:bold">u64</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Мы будем работать с этой структурой используя ассемблер и хотим
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#[derive(Debug, Default)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#[repr(C)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">struct</span> ThreadContext {
+</span></span><span style="display:flex;"><span>    sp: <span style="color:#fff;font-weight:bold">u64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Мы будем работать с этой структурой используя ассемблер и хотим
 быть уверены относительно того как она будет размещена в памяти.
 Например, что первые 8 байт это содержимое регистра <code>SP</code>. Для
 этого при описании структуры мы используем директиву
 <a href="https://doc.rust-lang.org/nomicon/other-reprs.html#reprc">repr(C)</a>.</p>
 <p>Нам нужна функция для переключения между потоками. Вот такую
 реализацию можно использовать для arm64:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">thread_switch</span>(new: *<span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>ThreadContext)<span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>asm!(<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Загружаем сохранённый ранее указатель стека
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;MOV SP, {}&#34;</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Считываем в ссылочный регистр LR адрес функции из
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// области памяти, на которую указывает SP
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;LDR LR, [SP], #16&#34;</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Прыгаем на функцию
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;RET&#34;</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">in</span>(reg)<span style="color:#bbb"> </span>(*new).sp<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Не уверен, что я делаю это правильно для arm64, но оно работает.
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">unsafe</span> <span style="color:#fff;font-weight:bold">fn</span> thread_switch(new: *<span style="color:#fff;font-weight:bold">const</span> ThreadContext) {
+</span></span><span style="display:flex;"><span>    asm!(
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Загружаем сохранённый ранее указатель стека
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#0ff;font-weight:bold">&#34;MOV SP, {}&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Считываем в ссылочный регистр LR адрес функции из
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#007f7f">// области памяти, на которую указывает SP
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#0ff;font-weight:bold">&#34;LDR LR, [SP], #16&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Прыгаем на функцию
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#0ff;font-weight:bold">&#34;RET&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">in</span>(reg) (*new).sp
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Не уверен, что я делаю это правильно для arm64, но оно работает.
 Для x86-64 это выглядело бы немного иначе:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">thread_switch</span>(new: *<span style="color:#080;font-weight:bold">const</span><span style="color:#bbb"> </span>ThreadContext)<span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>asm!(<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;MOV RSP, [{0} + 0x00]&#34;</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#d20;background-color:#fff0f0">&#34;RET&#34;</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">in</span>(reg)<span style="color:#bbb"> </span>new,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Мы используем этот трюк, чтобы переключаться между функциями.
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">unsafe</span> <span style="color:#fff;font-weight:bold">fn</span> thread_switch(new: *<span style="color:#fff;font-weight:bold">const</span> ThreadContext) {
+</span></span><span style="display:flex;"><span>    asm!(
+</span></span><span style="display:flex;"><span>        <span style="color:#0ff;font-weight:bold">&#34;MOV RSP, [{0} + 0x00]&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#0ff;font-weight:bold">&#34;RET&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">in</span>(reg) new,
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Мы используем этот трюк, чтобы переключаться между функциями.
 Инструкция <code>MOV RSP, {0}</code> загружает в регистр <code>RSP</code> адрес функции
 на выполнение которой мы хотим переключиться, а <code>RET</code> передаёт
 управление на адрес возврата, расположенный на вершине стека.</p>
 <p>Для эксперимента нам нужна какая-нибудь тривиальная функция:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">foo</span>()<span style="color:#bbb"> </span>-&gt; !<span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>println!(<span style="color:#d20;background-color:#fff0f0">&#34;foo&#34;</span>);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">loop</span><span style="color:#bbb"> </span>{}<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">fn</span> <span style="color:#06b;font-weight:bold">main</span>()<span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>ctx<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>ThreadContext::default();<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>stack<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>vec![<span style="color:#00d;font-weight:bold">0_</span><span style="color:#080;font-weight:bold">u8</span>;<span style="color:#bbb"> </span>SSIZE<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span>];<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-weight:bold">unsafe</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Мы знаем, что в x86-64 и в arm64 стек выровнен на 16 байт
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Указатель на байты стека (он растёт вниз)
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>stack_bottom<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>stack.as_mut_ptr().offset(SSIZE);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Получаем выровненный на 16-байт адрес стека
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>sb_aligned<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(stack_bottom<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span><span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>!<span style="color:#00d;font-weight:bold">15</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u8</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Нам нужно записать 8 байт (64 бита),
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// Поэтому приводим адрес foo и указатель на стек к u64
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Адрес нашей функции
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>foo_src<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>foo<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Смещаемся назад (вверх) на 16 байт
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#888">// (помним про выравнивание в x86-64 и arm64)
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>foo_dst<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>sb_aligned.offset(-<span style="color:#00d;font-weight:bold">16</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#888">// Записываем в стек указатель на foo
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#bbb">        </span>std::ptr::write(foo_dst,<span style="color:#bbb"> </span>foo_src);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ctx.sp<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>sb_aligned.offset(-<span style="color:#00d;font-weight:bold">16</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u64</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>thread_switch(&amp;<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span>ctx);<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Мы можем сделать <code>foo as u64</code> потому что функция это уже 64-битный указатель.
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">fn</span> foo() -&gt; ! {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#0ff;font-weight:bold">&#34;foo&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">loop</span> {}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">fn</span> main() {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">mut</span> ctx = ThreadContext::default();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">mut</span> stack = vec![<span style="color:#ff0;font-weight:bold">0_</span><span style="color:#fff;font-weight:bold">u8</span>; SSIZE <span style="color:#fff;font-weight:bold">as</span> <span style="color:#fff;font-weight:bold">usize</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">unsafe</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Мы знаем, что в x86-64 и в arm64 стек выровнен на 16 байт
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Указатель на байты стека (он растёт вниз)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">let</span> stack_bottom = stack.as_mut_ptr().offset(SSIZE);
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Получаем выровненный на 16-байт адрес стека
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">let</span> sb_aligned = (stack_bottom <span style="color:#fff;font-weight:bold">as</span> <span style="color:#fff;font-weight:bold">usize</span> &amp; !<span style="color:#ff0;font-weight:bold">15</span>) <span style="color:#fff;font-weight:bold">as</span> *<span style="color:#fff;font-weight:bold">mut</span> <span style="color:#fff;font-weight:bold">u8</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Нам нужно записать 8 байт (64 бита),
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#007f7f">// Поэтому приводим адрес foo и указатель на стек к u64
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Адрес нашей функции
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">let</span> foo_src = foo <span style="color:#fff;font-weight:bold">as</span> <span style="color:#fff;font-weight:bold">u64</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Смещаемся назад (вверх) на 16 байт
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#007f7f">// (помним про выравнивание в x86-64 и arm64)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">let</span> foo_dst = sb_aligned.offset(-<span style="color:#ff0;font-weight:bold">16</span>) <span style="color:#fff;font-weight:bold">as</span> *<span style="color:#fff;font-weight:bold">mut</span> <span style="color:#fff;font-weight:bold">u64</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Записываем в стек указатель на foo
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        std::ptr::write(foo_dst, foo_src);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ctx.sp = sb_aligned.offset(-<span style="color:#ff0;font-weight:bold">16</span>) <span style="color:#fff;font-weight:bold">as</span> <span style="color:#fff;font-weight:bold">u64</span>;
+</span></span><span style="display:flex;"><span>        thread_switch(&amp;<span style="color:#fff;font-weight:bold">mut</span> ctx);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Мы можем сделать <code>foo as u64</code> потому что функция это уже 64-битный указатель.
 А вот эта строчка нужна, чтобы получить выровненный на 16 байт
 указатель на стек:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">let</span><span style="color:#bbb"> </span>sb_aligned<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>(stack_bottom<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">usize</span><span style="color:#bbb"> </span>&amp;<span style="color:#bbb"> </span>!<span style="color:#00d;font-weight:bold">15</span>)<span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">as</span><span style="color:#bbb"> </span>*<span style="color:#080;font-weight:bold">mut</span><span style="color:#bbb"> </span><span style="color:#888;font-weight:bold">u8</span>;<span style="color:#bbb">
-</span></span></span></code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> sb_aligned = (stack_bottom <span style="color:#fff;font-weight:bold">as</span> <span style="color:#fff;font-weight:bold">usize</span> &amp; !<span style="color:#ff0;font-weight:bold">15</span>) <span style="color:#fff;font-weight:bold">as</span> *<span style="color:#fff;font-weight:bold">mut</span> <span style="color:#fff;font-weight:bold">u8</span>;
+</span></span></code></pre></div><hr>
 <p>Продолжение следует&hellip;</p>
 
         
@@ -355,7 +369,7 @@ macbook c процессором M1, то будем писать ассембл
 
   
   
-  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
   
 
   

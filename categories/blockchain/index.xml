@@ -6,7 +6,27 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Aug 2022 11:27:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Aug 2022 15:07:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>
+      <pubDate>Thu, 04 Aug 2022 15:07:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</guid>
+      <description> Intro There are only 16 days left to prepare for the Paradigm CTF 2022. Hence I&amp;rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021.
+Challenge Thoughts Exploit Conclusion References SWC-132 &amp;ndash; Unexpected Ether balance (from the Smart Contract Weakness Classification and Test Cases). </description>
+    </item>
+    
+    <item>
+      <title>CTF walkthrough, Ethernaut, #14 Getekeeper One</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/</link>
+      <pubDate>Thu, 04 Aug 2022 12:24:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/</guid>
+      <description>To solve this challenge we must register as an entrant.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &amp;#34;forge-std/console2.sol&amp;#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &amp;#34;GatekeeperOne: invalid gateThree part one&amp;#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &amp;#34;GatekeeperOne: invalid gateThree part two&amp;#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &amp;#34;GatekeeperOne: invalid gateThree part three&amp;#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Ethernaut, #13 Privacy</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-13-privacy/</link>
@@ -56,7 +76,7 @@ function goTo(uint256 _floor) public { Building building = Building(msg.</descri
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</guid>
       <description>We need to unlock the Vault smart contract to pass the level.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Let&amp;rsquo;s look at the state variables:
-bool public locked; bytes32 private password; The private visibility modifier means that other contracts can&amp;rsquo;t read the password state variable directly.</description>
+bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.</description>
     </item>
     
     <item>

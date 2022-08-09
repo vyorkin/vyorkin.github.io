@@ -40,7 +40,7 @@
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.f457e937e31d731408def5c4e09a8bc48156362889abb942912d05a8243264a6.css" integrity="sha256-9FfpN&#43;MdcxQI3vXE4JqLxIFWNiiJq7lCkS0FqCQyZKY=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -50,7 +50,7 @@
   
     
     
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.58002408d8b6590c4b5ea8cc6e50bb088510809eae7e48d72d44762e7e7481af.css" integrity="sha256-WAAkCNi2WQxLXqjMblC7CIUQgJ6ufkjXLUR2Ln50ga8=" crossorigin="anonymous" media="screen" />
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
   
 
 
@@ -366,14 +366,38 @@ amount of gas is not enough, so let&rsquo;s add a little more: \(
 takes <code>330</code> gas itself, so we need to remove it from the
 <code>gateTwo()</code> function, since we don&rsquo;t need it anymore. Thus we
 passed through the 2nd gate!</p>
+<blockquote class="quote2 quote2-tip no-quote">Instead of using <code>console2.log</code> to calculate the gas spent, we
+could have used the
+<a href="https://remix-ide.readthedocs.io/en/latest/debugger.html">remix
+debugger</a> or some other EVM-debugger that allows you to check
+the
+<a href="https://remix-ide.readthedocs.io/en/latest/debugger.html#step-details">remaining
+gas</a>. Here I just leverage the fact that I&rsquo;m playing in a local
+environment and using <a href="https://book.getfoundry.sh/">foundry</a>.
+</blockquote>
+
 <p><strong>gateThree</strong></p>
 <p>The following 3 conditions must be satisfied:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint32</span>(<span style="color:#fff;font-weight:bold">uint64</span>(_gateKey)) == <span style="color:#fff;font-weight:bold">uint16</span>(<span style="color:#fff;font-weight:bold">uint64</span>(_gateKey))
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint32</span>(<span style="color:#fff;font-weight:bold">uint64</span>(_gateKey)) != <span style="color:#fff;font-weight:bold">uint64</span>(_gateKey)
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint32</span>(<span style="color:#fff;font-weight:bold">uint64</span>(_gateKey)) == <span style="color:#fff;font-weight:bold">uint16</span>(<span style="color:#fff;font-weight:bold">uint160</span>(<span style="color:#fff;font-weight:bold">tx</span>.<span style="color:#fff;font-weight:bold">origin</span>))
 </span></span></code></pre></div><p>To get through the last one we must have a good understanding of
-implicit/explicit type conversion rules and bitwise operations
-in Solidity. Here is an example key:</p>
+<a href="https://docs.soliditylang.org/en/v0.8.15/types.html#implicit-conversions">implicit</a>
+and
+<a href="https://docs.soliditylang.org/en/v0.8.15/types.html#explicit-conversions">explicit</a>
+type conversion rules and bitwise operations in Solidity.</p>
+<p>Basically, there are 4 things we need to know:</p>
+<ul>
+<li>If an operator is applied to different types, the compiler
+tries to implicitly convert one of the operands to the type of
+the other without loosing information. So generally it
+converts to a larger type.</li>
+<li>Converting a smaller integer to a larger type will pad it on the left.</li>
+<li>Converting fixed-size bytes types to a smaller type will cut
+off the sequence.</li>
+<li>Bit masking.</li>
+</ul>
+<p>Here is an example key:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">public</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes8</span> tail = <span style="color:#fff;font-weight:bold">bytes8</span>(<span style="color:#fff;font-weight:bold">uint64</span>(<span style="color:#fff;font-weight:bold">uint16</span>(<span style="color:#fff;font-weight:bold">uint160</span>(<span style="color:#fff;font-weight:bold">tx</span>.<span style="color:#fff;font-weight:bold">origin</span>))));
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes8</span> head = <span style="color:#fff;font-weight:bold">bytes2</span>(<span style="color:#ff0;font-weight:bold">0xffff</span>);
@@ -388,13 +412,15 @@ in Solidity. Here is an example key:</p>
 </h2>
 <ul>
 <li><a href="https://docs.soliditylang.org/en/v0.8.15/types.html#conversions-between-elementary-types">Conversions
-between Elementary Types</a> from Solidity docs.</li>
+between Elementary Types</a> from the Solidity docs.</li>
 <li><a href="https://book.getfoundry.sh/forge/forge-std#forge-standard-library-overview">Forge
 Standart Library Overview</a>.</li>
 <li><a href="https://book.getfoundry.sh/reference/forge-std/console-log">Console
-Logging</a>.</li>
+Logging</a> from the Foundry Book.</li>
 <li><a href="https://jeancvllr.medium.com/solidity-tutorial-all-about-bytes-9d88fdb22676">Solidity
 Tutorial : all about Bytes</a>.</li>
+<li><a href="https://www.tutorialspoint.com/solidity/solidity_conversions.htm">Solidity
+conversions tutorial</a>.</li>
 </ul>
 <hr>
 <p>The complete code

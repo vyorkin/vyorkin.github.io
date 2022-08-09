@@ -25,7 +25,7 @@ function goTo(uint256 _floor) public { Building building = Building(msg."/>
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; interface Building { function isLastFloor(uint256) external returns (bool); } contract Elevator { bool public top; uint256 public floor; function goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } } Analysis Let&rsquo;s go over the goTo function:
 function goTo(uint256 _floor) public { Building building = Building(msg." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-evelator/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-03T19:58:00+03:00" />
 <meta property="article:modified_time" content="2022-08-03T19:58:00+03:00" />
 
@@ -35,7 +35,7 @@ function goTo(uint256 _floor) public { Building building = Building(msg." />
   <title>vyorkin.org</title>
 
   
-  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-evelator/">
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/">
   
 
   <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
@@ -159,7 +159,7 @@ function goTo(uint256 _floor) public { Building building = Building(msg." />
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-evelator/">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/">
               CTF walkthrough, Ethernaut, #12 Elevator
             </a>
           </h1>

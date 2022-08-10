@@ -251,6 +251,11 @@ contract &ndash; stop the poll from offering flash loans.</li>
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
+<p>There are two contracts in this challenge:</p>
+<ul>
+<li><code>UnstoppableLender</code></li>
+<li><code>ReceiverUnstoppable</code></li>
+</ul>
 <p>The <code>UnstoppableLender</code> inherits from the
 <a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard">ReentrancyGuard</a>
 and each <code>external</code> function has the <code>nonReentrant</code> modifier.
@@ -279,6 +284,7 @@ DVT&rsquo;s in a pool.</li>
 the <code>poolBalance</code> storage variable instead of relying on the
 <code>dvt.balanceOf</code> function. Let&rsquo;s keep this in mind.</p>
 <p><strong>flashLoan</strong></p>
+<p>Our challenge is to disable this function. Let&rsquo; take a look at it:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> borrowAmount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (borrowAmount == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustBorrowOneTokenMinimum();
 </span></span><span style="display:flex;"><span>
@@ -298,7 +304,13 @@ the <code>poolBalance</code> storage variable instead of relying on the
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceAfter = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceAfter &lt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>👀 The problem is this line:</p>
+</span></span></code></pre></div><ul>
+<li>It takes the <code>borrowAmount</code> argument.</li>
+<li>It checks that the balance of the borrowed token DVT is
+greater than or equal to the <code>borrowAmount</code>.</li>
+<li>It ensures that the <code>poolBalance</code> is equal to the <code>balanceBefore</code>.</li>
+</ul>
+<p>👀 The problem is this line:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (poolBalance != balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> AssertionViolated();
 </span></span></code></pre></div><p>It is possible to transfer ERC20 tokens to any EOA/contract.
 Hence we can directly send some DVT&rsquo;s to the <code>UnstoppableLender</code>

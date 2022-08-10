@@ -280,10 +280,10 @@ could be done by using either of the following functions:</p>
 <li><code>abi.encodeWithSelector(bytes4 selector, ...)</code></li>
 <li><code>abi.encodeWithSignature(string memory signature, ...)</code></li>
 </ul>
-<p>The EVM stores state (storage) variables in slots in the order
-they are defined in a contract. Because in both contracts the
-<code>owner</code> state variable is defined first (assigned to <code>slot 0</code>),
-it is possible call the <code>pwn()</code> function to change its value.</p>
+<p>The EVM stores contract&rsquo;s state variables in slots in the order
+they are defined. Because in both of these contracts the <code>owner</code>
+state variable is defined first (assigned to <code>slot 0</code>), it is
+possible call the <code>pwn()</code> function to change its value.</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegate {
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner; <span style="color:#007f7f">// slot = 0
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ...

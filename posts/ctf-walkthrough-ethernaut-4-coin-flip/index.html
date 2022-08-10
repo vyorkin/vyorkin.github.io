@@ -304,6 +304,14 @@ same logic to &ldquo;guess&rdquo; the <code>flip</code> outcome:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    vm.stopPrank();
 </span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here we call the <code>utils.mineBlocks(1)</code>. It calls the
+<a href="https://book.getfoundry.sh/cheatcodes/roll">vm.roll</a> that
+sets the current block number. It allows us to move the
+<code>block.number</code> forward by a given <code>count</code> of blocks:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> mineBlocks(<span style="color:#fff;font-weight:bold">uint256</span> count) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> target = <span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">number</span> + count;
+</span></span><span style="display:flex;"><span>    vm.roll(target);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The trace:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>forge <span style="color:#fff;font-weight:bold">test</span> --match-contract CoinFlipTest -vvvv
 </span></span><span style="display:flex;"><span>

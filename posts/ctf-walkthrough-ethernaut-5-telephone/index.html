@@ -237,15 +237,16 @@ sequenceDiagram
     actor P as Player
     participant A as Attacker
     participant T as Telephone
-    P-&gt;&gt;A: new()
-    activate A
-    P-&gt;&gt;A: run()
-    A-&gt;&gt;T: changeOwner(msg.sender)
-    Note right of A: msg.sender = Player
-    Note right of A: tx.origin = Player
-    Note right of T: msg.sender = Attacker
-    Note right of T: tx.origin = Player
-    deactivate A
+
+P-&gt;&gt;A: new()
+activate A
+P-&gt;&gt;A: run()
+A-&gt;&gt;T: changeOwner(msg.sender)
+Note right of A: msg.sender = Player
+Note right of A: tx.origin = Player
+Note right of T: msg.sender = Attacker
+Note right of T: tx.origin = Player
+deactivate A
 
 </div>
 

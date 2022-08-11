@@ -6,7 +6,17 @@
     <description>Recent content in ctf on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Aug 2022 11:37:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Aug 2022 16:56:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #4 Side entrance</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/</link>
+      <pubDate>Thu, 11 Aug 2022 16:56:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/</guid>
+      <description>Challenge A surprisingly simple lending pool allows anyone to deposit ETH, and withdraw it at any point in time. This very simple lending pool has 1000 ETH in balance already, and is offering free flash loans using the deposited ETH to promote their system. You must take all ETH from the lending pool. Here is the lending pool contract:
+// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {Address} from &amp;#34;openzeppelin-contracts/utils/Address.sol&amp;#34;; interface IFlashLoanEtherReceiver { function execute() external payable; } /** * @title SideEntranceLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #3 Truster</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster/</link>

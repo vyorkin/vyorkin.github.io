@@ -274,7 +274,10 @@ load the value from storage slot with a specific index.</p>
   </a>
 </h2>
 <ul>
-<li>All &ldquo;private&rdquo; data is public on the blockchain.</li>
+<li>All &ldquo;private&rdquo; data is public on the blockchain. Just because
+you set the visibility to <code>private</code> or <code>internal</code> doesn&rsquo;t mean
+that it becomes secret. Anyone can read the storage of any
+contract ever existed on EVM blockchain.</li>
 <li>Encrypt/hash any sensitive data that you want to store in a
 smart contract.</li>
 </ul>

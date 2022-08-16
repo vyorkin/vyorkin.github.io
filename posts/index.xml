@@ -6,7 +6,17 @@
     <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Aug 2022 16:56:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Aug 2022 00:33:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/</link>
+      <pubDate>Wed, 17 Aug 2022 00:33:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/</guid>
+      <description>Challenge Today we&amp;rsquo;re going to take a look at The Rewarder challenge:
+There&amp;rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&amp;rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #4 Side entrance</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/</link>

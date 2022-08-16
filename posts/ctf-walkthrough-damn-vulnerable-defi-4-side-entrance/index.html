@@ -367,11 +367,11 @@ E-&gt;&gt;P: withdraw()
 Note right of E: immediately withdraw everything
 P-&gt;&gt;P: balances[msg.sender] = 0
 P-&gt;&gt;E: sendValue(...)
-Note left of P: sendValue(...) calls the receive() function on Exploit contract
+Note left of P: sendValue(...) calls the receive() function
 P-&gt;&gt;P: check address(this).balance &lt; balanceBefore
 P--&gt;&gt;E: ()
 E-&gt;&gt;A: sendValue(...)
-Note right of A: withdraw ETH from the Exploit contract to the Attacker
+Note right of A: withdraw stolen ETH
 deactivate E
 
 </div>

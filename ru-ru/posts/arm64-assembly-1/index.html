@@ -314,28 +314,24 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 <p>Все ARM-инструкции, которые работают с данными, имеют
 опциональный параметр <code>operand2</code>. Он может быть в 3 формах:</p>
 <ol>
-<li>
-<p><strong>Регистр и сдвиг</strong></p>
+<li><strong>Регистр и сдвиг</strong>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      MOV X1, X2, LSL <span style="color:#007f7f">#1 ; логический сдвиг влево
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, LSR <span style="color:#007f7f">#1 ; логический сдвиг вправо
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, ASR <span style="color:#007f7f">#1 ; арифметический сдвиг вправо
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, ROR <span style="color:#007f7f">#1 ; сдвиг вправо (вращение)
 </span></span></span></code></pre></div></li>
-<li>
-<p><strong>Регистр и расширение</strong>. Операции расширения позволяют нам
+<li><strong>Регистр и расширение</strong>. Операции расширения позволяют нам
 достать байт, половину или целое слово из второго регистра.
 С инструкцией <code>MOV</code> расширения использовать нельзя, поэтому
-приведём пример с <code>ADD</code>:</p>
+приведём пример с <code>ADD</code>:
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + SXTB(X0)
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, X0, SXTB
-</span></span></code></pre></div><p>Если можно было догадаться что делают сдвиги, то с <code>SXTB</code> и
+</span></span></code></pre></div>Если можно было догадаться что делают сдвиги, то с <code>SXTB</code> и
 другими расширениями уже не так очевидно. Сейчас не будем на
 этом детально останавливаться. Надеюсь, что сможем изучить
-как работают расширения позже.</p>
-</li>
-<li>
-<p><strong>Число и сдвиг</strong>. Мы уже встречали эту форму, когда
-разбирались с <code>MOVK</code>.</p>
+как работают расширения позже.</li>
+<li><strong>Число и сдвиг</strong>. Мы уже встречали эту форму, когда
+разбирались с <code>MOVK</code>.
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      MOV X1, <span style="color:#ff0;font-weight:bold">0xAB00</span>, LSL <span style="color:#007f7f">#16
 </span></span></span></code></pre></div></li>
 </ol>

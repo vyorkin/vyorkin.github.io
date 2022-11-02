@@ -69,7 +69,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.104.3" />
 
 
   
@@ -241,8 +241,8 @@ version</a> of it.</p>
 <li>The <code>UnstoppableLender</code> contract offers flash loans in DVT
 (ERC20) tokens for free.</li>
 <li>It has 1000000 DVT in balance.</li>
-<li>We must solve this challenge by disabling functionaly of this
-contract &ndash; stop the poll from offering flash loans.</li>
+<li>We must solve this challenge by disabling functionality of this
+contract &ndash; stop the pool from offering flash loans.</li>
 <li>We start with 100 DVT tokens in balance.</li>
 </ul>
 <h2 id="analysis">
@@ -276,7 +276,7 @@ Let&rsquo;s have a look at contract&rsquo;s state variables:</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>It requires the deposit of at least 1 DVT.</li>
-<li>Assumes that the <code>msg.sender</code> have <code>approve</code>&rsquo;d the <code>amount</code>.</li>
+<li>Assumes that the <code>msg.sender</code> has <code>approve</code>&rsquo;d the <code>amount</code>.</li>
 <li>Updates the <code>poolBalance</code> so it reflects the total amount of
 DVT&rsquo;s in a pool.</li>
 </ul>

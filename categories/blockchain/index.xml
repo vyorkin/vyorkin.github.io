@@ -6,7 +6,18 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Aug 2022 00:33:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Nov 2022 08:12:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</link>
+      <pubDate>Wed, 02 Nov 2022 08:12:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</guid>
+      <description>After a short break, I&amp;rsquo;m back and excited to keep going with these CTF walkthrough series.
+The current challenge is Selfie:
+Challenge A new cool lending pool has launched! It&amp;rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/</link>

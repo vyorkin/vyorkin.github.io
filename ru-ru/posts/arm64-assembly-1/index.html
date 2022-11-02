@@ -72,7 +72,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.104.3" />
 
 
   
@@ -238,15 +238,15 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#007f7f">.align</span> <span style="color:#ff0;font-weight:bold">2</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>_start:
-</span></span><span style="display:flex;"><span>  <span style="color:#f00">//</span> <span style="color:#f00">печатаем</span>
-</span></span><span style="display:flex;"><span>  MOV X0, <span style="color:#007f7f">#1 ; куда печатать: 1 = stdout
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// печатаем
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X0, <span style="color:#007f7f">#1 ; куда печатать: 1 = stdout
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  ADR X1, helloworld <span style="color:#007f7f">; что печатать
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X2, <span style="color:#007f7f">#13 ; длина нашей строчки
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X16, <span style="color:#007f7f">#4 ; номер системного вызова &#34;write&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  SVC <span style="color:#007f7f">#0x80 ; делаем системный вызов
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f00">//</span> <span style="color:#f00">выходим</span>
-</span></span><span style="display:flex;"><span>  MOV X0, <span style="color:#007f7f">#0 ; код 0
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// выходим
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X0, <span style="color:#007f7f">#0 ; код 0
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X16, <span style="color:#007f7f">#1 ; номер системного вызова &#34;exit&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  SVC <span style="color:#007f7f">#0x80 ; просим ядро завершить программу
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>

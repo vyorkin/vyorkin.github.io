@@ -6,7 +6,18 @@
     <description>Recent content in blockchain on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Nov 2022 08:12:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Nov 2022 12:30:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTF walkthrough, Damn Vulnerable DeFi, #8 Puppet</title>
+      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</link>
+      <pubDate>Tue, 15 Nov 2022 12:30:00 +0300</pubDate>
+      
+      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</guid>
+      <description>Challenge There&amp;rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.
+There&amp;rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.
+Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool.</description>
+    </item>
+    
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</link>

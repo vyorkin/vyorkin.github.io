@@ -286,7 +286,7 @@ In other words, it forbids calling the governance contract
 from actions.</li>
 </ol>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> _hasEnoughVotes(<span style="color:#fff;font-weight:bold">address</span> account) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _hasEnoughVotes(<span style="color:#fff;font-weight:bold">address</span> account) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span> = governanceToken.getBalanceAtLastSnapshot(account);
 </span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> halfTotalSupply = governanceToken
 </span></span><span style="display:flex;"><span>        .getTotalSupplyAtLastSnapshot() / <span style="color:#ff0;font-weight:bold">2</span>;
@@ -429,13 +429,16 @@ rely on the majority of the token holders.</p>
 </h2>
 <ol>
 <li>
-<p>Require separate transactions for depositing governance
-tokens and submitting a proposal action. Use some kind of vesting period.</p>
+<p>Require different blocks for depositing governance tokens and
+submitting a proposal action. Flash loans cannot execute
+outside of a single block.</p>
 </li>
 <li>
 <p>Use well tested implementations like <a href="https://docs.openzeppelin.com/contracts/4.x/api/governance">primitives for on-chain governance</a> by OpenZeppelin.</p>
 </li>
 </ol>
+<p><a href="https://docs.uniswap.org/protocol/concepts/governance/adversarial-circumstances">Adversarial Circumstances</a> &ndash; exploration of some adversarial
+scenarios and circumventions on the example of Uniswap governance.</p>
 <h2 id="references">
   References
   <a class="heading-link" href="#references">
@@ -445,6 +448,8 @@ tokens and submitting a proposal action. Use some kind of vesting period.</p>
 <ul>
 <li><a href="https://cointelegraph.com/news/beanstalk-farms-loses-182m-in-defi-governance-exploit">Beanstalk Farms loses $182M in DeFi governance exploit</a></li>
 <li><a href="https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20Snapshot">ERC20Snapshot</a> &ndash; OpenZeppelin docs.</li>
+<li><a href="https://youtu.be/GbDAmMdmh8Q">Strategies for Secure
+Governance with Smart Contracts</a> &ndash; Covers battle-tested practices and recommended patterns to build safe and robust on-chain governance smart contracts in Ethereum.</li>
 </ul>
 <hr>
 <p>Thank you for reading! You can find the full code

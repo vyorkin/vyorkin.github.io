@@ -13,8 +13,7 @@
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract CoinFlip { uint256 public consecutiveWins; uint256 lastHash; uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968; constructor() { consecutiveWins = 0; } function flip(bool _guess) public returns (bool) { uint256 blockValue = uint256(blockhash(block.number - 1)); if (lastHash == blockValue) { revert(); } lastHash = blockValue; uint256 coinFlip = blockValue / FACTOR; bool side = coinFlip == 1 ?">
 <meta name="keywords" content="Vasiliy Yorkin">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #4 Coin Flip"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #4 Coin Flip"/>
 <meta name="twitter:description" content="To complete this challenge we need to predict the outcome of a coin flip game 10 times in a row. Here is the slightly altered version of the original smart contract:
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract CoinFlip { uint256 public consecutiveWins; uint256 lastHash; uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968; constructor() { consecutiveWins = 0; } function flip(bool _guess) public returns (bool) { uint256 blockValue = uint256(blockhash(block.number - 1)); if (lastHash == blockValue) { revert(); } lastHash = blockValue; uint256 coinFlip = blockValue / FACTOR; bool side = coinFlip == 1 ?"/>
 
@@ -25,7 +24,6 @@
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-4-coin-flip/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-26T10:25:00+03:00" />
 <meta property="article:modified_time" content="2022-07-26T10:25:00+03:00" />
-
 
 
 
@@ -72,7 +70,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.104.3" />
+  <meta name="generator" content="Hugo 0.124.0">
 
 
   
@@ -440,7 +438,7 @@ Random Number</a> using Chainlink VRFs.</li>
 <p>You can find the code and solution for this level
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-4/src/test/CoinFlip.t.sol">here</a>.
 Now, let&rsquo;s move on to
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone">CTF walkthrough,
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/">CTF walkthrough,
 Ethernaut, #5 Telephone</a>!</p>
 
         
@@ -484,7 +482,7 @@ Ethernaut, #5 Telephone</a>!</p>
     
       1985 -
     
-    2022
+    2024
      Vasiliy Yorkin 
     
   </section>

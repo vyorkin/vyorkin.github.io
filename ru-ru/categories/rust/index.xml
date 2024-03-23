@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on vyorkin.org</title>
+    <title>Rust on vyorkin.org</title>
     <link>https://vyorkin.org/ru-ru/categories/rust/</link>
-    <description>Recent content in rust on vyorkin.org</description>
+    <description>Recent content in Rust on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/ru-ru/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <language>ru-ru</language>
+    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/ru-ru/categories/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Зелёные потоки в 200 строчек на Rust. Часть 1</title>
       <link>https://vyorkin.org/ru-ru/posts/exploring-async-basics/</link>
       <pubDate>Wed, 13 Jul 2022 16:19:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/posts/exploring-async-basics/</guid>
-      <description>Это вольный перевод-конспект &amp;ldquo;книги&amp;rdquo; Green Threads Explained in 200 Lines of Rust.
-Пользовательские потоки, горутины, файберы &amp;ndash; у них много названий, но далее для простоты мы будем называть их зелёные потоки. Чтобы разобраться как они устроены мы напишем игрушечную реализацию.
-Итак, как мы знаем, есть два вида многозадачности:
-Вытесняющая &amp;ndash; внешний планировщик принимает решения о том когда будет выполняться какой поток и отвечает за переключение между ними. Используется в операционных системах.</description>
+      <description>Это вольный перевод-конспект &amp;ldquo;книги&amp;rdquo; Green Threads Explained in 200 Lines of Rust.&#xA;Пользовательские потоки, горутины, файберы &amp;ndash; у них много названий, но далее для простоты мы будем называть их зелёные потоки. Чтобы разобраться как они устроены мы напишем игрушечную реализацию.&#xA;Итак, как мы знаем, есть два вида многозадачности:&#xA;Вытесняющая &amp;ndash; внешний планировщик принимает решения о том когда будет выполняться какой поток и отвечает за переключение между ними. Используется в операционных системах.</description>
     </item>
-    
   </channel>
 </rss>

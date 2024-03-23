@@ -13,8 +13,7 @@
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #11 Re-entrancy"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #11 Re-entrancy"/>
 <meta name="twitter:description" content="The objective of this challenge is to steal all the funds from the contract.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg."/>
 
@@ -25,7 +24,6 @@
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-02T11:57:00+03:00" />
 <meta property="article:modified_time" content="2022-08-02T11:57:00+03:00" />
-
 
 
 
@@ -72,7 +70,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.104.3" />
+  <meta name="generator" content="Hugo 0.124.0">
 
 
   
@@ -544,7 +542,7 @@ Last but not least, the code and solution for this challenge is
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-11/src/test/Reentrancy.t.sol">here</a>.
 Thank you for reading!</p>
 <p>Let&rsquo;s explore the next level &ndash;
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator">#12 Elevator</a> 🛗</p>
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/">#12 Elevator</a> 🛗</p>
 
         
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
@@ -592,7 +590,7 @@ Thank you for reading!</p>
     
       1985 -
     
-    2022
+    2024
      Vasiliy Yorkin 
     
   </section>

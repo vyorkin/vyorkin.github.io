@@ -14,8 +14,7 @@
 We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:">
 <meta name="keywords" content="Vasiliy Yorkin">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #5 Telephone"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #5 Telephone"/>
 <meta name="twitter:description" content="We need to claim ownership of the contract below to complete this level:
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis The changeOwner function requires that tx.origin != msg.sender.
 We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:"/>
@@ -28,7 +27,6 @@ We know that tx.origin always refers to the EOA (externally owned account) that 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-26T15:47:00+03:00" />
 <meta property="article:modified_time" content="2022-07-26T15:47:00+03:00" />
-
 
 
 
@@ -75,7 +73,7 @@ We know that tx.origin always refers to the EOA (externally owned account) that 
 
   
 
-  <meta name="generator" content="Hugo 0.104.3" />
+  <meta name="generator" content="Hugo 0.124.0">
 
 
   
@@ -349,7 +347,7 @@ Smart Contract Best Practices</a> from Consensys.</li>
 <p>I&rsquo;ll leave the code for this level
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-5/src/test/Telephone.t.sol">here</a>.</p>
 <p>Let&rsquo;s continue to the next challenge &ndash;
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token">CTF walkthrough,
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/">CTF walkthrough,
 Ethernaut, #6 Token</a>!</p>
 
         
@@ -398,7 +396,7 @@ Ethernaut, #6 Token</a>!</p>
     
       1985 -
     
-    2022
+    2024
      Vasiliy Yorkin 
     
   </section>

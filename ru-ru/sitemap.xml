@@ -124,13 +124,13 @@
     <loc>https://vyorkin.org/ru-ru/series/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/series/"
+                hreflang="en"
+                href="https://vyorkin.org/series/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/series/"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/series/"
                 />
     <xhtml:link
                 rel="alternate"

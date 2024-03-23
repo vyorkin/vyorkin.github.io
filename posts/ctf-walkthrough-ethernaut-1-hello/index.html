@@ -13,8 +13,7 @@
 Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:">
 <meta name="keywords" content="Vasiliy Yorkin">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #1 Hello Ethernaut"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #1 Hello Ethernaut"/>
 <meta name="twitter:description" content="Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&rsquo;s console, you should see greeting messages:
 Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:"/>
 
@@ -25,7 +24,6 @@ Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re g
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-21T14:48:00+03:00" />
 <meta property="article:modified_time" content="2022-07-21T14:48:00+03:00" />
-
 
 
 
@@ -72,7 +70,7 @@ Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re g
 
   
 
-  <meta name="generator" content="Hugo 0.104.3" />
+  <meta name="generator" content="Hugo 0.124.0">
 
 
   
@@ -200,7 +198,7 @@ Set up Originally, this game runs on the Rinkeby test network, but we&rsquo;re g
 
       <div>
         
-        <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello.jpg"/>
+        <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello.jpg">
 </figure>
 
 <h2 id="intro">
@@ -215,7 +213,7 @@ first one is a kind of introductory challenge that gives you
 steps on what you need to set up. If you have
 <a href="https://metamask.io/">Metamask</a> and open the browser&rsquo;s
 console, you should see greeting messages:</p>
-<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-console.png"/>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-console.png">
 </figure>
 
 <h2 id="set-up">
@@ -226,7 +224,7 @@ console, you should see greeting messages:</p>
 </h2>
 <p>Originally, this game runs on the Rinkeby test network, but
 we&rsquo;re going to play it locally. As I mentioned in the
-<a href="https://vyorkin.org/posts/ctf-walkthrough-intro">first post</a>, we will use
+<a href="https://vyorkin.org/posts/ctf-walkthrough-intro/">first post</a>, we will use
 <a href="https://book.getfoundry.sh/">Foundry</a> toolchain and here is
 the initial/empty project layout:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>tree --gitignore
@@ -629,7 +627,7 @@ repository</a> as we go.</p>
 <p>The first challenge requires us to find a secret password. We
 only need browser&rsquo;s console and Metamask to solve it. Let&rsquo;s take
 a look at the <code>contract</code>. It has the following methods:</p>
-<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello1.jpg"/>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello1.jpg">
 </figure>
 
 <p>Notice that the <code>authenticate</code> function takes a password and the
@@ -637,11 +635,11 @@ contract has the <code>password</code> getter function which returns, well,
 a password. All we need to do is to call the <code>authenticate</code>
 function with that password string.</p>
 <p>Then we can submit the solution:</p>
-<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello2.jpg"/>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello2.jpg">
 </figure>
 
 <p>That&rsquo;s all:</p>
-<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello3.jpg"/>
+<figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello3.jpg">
 </figure>
 
 <p>After submitting we get the message on the web page:</p>
@@ -717,7 +715,7 @@ of those <code>infoX</code> functions %)</p>
   </a>
 </h2>
 <p>Looks like now we&rsquo;re prepared to start hacking the first &ldquo;real&rdquo;
-challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback">Let&rsquo;s
+challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">Let&rsquo;s
 play CTF, Ethernaut, #2 Fallback</a>. Thanks for reading!</p>
 
         
@@ -766,7 +764,7 @@ play CTF, Ethernaut, #2 Fallback</a>. Thanks for reading!</p>
     
       1985 -
     
-    2022
+    2024
      Vasiliy Yorkin 
     
   </section>

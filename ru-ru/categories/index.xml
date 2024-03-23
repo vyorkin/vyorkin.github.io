@@ -5,52 +5,43 @@
     <link>https://vyorkin.org/ru-ru/categories/</link>
     <description>Recent content in Categories on vyorkin.org</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/ru-ru/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>ru-ru</language>
+    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/ru-ru/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>arm64</title>
+      <title>Arm64</title>
       <link>https://vyorkin.org/ru-ru/categories/arm64/</link>
       <pubDate>Wed, 13 Jul 2022 16:19:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/categories/arm64/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>rust</title>
+      <title>Rust</title>
       <link>https://vyorkin.org/ru-ru/categories/rust/</link>
       <pubDate>Wed, 13 Jul 2022 16:19:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/categories/rust/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>assembly</title>
+      <title>Assembly</title>
       <link>https://vyorkin.org/ru-ru/categories/assembly/</link>
       <pubDate>Tue, 12 Jul 2022 12:10:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/categories/assembly/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ocaml</title>
+      <title>Ocaml</title>
       <link>https://vyorkin.org/ru-ru/categories/ocaml/</link>
       <pubDate>Sun, 31 Oct 2021 12:40:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/categories/ocaml/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>coq</title>
+      <title>Coq</title>
       <link>https://vyorkin.org/ru-ru/categories/coq/</link>
       <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
-      
       <guid>https://vyorkin.org/ru-ru/categories/coq/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

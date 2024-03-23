@@ -13,8 +13,7 @@
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation.">
 <meta name="keywords" content="Vasiliy Yorkin">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CTF walkthrough, Ethernaut, #7 Delegation"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #7 Delegation"/>
 <meta name="twitter:description" content="The goals is to claim the ownership of the Delegate contract.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation."/>
 
@@ -25,7 +24,6 @@
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-29T13:18:00+03:00" />
 <meta property="article:modified_time" content="2022-07-29T13:18:00+03:00" />
-
 
 
 
@@ -72,7 +70,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.104.3" />
+  <meta name="generator" content="Hugo 0.124.0">
 
 
   
@@ -380,7 +378,7 @@ of State Variables in Storage</a> from Solidity docs.</li>
 <p>Code for this step is in branch
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-7/src/test/Delegation.t.sol">step-7</a>.</p>
 <p>Let&rsquo;s continue to the next challenge:
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force">CTF walkthrough,
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/">CTF walkthrough,
 Ethernaut, #8 Force</a>!</p>
 
         
@@ -429,7 +427,7 @@ Ethernaut, #8 Force</a>!</p>
     
       1985 -
     
-    2022
+    2024
      Vasiliy Yorkin 
     
   </section>

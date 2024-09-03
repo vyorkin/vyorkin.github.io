@@ -4,7 +4,7 @@
     <title>Arm64 on vyorkin.org</title>
     <link>https://vyorkin.org/ru-ru/categories/arm64/</link>
     <description>Recent content in Arm64 on vyorkin.org</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ru-ru</language>
     <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/ru-ru/categories/arm64/index.xml" rel="self" type="application/rss+xml" />
@@ -20,7 +20,7 @@
       <link>https://vyorkin.org/ru-ru/posts/arm64-assembly-1/</link>
       <pubDate>Tue, 12 Jul 2022 12:10:00 +0300</pubDate>
       <guid>https://vyorkin.org/ru-ru/posts/arm64-assembly-1/</guid>
-      <description>Заметка основана на конспектах из книги Programming with 64-bit ARM Assembly Language.&#xA;Регистры X0-X30 &amp;ndash; Регистры общего назначения. X31, SP, XZR &amp;ndash; Указатель стека или нулевой регистр, в зависимости от контекста. X30, LR &amp;ndash; Ссылочный регистр. При вызове функции этот регистр используется для хранения адреса возврата. Не рекомендуется его использовать для чего-либо другого. PC &amp;ndash; Счётчик инструкций. Хранит адрес по которому в памяти расположена выполняемая в данный момент инструкция. Мы не всегда хотим использовать все 64 бита данных регистра, иногда нам достаточно 32 бит.</description>
+      <description>Заметка основана на конспектах из книги Programming with 64-bit ARM Assembly Language.&#xA;Регистры Link to heading X0-X30 &amp;ndash; Регистры общего назначения. X31, SP, XZR &amp;ndash; Указатель стека или нулевой регистр, в зависимости от контекста. X30, LR &amp;ndash; Ссылочный регистр. При вызове функции этот регистр используется для хранения адреса возврата. Не рекомендуется его использовать для чего-либо другого. PC &amp;ndash; Счётчик инструкций. Хранит адрес по которому в памяти расположена выполняемая в данный момент инструкция.</description>
     </item>
   </channel>
 </rss>

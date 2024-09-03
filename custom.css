@@ -1,0 +1,161 @@
+body.colorscheme-dark {
+  background-color: #151515; }
+
+pre {
+  font-size: 1.4rem;
+  line-height: 2rem; }
+
+code {
+  font-size: 1.4rem; }
+
+p {
+  margin: 1rem 0 1rem 0; }
+
+table td,
+table th {
+  border: 1px solid #000; }
+
+.content article header h1 {
+  font-size: 3.8rem;
+  line-height: 4rem; }
+  @media only screen and (max-width: 768px) {
+    .content article header h1 {
+      font-size: 3.6rem;
+      line-height: 4rem; } }
+.content hr {
+  border: none;
+  background-color: #fafafa;
+  border-top: 3px dotted #ddd;
+  color: #fafafa; }
+
+.content .post .post-image {
+  text-align: center; }
+
+.colorscheme-dark hr {
+  border: none;
+  background-color: #212121;
+  border-top: 3px dotted #222;
+  color: #212121; }
+
+.highlight {
+  overflow: auto; }
+  .highlight > pre {
+    background-color: #111 !important;
+    border-radius: 0.5rem;
+    border: 0.4rem solid #444;
+    box-shadow: 1px 1px 0.5em #000 inset; }
+
+.quote2 {
+  margin: 20px auto;
+  font-style: normal;
+  padding: 2rem 4rem 2rem 4rem;
+  border-left: 8px solid #aaaaa;
+  position: relative;
+  line-height: 3.2rem; }
+
+.quote2-note {
+  background-color: #7e57c21a;
+  border-left-color: #5e35b1; }
+
+.quote2-tip {
+  background-color: #26a69a1a;
+  border-left-color: #00897b; }
+
+.quote2-example {
+  background-color: #8d6e631a;
+  border-left-color: #6d4c41; }
+
+.quote2-question {
+  background-color: #9ccc651a;
+  border-left-color: #7cb342; }
+
+.quote2-warning {
+  background-color: #ffca281a;
+  border-left-color: #ffb300; }
+
+.quote2-error {
+  background-color: #ef53501a;
+  border-left-color: #e53935; }
+
+.quote2:not(.no-quote)::before {
+  font-family: Arial;
+  content: "\201C";
+  color: #888;
+  font-size: 5rem;
+  font-style: italic;
+  position: absolute;
+  left: 10px;
+  top: 18px; }
+
+.quote2:not(.no-quote)::after {
+  content: ''; }
+
+.quote2 > .quote2-author {
+  display: block;
+  color: #888;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 0.8em;
+  text-align: right; }
+
+.messageText {
+  fill: #999 !important;
+  stroke: none !important;
+  font-weight: normal !important;
+  font-size: 1.8rem !important; }
+
+.messageLine0, .messageLine1, .messageLine2, .messageLine3 {
+  stroke: #999 !important; }
+
+#arrowhead path {
+  stroke: #999 !important;
+  fill: #999 !important; }
+
+.actor {
+  fill: #666 !important;
+  stroke: #444 !important; }
+
+text.actor > tspan {
+  fill: #fff !important; }
+
+.node path, .node-polygon, .node rect, .node polygon {
+  fill: #666 !important;
+  stroke: #737373 !important; }
+
+.nodeLabel {
+  color: #fff !important;
+  font-weight: normal !important;
+  font-size: 1.4rem !important; }
+
+.activation0 {
+  stroke: #737373 !important;
+  fill: #fff !important; }
+
+.note {
+  stroke: none !important;
+  fill: #444 !important; }
+
+.noteText > tspan {
+  font-size: 1.4rem !important; }
+
+.divider {
+  stroke: #444 !important; }
+
+.actor-man > text.actor > tspan {
+  fill: #666 !important; }
+
+.actor-man circle {
+  stroke: #666 !important;
+  fill: #666 !important; }
+
+.classTitle {
+  font-weight: 400 !important; }
+
+.edgeLabel {
+  background: transparent !important;
+  color: #aaa !important;
+  font-size: 1.4rem !important;
+  padding: 1rem; }
+
+/*# sourceMappingURL=custom.css.map */

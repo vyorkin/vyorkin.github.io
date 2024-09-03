@@ -4,7 +4,7 @@
     <title>Blockchain on vyorkin.org</title>
     <link>https://vyorkin.org/categories/blockchain/</link>
     <description>Recent content in Blockchain on vyorkin.org</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 15 Nov 2022 12:30:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
@@ -13,49 +13,49 @@
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</link>
       <pubDate>Tue, 15 Nov 2022 12:30:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</guid>
-      <description>Challenge There&amp;rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.&#xA;There&amp;rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.&#xA;Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool.</description>
+      <description>Challenge Link to heading There&amp;rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.&#xA;There&amp;rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.&#xA;Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool.</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #6 Selfie</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</link>
       <pubDate>Wed, 02 Nov 2022 08:12:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</guid>
-      <description>After a short break, I&amp;rsquo;m back and excited to keep going with these CTF walkthrough series.&#xA;The current challenge is Selfie:&#xA;Challenge A new cool lending pool has launched! It&amp;rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all.</description>
+      <description>After a short break, I&amp;rsquo;m back and excited to keep going with these CTF walkthrough series.&#xA;The current challenge is Selfie:&#xA;Challenge Link to heading A new cool lending pool has launched! It&amp;rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #5 The rewarder</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/</link>
       <pubDate>Wed, 17 Aug 2022 00:33:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/</guid>
-      <description>Challenge Today we&amp;rsquo;re going to take a look at The Rewarder challenge:&#xA;There&amp;rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&amp;rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet.</description>
+      <description>Challenge Link to heading Today we&amp;rsquo;re going to take a look at The Rewarder challenge:&#xA;There&amp;rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don&amp;rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet.</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #4 Side entrance</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/</link>
       <pubDate>Thu, 11 Aug 2022 16:56:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/</guid>
-      <description>Challenge A surprisingly simple lending pool allows anyone to deposit ETH, and withdraw it at any point in time. This very simple lending pool has 1000 ETH in balance already, and is offering free flash loans using the deposited ETH to promote their system. You must take all ETH from the lending pool. Here is the lending pool contract:&#xA;// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {Address} from &amp;#34;openzeppelin-contracts/utils/Address.sol&amp;#34;; interface IFlashLoanEtherReceiver { function execute() external payable; } /** * @title SideEntranceLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.</description>
+      <description>Challenge Link to heading A surprisingly simple lending pool allows anyone to deposit ETH, and withdraw it at any point in time. This very simple lending pool has 1000 ETH in balance already, and is offering free flash loans using the deposited ETH to promote their system. You must take all ETH from the lending pool. Here is the lending pool contract:&#xA;// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {Address} from &amp;#34;openzeppelin-contracts/utils/Address.</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #3 Truster</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster/</link>
       <pubDate>Wed, 10 Aug 2022 11:37:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster/</guid>
-      <description>Challenge More and more lending pools are offering flash loans. In this case, a new pool has launched that is offering flash loans of DVT tokens for free.&#xA;Currently the pool has 1 million DVT tokens in balance. And you have nothing.&#xA;But don&amp;rsquo;t worry, you might be able to take them all from the pool. In a single transaction.&#xA;// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {IERC20} from &amp;#34;openzeppelin-contracts/token/ERC20/IERC20.</description>
+      <description>Challenge Link to heading More and more lending pools are offering flash loans. In this case, a new pool has launched that is offering flash loans of DVT tokens for free.&#xA;Currently the pool has 1 million DVT tokens in balance. And you have nothing.&#xA;But don&amp;rsquo;t worry, you might be able to take them all from the pool. In a single transaction.&#xA;// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {IERC20} from &amp;#34;openzeppelin-contracts/token/ERC20/IERC20.</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #2 Naive Receiver</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/</link>
       <pubDate>Tue, 09 Aug 2022 20:25:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/</guid>
-      <description>Challenge There&amp;rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.&#xA;You also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiving flash loans of ETH.&#xA;Drain all ETH funds from the user&amp;rsquo;s contract. Doing it in a single transaction is a big plus ;)&#xA;Analysis The challenge contains two contracts:</description>
+      <description>Challenge Link to heading There&amp;rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.&#xA;You also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiving flash loans of ETH.&#xA;Drain all ETH funds from the user&amp;rsquo;s contract. Doing it in a single transaction is a big plus ;)&#xA;Analysis Link to heading The challenge contains two contracts:</description>
     </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #1 Unstoppable</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</link>
       <pubDate>Tue, 09 Aug 2022 20:03:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</guid>
-      <description>There are only a few days left to prepare for the Paradigm CTF 2022. Hence I&amp;rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more.</description>
+      <description>There are only a few days left to prepare for the Paradigm CTF 2022. Hence I&amp;rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Link to heading Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #14 Gatekeeper One</title>
@@ -76,7 +76,7 @@
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/</link>
       <pubDate>Wed, 03 Aug 2022 19:58:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-12-elevator/</guid>
-      <description>To solve this challenge we have to set the top state variable to true.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; interface Building { function isLastFloor(uint256) external returns (bool); } contract Elevator { bool public top; uint256 public floor; function goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } } Analysis Let&amp;rsquo;s go over the goTo function:&#xA;function goTo(uint256 _floor) public { Building building = Building(msg.</description>
+      <description>To solve this challenge we have to set the top state variable to true.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; interface Building { function isLastFloor(uint256) external returns (bool); } contract Elevator { bool public top; uint256 public floor; function goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } } Analysis Link to heading Let&amp;rsquo;s go over the goTo function:&#xA;function goTo(uint256 _floor) public { Building building = Building(msg.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #11 Re-entrancy</title>
@@ -97,35 +97,35 @@
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</link>
       <pubDate>Sat, 30 Jul 2022 19:01:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/</guid>
-      <description>We need to unlock the Vault smart contract to pass the level.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Let&amp;rsquo;s look at the state variables:&#xA;bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.</description>
+      <description>We need to unlock the Vault smart contract to pass the level.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let&amp;rsquo;s look at the state variables:&#xA;bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #8 Force</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/</link>
       <pubDate>Fri, 29 Jul 2022 16:29:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/</guid>
-      <description>To complete this challenge we need to make the balance of the Force contract greater than zero.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts The contract has nothing in it, except the ASCII-art of a cat. It doesn&amp;rsquo;t have a receive, fallback function, or any other payable function:&#xA;If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.</description>
+      <description>To complete this challenge we need to make the balance of the Force contract greater than zero.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts Link to heading The contract has nothing in it, except the ASCII-art of a cat. It doesn&amp;rsquo;t have a receive, fallback function, or any other payable function:&#xA;If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #7 Delegation</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</link>
       <pubDate>Fri, 29 Jul 2022 13:18:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/</guid>
-      <description>The goals is to claim the ownership of the Delegate contract.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis We have two contracts: the Delegate and the Delegation.</description>
+      <description>The goals is to claim the ownership of the Delegate contract.&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis Link to heading We have two contracts: the Delegate and the Delegation.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #6 Token</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</link>
       <pubDate>Thu, 28 Jul 2022 11:10:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/</guid>
-      <description>We start with the 20 tokens. To complete this challenge we need to get some more.&#xA;Here is the original Token contract:&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&amp;gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &amp;gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Let&amp;rsquo;s go line by line and see what we can come up with.</description>
+      <description>We start with the 20 tokens. To complete this challenge we need to get some more.&#xA;Here is the original Token contract:&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&amp;gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &amp;gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Link to heading Let&amp;rsquo;s go line by line and see what we can come up with.</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #5 Telephone</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/</link>
       <pubDate>Tue, 26 Jul 2022 15:47:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/</guid>
-      <description>We need to claim ownership of the contract below to complete this level:&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis The changeOwner function requires that tx.origin != msg.sender.&#xA;We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:</description>
+      <description>We need to claim ownership of the contract below to complete this level:&#xA;// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis Link to heading The changeOwner function requires that tx.origin != msg.sender.&#xA;We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:</description>
     </item>
     <item>
       <title>CTF walkthrough, Ethernaut, #4 Coin Flip</title>
@@ -153,14 +153,14 @@
       <link>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</link>
       <pubDate>Thu, 21 Jul 2022 14:48:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/</guid>
-      <description>Intro The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:&#xA;Set up Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:</description>
+      <description>Intro Link to heading The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser&amp;rsquo;s console, you should see greeting messages:&#xA;Set up Link to heading Originally, this game runs on the Rinkeby test network, but we&amp;rsquo;re going to play it locally.</description>
     </item>
     <item>
       <title>CTF walkthrough, Intro</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-intro/</link>
       <pubDate>Tue, 19 Jul 2022 00:40:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/ctf-walkthrough-intro/</guid>
-      <description>CTF&amp;rsquo;s / War games CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:&#xA;The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
+      <description>CTF&amp;rsquo;s / War games Link to heading CTF&amp;rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF&amp;rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:&#xA;The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.</description>
     </item>
   </channel>
 </rss>

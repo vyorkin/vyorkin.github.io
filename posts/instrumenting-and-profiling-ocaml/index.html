@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Instrumenting and profiling OCaml programs · vyorkin.org
+</title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
@@ -9,31 +13,41 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Intro Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
+<meta name="description" content="Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
 Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.">
 <meta name="keywords" content="Vasiliy Yorkin">
-
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Instrumenting and profiling OCaml programs"/>
-<meta name="twitter:description" content="Intro Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
-Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots."/>
-
-<meta property="og:title" content="Instrumenting and profiling OCaml programs" />
-<meta property="og:description" content="Intro Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
-Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-09-28T20:25:00+03:00" />
-<meta property="article:modified_time" content="2019-09-28T20:25:00+03:00" />
+<meta name="fediverse:creator" content="" />
 
 
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Instrumenting and profiling OCaml programs">
+  <meta name="twitter:description" content="Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
+Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.">
 
-  <title>vyorkin.org</title>
+<meta property="og:url" content="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
+  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:title" content="Instrumenting and profiling OCaml programs">
+  <meta property="og:description" content="Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
+Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-09-28T20:25:00+03:00">
+    <meta property="article:modified_time" content="2019-09-28T20:25:00+03:00">
+    <meta property="article:tag" content="Ocaml">
+    <meta property="article:tag" content="Benchmarking">
+    <meta property="article:tag" content="Profiling">
+    <meta property="article:tag" content="Performance">
 
-  
-  <link rel="canonical" href="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
-  
 
-  <link rel="preload" href="http://localhost:1313/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
+
+
+<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
@@ -45,7 +59,6 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
 
 
   
-  
     
     
     <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
@@ -53,12 +66,14 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
 
 
 
-   
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
 
 
-
-
-  <link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
 
 <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
@@ -68,15 +83,14 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
 <link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
-  
-
-  <meta name="generator" content="Hugo 0.124.0">
 
 
-  
+
+
+
+
 
 </head>
-
 
 
 
@@ -87,7 +101,7 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
     </a>
 </div>
 
@@ -95,23 +109,25 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
   <main class="wrapper">
     <nav class="navigation">
   <section class="container">
+    
     <a class="navigation-title" href="http://localhost:1313/">
       vyorkin.org
     </a>
     
+    
       <input type="checkbox" id="menu-toggle" />
       <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
         
           
             <li class="navigation-item">
-              <a class="navigation-link" href="http://localhost:1313/about/">about</a>
+              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link" href="http://localhost:1313/posts/">posts</a>
+              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
             </li>
           
         
@@ -162,44 +178,49 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2019-09-28T20:25:00&#43;03:00">
-                September 28, 2019
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="282825-09-28T20:25:00&#43;03:00">
+                September 28, 282825
               </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              3-minute read
             </span>
           </div>
           
           <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="http://localhost:1313/categories/ocaml/">ocaml</a></div>
+  <i class="fa-solid fa-folder" aria-hidden="true"></i>
+    <a href="http://localhost:1313/categories/ocaml/">Ocaml</a></div>
 
           <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="http://localhost:1313/tags/ocaml/">ocaml</a>
+      <a href="http://localhost:1313/tags/ocaml/">Ocaml</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:1313/tags/benchmarking/">benchmarking</a>
+      <a href="http://localhost:1313/tags/benchmarking/">Benchmarking</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:1313/tags/profiling/">profiling</a>
+      <a href="http://localhost:1313/tags/profiling/">Profiling</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:1313/tags/performance/">performance</a>
+      <a href="http://localhost:1313/tags/performance/">Performance</a>
     </span></div>
 
         </div>
       </header>
 
-      <div>
+      <div class="post-content">
         
         <h2 id="intro">
   Intro
   <a class="heading-link" href="#intro">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>Profiling is rather a large topic, but basically it allows us to
@@ -250,58 +271,63 @@ forms may be available for the analysis:</p>
 <li><strong>Flat</strong> – Shows the average call times for each function and
 how much time spent executing that function. Output is in the
 form of a table, rows are usually sorted by decreasing time
-spent and a number of calls, then alphabetically by name. <a href="https://sourceware.org/binutils/docs/gprof/Flat-Profile.html#Flat-Profile">Here</a>
+spent and a number of calls, then alphabetically by name. <a href="https://sourceware.org/binutils/docs/gprof/Flat-Profile.html#Flat-Profile"  class="external-link" target="_blank" rel="noopener">Here</a>
 is the more detailed description with an example</li>
 <li><strong>Call-graph</strong> – Includes call-chains involved. Helps to find
 functions that call other functions that spend unusual amounts
-of time. Again, there is a good example in <a href="https://sourceware.org/binutils/docs/gprof/Call-Graph.html#Call-Graph">gprof docs</a></li>
+of time. Again, there is a good example in <a href="https://sourceware.org/binutils/docs/gprof/Call-Graph.html#Call-Graph"  class="external-link" target="_blank" rel="noopener">gprof docs</a></li>
 <li><strong>Annotated source</strong> – Lists the program  source code annotated
 with the number of times each line of the program was executed
-(see an example in <a href="https://sourceware.org/binutils/docs/gprof/Annotated-Source.html#Annotated-Source">gprof docs</a>)</li>
+(see an example in <a href="https://sourceware.org/binutils/docs/gprof/Annotated-Source.html#Annotated-Source"  class="external-link" target="_blank" rel="noopener">gprof docs</a>)</li>
 <li><strong>Input-sensitive</strong> – Additionally shows how an application’s
 performance scales as a function of its input</li>
 </ul>
 <h2 id="tools">
   Tools
   <a class="heading-link" href="#tools">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>There are several profiling tools available in OCaml ecosystem.</p>
 <h3 id="core-profiler">
-  <a href="https://github.com/janestreet/core_profiler">core_profiler</a>
+  <a href="https://github.com/janestreet/core_profiler"  class="external-link" target="_blank" rel="noopener">core_profiler</a>
   <a class="heading-link" href="#core-profiler">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h3>
 <p>Library made by Jane Street that helps you profile programs and
 estimate various costs. It belongs to the <code>Core</code> ecosystem,
 which is good, but looks like it&rsquo;s poorly documented. Here is
-the <a href="https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/">post</a> describing this library and the <a href="https://ocaml.janestreet.com/ocaml-core/latest/doc/core_profiler/core_profiler.html">docs</a> (with usage
+the <a href="https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/"  class="external-link" target="_blank" rel="noopener">post</a> describing this library and the <a href="https://ocaml.janestreet.com/ocaml-core/latest/doc/core_profiler/core_profiler.html"  class="external-link" target="_blank" rel="noopener">docs</a> (with usage
 examples).</p>
 <h3 id="landmarks">
-  <a href="https://github.com/LexiFi/landmarks">landmarks</a>
+  <a href="https://github.com/LexiFi/landmarks"  class="external-link" target="_blank" rel="noopener">landmarks</a>
   <a class="heading-link" href="#landmarks">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>The tool made by <a href="http://www.lexifi.com/">LexiFi</a>. Personally I haven’t tried it, but it
+<p>The tool made by <a href="http://www.lexifi.com/"  class="external-link" target="_blank" rel="noopener">LexiFi</a>. Personally I haven’t tried it, but it
 looks good.</p>
 <h2 id="references">
   References
   <a class="heading-link" href="#references">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>Statistical memory profiling:</p>
 <ul>
-<li><a href="http://ocaml.org/meetings/ocaml/2016/Jourdan-statistically_profiling_memory_in_OCaml.pdf">http://ocaml.org/meetings/ocaml/2016/Jourdan-statistically_profiling_memory_in_OCaml.pdf</a></li>
-<li><a href="https://www.youtube.com/watch?v=wX4m8yqbuqE">https://www.youtube.com/watch?v=wX4m8yqbuqE</a></li>
+<li><a href="http://ocaml.org/meetings/ocaml/2016/Jourdan-statistically_profiling_memory_in_OCaml.pdf"  class="external-link" target="_blank" rel="noopener">http://ocaml.org/meetings/ocaml/2016/Jourdan-statistically_profiling_memory_in_OCaml.pdf</a></li>
+<li><a href="https://www.youtube.com/watch?v=wX4m8yqbuqE"  class="external-link" target="_blank" rel="noopener">https://www.youtube.com/watch?v=wX4m8yqbuqE</a></li>
 </ul>
 <h2 id="summary">
   Summary
   <a class="heading-link" href="#summary">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>Unfortunately this post is not finished :P</p>
@@ -317,16 +343,21 @@ looks good.</p>
         
         
         
+        
+        
+
+        
+        
       </footer>
     </article>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
   
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
     onload="renderMathInElement(document.body,
       {
         delimiters: [
@@ -349,11 +380,16 @@ looks good.</p>
     
     2024
      Vasiliy Yorkin 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
     
   </section>
 </footer>
 
   </main>
+
+  
 
   
   
@@ -363,17 +399,45 @@ looks good.</p>
   
 
   
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
-}
-</script>
 
+
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+    
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 

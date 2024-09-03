@@ -4,7 +4,7 @@
     <title>Ocaml on vyorkin.org</title>
     <link>http://localhost:1313/categories/ocaml/</link>
     <description>Recent content in Ocaml on vyorkin.org</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sat, 28 Sep 2019 20:25:00 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/ocaml/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/instrumenting-and-profiling-ocaml/</link>
       <pubDate>Sat, 28 Sep 2019 20:25:00 +0300</pubDate>
       <guid>http://localhost:1313/posts/instrumenting-and-profiling-ocaml/</guid>
-      <description>Intro Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.&#xA;Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.</description>
+      <description>Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.&#xA;Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.</description>
     </item>
   </channel>
 </rss>

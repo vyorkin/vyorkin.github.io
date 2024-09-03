@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <title>
+  CTF walkthrough, Ethernaut, #2 Fallback · vyorkin.org
+</title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
@@ -12,53 +16,63 @@
 <meta name="description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.">
 <meta name="keywords" content="Vasiliy Yorkin">
-
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="CTF walkthrough, Ethernaut, #2 Fallback"/>
-<meta name="twitter:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg."/>
-
-<meta property="og:title" content="CTF walkthrough, Ethernaut, #2 Fallback" />
-<meta property="og:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-23T23:25:00+03:00" />
-<meta property="article:modified_time" content="2022-07-23T23:25:00+03:00" />
+<meta name="fediverse:creator" content="" />
 
 
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #2 Fallback">
+  <meta name="twitter:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.">
 
-  <title>vyorkin.org</title>
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
+  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:title" content="CTF walkthrough, Ethernaut, #2 Fallback">
+  <meta property="og:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-07-23T23:25:00+03:00">
+    <meta property="article:modified_time" content="2022-07-23T23:25:00+03:00">
+    <meta property="article:tag" content="Blockchain">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Ethernaut">
+
+
+
+
+<link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
+
+
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
 
   
-  <link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
   
-
-  <link rel="preload" href="https://vyorkin.org/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
-
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.bce1ad3fd9463aca56f0ae393ff86fb2a0d51b58b56e32625fa4af028409f02d.css" integrity="sha256-vOGtP9lGOspW8K45P/hvsqDVG1i1bjJiX6SvAoQJ8C0=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
 
 
 
 
 
-  
   
     
     
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.e2e6584ce20683687b57e321b1116fbb5051e3534cc7846c9baccff833431b67.css" integrity="sha256-4uZYTOIGg2h7V&#43;MhsRFvu1BR41NMx4Rsm6zP&#43;DNDG2c=" crossorigin="anonymous" media="screen" />
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
 
 
 
-   
+
+  
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.929ca319147dbc84487f0a0a89b87891ce871354efaeb9cbfca9df42ceab6bbc.css" integrity="sha256-kpyjGRR9vIRIfwoKibh4kc6HE1TvrrnL/KnfQs6ra7w=" crossorigin="anonymous" media="screen" />
 
 
-
-
-  <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
 <link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
@@ -68,15 +82,14 @@
 <link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
-  
-
-  <meta name="generator" content="Hugo 0.124.0">
 
 
-  
+
+
+
+
 
 </head>
-
 
 
 
@@ -87,7 +100,7 @@
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
     </a>
 </div>
 
@@ -95,23 +108,25 @@
   <main class="wrapper">
     <nav class="navigation">
   <section class="container">
+    
     <a class="navigation-title" href="https://vyorkin.org/">
       vyorkin.org
     </a>
     
+    
       <input type="checkbox" id="menu-toggle" />
       <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
         
           
             <li class="navigation-item">
-              <a class="navigation-link" href="https://vyorkin.org/about/">about</a>
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link" href="https://vyorkin.org/posts/">posts</a>
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
             </li>
           
         
@@ -162,41 +177,41 @@
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-07-23T23:25:00&#43;03:00">
-                July 23, 2022
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="232325-07-23T23:25:00&#43;03:00">
+                July 23, 232325
               </time>
             </span>
           </div>
           
           <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">blockchain</a>
+  <i class="fa-solid fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
       <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">ctf</a></div>
+    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
 
           <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/blockchain/">blockchain</a>
+      <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">ctf</a>
+      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/security/">security</a>
+      <a href="https://vyorkin.org/tags/security/">Security</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/ethernaut/">ethernaut</a>
+      <a href="https://vyorkin.org/tags/ethernaut/">Ethernaut</a>
     </span></div>
 
         </div>
       </header>
 
-      <div>
+      <div class="post-content">
         
         <p>To complete this level we need become the owner of the contract
 and reduce its balance to zero.</p>
@@ -243,7 +258,8 @@ usage since we&rsquo;re using <code>solidity ^0.8.2</code>.</p>
 <h2 id="analysis">
   Analysis
   <a class="heading-link" href="#analysis">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>The <code>Fallback</code> contract has the <code>contributions</code> variable of type
@@ -298,7 +314,7 @@ one is special. The <code>receive</code> function is used, well, to receive
 ETH (when <code>msg.data</code> is empty). It is executed on a call to the
 contract with empty calldata (<code>msg.data</code>). Remember the diagram
 from the
-<a href="https://solidity-by-example.org/sending-ether/">solidity-by-example</a>?</p>
+<a href="https://solidity-by-example.org/sending-ether/"  class="external-link" target="_blank" rel="noopener">solidity-by-example</a>?</p>
 <div class="mermaid">
 %%{init: {'theme':'neutral'}}%%
 flowchart LR
@@ -312,7 +328,7 @@ flowchart LR
 
 
 <p>Reference:
-<a href="https://docs.soliditylang.org/en/v0.8.12/contracts.html#receive-ether-function">solidity
+<a href="https://docs.soliditylang.org/en/v0.8.12/contracts.html#receive-ether-function"  class="external-link" target="_blank" rel="noopener">solidity
 docs</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &gt; <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; contributions[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] &gt; <span style="color:#ff0;font-weight:bold">0</span>);
 </span></span><span style="display:flex;"><span>owner = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
@@ -328,13 +344,14 @@ we need to contribute something first.</p>
 <h2 id="framework">
   Framework
   <a class="heading-link" href="#framework">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>In <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/">the previous
+<p>In <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello" >the previous
 post</a> I&rsquo;ve said that I&rsquo;ll copy and adapt levels and their
 factories from the
-<a href="https://github.com/OpenZeppelin/ethernaut/tree/master/contracts/contracts/levels">ethernaut
+<a href="https://github.com/OpenZeppelin/ethernaut/tree/master/contracts/contracts/levels"  class="external-link" target="_blank" rel="noopener">ethernaut
 repository</a> one by one as we progress. Let&rsquo;s do that. This is a
 first example of level factory contract:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
@@ -365,13 +382,14 @@ first example of level factory contract:</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>It is very similar to the
-<a href="https://github.com/OpenZeppelin/ethernaut/blob/master/contracts/contracts/levels/FallbackFactory.sol">one
+<a href="https://github.com/OpenZeppelin/ethernaut/blob/master/contracts/contracts/levels/FallbackFactory.sol"  class="external-link" target="_blank" rel="noopener">one
 in the Ethernaut repo</a>. I just changed imports, Solidity
 version and removed the <code>_player</code> argument name.</p>
 <h2 id="exploit">
   Exploit
   <a class="heading-link" href="#exploit">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
@@ -465,15 +483,16 @@ precondition we need to sent some ETH. Let&rsquo;s sent just <code>1 wei</code>.
 </span></span></code></pre></div><h2 id="lessons-learned">
   Lessons learned
   <a class="heading-link" href="#lessons-learned">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>Anyone can call the <code>receive</code> (or <code>fallback</code>) function so be
 careful :P</p>
 <p>The full code
-<a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-2/src/test/Fallback.t.sol">is
+<a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-2/src/test/Fallback.t.sol"  class="external-link" target="_blank" rel="noopener">is
 here</a>. Thank you for reading and let&rsquo;s move on to the next
-challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/">CTF
+challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout" >CTF
 walkthrough, Ethernaut, #3 Fallout</a>!</p>
 
         
@@ -492,16 +511,21 @@ walkthrough, Ethernaut, #3 Fallout</a>!</p>
         
         
         
+        
+        
+
+        
+        
       </footer>
     </article>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
   
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
     onload="renderMathInElement(document.body,
       {
         delimiters: [
@@ -531,24 +555,60 @@ walkthrough, Ethernaut, #3 Fallout</a>!</p>
   </main>
 
   
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"
+    integrity="sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
   
-  <script src="https://vyorkin.org/js/coder.min.b9a9a8f029e2fd416957bf8489db1b684799393553df358655a1b614ec7c5ef9.js" integrity="sha256-uamo8Cni/UFpV7&#43;EidsbaEeZOTVT3zWGVaG2FOx8Xvk="></script>
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
   
 
   
 
   
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-F8R77TYF8B', { 'anonymize_ip': false });
-}
-</script>
 
+
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+    
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 

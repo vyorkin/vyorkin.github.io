@@ -41,13 +41,19 @@ table th {
   border-top: 3px dotted #222;
   color: #212121; }
 
+.chroma .hl {
+  background-color: #494d64; }
+
 .highlight {
   overflow: auto; }
   .highlight > pre {
-    background-color: #111 !important;
-    border-radius: 0.5rem;
-    border: 0.4rem solid #444;
-    box-shadow: 1px 1px 0.5em #000 inset; }
+    border: 1px solid #eaeaea;
+    border-radius: 0.5rem; }
+
+.colorscheme-dark .highlight > pre {
+  border: 1px solid #444;
+  background-color: #111 !important;
+  box-shadow: 1px 1px 0.5em #000 inset; }
 
 .quote2 {
   margin: 20px auto;

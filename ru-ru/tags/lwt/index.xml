@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lwt on vyorkin.org</title>
+    <link>https://vyorkin.org/ru-ru/tags/lwt/</link>
+    <description>Recent content in Lwt on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>ru-ru</language>
+    <lastBuildDate>Sun, 31 Oct 2021 12:40:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/ru-ru/tags/lwt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Заметка о Lwt</title>
+      <link>https://vyorkin.org/ru-ru/posts/about-lwt/</link>
+      <pubDate>Sun, 31 Oct 2021 12:40:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/posts/about-lwt/</guid>
+      <description>Что такое Lwt Link to heading Lwt это одна из наиболее популярных OCaml библиотек, разрабатываемая сообществом. По сути это просто реализация кооперативной многозадачности (как альтернативы вытесняющей многозадачности) в OCaml на основе Promises.&#xA;В дальнейшем я буду использовать слова “поток” и промис как взаимозаменямые.&#xA;Виды “многозадачностей” Link to heading Этот параграф можно пропустить&#xA;Если в двух словах, то вытесняющую и кооперативную многозадачность можно объяснить следующим образом:&#xA;Вытесняющая многозадачность означает, что у нас есть некий планировщик, принимающий решения о том, когда будет выполняться какой поток, обычно принимая во внимание приоритет потоков и выделяя им некие кванты времени.</description>
+    </item>
+  </channel>
+</rss>

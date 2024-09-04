@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coq on vyorkin.org</title>
+    <link>https://vyorkin.org/tags/coq/</link>
+    <description>Recent content in Coq on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Dec 2019 18:23:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/tags/coq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proving TAPL in Coq (ch 3, WIP)</title>
+      <link>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</link>
+      <pubDate>Sat, 07 Dec 2019 18:23:00 +0300</pubDate>
+      <guid>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</guid>
+      <description>In order to understand things clearly and to learn Coq proof assistant at the same time, I&amp;rsquo;ve decided to do some proves while reading the TAPL book.&#xA;The code is on the GitHub.&#xA;For the excercises I want to use the ssreflect proof language instead of ltac. I&amp;rsquo;ll keep solutions to each chapter in a separate file. We&amp;rsquo;ll always work in the following context:&#xA;Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive.</description>
+    </item>
+  </channel>
+</rss>

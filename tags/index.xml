@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on vyorkin.org</title>
+    <link>https://vyorkin.org/tags/</link>
+    <description>Recent content in Tags on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Nov 2022 12:30:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blockchain</title>
+      <link>https://vyorkin.org/tags/blockchain/</link>
+      <pubDate>Tue, 15 Nov 2022 12:30:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>https://vyorkin.org/tags/security/</link>
+      <pubDate>Tue, 15 Nov 2022 12:30:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ctf</title>
+      <link>https://vyorkin.org/tags/ctf/</link>
+      <pubDate>Thu, 03 Nov 2022 22:27:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/ctf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ethernaut</title>
+      <link>https://vyorkin.org/tags/ethernaut/</link>
+      <pubDate>Thu, 04 Aug 2022 12:24:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/ethernaut/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Coq</title>
+      <link>https://vyorkin.org/tags/coq/</link>
+      <pubDate>Sat, 07 Dec 2019 18:23:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/coq/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tapl</title>
+      <link>https://vyorkin.org/tags/tapl/</link>
+      <pubDate>Sat, 07 Dec 2019 18:23:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/tapl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Compilers</title>
+      <link>https://vyorkin.org/tags/compilers/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/compilers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Memory</title>
+      <link>https://vyorkin.org/tags/memory/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/memory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ocaml</title>
+      <link>https://vyorkin.org/tags/ocaml/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/ocaml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stack</title>
+      <link>https://vyorkin.org/tags/stack/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/stack/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tiger</title>
+      <link>https://vyorkin.org/tags/tiger/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/tiger/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Menhir</title>
+      <link>https://vyorkin.org/tags/menhir/</link>
+      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/menhir/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Parsing</title>
+      <link>https://vyorkin.org/tags/parsing/</link>
+      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/parsing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lexing</title>
+      <link>https://vyorkin.org/tags/lexing/</link>
+      <pubDate>Fri, 23 Aug 2019 00:01:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/lexing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ocamllex</title>
+      <link>https://vyorkin.org/tags/ocamllex/</link>
+      <pubDate>Fri, 23 Aug 2019 00:01:00 +0300</pubDate>
+      <guid>https://vyorkin.org/tags/ocamllex/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Parsing on vyorkin.org</title>
+    <link>https://vyorkin.org/tags/parsing/</link>
+    <description>Recent content in Parsing on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Sep 2019 15:58:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/tags/parsing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making of Tiger #3, Parsing</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-3-parsing/</link>
+      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      <guid>https://vyorkin.org/posts/making-of-tiger-3-parsing/</guid>
+      <description>Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:&#xA;Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir Link to heading While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.</description>
+    </item>
+  </channel>
+</rss>

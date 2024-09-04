@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on vyorkin.org</title>
+    <link>https://vyorkin.org/ru-ru/tags/</link>
+    <description>Recent content in Tags on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>ru-ru</language>
+    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/ru-ru/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arm64</title>
+      <link>https://vyorkin.org/ru-ru/tags/arm64/</link>
+      <pubDate>Wed, 13 Jul 2022 16:19:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/arm64/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://vyorkin.org/ru-ru/tags/rust/</link>
+      <pubDate>Wed, 13 Jul 2022 16:19:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/rust/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Assembly</title>
+      <link>https://vyorkin.org/ru-ru/tags/assembly/</link>
+      <pubDate>Tue, 12 Jul 2022 12:10:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/assembly/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lwt</title>
+      <link>https://vyorkin.org/ru-ru/tags/lwt/</link>
+      <pubDate>Sun, 31 Oct 2021 12:40:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/lwt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ocaml</title>
+      <link>https://vyorkin.org/ru-ru/tags/ocaml/</link>
+      <pubDate>Sun, 31 Oct 2021 12:40:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/ocaml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Coq</title>
+      <link>https://vyorkin.org/ru-ru/tags/coq/</link>
+      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/coq/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

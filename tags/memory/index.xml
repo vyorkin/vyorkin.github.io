@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Memory on vyorkin.org</title>
+    <link>https://vyorkin.org/tags/memory/</link>
+    <description>Recent content in Memory on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 21 Sep 2019 16:53:00 +0300</lastBuildDate>
+    <atom:link href="https://vyorkin.org/tags/memory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making of Tiger #6, Stack frames</title>
+      <link>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</link>
+      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <guid>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</guid>
+      <description>Intro Link to heading In this post we&amp;rsquo;re going to add support for stack frames. Here I&amp;rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.&#xA;Stack Link to heading A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&amp;rsquo;s lowest memory address. We treat stack as a big array, with a special register &amp;ndash; the stack pointer (SP).</description>
+    </item>
+  </channel>
+</rss>

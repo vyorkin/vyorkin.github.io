@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://vyorkin.org/tags/blockchain/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -14,30 +20,6 @@
                 hreflang="en"
                 href="https://vyorkin.org/posts/"
                 />
-  </url><url>
-    <loc>https://vyorkin.org/</loc>
-    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/"
-                />
-  </url><url>
-    <loc>https://vyorkin.org/tags/blockchain/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/security/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>
@@ -58,6 +40,24 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://vyorkin.org/tags/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/"
                 />
   </url><url>
     <loc>https://vyorkin.org/categories/blockchain/</loc>
@@ -179,9 +179,6 @@
     <lastmod>2019-12-07T18:23:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/compilers/</loc>
-    <lastmod>2019-09-21T16:53:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/categories/compilers/</loc>
     <lastmod>2019-09-21T16:53:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-6-stack-frames/</loc>

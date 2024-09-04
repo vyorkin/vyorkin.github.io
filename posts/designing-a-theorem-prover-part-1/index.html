@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  CTF walkthrough, Intro · vyorkin.org
+  Designing a Theorem Prover, Part 1 · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,35 +13,46 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="CTF&rsquo;s / War games Link to heading CTF&rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF&rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
-The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.">
+<meta name="description" content="
+
+
+Intro
+
+Automated Theorem Proving
+General Properties
+
+
+Sequent Calculus
+
+LK Inference Rules
+
+
+
+
+This is a summary.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Intro">
-  <meta name="twitter:description" content="CTF’s / War games Link to heading CTF’s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF’s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
-The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.">
+  <meta name="twitter:title" content="Designing a Theorem Prover, Part 1">
+  <meta name="twitter:description" content=" Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
 
-<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-intro/">
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Intro">
-  <meta property="og:description" content="CTF’s / War games Link to heading CTF’s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF’s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:
-The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit.">
+  <meta property="og:title" content="Designing a Theorem Prover, Part 1">
+  <meta property="og:description" content=" Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2022-07-19T00:40:00+03:00">
-    <meta property="article:modified_time" content="2022-07-19T00:40:00+03:00">
-    <meta property="article:tag" content="Blockchain">
-    <meta property="article:tag" content="Security">
-    <meta property="article:tag" content="Ctf">
+    <meta property="article:published_time" content="2024-09-03T13:40:00+03:00">
+    <meta property="article:modified_time" content="2024-09-03T13:40:00+03:00">
+    <meta property="article:tag" content="Folderol">
 
 
 
 
-<link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-intro/">
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
 
 
 <link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -168,8 +179,8 @@ The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-intro/">
-              CTF walkthrough, Intro
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
+              Designing a Theorem Prover, Part 1
             </a>
           </h1>
         </div>
@@ -177,30 +188,17 @@ The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="191940-07-19T00:40:00&#43;03:00">
-                July 19, 191940
+              <time datetime="30340-09-03T13:40:00&#43;03:00">
+                September 3, 30340
               </time>
             </span>
           </div>
           
-          <div class="categories">
-  <i class="fa-solid fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
-
+          
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/security/">Security</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
     </span></div>
 
         </div>
@@ -208,82 +206,94 @@ The Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi
 
       <div class="post-content">
         
-          <div class="post-image">
-            <img src="https://vyorkin.org/images/ctf.gif" alt="Featured image"/>
-          </div>
-        
-        <h2 id="ctf-s-war-games">
-  CTF&rsquo;s / War games
-  <a class="heading-link" href="#ctf-s-war-games">
+        <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li><a href="#intro" >Intro</a>
+<ul>
+<li><a href="#automated-theorem-proving" >Automated Theorem Proving</a></li>
+<li><a href="#general-properties" >General Properties</a></li>
+</ul>
+</li>
+<li><a href="#sequent-calculus" >Sequent Calculus</a>
+<ul>
+<li><a href="#lk-inference-rules" >LK Inference Rules</a></li>
+</ul>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<p>This is a summary.</p>
+<h2 id="intro">
+  Intro
+  <a class="heading-link" href="#intro">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>CTF&rsquo;s (Capture The Flags) are games/challenges focused on the
-Ethereum blockchain that help you to learn security techniques
-and concepts. These are the five popular CTF&rsquo;s worth solving
-(in this order) to master your Ethereum/Solidity offensive
-security skills:</p>
+<p>I&rsquo;m going to work through the
+<a href="https://arxiv.org/pdf/cs/9301110"  class="external-link" target="_blank" rel="noopener">folderol</a> by Lawrence C
+Paulson (1990).</p>
+<h3 id="automated-theorem-proving">
+  Automated Theorem Proving
+  <a class="heading-link" href="#automated-theorem-proving">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>There are 2 terms that have different meaning:</p>
 <ol>
-<li><a href="https://ethernaut.openzeppelin.com/"  class="external-link" target="_blank" rel="noopener">The Ethernaut</a> is a wargame by <a href="https://www.openzeppelin.com/contracts"  class="external-link" target="_blank" rel="noopener">OpenZeppelin</a>.</li>
-<li><a href="https://capturetheether.com/"  class="external-link" target="_blank" rel="noopener">CaptureTheEther</a></li>
-<li><a href="https://www.damnvulnerabledefi.xyz/"  class="external-link" target="_blank" rel="noopener">Damn Vulnerable DeFi</a></li>
-<li><a href="https://github.com/paradigm-operations/paradigm-ctf-2021"  class="external-link" target="_blank" rel="noopener">Paradigm CTF 2021</a></li>
-<li><a href="https://ctf.paradigm.xyz/"  class="external-link" target="_blank" rel="noopener">Paradigm CTF 2022</a> (upcoming)</li>
+<li><strong>Proof Assistant</strong> or <strong>Interactive Theorem Prover</strong>
+(<a href="https://en.wikipedia.org/wiki/Proof_assistant"  class="external-link" target="_blank" rel="noopener">wiki</a>) –
+Assists with the development of formal proofs by
+human-machine collaboration. Usually in the form of keeping
+track of what you need to prove and what you have proved. For
+example: Coq, Lean, Agda, Isabelle, F*.</li>
+<li><strong>Automated Theorem Prover</strong> – Uses AI (or other similar,
+relatively opaque algorithms) to come up with the steps to
+the proof.</li>
 </ol>
-<p>Each level/challenge is a set of vulnerable smart contracts that
-you need to exploit. Some of these are trivial, some require
-understanding of DeFi protocols and are based on a real security
-holes. There are overlapping/similar challenges in Ethernaut and
-CaptureTheEther, so you can do one or the other.</p>
-<p><strong>Requirements</strong>: Basic knowledge of smart contract development.
-No security background required.</p>
-<h2 id="tools">
-  Tools
-  <a class="heading-link" href="#tools">
+<h3 id="general-properties">
+  General Properties
+  <a class="heading-link" href="#general-properties">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h2>
-<p>I&rsquo;m going to play these games locally, since they are open
-source. I will use the <a href="https://book.getfoundry.sh/"  class="external-link" target="_blank" rel="noopener">Foundry</a>
-toolchain. Foundry is reimplementation of
-<a href="https://dapp.tools/"  class="external-link" target="_blank" rel="noopener">dapptools</a>. It is fast, portable,
-modular, written in Rust and lets us write tests in Solidity.</p>
-<p>We need couple of libraries as well:</p>
+</h3>
 <ul>
-<li><a href="https://github.com/OpenZeppelin/openzeppelin-contracts"  class="external-link" target="_blank" rel="noopener">openzeppelin-contracts</a> &ndash;
-Famous library for secure smart contract development from OpenZeppelin.</li>
-<li><a href="https://github.com/foundry-rs/forge-std"  class="external-link" target="_blank" rel="noopener">forge-std</a> &ndash;
-Testing library for use with
-<a href="https://github.com/foundry-rs/foundry"  class="external-link" target="_blank" rel="noopener">forge and foundry</a>.</li>
+<li>Works in classical <a href="https://en.wikipedia.org/wiki/First-order_logic"  class="external-link" target="_blank" rel="noopener">first-order logic</a> (<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0_%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0"  class="external-link" target="_blank" rel="noopener">ru</a>)</li>
+<li>Follows automatic strategy but interactive</li>
+<li>Prints trace of its rules as evidence</li>
 </ul>
-<h2 id="summary">
-  Summary
-  <a class="heading-link" href="#summary">
+<p>There is no practical automatic proof procedure, even for most
+complete theories. Even if there were, interaction with the
+machine would still be necessary for exploring mathematics.</p>
+<h2 id="sequent-calculus">
+  Sequent Calculus
+  <a class="heading-link" href="#sequent-calculus">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>This should be enough to get going. Lets start with the
-Ethernaut because it is the most beginner friendly CTF game. If
-you don’t want to be spoiled please stop reading and give it a
-shot. See you in the next post:
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello" >CTF walkthrough,
-Ethernaut, #1 Hello Ethernaut</a>!</p>
-<h2 id="references">
-  References
-  <a class="heading-link" href="#references">
+<h3 id="lk-inference-rules">
+  LK Inference Rules
+  <a class="heading-link" href="#lk-inference-rules">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h2>
-<ul>
-<li><a href="https://github.com/blockthreat/blocksec-ctfs"  class="external-link" target="_blank" rel="noopener">blocksec-ctfs</a>
-&ndash; A curated list of blockchain security Wargames, Challenges,
-and CTF competitions and solution writeups.</li>
-</ul>
-
+</h3>
+<p><strong>Structural</strong></p>
+<p>\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \,
+(\text{WL})\), \(\displaystyle \frac{\Gamma \vdash \Delta}{\Gamma \vdash \Delta, A}
+\, (\text{WR})\) – Thinning</p>
+<p>\(\displaystyle \frac{A, A, \Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \,
+(\text{CL})\), \(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta,
+A} \, (\text{CR})\) – Contraction</p>
+<p>\(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta}
+\, (\text{PL})\), \(\displaystyle \frac{\Gamma \vdash \Delta, A, B, \Lambda}{\Gamma
+\vdash \Delta, B, A, \Lambda} \, (\text{PR})\) – Permutation</p>
+<p>\(\displaystyle \frac{\Gamma \vdash \Delta, A \quad A, \Theta \vdash \Lambda}{\Gamma, \Theta
+\vdash \Delta, \Lambda} \, (\text{C})\) – Cut</p>
+<p><strong>Logical</strong></p>
         
       </div>
 

@@ -6,8 +6,15 @@
     <description>Recent content in Posts on vyorkin.org</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Nov 2022 12:30:00 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 03 Sep 2024 13:40:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 1</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-1/</link>
+      <pubDate>Tue, 03 Sep 2024 13:40:00 +0300</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-1/</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#intro&#34; &gt;Intro&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#automated-theorem-proving&#34; &gt;Automated Theorem Proving&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#general-properties&#34; &gt;General Properties&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#sequent-calculus&#34; &gt;Sequent Calculus&lt;/a&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;#lk-inference-rules&#34; &gt;LK Inference Rules&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;This is a summary.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>CTF walkthrough, Damn Vulnerable DeFi, #8 Puppet</title>
       <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</link>

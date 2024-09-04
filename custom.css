@@ -9,6 +9,10 @@ code {
   font-size: 1.4rem; }
 
 p {
+  white-space: normal;
+  white-space: -moz-normal;
+  white-space: -normal;
+  white-space: -o-normal;
   margin: 1rem 0 1rem 0; }
 
 table td,

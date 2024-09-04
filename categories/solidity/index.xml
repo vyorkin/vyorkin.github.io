@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>solidity on vyorkin.org</title>
-    <link>https://vyorkin.org/categories/solidity/</link>
-    <description>Recent content in solidity on vyorkin.org</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 20 May 2022 12:20:00 +0300</lastBuildDate><atom:link href="https://vyorkin.org/categories/solidity/index.xml" rel="self" type="application/rss+xml" />
+    <title>Solidity on vyorkin.org</title>
+    <link>http://localhost:1313/categories/solidity/</link>
+    <description>Recent content in Solidity on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 May 2022 12:20:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/solidity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Simple betting smart contract</title>
-      <link>https://vyorkin.org/posts/simple-betting-smart-contract/</link>
+      <link>http://localhost:1313/posts/simple-betting-smart-contract/</link>
       <pubDate>Fri, 20 May 2022 12:20:00 +0300</pubDate>
-      
-      <guid>https://vyorkin.org/posts/simple-betting-smart-contract/</guid>
+      <guid>http://localhost:1313/posts/simple-betting-smart-contract/</guid>
       <description>Test</description>
     </item>
-    
   </channel>
 </rss>

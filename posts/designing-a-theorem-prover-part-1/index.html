@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <title>
   Designing a Theorem Prover, Part 1 · vyorkin.org
 </title>
@@ -14,7 +14,7 @@
 
 <meta name="author" content="Vasiliy Yorkin">
 <meta name="description" content="
-
+Table of Contents
 
 Intro
 
@@ -29,6 +29,7 @@ LK Inference Rules
 
 
 
+
 This is a summary.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
@@ -36,12 +37,12 @@ This is a summary.">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 1">
-  <meta name="twitter:description" content=" Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
+  <meta name="twitter:description" content=" Table of Contents Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
 
-<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
+<meta property="og:url" content="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
   <meta property="og:site_name" content="vyorkin.org">
   <meta property="og:title" content="Designing a Theorem Prover, Part 1">
-  <meta property="og:description" content=" Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
+  <meta property="og:description" content=" Table of Contents Intro Automated Theorem Proving General Properties Sequent Calculus LK Inference Rules This is a summary.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -52,17 +53,17 @@ This is a summary.">
 
 
 
-<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
+<link rel="canonical" href="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
 
 
-<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
   
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
 
 
 
@@ -71,25 +72,26 @@ This is a summary.">
   
     
     
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
   
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
+  
+  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
 
 
-<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
-<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
 
-<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
 
-<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
-<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
@@ -119,7 +121,7 @@ This is a summary.">
     <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="https://vyorkin.org/">
+    <a class="navigation-title" href="http://localhost:1313/">
       vyorkin.org
     </a>
     
@@ -132,11 +134,11 @@ This is a summary.">
         
           
             <li class="navigation-item">
-              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
+              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
+              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
             </li>
           
         
@@ -154,14 +156,14 @@ This is a summary.">
                 
               
               <li class="navigation-item">
-                <a href="https://vyorkin.org/ru-ru/">ru</a>
+                <a href="http://localhost:1313/ru-ru/">ru</a>
               </li>
             
           
             
               
               <li class="navigation-item">
-                <a href="https://vyorkin.org/de-de/">de</a>
+                <a href="http://localhost:1313/de-de/">de</a>
               </li>
             
           
@@ -179,7 +181,7 @@ This is a summary.">
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
+            <a class="title-link" href="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
               Designing a Theorem Prover, Part 1
             </a>
           </h1>
@@ -198,7 +200,7 @@ This is a summary.">
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
+      <a href="http://localhost:1313/tags/folderol/">Folderol</a>
     </span></div>
 
         </div>
@@ -206,8 +208,8 @@ This is a summary.">
 
       <div class="post-content">
         
-        <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+        <div class="ox-hugo-toc toc">
+<div class="heading">Table of Contents</div>
 <ul>
 <li><a href="#intro" >Intro</a>
 <ul>
@@ -221,7 +223,8 @@ This is a summary.">
 </ul>
 </li>
 </ul>
-<!-- raw HTML omitted -->
+</div>
+<!--endtoc-->
 <p>This is a summary.</p>
 <h2 id="intro">
   Intro
@@ -352,7 +355,7 @@ A} \, (\text{CR})\) – Contraction</p>
 
   
   
-  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  <script src="http://localhost:1313/js/coder.js"></script>
   
 
   

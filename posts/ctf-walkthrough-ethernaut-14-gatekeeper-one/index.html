@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  CTF walkthrough, Ethernaut, #14 Gatekeeper One · vyorkin.org
+  Ethernaut, #14 Gatekeeper One · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #14 Gatekeeper One">
+  <meta name="twitter:title" content="Ethernaut, #14 Gatekeeper One">
   <meta name="twitter:description" content="To solve this challenge we must register as an entrant.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Ethernaut, #14 Gatekeeper One">
+  <meta property="og:title" content="Ethernaut, #14 Gatekeeper One">
   <meta property="og:description" content="To solve this challenge we must register as an entrant.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.">
   <meta property="og:locale" content="en">
@@ -35,7 +35,6 @@
     <meta property="article:published_time" content="2022-08-04T12:24:00+03:00">
     <meta property="article:modified_time" content="2022-08-04T12:24:00+03:00">
     <meta property="article:tag" content="Blockchain">
-    <meta property="article:tag" content="Ctf">
     <meta property="article:tag" content="Security">
     <meta property="article:tag" content="Ethernaut">
 
@@ -170,7 +169,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/">
-              CTF walkthrough, Ethernaut, #14 Gatekeeper One
+              Ethernaut, #14 Gatekeeper One
             </a>
           </h1>
         </div>
@@ -184,20 +183,11 @@
             </span>
           </div>
           
-          <div class="categories">
-  <i class="fa-solid fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
-
+          
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
@@ -444,8 +434,7 @@ here</a>. Thank you for reading. This post was a bit rushed 🙃
 I hope I can get back to it later and explain typecasting and bit
 manipulation magic in the <strong>gateThree</strong>. But now let&rsquo;s move on to
 the next challenge:
-<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-15-gatekeeper-two" >CTF
-walkthrough, Ethernaut, #15 Gatekeeper Two</a>!</p>
+<a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-15-gatekeeper-two" >Ethernaut, #15 Gatekeeper Two</a>!</p>
 
         
       </div>

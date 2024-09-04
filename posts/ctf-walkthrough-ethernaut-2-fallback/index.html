@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  CTF walkthrough, Ethernaut, #2 Fallback · vyorkin.org
+  Ethernaut, #2 Fallback · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #2 Fallback">
+  <meta name="twitter:title" content="Ethernaut, #2 Fallback">
   <meta name="twitter:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Ethernaut, #2 Fallback">
+  <meta property="og:title" content="Ethernaut, #2 Fallback">
   <meta property="og:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.">
   <meta property="og:locale" content="en">
@@ -35,7 +35,6 @@
     <meta property="article:published_time" content="2022-07-23T23:25:00+03:00">
     <meta property="article:modified_time" content="2022-07-23T23:25:00+03:00">
     <meta property="article:tag" content="Blockchain">
-    <meta property="article:tag" content="Ctf">
     <meta property="article:tag" content="Security">
     <meta property="article:tag" content="Ethernaut">
 
@@ -170,7 +169,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
-              CTF walkthrough, Ethernaut, #2 Fallback
+              Ethernaut, #2 Fallback
             </a>
           </h1>
         </div>
@@ -184,20 +183,11 @@
             </span>
           </div>
           
-          <div class="categories">
-  <i class="fa-solid fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
-
+          
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
@@ -318,11 +308,11 @@ from the
 <div class="mermaid">
 %%{init: {'theme':'neutral'}}%%
 flowchart LR
-    A[send ETH] --&gt; B{"msg.data is empty?"}
-    B -- yes --&gt; C{"receive() exists?"}
-    C -- yes --&gt; E["receive()"]
-    C -- no --&gt; F["fallback()"]
-    B -- no --&gt; D["fallback()"]
+    A[send ETH] --> B{"msg.data is empty?"}
+    B -- yes --> C{"receive() exists?"}
+    C -- yes --> E["receive()"]
+    C -- no --> F["fallback()"]
+    B -- no --> D["fallback()"]
 
 </div>
 
@@ -436,7 +426,7 @@ version and removed the <code>_player</code> argument name.</p>
 precondition we need to sent some ETH. Let&rsquo;s sent just <code>1 wei</code>.</li>
 <li>Finally we call the <code>withdraw</code> function to drain contract&rsquo;s balance.</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#728e00">test</span> --match-contract FallbackTest -vvvv
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Running <span style="color:#8a7b52">1</span> <span style="color:#728e00">test</span> <span style="color:#728e00">for</span> src/test/Fallback.t.sol:FallbackTest
@@ -492,8 +482,7 @@ careful :P</p>
 <p>The full code
 <a href="https://github.com/vyorkin/ethernaut-solutions/blob/step-2/src/test/Fallback.t.sol"  class="external-link" target="_blank" rel="noopener">is
 here</a>. Thank you for reading and let&rsquo;s move on to the next
-challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout" >CTF
-walkthrough, Ethernaut, #3 Fallout</a>!</p>
+challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout" >Ethernaut, #3 Fallout</a>!</p>
 
         
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>

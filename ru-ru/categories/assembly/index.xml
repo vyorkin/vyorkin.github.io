@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Assembly on vyorkin.org</title>
-    <link>https://vyorkin.org/ru-ru/categories/assembly/</link>
+    <link>http://localhost:1313/ru-ru/categories/assembly/</link>
     <description>Recent content in Assembly on vyorkin.org</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
     <lastBuildDate>Tue, 12 Jul 2022 12:10:00 +0300</lastBuildDate>
-    <atom:link href="https://vyorkin.org/ru-ru/categories/assembly/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/ru-ru/categories/assembly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Программирование для ARM64. Часть 1</title>
-      <link>https://vyorkin.org/ru-ru/posts/arm64-assembly-1/</link>
+      <link>http://localhost:1313/ru-ru/posts/arm64-assembly-1/</link>
       <pubDate>Tue, 12 Jul 2022 12:10:00 +0300</pubDate>
-      <guid>https://vyorkin.org/ru-ru/posts/arm64-assembly-1/</guid>
+      <guid>http://localhost:1313/ru-ru/posts/arm64-assembly-1/</guid>
       <description>Заметка основана на конспектах из книги Programming with 64-bit ARM Assembly Language.&#xA;Регистры Link to heading X0-X30 &amp;ndash; Регистры общего назначения. X31, SP, XZR &amp;ndash; Указатель стека или нулевой регистр, в зависимости от контекста. X30, LR &amp;ndash; Ссылочный регистр. При вызове функции этот регистр используется для хранения адреса возврата. Не рекомендуется его использовать для чего-либо другого. PC &amp;ndash; Счётчик инструкций. Хранит адрес по которому в памяти расположена выполняемая в данный момент инструкция.</description>
     </item>
   </channel>

@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  CTF walkthrough, Ethernaut, #1 Hello Ethernaut · vyorkin.org
+  Ethernaut, #1 Hello Ethernaut · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #1 Hello Ethernaut">
+  <meta name="twitter:title" content="Ethernaut, #1 Hello Ethernaut">
   <meta name="twitter:description" content="Intro Link to heading The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser’s console, you should see greeting messages:
 Set up Link to heading Originally, this game runs on the Rinkeby test network, but we’re going to play it locally.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Ethernaut, #1 Hello Ethernaut">
+  <meta property="og:title" content="Ethernaut, #1 Hello Ethernaut">
   <meta property="og:description" content="Intro Link to heading The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser’s console, you should see greeting messages:
 Set up Link to heading Originally, this game runs on the Rinkeby test network, but we’re going to play it locally.">
   <meta property="og:locale" content="en">
@@ -35,7 +35,6 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
     <meta property="article:published_time" content="2022-07-21T14:48:00+03:00">
     <meta property="article:modified_time" content="2022-07-21T14:48:00+03:00">
     <meta property="article:tag" content="Blockchain">
-    <meta property="article:tag" content="Ctf">
     <meta property="article:tag" content="Security">
     <meta property="article:tag" content="Ethernaut">
 
@@ -170,7 +169,7 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-1-hello/">
-              CTF walkthrough, Ethernaut, #1 Hello Ethernaut
+              Ethernaut, #1 Hello Ethernaut
             </a>
           </h1>
         </div>
@@ -184,20 +183,11 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
             </span>
           </div>
           
-          <div class="categories">
-  <i class="fa-solid fa-folder" aria-hidden="true"></i>
-    <a href="https://vyorkin.org/categories/blockchain/">Blockchain</a>
-      <span class="separator">•</span>
-    <a href="https://vyorkin.org/categories/ctf/">Ctf</a></div>
-
+          
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
       <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ctf/">Ctf</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
@@ -319,9 +309,9 @@ class LevelFactory {
     +createInstance(address player) address
     +validateInstance(address payable instance, address player) bool
 }
-LevelFactory &lt;|-- Level1Factory
-LevelFactory &lt;|-- Level2Factory
-LevelFactory &lt;|-- Level3Factory
+LevelFactory <|-- Level1Factory
+LevelFactory <|-- Level2Factory
+LevelFactory <|-- Level3Factory
 
 </div>
 
@@ -335,21 +325,21 @@ sequenceDiagram
     participant LF as LevelFactory
     participant L as Level
 
-P-&gt;&gt;E: createLevelInstance(levelFactory)
-E-&gt;&gt;LF: createInstance(player)
-LF-&gt;&gt;LF: prepare ctor args for Level
-LF-&gt;&gt;+L: new(args)
-L--&gt;&gt;LF: address
-LF--&gt;&gt;E: address(level)
-E-&gt;&gt;E: emit LevelInstanceCreatedLog
+P->>E: createLevelInstance(levelFactory)
+E->>LF: createInstance(player)
+LF->>LF: prepare ctor args for Level
+LF->>+L: new(args)
+L-->>LF: address
+LF-->>E: address(level)
+E->>E: emit LevelInstanceCreatedLog
 E-)P: address(level)
-P-&gt;&gt;L: exploit
-P-&gt;&gt;E: submitLevelInstance(level)
-E-&gt;&gt;LF: validateInstance(level, player)
-LF--&gt;&gt;LF: check win conditions
-LF--&gt;&gt;E: true
-E-&gt;&gt;E: emit LevelCompletedLog
-E--&gt;&gt;P: true
+P->>L: exploit
+P->>E: submitLevelInstance(level)
+E->>LF: validateInstance(level, player)
+LF-->>LF: check win conditions
+LF-->>E: true
+E->>E: emit LevelCompletedLog
+E-->>P: true
 
 </div>
 
@@ -446,8 +436,8 @@ E--&gt;&gt;P: true
 %%{init: {'theme':'neutral'}}%%
 classDiagram
 class Ethernaut {
-    mapping~address =&gt; bool~ registeredLevels
-    mapping~address =&gt; EmittedInstanceData~ emittedInstances
+    mapping~address => bool~ registeredLevels
+    mapping~address => EmittedInstanceData~ emittedInstances
 
     +registerLevel(LevelFactory level)
     +createLevelInstance(LevelFactory level) address
@@ -735,8 +725,7 @@ of those <code>infoX</code> functions %)</p>
   </a>
 </h2>
 <p>Looks like now we&rsquo;re prepared to start hacking the first &ldquo;real&rdquo;
-challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback" >Let&rsquo;s
-play CTF, Ethernaut, #2 Fallback</a>. Thanks for reading!</p>
+challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback" >Ethernaut, #2 Fallback</a>. Thanks for reading!</p>
 
         
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>

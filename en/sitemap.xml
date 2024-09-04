@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-1/</loc>
-    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/folderol/</loc>
-    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
-  </url><url>
     <loc>https://vyorkin.org/posts/</loc>
     <lastmod>2024-09-03T13:40:00+03:00</lastmod>
     <xhtml:link
@@ -19,24 +13,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://vyorkin.org/posts/"
-                />
-  </url><url>
-    <loc>https://vyorkin.org/tags/</loc>
-    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/tags/"
                 />
   </url><url>
     <loc>https://vyorkin.org/</loc>
@@ -60,20 +36,44 @@
     <loc>https://vyorkin.org/tags/blockchain/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/categories/blockchain/</loc>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/categories/</loc>
+    <loc>https://vyorkin.org/tags/security/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
+                href="https://vyorkin.org/ru-ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="de-de"
+                href="https://vyorkin.org/de-de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/categories/blockchain/</loc>
+    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/categories/</loc>
+    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
                 href="https://vyorkin.org/de-de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -82,16 +82,16 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/tags/ctf/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/categories/ctf/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</loc>
+    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/tags/security/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-7-compromised/</loc>
+    <lastmod>2022-11-02T11:09:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</loc>
     <lastmod>2022-11-02T08:12:00+03:00</lastmod>
@@ -111,10 +111,10 @@
     <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/</loc>
     <lastmod>2022-08-09T20:03:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/</loc>
+    <loc>https://vyorkin.org/tags/ethernaut/</loc>
     <lastmod>2022-08-04T12:24:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/tags/ethernaut/</loc>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/</loc>
     <lastmod>2022-08-04T12:24:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/ctf-walkthrough-ethernaut-13-privacy/</loc>
@@ -158,6 +158,25 @@
   </url><url>
     <loc>https://vyorkin.org/posts/ctf-walkthrough-intro/</loc>
     <lastmod>2022-07-19T00:40:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/coq/</loc>
+    <lastmod>2019-12-07T18:23:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/coq/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/coq/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</loc>
+    <lastmod>2019-12-07T18:23:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/tapl/</loc>
+    <lastmod>2019-12-07T18:23:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/compilers/</loc>
     <lastmod>2019-09-21T16:53:00+03:00</lastmod>
@@ -210,6 +229,8 @@
   </url><url>
     <loc>https://vyorkin.org/posts/making-of-tiger-1-intro/</loc>
     <lastmod>2019-08-22T20:27:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/posts/</loc>
   </url><url>
     <loc>https://vyorkin.org/about/</loc>
     <xhtml:link

@@ -2,26 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vyorkin.org/ru-ru/categories/arm64/</loc>
+    <loc>https://vyorkin.org/ru-ru/tags/arm64/</loc>
     <lastmod>2022-07-13T16:19:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/</loc>
-    <lastmod>2022-07-13T16:19:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
-                />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/</loc>
     <lastmod>2022-07-13T16:19:00+03:00</lastmod>
@@ -37,9 +19,6 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/rust/</loc>
-    <lastmod>2022-07-13T16:19:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/rust/</loc>
     <lastmod>2022-07-13T16:19:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/</loc>
@@ -84,9 +63,6 @@
     <loc>https://vyorkin.org/ru-ru/tags/assembly/</loc>
     <lastmod>2022-07-12T12:10:00+03:00</lastmod>
   </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/assembly/</loc>
-    <lastmod>2022-07-12T12:10:00+03:00</lastmod>
-  </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/arm64-assembly-1/</loc>
     <lastmod>2022-07-12T12:10:00+03:00</lastmod>
   </url><url>
@@ -106,20 +82,41 @@
                 href="https://vyorkin.org/ru-ru/tags/ocaml/"
                 />
   </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/ocaml/</loc>
-    <lastmod>2021-10-31T12:40:00+03:00</lastmod>
-  </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/about-lwt/</loc>
     <lastmod>2021-10-31T12:40:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/ru-ru/tags/coq/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/ru-ru/categories/coq/</loc>
-    <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/coq/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/coq/"
+                />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/posts/notes-on-types-in-coq/</loc>
     <lastmod>2021-10-31T12:39:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/ru-ru/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
+                />
   </url><url>
     <loc>https://vyorkin.org/ru-ru/series/</loc>
     <xhtml:link

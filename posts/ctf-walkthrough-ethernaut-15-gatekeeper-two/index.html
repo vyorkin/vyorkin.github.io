@@ -3,7 +3,7 @@
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <title>
-  CTF walkthrough, Ethernaut, #15 Gatekeeper Two · vyorkin.org
+  Ethernaut, #15 Gatekeeper Two · vyorkin.org
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CTF walkthrough, Ethernaut, #15 Gatekeeper Two">
+  <meta name="twitter:title" content="Ethernaut, #15 Gatekeeper Two">
   <meta name="twitter:description" content="The goal is the same – pass through 3 gates and register as an entrant.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract GatekeeperTwo { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { uint256 x; assembly { x := extcodesize(caller()) } require(x == 0); _; } modifier gateThree(bytes8 _gateKey) { unchecked { require( uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == uint64(0) - 1 ); } _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.">
 
 <meta property="og:url" content="http://localhost:1313/posts/ctf-walkthrough-ethernaut-15-gatekeeper-two/">
   <meta property="og:site_name" content="vyorkin.org">
-  <meta property="og:title" content="CTF walkthrough, Ethernaut, #15 Gatekeeper Two">
+  <meta property="og:title" content="Ethernaut, #15 Gatekeeper Two">
   <meta property="og:description" content="The goal is the same – pass through 3 gates and register as an entrant.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract GatekeeperTwo { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { uint256 x; assembly { x := extcodesize(caller()) } require(x == 0); _; } modifier gateThree(bytes8 _gateKey) { unchecked { require( uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == uint64(0) - 1 ); } _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.">
   <meta property="og:locale" content="en">
@@ -171,7 +171,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="http://localhost:1313/posts/ctf-walkthrough-ethernaut-15-gatekeeper-two/">
-              CTF walkthrough, Ethernaut, #15 Gatekeeper Two
+              Ethernaut, #15 Gatekeeper Two
             </a>
           </h1>
         </div>

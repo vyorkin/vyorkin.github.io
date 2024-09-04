@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Damn Vulnerable DeFi, #7 Compromised · vyorkin.org
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="Challenge Link to heading While poking around a web service of one of the most popular DeFi projects in the space, you get a somewhat strange response from their server. This is a snippet:
+HTTP/2 200 OK content-type: text/html content-language: en vary: Accept-Encoding server: cloudflare 4d 48 68 6a 4e 6a 63 34 5a 57 59 78 59 57 45 30 4e 54 5a 6b 59 54 59 31 59 7a 5a 6d 59 7a 55 34 4e 6a 46 6b 4e 44 51 34 4f 54 4a 6a 5a 47 5a 68 59 7a 42 6a 4e 6d 4d 34 59 7a 49 31 4e 6a 42 69 5a 6a 42 6a 4f 57 5a 69 59 32 52 68 5a 54 4a 6d 4e 44 63 7a 4e 57 45 35 4d 48 67 79 4d 44 67 79 4e 44 4a 6a 4e 44 42 68 59 32 52 6d 59 54 6c 6c 5a 44 67 34 4f 57 55 32 4f 44 56 6a 4d 6a 4d 31 4e 44 64 68 59 32 4a 6c 5a 44 6c 69 5a 57 5a 6a 4e 6a 41 7a 4e 7a 46 6c 4f 54 67 33 4e 57 5a 69 59 32 51 33 4d 7a 59 7a 4e 44 42 69 59 6a 51 34 Analysis Link to heading Solution Link to heading Remediation Link to heading Conclusion Link to heading References Link to heading I hope you enjoyed reading this post.">
+<meta name="keywords" content="Vasiliy Yorkin">
+<meta name="fediverse:creator" content="" />
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Damn Vulnerable DeFi, #7 Compromised">
+  <meta name="twitter:description" content="Challenge Link to heading While poking around a web service of one of the most popular DeFi projects in the space, you get a somewhat strange response from their server. This is a snippet:
+HTTP/2 200 OK content-type: text/html content-language: en vary: Accept-Encoding server: cloudflare 4d 48 68 6a 4e 6a 63 34 5a 57 59 78 59 57 45 30 4e 54 5a 6b 59 54 59 31 59 7a 5a 6d 59 7a 55 34 4e 6a 46 6b 4e 44 51 34 4f 54 4a 6a 5a 47 5a 68 59 7a 42 6a 4e 6d 4d 34 59 7a 49 31 4e 6a 42 69 5a 6a 42 6a 4f 57 5a 69 59 32 52 68 5a 54 4a 6d 4e 44 63 7a 4e 57 45 35 4d 48 67 79 4d 44 67 79 4e 44 4a 6a 4e 44 42 68 59 32 52 6d 59 54 6c 6c 5a 44 67 34 4f 57 55 32 4f 44 56 6a 4d 6a 4d 31 4e 44 64 68 59 32 4a 6c 5a 44 6c 69 5a 57 5a 6a 4e 6a 41 7a 4e 7a 46 6c 4f 54 67 33 4e 57 5a 69 59 32 51 33 4d 7a 59 7a 4e 44 42 69 59 6a 51 34 Analysis Link to heading Solution Link to heading Remediation Link to heading Conclusion Link to heading References Link to heading I hope you enjoyed reading this post.">
+
+<meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-7-compromised/">
+  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:title" content="Damn Vulnerable DeFi, #7 Compromised">
+  <meta property="og:description" content="Challenge Link to heading While poking around a web service of one of the most popular DeFi projects in the space, you get a somewhat strange response from their server. This is a snippet:
+HTTP/2 200 OK content-type: text/html content-language: en vary: Accept-Encoding server: cloudflare 4d 48 68 6a 4e 6a 63 34 5a 57 59 78 59 57 45 30 4e 54 5a 6b 59 54 59 31 59 7a 5a 6d 59 7a 55 34 4e 6a 46 6b 4e 44 51 34 4f 54 4a 6a 5a 47 5a 68 59 7a 42 6a 4e 6d 4d 34 59 7a 49 31 4e 6a 42 69 5a 6a 42 6a 4f 57 5a 69 59 32 52 68 5a 54 4a 6d 4e 44 63 7a 4e 57 45 35 4d 48 67 79 4d 44 67 79 4e 44 4a 6a 4e 44 42 68 59 32 52 6d 59 54 6c 6c 5a 44 67 34 4f 57 55 32 4f 44 56 6a 4d 6a 4d 31 4e 44 64 68 59 32 4a 6c 5a 44 6c 69 5a 57 5a 6a 4e 6a 41 7a 4e 7a 46 6c 4f 54 67 33 4e 57 5a 69 59 32 51 33 4d 7a 59 7a 4e 44 42 69 59 6a 51 34 Analysis Link to heading Solution Link to heading Remediation Link to heading Conclusion Link to heading References Link to heading I hope you enjoyed reading this post.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-11-02T11:09:00+03:00">
+    <meta property="article:modified_time" content="2022-11-02T11:09:00+03:00">
+    <meta property="article:tag" content="Blockchain">
+    <meta property="article:tag" content="Security">
+
+
+
+
+<link rel="canonical" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-7-compromised/">
+
+
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+
+  
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
+
+
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="https://vyorkin.org/">
+      vyorkin.org
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-7-compromised/">
+              Damn Vulnerable DeFi, #7 Compromised
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2029-11-02T11:09:00&#43;03:00">
+                November 2, 2029
+              </time>
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/blockchain/">Blockchain</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/security/">Security</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="challenge">
+  Challenge
+  <a class="heading-link" href="#challenge">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<blockquote class="quote2 quote2-question"><p>While poking around a web service of one of the most popular DeFi projects in the space, you get a somewhat strange response from their server. This is a snippet:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#434f54">HTTP</span><span style="color:#728e00">/</span><span style="color:#8a7b52">2</span> <span style="color:#8a7b52">200</span> <span style="color:#434f54">OK</span>
+</span></span><span style="display:flex;"><span><span style="color:#434f54">content</span><span style="color:#728e00">-</span><span style="color:#434f54">type</span>: <span style="color:#434f54">text</span><span style="color:#728e00">/</span><span style="color:#434f54">html</span>
+</span></span><span style="display:flex;"><span><span style="color:#434f54">content</span><span style="color:#728e00">-</span><span style="color:#434f54">language</span>: <span style="color:#434f54">en</span>
+</span></span><span style="display:flex;"><span><span style="color:#434f54">vary</span>: <span style="color:#434f54">Accept</span><span style="color:#728e00">-</span><span style="color:#434f54">Encoding</span>
+</span></span><span style="display:flex;"><span><span style="color:#434f54">server</span>: <span style="color:#434f54">cloudflare</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">48</span> <span style="color:#8a7b52">68</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">63</span> <span style="color:#8a7b52">34</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">78</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">45</span> <span style="color:#8a7b52">30</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">54</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">b</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">54</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">31</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">55</span> <span style="color:#8a7b52">34</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">46</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">b</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">51</span> <span style="color:#8a7b52">34</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">f</span> <span style="color:#8a7b52">54</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">47</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">68</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">42</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">d</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">34</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">49</span> <span style="color:#8a7b52">31</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">42</span> <span style="color:#8a7b52">69</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">42</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">f</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">69</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">59</span> <span style="color:#8a7b52">32</span> <span style="color:#8a7b52">52</span> <span style="color:#8a7b52">68</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">54</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">63</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">45</span> <span style="color:#8a7b52">35</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">48</span> <span style="color:#8a7b52">67</span> <span style="color:#8a7b52">79</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">67</span> <span style="color:#8a7b52">79</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">42</span> <span style="color:#8a7b52">68</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">52</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">54</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">c</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">c</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">67</span> <span style="color:#8a7b52">34</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">f</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">55</span> <span style="color:#8a7b52">32</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">f</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">56</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">31</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">64</span> <span style="color:#8a7b52">68</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">32</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">c</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">c</span> <span style="color:#8a7b52">69</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">57</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">41</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">46</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">c</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">f</span> <span style="color:#8a7b52">54</span> <span style="color:#8a7b52">67</span> <span style="color:#8a7b52">33</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">57</span> <span style="color:#8a7b52">5</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">69</span>
+</span></span><span style="display:flex;"><span><span style="color:#8a7b52">59</span> <span style="color:#8a7b52">32</span> <span style="color:#8a7b52">51</span> <span style="color:#8a7b52">33</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">d</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">7</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">4</span><span style="color:#434f54">e</span> <span style="color:#8a7b52">44</span> <span style="color:#8a7b52">42</span> <span style="color:#8a7b52">69</span> <span style="color:#8a7b52">59</span> <span style="color:#8a7b52">6</span><span style="color:#434f54">a</span> <span style="color:#8a7b52">51</span> <span style="color:#8a7b52">34</span>
+</span></span></code></pre></div>
+</blockquote>
+
+<h2 id="analysis">
+  Analysis
+  <a class="heading-link" href="#analysis">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h2 id="solution">
+  Solution
+  <a class="heading-link" href="#solution">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h2 id="remediation">
+  Remediation
+  <a class="heading-link" href="#remediation">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h2 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>I hope you enjoyed reading this post. The code for this
+challenge is
+<a href="https://github.com/vyorkin/damn-vulnerable-defi-solutions/blob/master/src/test/Levels/puppet/Puppet.t.sol"  class="external-link" target="_blank" rel="noopener">here</a>.
+Let&rsquo;s continue to the next one &ndash;
+<a href="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet" >#8
+Puppet</a>.</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2024
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+    
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

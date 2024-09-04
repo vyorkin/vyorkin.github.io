@@ -508,9 +508,25 @@ frame layout.</p>
 where the 1-st parameter escapes. Here is an example of how the
 <code>Frame.mk g [true; false; false]</code> works on three different
 architecture.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<style>
+.sane-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.sane-table th,
+.sane-table td {
+  padding: 0.25rem;
+  text-align: center;
+  border: 0;
+}
+.list-table table {
+  width: 30rem;
+}
+.list-table td {
+  text-align: left;
+}
+</style>
+<div class="ox-hugo-table sane-table">
 <table>
 <thead>
 <tr>
@@ -533,8 +549,8 @@ architecture.</p>
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div class="ox-hugo-table sane-table">
 <table>
 <thead>
 <tr>
@@ -566,7 +582,7 @@ architecture.</p>
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+</div>
 <ul>
 <li>\(SF\) &ndash; Stack frame memory region</li>
 <li>\(k\)  &ndash; Number of formal parameters</li>

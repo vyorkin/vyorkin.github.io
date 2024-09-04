@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Benchmarking OCaml code · vyorkin.org
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="The most known tool for benchmarking OCaml code is the Core_bench by Jane Street. There is a post about it in the Jane Street tech blog that should help to get started, but it may be a bit outdated.
+Here is the basic usage:
+open Core open Core_bench module B = Bench.Test let benchmarks = let x = Random.float 10.0 in let y = Random.float 10.0 in [ B.create ~name: &#34;Float add&#34; (fun () -&gt; ignore (x &#43;.">
+<meta name="keywords" content="Vasiliy Yorkin">
+<meta name="fediverse:creator" content="" />
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Benchmarking OCaml code">
+  <meta name="twitter:description" content="The most known tool for benchmarking OCaml code is the Core_bench by Jane Street. There is a post about it in the Jane Street tech blog that should help to get started, but it may be a bit outdated.
+Here is the basic usage:
+open Core open Core_bench module B = Bench.Test let benchmarks = let x = Random.float 10.0 in let y = Random.float 10.0 in [ B.create ~name: &#34;Float add&#34; (fun () -&gt; ignore (x &#43;.">
+
+<meta property="og:url" content="http://localhost:1313/posts/benchmarking-ocaml-code/">
+  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:title" content="Benchmarking OCaml code">
+  <meta property="og:description" content="The most known tool for benchmarking OCaml code is the Core_bench by Jane Street. There is a post about it in the Jane Street tech blog that should help to get started, but it may be a bit outdated.
+Here is the basic usage:
+open Core open Core_bench module B = Bench.Test let benchmarks = let x = Random.float 10.0 in let y = Random.float 10.0 in [ B.create ~name: &#34;Float add&#34; (fun () -&gt; ignore (x &#43;.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-09-07T14:38:00+03:00">
+    <meta property="article:modified_time" content="2019-09-07T14:38:00+03:00">
+    <meta property="article:tag" content="Ocaml">
+    <meta property="article:tag" content="Benchmarking">
+    <meta property="article:tag" content="Performance">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/benchmarking-ocaml-code/">
+
+
+<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
+  
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
+
+
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      vyorkin.org
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="http://localhost:1313/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="http://localhost:1313/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/benchmarking-ocaml-code/">
+              Benchmarking OCaml code
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="70738-09-07T14:38:00&#43;03:00">
+                September 7, 70738
+              </time>
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa-solid fa-folder" aria-hidden="true"></i>
+    <a href="http://localhost:1313/categories/ocaml/">Ocaml</a></div>
+
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="http://localhost:1313/tags/ocaml/">Ocaml</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="http://localhost:1313/tags/benchmarking/">Benchmarking</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="http://localhost:1313/tags/performance/">Performance</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>The most known tool for benchmarking OCaml code is the
+<a href="https://github.com/janestreet/core_bench"  class="external-link" target="_blank" rel="noopener">Core_bench</a> by Jane Street. There is a <a href="https://blog.janestreet.com/core_bench-micro-benchmarking-for-ocaml/"  class="external-link" target="_blank" rel="noopener">post about it</a> in the Jane
+Street tech blog that should help to get started, but it may be
+a bit outdated.</p>
+<p>Here is the basic usage:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">open</span> <span style="color:#434f54">Core</span>
+</span></span><span style="display:flex;"><span><span style="color:#728e00">open</span> <span style="color:#434f54">Core_bench</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#728e00">module</span> <span style="color:#434f54">B</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Bench</span>.<span style="color:#434f54">Test</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">benchmarks</span> <span style="color:#728e00">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">x</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Random</span>.<span style="color:#434f54">float</span> <span style="color:#434f54">10</span><span style="color:#728e00">.</span><span style="color:#434f54">0</span> <span style="color:#728e00">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">y</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Random</span>.<span style="color:#434f54">float</span> <span style="color:#434f54">10</span><span style="color:#728e00">.</span><span style="color:#434f54">0</span> <span style="color:#728e00">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">[</span> <span style="color:#434f54">B</span>.<span style="color:#434f54">create</span> <span style="color:#728e00">~</span><span style="color:#434f54">name</span><span style="color:#728e00">:</span> <span style="color:#7f8c8d">&#34;Float add&#34;</span> <span style="color:#728e00">(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">()</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">ignore</span> <span style="color:#728e00">(</span><span style="color:#434f54">x</span> <span style="color:#728e00">+.</span> <span style="color:#434f54">y</span><span style="color:#728e00">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">;</span> <span style="color:#434f54">B</span>.<span style="color:#434f54">create</span> <span style="color:#728e00">~</span><span style="color:#434f54">name</span><span style="color:#728e00">:</span> <span style="color:#7f8c8d">&#34;Float mul&#34;</span> <span style="color:#728e00">(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">()</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">ignore</span> <span style="color:#728e00">(</span><span style="color:#434f54">x</span> <span style="color:#728e00">*.</span> <span style="color:#434f54">y</span><span style="color:#728e00">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">;</span> <span style="color:#434f54">B</span>.<span style="color:#434f54">create</span> <span style="color:#728e00">~</span><span style="color:#434f54">name</span><span style="color:#728e00">:</span> <span style="color:#7f8c8d">&#34;Float div&#34;</span> <span style="color:#728e00">(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">()</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">ignore</span> <span style="color:#728e00">(</span><span style="color:#434f54">x</span> <span style="color:#728e00">/.</span> <span style="color:#434f54">y</span><span style="color:#728e00">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">()</span> <span style="color:#728e00">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">cmd</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Bench</span>.<span style="color:#434f54">make_command</span> <span style="color:#434f54">benchmarks</span> <span style="color:#728e00">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#434f54">Command</span>.<span style="color:#434f54">run</span> <span style="color:#434f54">cmd</span>
+</span></span></code></pre></div>
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2024
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="http://localhost:1313/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+    
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

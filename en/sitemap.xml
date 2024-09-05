@@ -2,14 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vyorkin.org/tags/blockchain/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
-  </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -20,6 +14,30 @@
                 hreflang="en"
                 href="https://vyorkin.org/posts/"
                 />
+  </url><url>
+    <loc>https://vyorkin.org/</loc>
+    <lastmod>2024-09-03T13:40:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/tags/blockchain/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/</loc>
+    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/security/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>
@@ -41,57 +59,6 @@
                 hreflang="en"
                 href="https://vyorkin.org/tags/"
                 />
-  </url><url>
-    <loc>https://vyorkin.org/</loc>
-    <lastmod>2022-11-15T12:30:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/"
-                />
-  </url><url>
-    <loc>https://vyorkin.org/categories/blockchain/</loc>
-    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/categories/</loc>
-    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/categories/"
-                />
-  </url><url>
-    <loc>https://vyorkin.org/tags/ctf/</loc>
-    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/categories/ctf/</loc>
-    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</loc>
-    <lastmod>2022-11-03T22:27:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-7-compromised/</loc>
-    <lastmod>2022-11-02T11:09:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/</loc>
     <lastmod>2022-11-02T08:12:00+03:00</lastmod>
@@ -242,6 +209,23 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://vyorkin.org/about/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/categories/"
                 />
   </url><url>
     <loc>https://vyorkin.org/series/</loc>

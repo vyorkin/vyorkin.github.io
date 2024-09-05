@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blockchain on vyorkin.org</title>
-    <link>https://vyorkin.org/categories/blockchain/</link>
+    <link>http://localhost:1313/categories/blockchain/</link>
     <description>Recent content in Blockchain on vyorkin.org</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 03 Nov 2022 22:27:00 +0300</lastBuildDate>
-    <atom:link href="https://vyorkin.org/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Damn Vulnerable DeFi, #11 Backdoor</title>
-      <link>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</link>
+      <link>http://localhost:1313/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</link>
       <pubDate>Thu, 03 Nov 2022 22:27:00 +0300</pubDate>
-      <guid>https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</guid>
+      <guid>http://localhost:1313/posts/ctf-walkthrough-damn-vulnerable-defi-11-backdoor/</guid>
       <description>Challenge Link to heading To incentivize the creation of more secure wallets in their team, someone has deployed a registry of Gnosis Safe wallets. When someone in the team deploys and registers a wallet, they will earn 10 DVT tokens.&#xA;To make sure everything is safe and sound, the registry tightly integrates with the legitimate Gnosis Safe Proxy Factory, and has some additional safety checks.&#xA;Currently there are four people registered as beneficiaries: Alice, Bob, Charlie and David.</description>
     </item>
   </channel>

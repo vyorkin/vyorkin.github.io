@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Folderol on vyorkin.org</title>
+    <link>http://localhost:1313/tags/folderol/</link>
+    <description>Recent content in Folderol on vyorkin.org</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 03 Sep 2024 13:40:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/folderol/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 1</title>
+      <link>http://localhost:1313/posts/designing-a-theorem-prover-part-1/</link>
+      <pubDate>Tue, 03 Sep 2024 13:40:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/designing-a-theorem-prover-part-1/</guid>
+      <description>Intro Link to heading I&amp;rsquo;m going to work through the folderol by Lawrence C Paulson (1990).&#xA;Automated Theorem Proving Link to heading Ther asfd e are 2 terms that have different meaning:&#xA;Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the development of formal proofs by human-machine collaboration. Usually in the form of keeping track of what you need to prove and what you have proved. For example: Coq, Lean, Agda, Isabelle, F*.</description>
+    </item>
+  </channel>
+</rss>

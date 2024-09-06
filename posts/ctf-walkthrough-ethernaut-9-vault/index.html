@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  Ethernaut, #9 Vault · vyorkin.org
+  Ethernaut, #9 Vault · transcendental kyberautism
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@ bool public locked; bytes32 private password; In EVM storage is a key-value stor
 bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/">
-  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #9 Vault">
   <meta property="og:description" content="We need to unlock the Vault smart contract to pass the level.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let’s look at the state variables:
@@ -70,7 +70,7 @@ bool public locked; bytes32 private password; In EVM storage is a key-value stor
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -112,7 +112,7 @@ bool public locked; bytes32 private password; In EVM storage is a key-value stor
   <section class="container">
     
     <a class="navigation-title" href="https://vyorkin.org/">
-      vyorkin.org
+      transcendental kyberautism
     </a>
     
     

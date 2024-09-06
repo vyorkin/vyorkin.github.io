@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  Ethernaut, #11 Re-entrancy · vyorkin.org
+  Ethernaut, #11 Re-entrancy · transcendental kyberautism
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/">
-  <meta property="og:site_name" content="vyorkin.org">
+  <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #11 Re-entrancy">
   <meta property="og:description" content="The objective of this challenge is to steal all the funds from the contract.
 // SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
@@ -67,7 +67,7 @@
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.37b90b4ab2011637071ddd3590a64f81899b71c028d2d366c001566e70ee9e90.css" integrity="sha256-N7kLSrIBFjcHHd01kKZPgYmbccAo0tNmwAFWbnDunpA=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -109,7 +109,7 @@
   <section class="container">
     
     <a class="navigation-title" href="https://vyorkin.org/">
-      vyorkin.org
+      transcendental kyberautism
     </a>
     
     

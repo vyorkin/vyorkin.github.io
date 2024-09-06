@@ -53,23 +53,6 @@
                 href="https://vyorkin.org/de-de/tags/"
                 />
   </url><url>
-    <loc>https://vyorkin.org/de-de/about/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/about/"
-                />
-  </url><url>
     <loc>https://vyorkin.org/de-de/</loc>
     <xhtml:link
                 rel="alternate"
@@ -85,6 +68,23 @@
                 rel="alternate"
                 hreflang="de-de"
                 href="https://vyorkin.org/de-de/"
+                />
+  </url><url>
+    <loc>https://vyorkin.org/de-de/about/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/about/"
                 />
   </url>
 </urlset>

@@ -97,7 +97,7 @@ Parser generator is the most common type of compiler-compiler’s. It takes some
 
 
 
-<body class="preload-transitions colorscheme-dark">
+<body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -244,20 +244,20 @@ we’re going to define below.</p>
 <a href="https://dune.readthedocs.io/en/stable/dune-files.html#menhir"  class="external-link" target="_blank" rel="noopener">integrates with Dune</a> quiet nicely. All we need to do is to add
 the <code>menhir</code> stanza to our <code>dune</code> file (the one from the
 previous chapter). So the whole file will look like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(<span style="color:#434f54">menhir</span>
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">modules</span> <span style="color:#434f54">parser</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">flags</span> (<span style="color:#7f8c8d">&#34;--dump&#34;</span> <span style="color:#7f8c8d">&#34;--explain&#34;</span>)))
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(menhir
+</span></span><span style="display:flex;"><span> (modules parser)
+</span></span><span style="display:flex;"><span> (flags (<span style="color:#0ff;font-weight:bold">&#34;--dump&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;--explain&#34;</span>)))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#434f54">ocamllex</span>
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">modules</span> <span style="color:#434f54">lexer</span>))
+</span></span><span style="display:flex;"><span>(ocamllex
+</span></span><span style="display:flex;"><span> (modules lexer))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#434f54">library</span>
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">name</span> <span style="color:#434f54">ch3</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">inline_tests</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">libraries</span> <span style="color:#434f54">core</span> <span style="color:#434f54">stdio</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">preprocess</span> (<span style="color:#434f54">pps</span> <span style="color:#434f54">ppx_inline_test</span> <span style="color:#434f54">ppx_expect</span>)))
+</span></span><span style="display:flex;"><span>(library
+</span></span><span style="display:flex;"><span> (name ch3)
+</span></span><span style="display:flex;"><span> (inline_tests)
+</span></span><span style="display:flex;"><span> (libraries core stdio)
+</span></span><span style="display:flex;"><span> (preprocess (pps ppx_inline_test ppx_expect)))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#434f54">env</span> (<span style="color:#434f54">dev</span> (<span style="color:#434f54">flags</span> (<span style="color:#7f8c8d">:standard</span> <span style="color:#434f54">-warn-error</span> <span style="color:#434f54">-A</span>))))
+</span></span><span style="display:flex;"><span>(env (dev (flags (<span style="color:#0ff;font-weight:bold">:standard</span> -warn-error -A))))
 </span></span></code></pre></div><p>Notice the <code>--dump</code> and <code>--explain</code> switches:</p>
 <ul>
 <li>The <code>--dump</code> switch means to write a description of the
@@ -277,97 +277,97 @@ experimental). First, let’s define some
 aliases</a>, priorities and associativity levels. Basically these
 are the same tokens we used in our lexer.</p>
 <p>Base keywords:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">TYPE</span>     <span style="color:#7f8c8d">&#34;type&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">VAR</span>      <span style="color:#7f8c8d">&#34;var&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">FUNCTION</span> <span style="color:#7f8c8d">&#34;function&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">BREAK</span>    <span style="color:#7f8c8d">&#34;break&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">OF</span>       <span style="color:#7f8c8d">&#34;of&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">END</span>      <span style="color:#7f8c8d">&#34;end&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">IN</span>       <span style="color:#7f8c8d">&#34;in&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">NIL</span>      <span style="color:#7f8c8d">&#34;nil&#34;</span> <span style="color:#95a5a6">(* nil denotes a value belonging to every record type *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LET</span>      <span style="color:#7f8c8d">&#34;let&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">ARRAY</span>    <span style="color:#7f8c8d">&#34;array&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%token TYPE     <span style="color:#0ff;font-weight:bold">&#34;type&#34;</span>
+</span></span><span style="display:flex;"><span>%token VAR      <span style="color:#0ff;font-weight:bold">&#34;var&#34;</span>
+</span></span><span style="display:flex;"><span>%token FUNCTION <span style="color:#0ff;font-weight:bold">&#34;function&#34;</span>
+</span></span><span style="display:flex;"><span>%token BREAK    <span style="color:#0ff;font-weight:bold">&#34;break&#34;</span>
+</span></span><span style="display:flex;"><span>%token OF       <span style="color:#0ff;font-weight:bold">&#34;of&#34;</span>
+</span></span><span style="display:flex;"><span>%token END      <span style="color:#0ff;font-weight:bold">&#34;end&#34;</span>
+</span></span><span style="display:flex;"><span>%token IN       <span style="color:#0ff;font-weight:bold">&#34;in&#34;</span>
+</span></span><span style="display:flex;"><span>%token NIL      <span style="color:#0ff;font-weight:bold">&#34;nil&#34;</span> <span style="color:#007f7f">(* nil denotes a value belonging to every record type *)</span>
+</span></span><span style="display:flex;"><span>%token LET      <span style="color:#0ff;font-weight:bold">&#34;let&#34;</span>
+</span></span><span style="display:flex;"><span>%token ARRAY    <span style="color:#0ff;font-weight:bold">&#34;array&#34;</span>
 </span></span></code></pre></div><p>Loop-related keywords:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">DO</span>    <span style="color:#7f8c8d">&#34;do&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">TO</span>    <span style="color:#7f8c8d">&#34;to&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">FOR</span>   <span style="color:#7f8c8d">&#34;for&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">WHILE</span> <span style="color:#7f8c8d">&#34;while&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%token DO    <span style="color:#0ff;font-weight:bold">&#34;do&#34;</span>
+</span></span><span style="display:flex;"><span>%token TO    <span style="color:#0ff;font-weight:bold">&#34;to&#34;</span>
+</span></span><span style="display:flex;"><span>%token FOR   <span style="color:#0ff;font-weight:bold">&#34;for&#34;</span>
+</span></span><span style="display:flex;"><span>%token WHILE <span style="color:#0ff;font-weight:bold">&#34;while&#34;</span>
 </span></span></code></pre></div><p>Keywords for conditional expression:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">IF</span>   <span style="color:#7f8c8d">&#34;if&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">THEN</span> <span style="color:#7f8c8d">&#34;then&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">ELSE</span> <span style="color:#7f8c8d">&#34;else&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%token IF   <span style="color:#0ff;font-weight:bold">&#34;if&#34;</span>
+</span></span><span style="display:flex;"><span>%token THEN <span style="color:#0ff;font-weight:bold">&#34;then&#34;</span>
+</span></span><span style="display:flex;"><span>%token ELSE <span style="color:#0ff;font-weight:bold">&#34;else&#34;</span>
 </span></span></code></pre></div><p>Operator tokens:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(* General *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">ASSIGN</span> <span style="color:#7f8c8d">&#34;:=&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* General *)</span>
+</span></span><span style="display:flex;"><span>%token ASSIGN <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* Logical *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">OR</span>  <span style="color:#7f8c8d">&#34;|&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">AND</span> <span style="color:#7f8c8d">&#34;&amp;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Logical *)</span>
+</span></span><span style="display:flex;"><span>%token OR  <span style="color:#0ff;font-weight:bold">&#34;|&#34;</span>
+</span></span><span style="display:flex;"><span>%token AND <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* Comparison *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">GE</span>  <span style="color:#7f8c8d">&#34;&gt;=&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">GT</span>  <span style="color:#7f8c8d">&#34;&gt;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LE</span>  <span style="color:#7f8c8d">&#34;&lt;=&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LT</span>  <span style="color:#7f8c8d">&#34;&lt;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">NEQ</span> <span style="color:#7f8c8d">&#34;&lt;&gt;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">EQ</span>  <span style="color:#7f8c8d">&#34;=&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Comparison *)</span>
+</span></span><span style="display:flex;"><span>%token GE  <span style="color:#0ff;font-weight:bold">&#34;&gt;=&#34;</span>
+</span></span><span style="display:flex;"><span>%token GT  <span style="color:#0ff;font-weight:bold">&#34;&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>%token LE  <span style="color:#0ff;font-weight:bold">&#34;&lt;=&#34;</span>
+</span></span><span style="display:flex;"><span>%token LT  <span style="color:#0ff;font-weight:bold">&#34;&lt;&#34;</span>
+</span></span><span style="display:flex;"><span>%token NEQ <span style="color:#0ff;font-weight:bold">&#34;&lt;&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>%token EQ  <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* Arithmetics *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">DIVIDE</span> <span style="color:#7f8c8d">&#34;/&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">TIMES</span>  <span style="color:#7f8c8d">&#34;*&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">PLUS</span>   <span style="color:#7f8c8d">&#34;+&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">MINUS</span>  <span style="color:#7f8c8d">&#34;-&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Arithmetics *)</span>
+</span></span><span style="display:flex;"><span>%token DIVIDE <span style="color:#0ff;font-weight:bold">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>%token TIMES  <span style="color:#0ff;font-weight:bold">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>%token PLUS   <span style="color:#0ff;font-weight:bold">&#34;+&#34;</span>
+</span></span><span style="display:flex;"><span>%token MINUS  <span style="color:#0ff;font-weight:bold">&#34;-&#34;</span>
 </span></span></code></pre></div><p>Tokens for separators:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">DOT</span>       <span style="color:#7f8c8d">&#34;.&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LBRACE</span>    <span style="color:#7f8c8d">&#34;{&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">RBRACE</span>    <span style="color:#7f8c8d">&#34;}&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LBRACK</span>    <span style="color:#7f8c8d">&#34;[&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">RBRACK</span>    <span style="color:#7f8c8d">&#34;]&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">LPAREN</span>    <span style="color:#7f8c8d">&#34;(&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">RPAREN</span>    <span style="color:#7f8c8d">&#34;)&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">SEMICOLON</span> <span style="color:#7f8c8d">&#34;;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">COLON</span>     <span style="color:#7f8c8d">&#34;:&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">COMMA</span>     <span style="color:#7f8c8d">&#34;,&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%token DOT       <span style="color:#0ff;font-weight:bold">&#34;.&#34;</span>
+</span></span><span style="display:flex;"><span>%token LBRACE    <span style="color:#0ff;font-weight:bold">&#34;{&#34;</span>
+</span></span><span style="display:flex;"><span>%token RBRACE    <span style="color:#0ff;font-weight:bold">&#34;}&#34;</span>
+</span></span><span style="display:flex;"><span>%token LBRACK    <span style="color:#0ff;font-weight:bold">&#34;[&#34;</span>
+</span></span><span style="display:flex;"><span>%token RBRACK    <span style="color:#0ff;font-weight:bold">&#34;]&#34;</span>
+</span></span><span style="display:flex;"><span>%token LPAREN    <span style="color:#0ff;font-weight:bold">&#34;(&#34;</span>
+</span></span><span style="display:flex;"><span>%token RPAREN    <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span>
+</span></span><span style="display:flex;"><span>%token SEMICOLON <span style="color:#0ff;font-weight:bold">&#34;;&#34;</span>
+</span></span><span style="display:flex;"><span>%token COLON     <span style="color:#0ff;font-weight:bold">&#34;:&#34;</span>
+</span></span><span style="display:flex;"><span>%token COMMA     <span style="color:#0ff;font-weight:bold">&#34;,&#34;</span>
 </span></span></code></pre></div><p>Strings, numbers, identifiers and the <code>EOF</code> token:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#728e00">&lt;</span><span style="color:#00979d">string</span><span style="color:#728e00">&gt;</span> <span style="color:#434f54">STRING</span> <span style="color:#7f8c8d">&#34;string&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#728e00">&lt;</span><span style="color:#00979d">int</span><span style="color:#728e00">&gt;</span>    <span style="color:#434f54">INT</span>    <span style="color:#7f8c8d">&#34;int&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#728e00">&lt;</span><span style="color:#00979d">string</span><span style="color:#728e00">&gt;</span> <span style="color:#434f54">ID</span>     <span style="color:#7f8c8d">&#34;id&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%token &lt;<span style="color:#fff;font-weight:bold">string</span>&gt; STRING <span style="color:#0ff;font-weight:bold">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>%token &lt;<span style="color:#fff;font-weight:bold">int</span>&gt;    INT    <span style="color:#0ff;font-weight:bold">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>%token &lt;<span style="color:#fff;font-weight:bold">string</span>&gt; ID     <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">token</span> <span style="color:#434f54">EOF</span>
+</span></span><span style="display:flex;"><span>%token EOF
 </span></span></code></pre></div><p>Associativity of operators:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;of&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;then&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;else&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;do&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;:=&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">left</span>     <span style="color:#7f8c8d">&#34;|&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">left</span>     <span style="color:#7f8c8d">&#34;&amp;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">nonassoc</span> <span style="color:#7f8c8d">&#34;&gt;=&#34;</span> <span style="color:#7f8c8d">&#34;&gt;&#34;</span> <span style="color:#7f8c8d">&#34;&lt;=&#34;</span> <span style="color:#7f8c8d">&#34;&lt;&#34;</span> <span style="color:#7f8c8d">&#34;&lt;&gt;&#34;</span> <span style="color:#7f8c8d">&#34;=&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">left</span>     <span style="color:#7f8c8d">&#34;+&#34;</span> <span style="color:#7f8c8d">&#34;-&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">left</span>     <span style="color:#7f8c8d">&#34;*&#34;</span> <span style="color:#7f8c8d">&#34;/&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;of&#34;</span>
+</span></span><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;then&#34;</span>
+</span></span><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;else&#34;</span>
+</span></span><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;do&#34;</span>
+</span></span><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>
+</span></span><span style="display:flex;"><span>%left     <span style="color:#0ff;font-weight:bold">&#34;|&#34;</span>
+</span></span><span style="display:flex;"><span>%left     <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>
+</span></span><span style="display:flex;"><span>%nonassoc <span style="color:#0ff;font-weight:bold">&#34;&gt;=&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;&gt;&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;&lt;=&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;&lt;&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;&lt;&gt;&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>
+</span></span><span style="display:flex;"><span>%left     <span style="color:#0ff;font-weight:bold">&#34;+&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;-&#34;</span>
+</span></span><span style="display:flex;"><span>%left     <span style="color:#0ff;font-weight:bold">&#34;*&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;/&#34;</span>
 </span></span></code></pre></div><p>The grammar rules:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">%</span><span style="color:#434f54">start</span> <span style="color:#728e00">&lt;</span><span style="color:#00979d">unit</span><span style="color:#728e00">&gt;</span> <span style="color:#434f54">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>%start &lt;<span style="color:#fff;font-weight:bold">unit</span>&gt; main
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">%%</span>
+</span></span><span style="display:flex;"><span>%%
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">main</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">~</span> <span style="color:#728e00">=</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#434f54">EOF</span><span style="color:#728e00">;</span> <span style="color:#728e00">&lt;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> main :=
+</span></span><span style="display:flex;"><span>  ~ = expr; EOF; &lt;&gt;
 </span></span></code></pre></div><p>Top-level expression:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">expr</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">primitive</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;nil&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;break&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">create_rec</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">create_arr</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">lvalue</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">assignment</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">local</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">conditional</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">loop</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">fun_call</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">unary</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">binary</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">seq</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> expr :=
+</span></span><span style="display:flex;"><span>  | primitive
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;nil&#34;</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;break&#34;</span>
+</span></span><span style="display:flex;"><span>  | create_rec
+</span></span><span style="display:flex;"><span>  | create_arr
+</span></span><span style="display:flex;"><span>  | lvalue
+</span></span><span style="display:flex;"><span>  | assignment
+</span></span><span style="display:flex;"><span>  | local
+</span></span><span style="display:flex;"><span>  | conditional
+</span></span><span style="display:flex;"><span>  | loop
+</span></span><span style="display:flex;"><span>  | fun_call
+</span></span><span style="display:flex;"><span>  | unary
+</span></span><span style="display:flex;"><span>  | binary
+</span></span><span style="display:flex;"><span>  | seq
 </span></span></code></pre></div><p>It might not be obvious from the <code>expr</code> definition, but it also
 includes a thing called <code>no value</code> (an expression that yields no
 value). So when looking at the top-level expression and
@@ -375,125 +375,125 @@ comparing it to the language reference manual, please note that
 in our grammar <code>no_val := &quot;(&quot; &quot;)&quot;</code> (empty <code>seq</code>).</p>
 <p>There are two built-in (predefined) primitive types: <code>int</code> and
 <code>string</code>. The grammar rule for those is pretty straightforward:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">primitive</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;string&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;int&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> primitive :=
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;string&#34;</span>; { () }
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;int&#34;</span>; { () }
 </span></span></code></pre></div><p>In our language we have only one unary operator – minus:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">unary</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;-&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> unary := <span style="color:#0ff;font-weight:bold">&#34;-&#34;</span>; expr
 </span></span></code></pre></div><p>But we have two kinds of binary operators: <code>boolean</code> and
 “logical + arithmetic”, which we’ll simply call <code>bin</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">binary</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">bin</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">boolean</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> binary :=
+</span></span><span style="display:flex;"><span>  | bin
+</span></span><span style="display:flex;"><span>  | boolean
 </span></span></code></pre></div><p>Scroll down to see the definitions of <code>bin</code> and <code>boolean</code>.</p>
 <p>We have 2 kinds of loops: the <code>while</code> loop and the <code>for</code> loop:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">loop</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">while_loop</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">for_loop</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> loop :=
+</span></span><span style="display:flex;"><span>  | while_loop
+</span></span><span style="display:flex;"><span>  | for_loop
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">while_loop</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;while&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;do&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">for_loop</span>   <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;for&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;:=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;to&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;do&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> while_loop := <span style="color:#0ff;font-weight:bold">&#34;while&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;do&#34;</span>; expr
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> for_loop   := <span style="color:#0ff;font-weight:bold">&#34;for&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;to&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;do&#34;</span>; expr
 </span></span></code></pre></div><p>Nothing new or unusual. And the conditional expression rule is
 also quite trivial:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">conditional</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;if&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;then&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;else&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;if&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;then&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> conditional :=
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;if&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;then&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;else&#34;</span>; expr
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;if&#34;</span>; expr; <span style="color:#0ff;font-weight:bold">&#34;then&#34;</span>; expr
 </span></span></code></pre></div><p>Syntax for local bindings is going to be exactly like in OCaml
 or SML:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">local</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;let&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">decs</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;in&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr_seq</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;end&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> local := <span style="color:#0ff;font-weight:bold">&#34;let&#34;</span>; decs; <span style="color:#0ff;font-weight:bold">&#34;in&#34;</span>; expr_seq; <span style="color:#0ff;font-weight:bold">&#34;end&#34;</span>
 </span></span></code></pre></div><p>Now, a slightly more complex part – declarations.</p>
 <p>As stated in the Tiger language reference manual, a
 declaration-sequence is a sequence of <strong>type</strong>, <strong>value</strong>, and
 <strong>function declarations</strong>. No punctuation separates or terminates
 individual declarations.</p>
 <p>In terms of Menhir we can express it like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">decs</span> <span style="color:#728e00">:=</span> <span style="color:#00979d">list</span><span style="color:#728e00">(</span><span style="color:#434f54">dec</span><span style="color:#728e00">);</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> decs := <span style="color:#fff;font-weight:bold">list</span>(dec); { () }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">dec</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">ty_dec</span>  <span style="color:#95a5a6">(* type *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">var_dec</span> <span style="color:#95a5a6">(* value *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">fun_dec</span> <span style="color:#95a5a6">(* function declaration *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> dec :=
+</span></span><span style="display:flex;"><span>  | ty_dec  <span style="color:#007f7f">(* type *)</span>
+</span></span><span style="display:flex;"><span>  | var_dec <span style="color:#007f7f">(* value *)</span>
+</span></span><span style="display:flex;"><span>  | fun_dec <span style="color:#007f7f">(* function declaration *)</span>
 </span></span></code></pre></div><p>Ok, we need to define a separate rule for each declaration
 mentioned above.</p>
 <p>To declare a data type in the Tiger language we start with the
 keyword <code>type</code>, after which comes the identifier, the equality
 token and the type declaration body:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">ty_dec</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;type&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">ty</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> ty_dec := <span style="color:#0ff;font-weight:bold">&#34;type&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>; ty
 </span></span></code></pre></div><p>The type declaration could be a <strong>record</strong>, an <strong>array</strong> or a <strong>type
 alias</strong> (any identifier):</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">ty</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">braced</span><span style="color:#728e00">(</span><span style="color:#434f54">ty_fields</span><span style="color:#728e00">)</span> <span style="color:#95a5a6">(* records *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;array&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;of&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span> <span style="color:#95a5a6">(* arrays *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> ty :=
+</span></span><span style="display:flex;"><span>  | braced(ty_fields) <span style="color:#007f7f">(* records *)</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;array&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;of&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; { () } <span style="color:#007f7f">(* arrays *)</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; { () }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">ty_fields</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">separated_list</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;,&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">ty_field</span><span style="color:#728e00">);</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">ty_field</span>  <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">ty_ann</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> ty_fields := separated_list(<span style="color:#0ff;font-weight:bold">&#34;,&#34;</span>, ty_field); { () }
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> ty_field  := <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; ty_ann
 </span></span></code></pre></div><p>As per language reference manual, there are two possible ways to
 declare a variable: with or without type annotation. The
 following rule reflects this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">var_dec</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;var&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span>         <span style="color:#7f8c8d">&#34;:=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;var&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">ty_ann</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;:=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> var_dec :=
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;var&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>;         <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>; expr
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;var&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; ty_ann; <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>; expr
 </span></span></code></pre></div><p>The record and array creation rules below are also considered
 top-level expressions:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">create_rec</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">braced</span><span style="color:#728e00">(</span><span style="color:#434f54">init_rec_fields</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">create_arr</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">bracketed</span><span style="color:#728e00">(</span><span style="color:#434f54">expr</span><span style="color:#728e00">);</span> <span style="color:#7f8c8d">&#34;of&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> create_rec := <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; braced(init_rec_fields)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> create_arr := <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; bracketed(expr); <span style="color:#0ff;font-weight:bold">&#34;of&#34;</span>; expr
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">init_rec_fields</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">separated_list</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;,&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">init_rec_field</span><span style="color:#728e00">);</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">init_rec_field</span>  <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> init_rec_fields := separated_list(<span style="color:#0ff;font-weight:bold">&#34;,&#34;</span>, init_rec_field); { () }
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> init_rec_field  := <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>; expr
 </span></span></code></pre></div><p>Next, we need a function declaration rule:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_dec</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* procedures doesn&#39;t return values *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">fun_head</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">fun_body</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* functions return values and the type is specified after the colon *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">fun_head</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;:&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">fun_body</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_dec :=
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* procedures doesn&#39;t return values *)</span>
+</span></span><span style="display:flex;"><span>  | fun_head; <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>; fun_body
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* functions return values and the type is specified after the colon *)</span>
+</span></span><span style="display:flex;"><span>  | fun_head; <span style="color:#0ff;font-weight:bold">&#34;:&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>; fun_body
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_head</span>   <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;function&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">fun_params</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_body</span>   <span style="color:#728e00">:=</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_params</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">parenthesized</span><span style="color:#728e00">(</span><span style="color:#434f54">ty_fields</span><span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_head   := <span style="color:#0ff;font-weight:bold">&#34;function&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; fun_params
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_body   := expr
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_params := parenthesized(ty_fields)
 </span></span></code></pre></div><p>According to our language spec:</p>
 <p>&gt; An <code>l-value</code> is a location, whose value may be read or assigned.
 &gt; Variables, procedure parameters, fields or records, and
 elements are all <code>l-values</code>.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">lvalue</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* variable *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* everything else *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">lvalue_t</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> lvalue :=
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* variable *)</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; { () }
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* everything else *)</span>
+</span></span><span style="display:flex;"><span>  | lvalue_t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">lvalue_t</span> <span style="color:#728e00">:=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* simple record field *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;.&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* compound record field *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">lvalue_t</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;.&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* simple array subscript *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">bracketed</span><span style="color:#728e00">(</span><span style="color:#434f54">expr</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* compund array subscript *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">lvalue_t</span><span style="color:#728e00">;</span> <span style="color:#434f54">bracketed</span><span style="color:#728e00">(</span><span style="color:#434f54">expr</span><span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> lvalue_t :=
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* simple record field *)</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;.&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; { () }
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* compound record field *)</span>
+</span></span><span style="display:flex;"><span>  | lvalue_t; <span style="color:#0ff;font-weight:bold">&#34;.&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; { () }
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* simple array subscript *)</span>
+</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; bracketed(expr)
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* compund array subscript *)</span>
+</span></span><span style="display:flex;"><span>  | lvalue_t; bracketed(expr)
 </span></span></code></pre></div><p>Assignment of an expression to <code>lvalue</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">assignment</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">lvalue</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;:=&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> assignment := lvalue; <span style="color:#0ff;font-weight:bold">&#34;:=&#34;</span>; expr
 </span></span></code></pre></div><p>Sequence of expressions delimited by semicolon:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">expr_seq</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">separated_list</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;;&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">expr</span><span style="color:#728e00">);</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> expr_seq := separated_list(<span style="color:#0ff;font-weight:bold">&#34;;&#34;</span>, expr); { () }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">seq</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">parenthesized</span><span style="color:#728e00">(</span><span style="color:#434f54">expr_seq</span><span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> seq := parenthesized(expr_seq)
 </span></span></code></pre></div><p>Function call rule:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_call</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;id&#34;</span><span style="color:#728e00">;</span> <span style="color:#434f54">parenthesized</span><span style="color:#728e00">(</span><span style="color:#434f54">fun_args</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fun_args</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">separated_list</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;,&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">expr</span><span style="color:#728e00">);</span> <span style="color:#728e00">{</span> <span style="color:#434f54">()</span> <span style="color:#728e00">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_call := <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>; parenthesized(fun_args)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fun_args := separated_list(<span style="color:#0ff;font-weight:bold">&#34;,&#34;</span>, expr); { () }
 </span></span></code></pre></div><p>Arithmetic, comparison and equality expressions:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">bin</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#434f54">bin_op</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">bin_op</span> <span style="color:#728e00">==</span> <span style="color:#7f8c8d">&#34;+&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;-&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;*&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;/&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;&gt;=&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;&gt;&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;&lt;=&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;&lt;&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;&lt;&gt;&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;=&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> bin := expr; bin_op; expr
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> bin_op == <span style="color:#0ff;font-weight:bold">&#34;+&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;-&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;*&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;/&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&gt;=&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&gt;&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&lt;=&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&lt;&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&lt;&gt;&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;=&#34;</span>
 </span></span></code></pre></div><p>Boolean expressions:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">boolean</span> <span style="color:#728e00">:=</span> <span style="color:#434f54">expr</span><span style="color:#728e00">;</span> <span style="color:#434f54">boolean_op</span><span style="color:#728e00">;</span> <span style="color:#434f54">expr</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">boolean_op</span> <span style="color:#728e00">==</span> <span style="color:#7f8c8d">&#34;&amp;&#34;</span> <span style="color:#728e00">|</span> <span style="color:#7f8c8d">&#34;|&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> boolean := expr; boolean_op; expr
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> boolean_op == <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;|&#34;</span>
 </span></span></code></pre></div><p>Helper rule for a type annotation which we used in the <code>var_dec</code>
 and <code>ty_field</code> above:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">ty_ann</span> <span style="color:#728e00">:=</span> <span style="color:#7f8c8d">&#34;:&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;id&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> ty_ann := <span style="color:#0ff;font-weight:bold">&#34;:&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;id&#34;</span>
 </span></span></code></pre></div><p>Menhir allows us to declare functions, so these are three helper
 functions that we used everywhere else for delimited
 expressions:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">parenthesized</span><span style="color:#728e00">(</span><span style="color:#434f54">x</span><span style="color:#728e00">)</span> <span style="color:#728e00">==</span> <span style="color:#434f54">delimited</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;(&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">x</span><span style="color:#728e00">,</span> <span style="color:#7f8c8d">&#34;)&#34;</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">bracketed</span><span style="color:#728e00">(</span><span style="color:#434f54">x</span><span style="color:#728e00">)</span>     <span style="color:#728e00">==</span> <span style="color:#434f54">delimited</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;[&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">x</span><span style="color:#728e00">,</span> <span style="color:#7f8c8d">&#34;]&#34;</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">braced</span><span style="color:#728e00">(</span><span style="color:#434f54">x</span><span style="color:#728e00">)</span>        <span style="color:#728e00">==</span> <span style="color:#434f54">delimited</span><span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;{&#34;</span><span style="color:#728e00">,</span> <span style="color:#434f54">x</span><span style="color:#728e00">,</span> <span style="color:#7f8c8d">&#34;}&#34;</span><span style="color:#728e00">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> parenthesized(x) == delimited(<span style="color:#0ff;font-weight:bold">&#34;(&#34;</span>, x, <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> bracketed(x)     == delimited(<span style="color:#0ff;font-weight:bold">&#34;[&#34;</span>, x, <span style="color:#0ff;font-weight:bold">&#34;]&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> braced(x)        == delimited(<span style="color:#0ff;font-weight:bold">&#34;{&#34;</span>, x, <span style="color:#0ff;font-weight:bold">&#34;}&#34;</span>)
 </span></span></code></pre></div><h2 id="test-suite">
   Test suite
   <a class="heading-link" href="#test-suite">
@@ -507,85 +507,85 @@ The most convenient way to do that would be to create a test
 suite that we could run after every change we make.</p>
 <p>Some of the provided example Tiger programs are intentionally
 broken, so we want to skip those:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">skipped</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">[</span><span style="color:#7f8c8d">&#34;test16.tig&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;test17.tig&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;test19.tig&#34;</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#7f8c8d">&#34;test20.tig&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;test25.tig&#34;</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#7f8c8d">&#34;test45.tig&#34;</span><span style="color:#728e00">;</span> <span style="color:#7f8c8d">&#34;test49.tig&#34;</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> skipped =
+</span></span><span style="display:flex;"><span>  [<span style="color:#0ff;font-weight:bold">&#34;test16.tig&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;test17.tig&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;test19.tig&#34;</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#0ff;font-weight:bold">&#34;test20.tig&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;test25.tig&#34;</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#0ff;font-weight:bold">&#34;test45.tig&#34;</span>; <span style="color:#0ff;font-weight:bold">&#34;test49.tig&#34;</span>]
 </span></span></code></pre></div><p>A couple of helper functions to list the example programs
 (recursively):</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">is_tig_ext</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#728e00">(_,</span> <span style="color:#434f54">ext</span><span style="color:#728e00">)</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Filename</span>.<span style="color:#434f54">split_extension</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">match</span> <span style="color:#434f54">ext</span> <span style="color:#728e00">with</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">Some</span> <span style="color:#7f8c8d">&#34;tig&#34;</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#728e00">_</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">false</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> is_tig_ext filename =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> (_, ext) = Filename.split_extension filename <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> ext <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Some <span style="color:#0ff;font-weight:bold">&#34;tig&#34;</span> -&gt; true
+</span></span><span style="display:flex;"><span>  | _ -&gt; false
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">is_tig_file</span> <span style="color:#434f54">f</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">Sys</span>.<span style="color:#434f54">is_file_exn</span> <span style="color:#728e00">~</span><span style="color:#434f54">follow_symlinks</span><span style="color:#728e00">:</span><span style="color:#434f54">true</span> <span style="color:#434f54">f</span> <span style="color:#728e00">&amp;&amp;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">is_tig_ext</span> <span style="color:#434f54">f</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> is_tig_file f =
+</span></span><span style="display:flex;"><span>  Sys.is_file_exn ~follow_symlinks:true f &amp;&amp;
+</span></span><span style="display:flex;"><span>  is_tig_ext f
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#728e00">rec</span> <span style="color:#434f54">ls_rec</span> <span style="color:#434f54">dir</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">if</span> <span style="color:#434f54">is_tig_file</span> <span style="color:#434f54">dir</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">then</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> <span style="color:#434f54">not</span><span style="color:#728e00">(</span><span style="color:#434f54">List</span>.<span style="color:#434f54">mem</span> <span style="color:#434f54">skipped</span> <span style="color:#728e00">(</span><span style="color:#434f54">Filename</span>.<span style="color:#434f54">basename</span> <span style="color:#434f54">dir</span><span style="color:#728e00">)</span> <span style="color:#728e00">~</span><span style="color:#434f54">equal</span><span style="color:#728e00">:(=))</span> <span style="color:#728e00">then</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#728e00">[</span><span style="color:#434f54">dir</span><span style="color:#728e00">]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">else</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#434f54">[]</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">else</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">dir</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">|&gt;</span> <span style="color:#434f54">Sys</span>.<span style="color:#434f54">ls_dir</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">|&gt;</span> <span style="color:#434f54">List</span>.<span style="color:#434f54">concat_map</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#728e00">~</span><span style="color:#434f54">f</span><span style="color:#728e00">:(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">sub</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">ls_rec</span> <span style="color:#728e00">(</span><span style="color:#434f54">Filename</span>.<span style="color:#434f54">concat</span> <span style="color:#434f54">dir</span> <span style="color:#434f54">sub</span><span style="color:#728e00">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> ls_rec dir =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> is_tig_file dir
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> not(List.mem skipped (Filename.basename dir) ~equal:(=)) <span style="color:#fff;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>      [dir]
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>      []
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    dir
+</span></span><span style="display:flex;"><span>    |&gt; Sys.ls_dir
+</span></span><span style="display:flex;"><span>    |&gt; List.concat_map
+</span></span><span style="display:flex;"><span>      ~f:(<span style="color:#fff;font-weight:bold">fun</span> sub -&gt; ls_rec (Filename.concat dir sub))
 </span></span></code></pre></div><p>Let’s add another helper function to get current position along
 with a filename as a string. We’ll need it later to output an
 error location:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">position</span> <span style="color:#434f54">lexbuf</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">pos</span> <span style="color:#728e00">=</span> <span style="color:#434f54">lexbuf</span><span style="color:#728e00">.</span><span style="color:#434f54">lex_curr_p</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">col</span> <span style="color:#728e00">=</span> <span style="color:#434f54">pos</span><span style="color:#728e00">.</span><span style="color:#434f54">pos_cnum</span> <span style="color:#728e00">-</span> <span style="color:#434f54">pos</span><span style="color:#728e00">.</span><span style="color:#434f54">pos_bol</span> <span style="color:#728e00">+</span> <span style="color:#434f54">1</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">Printf</span>.<span style="color:#434f54">sprintf</span> <span style="color:#7f8c8d">&#34;%s:%d:%d&#34;</span> <span style="color:#434f54">pos</span><span style="color:#728e00">.</span><span style="color:#434f54">pos_fname</span> <span style="color:#434f54">pos</span><span style="color:#728e00">.</span><span style="color:#434f54">pos_lnum</span> <span style="color:#434f54">col</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> position lexbuf =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> pos = lexbuf.lex_curr_p <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> col = pos.pos_cnum - pos.pos_bol + 1 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;%s:%d:%d&#34;</span> pos.pos_fname pos.pos_lnum col
 </span></span></code></pre></div><p>And another two functions to run the parser and print the error
 details in case of failure:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">parse_with_error</span> <span style="color:#434f54">lexbuf</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">try</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">Parser</span>.<span style="color:#434f54">main</span> <span style="color:#434f54">Lexer</span>.<span style="color:#434f54">read</span> <span style="color:#434f54">lexbuf</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assert_bool</span> <span style="color:#7f8c8d">&#34;Ok&#34;</span> <span style="color:#434f54">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">with</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">SyntaxError</span> <span style="color:#434f54">msg</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assert_failure</span> <span style="color:#728e00">(</span><span style="color:#434f54">position</span> <span style="color:#434f54">lexbuf</span> <span style="color:#728e00">^</span> <span style="color:#7f8c8d">&#34; : &#34;</span> <span style="color:#728e00">^</span> <span style="color:#434f54">msg</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">Parser</span>.<span style="color:#434f54">Error</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assert_failure</span> <span style="color:#728e00">(</span><span style="color:#7f8c8d">&#34;Syntax error: &#34;</span> <span style="color:#728e00">^</span> <span style="color:#434f54">position</span> <span style="color:#434f54">lexbuf</span><span style="color:#728e00">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> parse_with_error lexbuf =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">try</span>
+</span></span><span style="display:flex;"><span>    Parser.main Lexer.read lexbuf;
+</span></span><span style="display:flex;"><span>    assert_bool <span style="color:#0ff;font-weight:bold">&#34;Ok&#34;</span> true
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | SyntaxError msg -&gt;
+</span></span><span style="display:flex;"><span>    assert_failure (position lexbuf ^ <span style="color:#0ff;font-weight:bold">&#34; : &#34;</span> ^ msg)
+</span></span><span style="display:flex;"><span>  | Parser.Error -&gt;
+</span></span><span style="display:flex;"><span>    assert_failure (<span style="color:#0ff;font-weight:bold">&#34;Syntax error: &#34;</span> ^ position lexbuf)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">parse</span> <span style="color:#434f54">filename</span> <span style="color:#434f54">ch</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">lexbuf</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Lexing</span>.<span style="color:#434f54">from_channel</span> <span style="color:#434f54">ch</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">lexbuf</span><span style="color:#728e00">.</span><span style="color:#434f54">lex_curr_p</span> <span style="color:#728e00">&lt;-</span> <span style="color:#728e00">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">lexbuf</span><span style="color:#728e00">.</span><span style="color:#434f54">lex_curr_p</span> <span style="color:#728e00">with</span> <span style="color:#434f54">pos_fname</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Filename</span>.<span style="color:#434f54">basename</span> <span style="color:#434f54">filename</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">};</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">parse_with_error</span> <span style="color:#434f54">lexbuf</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> parse filename ch =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> lexbuf = Lexing.from_channel ch <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  lexbuf.lex_curr_p &lt;- {
+</span></span><span style="display:flex;"><span>    lexbuf.lex_curr_p <span style="color:#fff;font-weight:bold">with</span> pos_fname = Filename.basename filename
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  parse_with_error lexbuf
 </span></span></code></pre></div><p>Here is the function that we’re going to call for each <code>.tig</code>
 file:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">run_parser</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">_</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">In_channel</span>.<span style="color:#434f54">with_file</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">~</span><span style="color:#434f54">f</span><span style="color:#728e00">:(</span><span style="color:#434f54">parse</span> <span style="color:#434f54">filename</span><span style="color:#728e00">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> run_parser filename _ =
+</span></span><span style="display:flex;"><span>  In_channel.with_file filename ~f:(parse filename)
 </span></span></code></pre></div><p>Finally, the test suite is going to look like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">suite</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#7f8c8d">&#34;tiger programs&#34;</span> <span style="color:#728e00">&gt;:::</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">tests_dir</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;../../../book&#34;</span> <span style="color:#728e00">^</span> <span style="color:#434f54">Filename</span>.<span style="color:#434f54">dir_sep</span> <span style="color:#728e00">^</span> <span style="color:#7f8c8d">&#34;testcases&#34;</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">tests_path</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Filename</span>.<span style="color:#728e00">(</span><span style="color:#434f54">concat</span> <span style="color:#434f54">parent_dir_name</span> <span style="color:#434f54">tests_dir</span><span style="color:#728e00">)</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">tig_files</span> <span style="color:#728e00">=</span> <span style="color:#434f54">ls_rec</span> <span style="color:#434f54">tests_path</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">(</span><span style="color:#434f54">List</span>.<span style="color:#434f54">map</span> <span style="color:#728e00">~</span><span style="color:#434f54">f</span><span style="color:#728e00">:</span>
-</span></span><span style="display:flex;"><span>     <span style="color:#728e00">(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#434f54">Filename</span>.<span style="color:#434f54">basename</span> <span style="color:#434f54">filename</span> <span style="color:#728e00">&gt;::</span> <span style="color:#434f54">run_parser</span> <span style="color:#434f54">filename</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>     <span style="color:#434f54">tig_files</span><span style="color:#728e00">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> suite =
+</span></span><span style="display:flex;"><span>  <span style="color:#0ff;font-weight:bold">&#34;tiger programs&#34;</span> &gt;:::
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> tests_dir = <span style="color:#0ff;font-weight:bold">&#34;../../../book&#34;</span> ^ Filename.dir_sep ^ <span style="color:#0ff;font-weight:bold">&#34;testcases&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> tests_path = Filename.(concat parent_dir_name tests_dir) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> tig_files = ls_rec tests_path <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  (List.map ~f:
+</span></span><span style="display:flex;"><span>     (<span style="color:#fff;font-weight:bold">fun</span> filename -&gt;
+</span></span><span style="display:flex;"><span>        Filename.basename filename &gt;:: run_parser filename)
+</span></span><span style="display:flex;"><span>     tig_files)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">()</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">run_test_tt_main</span> <span style="color:#434f54">suite</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> () =
+</span></span><span style="display:flex;"><span>  run_test_tt_main suite
 </span></span></code></pre></div><p>The dune file for our test suite project will simply run the
 <code>testsuite.exe</code> executable:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(<span style="color:#434f54">executable</span>
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">name</span> <span style="color:#434f54">testsuite</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">libraries</span> <span style="color:#434f54">base</span> <span style="color:#434f54">core</span> <span style="color:#434f54">ch3</span> <span style="color:#434f54">oUnit</span>))
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(executable
+</span></span><span style="display:flex;"><span> (name testsuite)
+</span></span><span style="display:flex;"><span> (libraries base core ch3 oUnit))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#434f54">alias</span>
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">name</span> <span style="color:#434f54">runtest</span>)
-</span></span><span style="display:flex;"><span> (<span style="color:#434f54">action</span> (<span style="color:#434f54">run</span> <span style="color:#728e00">.</span><span style="color:#434f54">/testsuite.exe</span>)))
+</span></span><span style="display:flex;"><span>(alias
+</span></span><span style="display:flex;"><span> (name runtest)
+</span></span><span style="display:flex;"><span> (action (run ./testsuite.exe)))
 </span></span></code></pre></div><p>Now it’ll be much easier to work on the parser implementation.
 Also this test suite might be useful to detect possible
 regressions if we want to change the parser in the future.</p>
@@ -609,12 +609,12 @@ you want to try constructing an invalid expression to check your
 hypothesis. I used this kind of workflow a lot while working on
 this grammar.</p>
 <p>You can run the interpreter like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>menhir --interpret --interpret-show-cst parser.mly
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>menhir --interpret --interpret-show-cst parser.mly
 </span></span></code></pre></div><p>Now you can start typing expressions until you find something
 that breaks your parser. Note that you can’t use token aliases
 inside this REPL.</p>
 <p>For example, here is how you can test a function declaration:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#434f54">LET</span> <span style="color:#434f54">FUNCTION</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">LPAREN</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">COLON</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">RPAREN</span> <span style="color:#434f54">COLON</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">EQ</span> <span style="color:#434f54">IF</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">EQ</span> <span style="color:#434f54">INT</span> <span style="color:#434f54">THEN</span> <span style="color:#434f54">INT</span> <span style="color:#434f54">ELSE</span> <span style="color:#434f54">INT</span> <span style="color:#434f54">TIMES</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">LPAREN</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">MINUS</span> <span style="color:#434f54">INT</span> <span style="color:#434f54">RPAREN</span> <span style="color:#434f54">IN</span> <span style="color:#434f54">ID</span> <span style="color:#434f54">LPAREN</span> <span style="color:#434f54">INT</span> <span style="color:#434f54">RPAREN</span> <span style="color:#434f54">END</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>LET FUNCTION ID LPAREN ID COLON ID RPAREN COLON ID EQ IF ID EQ INT THEN INT ELSE INT TIMES ID LPAREN ID MINUS INT RPAREN IN ID LPAREN INT RPAREN END
 </span></span></code></pre></div><p>That’s it for now. The full source code for this chapter
 <a href="https://github.com/vyorkin/tiger/blob/master/chapter3/lib/parser.mly"  class="external-link" target="_blank" rel="noopener">is
 here</a>. Next time we’re going to work on the AST for our Tiger

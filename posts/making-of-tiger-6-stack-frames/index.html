@@ -97,7 +97,7 @@ Stack Link to heading A stack is a region of memory that grows downward and shri
 
 
 
-<body class="preload-transitions colorscheme-dark">
+<body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -266,7 +266,7 @@ of the current function)</li>
 record</strong>. Stack frame layout depends on the <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture"  class="external-link" target="_blank" rel="noopener">ISA</a> and the
 programming language being compiled.</p>
 <p>Here is a typical stack frame layout:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>:    :             (higher addresses)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>:    :             (higher addresses)
 </span></span><span style="display:flex;"><span>:    :             previous frame
 </span></span><span style="display:flex;"><span>| i1 | [FP+8]      (2-nd argument)
 </span></span><span style="display:flex;"><span>| i2 | [FP+4]      (1-st argument)
@@ -438,40 +438,40 @@ enclosing the current one</li>
 </ul>
 <p>Static links are stored in stack frames.</p>
 <p>Example of program with nested functions in Tiger.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-F90" data-lang="F90"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">tree</span> <span style="color:#728e00">=</span> <span style="color:#a61717">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">key</span>: <span style="color:#434f54">string</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">left</span>: <span style="color:#434f54">tree</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">right</span>: <span style="color:#434f54">tree</span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-F90" data-lang="F90"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> tree = <span style="color:#f00">{</span>
+</span></span><span style="display:flex;"><span>  key: string,
+</span></span><span style="display:flex;"><span>  left: tree,
+</span></span><span style="display:flex;"><span>  right: tree
+</span></span><span style="display:flex;"><span><span style="color:#f00">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">function</span> <span style="color:#434f54">prettyprint</span>(<span style="color:#434f54">tree</span>: <span style="color:#434f54">tree</span>) : <span style="color:#434f54">string</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">let</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">var</span> <span style="color:#434f54">output</span> :<span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> prettyprint(tree: tree) : string =
+</span></span><span style="display:flex;"><span>  let
+</span></span><span style="display:flex;"><span>    var output := <span style="color:#0ff;font-weight:bold">&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#728e00">write</span>(<span style="color:#434f54">s</span>: <span style="color:#434f54">string</span>) <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#434f54">output</span> :<span style="color:#728e00">=</span> <span style="color:#434f54">concat</span>(<span style="color:#434f54">output</span>, <span style="color:#434f54">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> <span style="color:#fff;font-weight:bold">write</span>(s: string) =
+</span></span><span style="display:flex;"><span>      output := concat(output, s)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">function</span> <span style="color:#434f54">show</span>(<span style="color:#434f54">n</span>: <span style="color:#728e00">int</span>, <span style="color:#434f54">t</span>: <span style="color:#434f54">tree</span>) <span style="color:#728e00">=</span>       <span style="color:#728e00">&lt;---</span> [<span style="color:#8a7b52">2</span>]
-</span></span><span style="display:flex;"><span>      <span style="color:#434f54">let</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#728e00">function</span> <span style="color:#434f54">indent</span>(<span style="color:#434f54">s</span>: <span style="color:#434f54">string</span>) <span style="color:#728e00">=</span> (
-</span></span><span style="display:flex;"><span>          <span style="color:#434f54">for</span> <span style="color:#434f54">i</span> :<span style="color:#728e00">=</span> <span style="color:#8a7b52">1</span> <span style="color:#434f54">to</span> <span style="color:#434f54">n</span> <span style="color:#728e00">do</span>               <span style="color:#728e00">&lt;---</span> [<span style="color:#8a7b52">5</span>]
-</span></span><span style="display:flex;"><span>             <span style="color:#728e00">write</span>(<span style="color:#7f8c8d">&#34; &#34;</span>);
-</span></span><span style="display:flex;"><span>             <span style="color:#434f54">output</span> :<span style="color:#728e00">=</span> <span style="color:#434f54">concat</span>(<span style="color:#434f54">output</span>, <span style="color:#434f54">s</span>);
-</span></span><span style="display:flex;"><span>             <span style="color:#728e00">write</span>(<span style="color:#7f8c8d">&#34;\n&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> show(n: <span style="color:#fff;font-weight:bold">int</span>, t: tree) =       &lt;--- [<span style="color:#ff0;font-weight:bold">2</span>]
+</span></span><span style="display:flex;"><span>      let
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">function</span> indent(s: string) = (
+</span></span><span style="display:flex;"><span>          for i := <span style="color:#ff0;font-weight:bold">1</span> to n <span style="color:#fff;font-weight:bold">do</span>               &lt;--- [<span style="color:#ff0;font-weight:bold">5</span>]
+</span></span><span style="display:flex;"><span>             <span style="color:#fff;font-weight:bold">write</span>(<span style="color:#0ff;font-weight:bold">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>             output := concat(output, s);
+</span></span><span style="display:flex;"><span>             <span style="color:#fff;font-weight:bold">write</span>(<span style="color:#0ff;font-weight:bold">&#34;\n&#34;</span>)
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      <span style="color:#434f54">in</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#728e00">if</span> <span style="color:#434f54">t</span> <span style="color:#728e00">=</span> <span style="color:#434f54">nil</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#728e00">then</span> <span style="color:#434f54">ident</span>(<span style="color:#7f8c8d">&#34;.&#34;</span>)                    <span style="color:#728e00">&lt;---</span> [<span style="color:#8a7b52">3</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#728e00">else</span> (
-</span></span><span style="display:flex;"><span>          <span style="color:#434f54">indent</span>(<span style="color:#434f54">t</span>.<span style="color:#434f54">key</span>);
-</span></span><span style="display:flex;"><span>          <span style="color:#434f54">show</span>(<span style="color:#434f54">n</span> <span style="color:#728e00">+</span> <span style="color:#8a7b52">1</span>, <span style="color:#434f54">t</span>.<span style="color:#434f54">left</span>);             <span style="color:#728e00">&lt;---</span> [<span style="color:#8a7b52">4</span>]
-</span></span><span style="display:flex;"><span>          <span style="color:#434f54">show</span>(<span style="color:#434f54">n</span> <span style="color:#728e00">+</span> <span style="color:#8a7b52">1</span>, <span style="color:#434f54">t</span>.<span style="color:#434f54">right</span>)
+</span></span><span style="display:flex;"><span>      in
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> t = nil
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">then</span> ident(<span style="color:#0ff;font-weight:bold">&#34;.&#34;</span>)                    &lt;--- [<span style="color:#ff0;font-weight:bold">3</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">else</span> (
+</span></span><span style="display:flex;"><span>          indent(t.key);
+</span></span><span style="display:flex;"><span>          show(n + <span style="color:#ff0;font-weight:bold">1</span>, t.left);             &lt;--- [<span style="color:#ff0;font-weight:bold">4</span>]
+</span></span><span style="display:flex;"><span>          show(n + <span style="color:#ff0;font-weight:bold">1</span>, t.right)
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      <span style="color:#728e00">end</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">show</span>(<span style="color:#8a7b52">0</span>, <span style="color:#434f54">tree</span>);                         <span style="color:#728e00">&lt;---</span> [<span style="color:#8a7b52">1</span>]
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">output</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">end</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">end</span>
+</span></span><span style="display:flex;"><span>  in
+</span></span><span style="display:flex;"><span>    show(<span style="color:#ff0;font-weight:bold">0</span>, tree);                         &lt;--- [<span style="color:#ff0;font-weight:bold">1</span>]
+</span></span><span style="display:flex;"><span>    output
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">end</span>
 </span></span></code></pre></div><ol>
 <li><code>prettyprint</code> calls <code>show</code>, passing <code>prettyprint</code>&rsquo;s own frame
 pointer (FP) as <code>show</code>&rsquo;s static link (SL)</li>
@@ -626,29 +626,29 @@ conventions (Wikipedia)</a></li>
 conventions (OS Dev)</a></li>
 </ul>
 <p>Here is our interface for a stack frame:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(** Holds information about formal parameters and
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    local variables allocated in this frame *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">t</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** Holds information about formal parameters and
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    local variables allocated in this frame *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Abstract location of a formal parameter (function argument) or
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    a local variable that may be placed in a frame or in a register *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">access</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Abstract location of a formal parameter (function argument) or
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    a local variable that may be placed in a frame or in a register *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> access [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Makes a new frame for a function with the
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    given label and formal parameters *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">mk</span> <span style="color:#728e00">:</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">label</span> <span style="color:#728e00">-&gt;</span> <span style="color:#00979d">bool</span> <span style="color:#00979d">list</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">t</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Makes a new frame for a function with the
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    given label and formal parameters *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> mk : Temp.label -&gt; <span style="color:#fff;font-weight:bold">bool</span> <span style="color:#fff;font-weight:bold">list</span> -&gt; t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Extracts a list of accesses denoting
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    the locations where the formal parameters will be
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    kept at runtime, as seen from inside the callee *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">:</span> <span style="color:#434f54">t</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">access</span> <span style="color:#00979d">list</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Extracts a list of accesses denoting
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    the locations where the formal parameters will be
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    kept at runtime, as seen from inside the callee *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> formals : t -&gt; access <span style="color:#fff;font-weight:bold">list</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Allocates a new local variable in the given frame or in a register.
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    The boolean argument specifies whether the new variable
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    escapes and needs to go in the frame.
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    Returns &#34;in-memory&#34; access with an offset from the frame pointer or
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    &#34;in-register&#34; access in case if it can be allocated in a register *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">alloc_local</span> <span style="color:#728e00">:</span> <span style="color:#434f54">t</span> <span style="color:#728e00">-&gt;</span> <span style="color:#00979d">bool</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Allocates a new local variable in the given frame or in a register.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    The boolean argument specifies whether the new variable
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    escapes and needs to go in the frame.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    Returns &#34;in-memory&#34; access with an offset from the frame pointer or
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    &#34;in-register&#34; access in case if it can be allocated in a register *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> alloc_local : t -&gt; <span style="color:#fff;font-weight:bold">bool</span> -&gt; access
 </span></span></code></pre></div><p>To make a new frame for some function <code>f</code> we&rsquo;ll call <code>Frame.mk label formals</code>, where:</p>
 <ul>
 <li><code>label: Temp.label</code> &ndash; static memory address of the <code>f</code>
@@ -658,19 +658,19 @@ that escapes and <code>false</code> for each that doesn&rsquo;t</li>
 </ul>
 <p>The stack frame should contain information about formal
 parameters and local variables allocated:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">t</span> <span style="color:#728e00">=</span> <span style="color:#728e00">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* label at which the function&#39;s machine code begins *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">label</span><span style="color:#728e00">:</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">label</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* locations of all the formals *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">formals</span><span style="color:#728e00">:</span> <span style="color:#434f54">access</span> <span style="color:#00979d">list</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* number of locals allocated so far *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">locals</span><span style="color:#728e00">:</span> <span style="color:#00979d">int</span> <span style="color:#434f54">ref</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* instructions required to implement the &#34;view shift&#34; *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">instrs</span><span style="color:#728e00">:</span> <span style="color:#434f54">Instruction</span>.<span style="color:#434f54">t</span> <span style="color:#00979d">list</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">}</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t = {
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* label at which the function&#39;s machine code begins *)</span>
+</span></span><span style="display:flex;"><span>  label: Temp.label;
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* locations of all the formals *)</span>
+</span></span><span style="display:flex;"><span>  formals: access <span style="color:#fff;font-weight:bold">list</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* number of locals allocated so far *)</span>
+</span></span><span style="display:flex;"><span>  locals: <span style="color:#fff;font-weight:bold">int</span> ref;
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* instructions required to implement the &#34;view shift&#34; *)</span>
+</span></span><span style="display:flex;"><span>  instrs: Instruction.t <span style="color:#fff;font-weight:bold">list</span>;
+</span></span><span style="display:flex;"><span>} [@@deriving show]
 </span></span></code></pre></div><p>We don&rsquo;t want to implement the <a href="#view-shift" >view shift</a> right now, so the
 <code>Instruction.t</code> is defined like this:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">t</span> <span style="color:#728e00">=</span> <span style="color:#00979d">unit</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t = <span style="color:#fff;font-weight:bold">unit</span> [@@deriving show]
 </span></span></code></pre></div><h3 id="abi">
   ABI
   <a class="heading-link" href="#abi">
@@ -680,36 +680,36 @@ parameters and local variables allocated:</p>
 </h3>
 <p>Lets add some constants for System V ADM64 ABI to the <code>Frame</code>
 module. We&rsquo;ll need them later.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(* word size in bytes *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">word_size</span> <span style="color:#728e00">=</span> <span style="color:#434f54">64</span> <span style="color:#728e00">/</span> <span style="color:#434f54">8</span> <span style="color:#95a5a6">(* = 8 bytes *)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* word size in bytes *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> word_size = 64 / 8 <span style="color:#007f7f">(* = 8 bytes *)</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* special registers *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">fp</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rbp&#34;</span> <span style="color:#95a5a6">(* frame pointer *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">sp</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rsp&#34;</span> <span style="color:#95a5a6">(* stack pointer *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* special registers *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> fp = <span style="color:#0ff;font-weight:bold">&#34;rbp&#34;</span> <span style="color:#007f7f">(* frame pointer *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> sp = <span style="color:#0ff;font-weight:bold">&#34;rsp&#34;</span> <span style="color:#007f7f">(* stack pointer *)</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* x64 &#34;parameter&#34;-registers *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">rdi</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rdi&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">rsi</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rsi&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">rdx</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rdx&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">rcx</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rcx&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span>	<span style="color:#434f54">r8</span>  <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r8&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r9</span>  <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r9&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">arg_regs</span> <span style="color:#728e00">=</span> <span style="color:#728e00">[</span><span style="color:#434f54">rdi</span><span style="color:#728e00">;</span> <span style="color:#434f54">rsi</span><span style="color:#728e00">;</span> <span style="color:#434f54">rdx</span><span style="color:#728e00">;</span> <span style="color:#434f54">r8</span><span style="color:#728e00">;</span> <span style="color:#434f54">r9</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* x64 &#34;parameter&#34;-registers *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> rdi = <span style="color:#0ff;font-weight:bold">&#34;rdi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> rsi = <span style="color:#0ff;font-weight:bold">&#34;rsi&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> rdx = <span style="color:#0ff;font-weight:bold">&#34;rdx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> rcx = <span style="color:#0ff;font-weight:bold">&#34;rcx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>	r8  = <span style="color:#0ff;font-weight:bold">&#34;r8&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r9  = <span style="color:#0ff;font-weight:bold">&#34;r9&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> arg_regs = [rdi; rsi; rdx; r8; r9]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* other x64 registers *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">rbx</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;rbx&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r10</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r10&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r11</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r11&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r12</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r12&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r13</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r13&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r14</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r14&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">r15</span> <span style="color:#728e00">=</span> <span style="color:#7f8c8d">&#34;r15&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* other x64 registers *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> rbx = <span style="color:#0ff;font-weight:bold">&#34;rbx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r10 = <span style="color:#0ff;font-weight:bold">&#34;r10&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r11 = <span style="color:#0ff;font-weight:bold">&#34;r11&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r12 = <span style="color:#0ff;font-weight:bold">&#34;r12&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r13 = <span style="color:#0ff;font-weight:bold">&#34;r13&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r14 = <span style="color:#0ff;font-weight:bold">&#34;r14&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> r15 = <span style="color:#0ff;font-weight:bold">&#34;r15&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* registers that are preserved by the caller *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">caller_regs</span> <span style="color:#728e00">=</span> <span style="color:#728e00">[</span><span style="color:#434f54">r10</span><span style="color:#728e00">;</span> <span style="color:#434f54">r11</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* registers that are preserved by the caller *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> caller_regs = [r10; r11]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* registers that are preserved by the callee *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">callee_regs</span> <span style="color:#728e00">=</span> <span style="color:#728e00">[</span><span style="color:#434f54">rbx</span><span style="color:#728e00">;</span> <span style="color:#434f54">r12</span><span style="color:#728e00">;</span> <span style="color:#434f54">r13</span><span style="color:#728e00">;</span> <span style="color:#434f54">r14</span><span style="color:#728e00">;</span> <span style="color:#434f54">r15</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* registers that are preserved by the callee *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> callee_regs = [rbx; r12; r13; r14; r15]
 </span></span></code></pre></div><h3 id="access">
   Access
   <a class="heading-link" href="#access">
@@ -720,39 +720,39 @@ module. We&rsquo;ll need them later.</p>
 <p>The <code>access</code> data type describes location of a formal parameter
 or a local variable that may be placed in a frame or in a
 register:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">access</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#95a5a6">(* memory location at the specific offset from the frame pointer *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">InFrame</span> <span style="color:#728e00">of</span> <span style="color:#00979d">int</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* register location *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">InReg</span> <span style="color:#728e00">of</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">t</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> access =
+</span></span><span style="display:flex;"><span>   <span style="color:#007f7f">(* memory location at the specific offset from the frame pointer *)</span>
+</span></span><span style="display:flex;"><span>  | InFrame <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* register location *)</span>
+</span></span><span style="display:flex;"><span>  | InReg <span style="color:#fff;font-weight:bold">of</span> Temp.t
+</span></span><span style="display:flex;"><span>  [@@deriving show]
 </span></span></code></pre></div><p>The rest of the <code>Frame</code> module implementation:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(* creates a new location for a formal parameter or
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">   a local variable, given its index and [esc] flag *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">mk_access</span> <span style="color:#434f54">i</span> <span style="color:#728e00">=</span> <span style="color:#728e00">function</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">true</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">InFrame</span> <span style="color:#728e00">((</span><span style="color:#434f54">i</span> <span style="color:#728e00">+</span> <span style="color:#434f54">1</span><span style="color:#728e00">)</span> <span style="color:#728e00">*</span> <span style="color:#728e00">(-</span><span style="color:#434f54">word_size</span><span style="color:#728e00">))</span> <span style="color:#95a5a6">(* escapes - alloc in frame *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">false</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">InReg</span> <span style="color:#728e00">(</span><span style="color:#434f54">Temp</span>.<span style="color:#434f54">mk</span> <span style="color:#434f54">()</span><span style="color:#728e00">)</span> <span style="color:#95a5a6">(* doesn&#39;t escape - use temp (register) *)</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* creates a new location for a formal parameter or
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">   a local variable, given its index and [esc] flag *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> mk_access i = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | true -&gt; InFrame ((i + 1) * (-word_size)) <span style="color:#007f7f">(* escapes - alloc in frame *)</span>
+</span></span><span style="display:flex;"><span>  | false -&gt; InReg (Temp.mk ()) <span style="color:#007f7f">(* doesn&#39;t escape - use temp (register) *)</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* makes a new stack frame *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">mk</span> <span style="color:#434f54">label</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">=</span> <span style="color:#434f54">List</span>.<span style="color:#434f54">mapi</span> <span style="color:#434f54">mk_access</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">locals</span> <span style="color:#728e00">=</span> <span style="color:#434f54">ref</span> <span style="color:#434f54">0</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* don&#39;t know yet what instructions we need,
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">     so just leave it empty for now *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">instrs</span> <span style="color:#728e00">=</span> <span style="color:#434f54">[]</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">{</span> <span style="color:#434f54">label</span><span style="color:#728e00">;</span> <span style="color:#434f54">formals</span><span style="color:#728e00">;</span> <span style="color:#434f54">locals</span><span style="color:#728e00">;</span> <span style="color:#434f54">instrs</span> <span style="color:#728e00">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* makes a new stack frame *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> mk label formals =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> formals = List.mapi mk_access formals <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> locals = ref 0 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* don&#39;t know yet what instructions we need,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     so just leave it empty for now *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> instrs = [] <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  { label; formals; locals; instrs }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">{</span> <span style="color:#434f54">formals</span><span style="color:#728e00">;</span> <span style="color:#728e00">_</span> <span style="color:#728e00">}</span> <span style="color:#728e00">=</span> <span style="color:#434f54">formals</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> formals { formals; _ } = formals
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* local variables that do not escape can be allocated in a register,
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">   escaping variables must be allocated in the frame *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">alloc_local</span> <span style="color:#728e00">{</span> <span style="color:#434f54">locals</span><span style="color:#728e00">;</span> <span style="color:#728e00">_</span> <span style="color:#728e00">}</span> <span style="color:#728e00">=</span> <span style="color:#728e00">function</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">true</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">incr</span> <span style="color:#434f54">locals</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">let</span> <span style="color:#434f54">offset</span> <span style="color:#728e00">=</span> <span style="color:#728e00">(!</span><span style="color:#434f54">locals</span> <span style="color:#728e00">+</span> <span style="color:#434f54">1</span><span style="color:#728e00">)</span> <span style="color:#728e00">*</span> <span style="color:#728e00">(-</span><span style="color:#434f54">word_size</span><span style="color:#728e00">)</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">InFrame</span> <span style="color:#434f54">offset</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">false</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">InReg</span> <span style="color:#728e00">(</span><span style="color:#434f54">Temp</span>.<span style="color:#434f54">mk</span> <span style="color:#434f54">()</span><span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* local variables that do not escape can be allocated in a register,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">   escaping variables must be allocated in the frame *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> alloc_local { locals; _ } = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | true -&gt;
+</span></span><span style="display:flex;"><span>    incr locals;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> offset = (!locals + 1) * (-word_size) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>    InFrame offset
+</span></span><span style="display:flex;"><span>  | false -&gt;
+</span></span><span style="display:flex;"><span>    InReg (Temp.mk ())
 </span></span></code></pre></div><p><code>alloc_local</code> allocates a new local variable in the given frame
 or <a href="#temporaries-and-labels" >in a register</a>. The boolean argument specifies whether the new
 variable escapes and needs to go in the frame. Returns in-memory
@@ -787,41 +787,41 @@ name for a static machine-language location whose exact
 address is yet to be determined</li>
 </ul>
 <p>The <code>Temp</code> module manages these two distinct sets of names:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(** Abstract name for a local variable that
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    is temporarily held in a register *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">t</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** Abstract name for a local variable that
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    is temporarily held in a register *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Abstract name for a static memory address that
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    is yet to be determined *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">label</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Abstract name for a static memory address that
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    is yet to be determined *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> label [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Returns a new temporary from an infinite set of temporaries *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">mk</span> <span style="color:#728e00">:</span> <span style="color:#00979d">unit</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">t</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Returns a new temporary from an infinite set of temporaries *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> mk : <span style="color:#fff;font-weight:bold">unit</span> -&gt; t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Returns a new [label], whose assembly-language name is
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    the given string (if given), otherwise it is generated. *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">mk_label</span> <span style="color:#728e00">:</span> <span style="color:#00979d">string</span> <span style="color:#434f54">option</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">label</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Returns a new [label], whose assembly-language name is
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    the given string (if given), otherwise it is generated. *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> mk_label : <span style="color:#fff;font-weight:bold">string</span> option -&gt; label
 </span></span></code></pre></div><p>The implementation of the <code>Temp</code> module:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">module</span> <span style="color:#434f54">S</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Symbol</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> S = Symbol
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">t</span> <span style="color:#728e00">=</span> <span style="color:#00979d">int</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">label</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Symbol</span>.<span style="color:#434f54">t</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t = <span style="color:#fff;font-weight:bold">int</span> [@@deriving show]
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> label = Symbol.t [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">mk</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">idx</span> <span style="color:#728e00">=</span> <span style="color:#434f54">ref</span> <span style="color:#728e00">(-</span><span style="color:#434f54">1</span><span style="color:#728e00">)</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">fun</span> <span style="color:#434f54">()</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">incr</span> <span style="color:#434f54">idx</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">!</span><span style="color:#434f54">idx</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> mk =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> idx = ref (-1) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">fun</span> () -&gt;
+</span></span><span style="display:flex;"><span>    incr idx;
+</span></span><span style="display:flex;"><span>    !idx
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">mk_label</span> <span style="color:#434f54">name</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">idx</span> <span style="color:#728e00">=</span> <span style="color:#434f54">ref</span> <span style="color:#728e00">(-</span><span style="color:#434f54">1</span><span style="color:#728e00">)</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">match</span> <span style="color:#434f54">name</span> <span style="color:#728e00">with</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">Some</span> <span style="color:#434f54">s</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">S</span>.<span style="color:#434f54">symbol</span> <span style="color:#434f54">s</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">None</span> <span style="color:#728e00">-&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">incr</span> <span style="color:#434f54">idx</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#728e00">let</span> <span style="color:#434f54">name</span> <span style="color:#728e00">=</span> <span style="color:#434f54">string_of_int</span> <span style="color:#728e00">!</span><span style="color:#434f54">idx</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">S</span>.<span style="color:#434f54">symbol</span> <span style="color:#434f54">name</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> mk_label name =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> idx = ref (-1) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> name <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Some s -&gt;
+</span></span><span style="display:flex;"><span>    S.symbol s
+</span></span><span style="display:flex;"><span>  | None -&gt;
+</span></span><span style="display:flex;"><span>    incr idx;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> name = string_of_int !idx <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>    S.symbol name
 </span></span></code></pre></div><h3 id="view-shift">
   View shift
   <a class="heading-link" href="#view-shift">
@@ -860,7 +860,7 @@ it as one by adding another <code>true</code> value at the front the list
 of booleans representing formal parameters. It means that for
 some function <code>f(x,y)</code> (assuming neigher <code>x</code> nor <code>y</code> escapes)
 we&rsquo;ll have the following list:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">[</span><span style="color:#434f54">true</span><span style="color:#728e00">;</span> <span style="color:#434f54">false</span><span style="color:#728e00">;</span> <span style="color:#434f54">false</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>[true; false; false]
 </span></span></code></pre></div><p>Notice the extra <code>true</code> at the beginning.</p>
 <h3 id="translate-module">
   Translate module
@@ -876,59 +876,59 @@ unweildy module that does both: type checking and semantic
 translation.</p>
 <p>Ok, I think at this point we are ready to write some initial
 implementation:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">expr</span> <span style="color:#728e00">=</span> <span style="color:#00979d">unit</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> expr = <span style="color:#fff;font-weight:bold">unit</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Represents a nesting level *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">level</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Represents a nesting level *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> level
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Describes a way to access a formal parameter or a local variable.
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    Basically, it is just a [Frame.access] plus a nesting [level] *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">access</span> <span style="color:#728e00">=</span> <span style="color:#434f54">level</span> <span style="color:#728e00">*</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Describes a way to access a formal parameter or a local variable.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    Basically, it is just a [Frame.access] plus a nesting [level] *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> access = level * Frame.access
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Outermost level at which all
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    top-level functions and variables are declared *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">outermost</span> <span style="color:#728e00">:</span> <span style="color:#434f54">level</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Outermost level at which all
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    top-level functions and variables are declared *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> outermost : level
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Creates a new &#34;nesting level&#34; for a function *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">mk</span> <span style="color:#728e00">:</span> <span style="color:#434f54">level</span> <span style="color:#434f54">option</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">label</span> <span style="color:#728e00">-&gt;</span> <span style="color:#00979d">bool</span> <span style="color:#00979d">list</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">level</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Creates a new &#34;nesting level&#34; for a function *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> mk : level option -&gt; Temp.label -&gt; <span style="color:#fff;font-weight:bold">bool</span> <span style="color:#fff;font-weight:bold">list</span> -&gt; level
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Extracts a list of accesses *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">:</span> <span style="color:#434f54">level</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">access</span> <span style="color:#00979d">list</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Extracts a list of accesses *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> formals : level -&gt; access <span style="color:#fff;font-weight:bold">list</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Creates an [access] at the given [level].
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    The argument [bool] specifies whether the variable escapes *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">alloc_local</span> <span style="color:#728e00">:</span> <span style="color:#434f54">level</span> <span style="color:#728e00">-&gt;</span> <span style="color:#00979d">bool</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Creates an [access] at the given [level].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    The argument [bool] specifies whether the variable escapes *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> alloc_local : level -&gt; <span style="color:#fff;font-weight:bold">bool</span> -&gt; access
 </span></span></code></pre></div><p>We don&rsquo;t know yet what the <code>expr</code> will be, thats why it is a
 type alias for <code>unit</code>. And here is the basic implementation:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">expr</span> <span style="color:#728e00">=</span> <span style="color:#00979d">unit</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> expr = <span style="color:#fff;font-weight:bold">unit</span> [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">level</span> <span style="color:#728e00">=</span> <span style="color:#728e00">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">parent</span><span style="color:#728e00">:</span> <span style="color:#434f54">level</span> <span style="color:#434f54">option</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">frame</span><span style="color:#728e00">:</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">t</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">}</span> <span style="color:#728e00">[@@</span><span style="color:#434f54">deriving</span> <span style="color:#434f54">show</span><span style="color:#728e00">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> level = {
+</span></span><span style="display:flex;"><span>  parent: level option;
+</span></span><span style="display:flex;"><span>  frame: Frame.t
+</span></span><span style="display:flex;"><span>} [@@deriving show]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">access</span> <span style="color:#728e00">=</span> <span style="color:#434f54">level</span> <span style="color:#728e00">*</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> access = level * Frame.access
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">outermost</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">label</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">mk_label</span> <span style="color:#434f54">None</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">{</span> <span style="color:#434f54">parent</span> <span style="color:#728e00">=</span> <span style="color:#434f54">None</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#434f54">frame</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">mk</span> <span style="color:#434f54">label</span> <span style="color:#434f54">[]</span><span style="color:#728e00">;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> outermost =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> label = Temp.mk_label None <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  { parent = None;
+</span></span><span style="display:flex;"><span>    frame = Frame.mk label [];
+</span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">mk</span> <span style="color:#434f54">parent</span> <span style="color:#434f54">label</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">=</span> <span style="color:#434f54">true</span> <span style="color:#728e00">::</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">frame</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">mk</span> <span style="color:#434f54">label</span> <span style="color:#434f54">formals</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">{</span> <span style="color:#434f54">parent</span><span style="color:#728e00">;</span> <span style="color:#434f54">frame</span> <span style="color:#728e00">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> mk parent label formals =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> formals = true :: formals <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> frame = Frame.mk label formals <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  { parent; frame }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(* Returns formals (excluding the static link) *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">formals</span> <span style="color:#434f54">lev</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">(* exclude the SL *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">args</span> <span style="color:#728e00">=</span> <span style="color:#434f54">List</span>.<span style="color:#434f54">tl</span> <span style="color:#728e00">(</span><span style="color:#434f54">Frame</span>.<span style="color:#434f54">formals</span> <span style="color:#434f54">lev</span><span style="color:#728e00">.</span><span style="color:#434f54">frame</span><span style="color:#728e00">)</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">List</span>.<span style="color:#434f54">map</span> <span style="color:#728e00">(</span><span style="color:#728e00">fun</span> <span style="color:#434f54">access</span> <span style="color:#728e00">-&gt;</span> <span style="color:#434f54">lev</span><span style="color:#728e00">,</span> <span style="color:#434f54">access</span><span style="color:#728e00">)</span> <span style="color:#434f54">args</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Returns formals (excluding the static link) *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> formals lev =
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* exclude the SL *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> args = List.tl (Frame.formals lev.frame) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  List.map (<span style="color:#fff;font-weight:bold">fun</span> access -&gt; lev, access) args
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">let</span> <span style="color:#434f54">alloc_local</span> <span style="color:#434f54">lev</span> <span style="color:#434f54">esc</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">let</span> <span style="color:#434f54">access</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Frame</span>.<span style="color:#434f54">alloc_local</span> <span style="color:#434f54">lev</span><span style="color:#728e00">.</span><span style="color:#434f54">frame</span> <span style="color:#434f54">esc</span> <span style="color:#728e00">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">lev</span><span style="color:#728e00">,</span> <span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> alloc_local lev esc =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> access = Frame.alloc_local lev.frame esc <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  lev, access
 </span></span></code></pre></div><p>Notice the <code>formals = true :: formals</code> in the <code>mk</code> function, it
 is there to represent a static link.</p>
 <h3 id="env">
@@ -942,35 +942,35 @@ is there to represent a static link.</p>
 in the <code>FunEntry</code>. Also we need to update the <code>VarEntry</code> to
 include the <code>Translate.access</code>.</p>
 <p>Here is how our updated <code>Env</code> module looks like:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#728e00">module</span> <span style="color:#434f54">T</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Type</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">module</span> <span style="color:#434f54">Table</span> <span style="color:#728e00">=</span> <span style="color:#434f54">Symbol</span>.<span style="color:#434f54">Table</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> T = Type
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> Table = Symbol.Table
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">access</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> access
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Variable entry *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">var_entry</span> <span style="color:#728e00">=</span> <span style="color:#728e00">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">access</span><span style="color:#728e00">:</span> <span style="color:#434f54">Translate</span>.<span style="color:#434f54">access</span><span style="color:#728e00">;</span> <span style="color:#95a5a6">(** Describes how to access the variable **)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">ty</span><span style="color:#728e00">:</span> <span style="color:#434f54">T</span>.<span style="color:#434f54">t</span> <span style="color:#95a5a6">(** Type of the variable *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Variable entry *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> var_entry = {
+</span></span><span style="display:flex;"><span>  access: Translate.access; <span style="color:#007f7f">(** Describes how to access the variable **)</span>
+</span></span><span style="display:flex;"><span>  ty: T.t <span style="color:#007f7f">(** Type of the variable *)</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Function entry *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">fun_entry</span> <span style="color:#728e00">=</span> <span style="color:#728e00">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">level</span><span style="color:#728e00">:</span> <span style="color:#434f54">Translate</span>.<span style="color:#434f54">level</span><span style="color:#728e00">;</span> <span style="color:#95a5a6">(** Nesting level *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">label</span><span style="color:#728e00">:</span> <span style="color:#434f54">Temp</span>.<span style="color:#434f54">label</span><span style="color:#728e00">;</span> <span style="color:#95a5a6">(** Label of the machine-code entry point *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">formals</span><span style="color:#728e00">:</span> <span style="color:#434f54">T</span>.<span style="color:#434f54">t</span> <span style="color:#00979d">list</span><span style="color:#728e00">;</span> <span style="color:#95a5a6">(** Types of the formal parameters *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">result</span><span style="color:#728e00">:</span> <span style="color:#434f54">T</span>.<span style="color:#434f54">t</span> <span style="color:#95a5a6">(** Type of the result returned by the function **)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Function entry *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> fun_entry = {
+</span></span><span style="display:flex;"><span>  level: Translate.level; <span style="color:#007f7f">(** Nesting level *)</span>
+</span></span><span style="display:flex;"><span>  label: Temp.label; <span style="color:#007f7f">(** Label of the machine-code entry point *)</span>
+</span></span><span style="display:flex;"><span>  formals: T.t <span style="color:#fff;font-weight:bold">list</span>; <span style="color:#007f7f">(** Types of the formal parameters *)</span>
+</span></span><span style="display:flex;"><span>  result: T.t <span style="color:#007f7f">(** Type of the result returned by the function **)</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Term-level entry *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">entry</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">VarEntry</span> <span style="color:#728e00">of</span> <span style="color:#434f54">var_entry</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#728e00">|</span> <span style="color:#434f54">FunEntry</span> <span style="color:#728e00">of</span> <span style="color:#434f54">fun_entry</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Term-level entry *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> entry =
+</span></span><span style="display:flex;"><span>  | VarEntry <span style="color:#fff;font-weight:bold">of</span> var_entry
+</span></span><span style="display:flex;"><span>  | FunEntry <span style="color:#fff;font-weight:bold">of</span> fun_entry
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Contains bindings for predefined functions *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">base_venv</span> <span style="color:#728e00">:</span> <span style="color:#434f54">entry</span> <span style="color:#434f54">Table</span>.<span style="color:#434f54">t</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Contains bindings for predefined functions *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> base_venv : entry Table.t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Predefined types *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">base_tenv</span> <span style="color:#728e00">:</span> <span style="color:#434f54">T</span>.<span style="color:#434f54">t</span> <span style="color:#434f54">Table</span>.<span style="color:#434f54">t</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Predefined types *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> base_tenv : T.t Table.t
 </span></span></code></pre></div><h3 id="escapes">
   Escapes
   <a class="heading-link" href="#escapes">
@@ -982,18 +982,18 @@ include the <code>Translate.access</code>.</p>
 which should be allocated in the frame we&rsquo;ll have a special
 module named <code>Escape</code>.</p>
 <p>Here its interface in OCaml:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#95a5a6">(** Depth (nesting level) of the function that
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    contains the variable declaration *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">depth</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** Depth (nesting level) of the function that
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    contains the variable declaration *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> depth
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Environment that maps variables to pairs of depth and
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    a reference to a boolean flag indicating if a
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    particular variable escapes *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">type</span> <span style="color:#434f54">env</span> <span style="color:#728e00">=</span> <span style="color:#728e00">(</span><span style="color:#434f54">depth</span> <span style="color:#728e00">*</span> <span style="color:#00979d">bool</span> <span style="color:#434f54">ref</span><span style="color:#728e00">)</span> <span style="color:#434f54">Symbol</span>.<span style="color:#434f54">Table</span>.<span style="color:#434f54">t</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Environment that maps variables to pairs of depth and
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    a reference to a boolean flag indicating if a
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    particular variable escapes *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> env = (depth * <span style="color:#fff;font-weight:bold">bool</span> ref) Symbol.Table.t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">(** Looks for escaping variables and records this
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6">    info in the [escape] fields of the abstract syntax *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#728e00">val</span> <span style="color:#434f54">traverse_prog</span> <span style="color:#728e00">:</span> <span style="color:#434f54">Syntax</span>.<span style="color:#434f54">expr</span> <span style="color:#728e00">-&gt;</span> <span style="color:#00979d">unit</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Looks for escaping variables and records this
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    info in the [escape] fields of the abstract syntax *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> traverse_prog : Syntax.expr -&gt; <span style="color:#fff;font-weight:bold">unit</span>
 </span></span></code></pre></div><p>The <code>traverse_prog</code> function is going to traverse the entire AST
 looking for escaping uses of every variable. Also, we&rsquo;ll have a
 separate environment <code>env</code> to track &ldquo;escaping&rdquo; of variables.</p>

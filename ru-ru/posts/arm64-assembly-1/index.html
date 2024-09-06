@@ -94,7 +94,7 @@
 
 
 
-<body class="preload-transitions colorscheme-dark">
+<body class="preload-transitions colorscheme-auto">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -245,29 +245,29 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 <li><code>X16</code> &ndash; Номер системного вызова.</li>
 </ul>
 <!--listend-->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#95a5a6">; сообщаем линковщику где начинается программа
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#434f54">.global</span> <span style="color:#434f54">_start</span>
-</span></span><span style="display:flex;"><span><span style="color:#95a5a6">; устанавливаем нужное выравнивание
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#434f54">.align</span> <span style="color:#8a7b52">2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#007f7f">; сообщаем линковщику где начинается программа
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#007f7f">.global</span> _start
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">; устанавливаем нужное выравнивание
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#007f7f">.align</span> <span style="color:#ff0;font-weight:bold">2</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">_start:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">// печатаем
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X0</span>, <span style="color:#95a5a6">#1 ; куда печатать: 1 = stdout
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">ADR</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">helloworld</span> <span style="color:#95a5a6">; что печатать
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#13 ; длина нашей строчки
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X16</span>, <span style="color:#95a5a6">#4 ; номер системного вызова &#34;write&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">SVC</span> <span style="color:#95a5a6">#0x80 ; делаем системный вызов
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">// выходим
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X0</span>, <span style="color:#95a5a6">#0 ; код 0
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X16</span>, <span style="color:#95a5a6">#1 ; номер системного вызова &#34;exit&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">SVC</span> <span style="color:#95a5a6">#0x80 ; просим ядро завершить программу
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">.data</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#434f54">helloworld:</span> <span style="color:#434f54">.ascii</span> <span style="color:#7f8c8d">&#34;Hello World!\n&#34;</span>
+</span></span><span style="display:flex;"><span>_start:
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// печатаем
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X0, <span style="color:#007f7f">#1 ; куда печатать: 1 = stdout
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  ADR X1, helloworld <span style="color:#007f7f">; что печатать
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X2, <span style="color:#007f7f">#13 ; длина нашей строчки
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X16, <span style="color:#007f7f">#4 ; номер системного вызова &#34;write&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  SVC <span style="color:#007f7f">#0x80 ; делаем системный вызов
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// выходим
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X0, <span style="color:#007f7f">#0 ; код 0
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X16, <span style="color:#007f7f">#1 ; номер системного вызова &#34;exit&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  SVC <span style="color:#007f7f">#0x80 ; просим ядро завершить программу
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">.data</span>
+</span></span><span style="display:flex;"><span>  helloworld: <span style="color:#007f7f">.ascii</span> <span style="color:#0ff;font-weight:bold">&#34;Hello World!\n&#34;</span>
 </span></span></code></pre></div><p>Вот так можно собрать:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>as -arch arm64 -o HelloWorld.o HelloWorld.s
-</span></span><span style="display:flex;"><span>ld -o HelloWorld HelloWorld.o -lSystem -syslibroot <span style="color:#7f8c8d">`</span>xcrun -sdk macosx --show-sdk-path<span style="color:#7f8c8d">`</span> -e _start -arch arm64
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>as -arch arm64 -o HelloWorld.o HelloWorld.s
+</span></span><span style="display:flex;"><span>ld -o HelloWorld HelloWorld.o -lSystem -syslibroot <span style="color:#0ff;font-weight:bold">`</span>xcrun -sdk macosx --show-sdk-path<span style="color:#0ff;font-weight:bold">`</span> -e _start -arch arm64
 </span></span></code></pre></div><h2 id="базовые-инструкции">
   Базовые инструкции
   <a class="heading-link" href="#%d0%b1%d0%b0%d0%b7%d0%be%d0%b2%d1%8b%d0%b5-%d0%b8%d0%bd%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%86%d0%b8%d0%b8">
@@ -283,11 +283,11 @@ with 64-bit ARM Assembly Language</a>.</em></p>
   </a>
 </h3>
 <p>Существует несколько форм инструкций перемещения данных:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">MOVK</span> <span style="color:#434f54">XD</span>, <span style="color:#95a5a6">#imm16{, LSL #shift}
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">MOV</span> <span style="color:#434f54">XD</span>, <span style="color:#95a5a6">#imm16{, LSL #shift}
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">MOV</span> <span style="color:#434f54">XD</span>, <span style="color:#434f54">XS</span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">MOV</span> <span style="color:#434f54">XD</span>, <span style="color:#434f54">operand2</span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">MOVN</span> <span style="color:#434f54">XD</span>, <span style="color:#434f54">operand2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>MOVK XD, <span style="color:#007f7f">#imm16{, LSL #shift}
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>MOV XD, <span style="color:#007f7f">#imm16{, LSL #shift}
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>MOV XD, XS
+</span></span><span style="display:flex;"><span>MOV XD, operand2
+</span></span><span style="display:flex;"><span>MOVN XD, operand2
 </span></span></code></pre></div><p>Здесь:</p>
 <ul>
 <li><code>XD</code> и <code>XS</code> &ndash; Какие-то любые регистры.</li>
@@ -306,10 +306,10 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 трогая остальные 48 бит. Например, если мы хотим загрузить число
 <code>0x1234FEDC4F5D6E3A</code> в регистр <code>X2</code>, то мы можем это сделать
 так:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">MOV</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x6E3A
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x4F5D, LSL #16
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0xFEDC, LSL #32
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x1234, LSL #48
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>MOV X2, <span style="color:#007f7f">#0x6E3A
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>MOVK X2, <span style="color:#007f7f">#0x4F5D, LSL #16
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>MOVK X2, <span style="color:#007f7f">#0xFEDC, LSL #32
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>MOVK X2, <span style="color:#007f7f">#0x1234, LSL #48
 </span></span></span></code></pre></div><p>В этом примере выше первая инструкция <code>MOV</code> это алиас <code>MOVZ</code>.
 Инструкция <code>MOVZ</code> ведёт себя идентично <code>MOVK</code> за исключением
 того, что она обнуляет остальные 48 бит.</p>
@@ -321,7 +321,7 @@ with 64-bit ARM Assembly Language</a>.</em></p>
   </a>
 </h4>
 <p>Копирует содержимое регистра <code>X2</code> в регистр <code>X1</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>MOV X1, X2
 </span></span></code></pre></div><h4 id="что-такое-operand2">
   Что такое operand2
   <a class="heading-link" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-operand2">
@@ -333,95 +333,95 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 опциональный параметр <code>operand2</code>. Он может быть в 3 формах:</p>
 <ol>
 <li><strong>Регистр и сдвиг</strong>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#434f54">LSL</span> <span style="color:#95a5a6">#1 ; логический сдвиг влево
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#434f54">LSR</span> <span style="color:#95a5a6">#1 ; логический сдвиг вправо
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#434f54">ASR</span> <span style="color:#95a5a6">#1 ; арифметический сдвиг вправо
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#434f54">ROR</span> <span style="color:#95a5a6">#1 ; сдвиг вправо (вращение)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      MOV X1, X2, LSL <span style="color:#007f7f">#1 ; логический сдвиг влево
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, LSR <span style="color:#007f7f">#1 ; логический сдвиг вправо
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, ASR <span style="color:#007f7f">#1 ; арифметический сдвиг вправо
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      MOV X1, X2, ROR <span style="color:#007f7f">#1 ; сдвиг вправо (вращение)
 </span></span></span></code></pre></div></li>
 <li><strong>Регистр и расширение</strong>. Операции расширения позволяют нам
 достать байт, половину или целое слово из второго регистра.
 С инструкцией <code>MOV</code> расширения использовать нельзя, поэтому
 приведём пример с <code>ADD</code>:
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#95a5a6">; X2 = X1 + SXTB(X0)
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">ADD</span> <span style="color:#434f54">X2</span>, <span style="color:#434f54">X1</span>, <span style="color:#434f54">X0</span>, <span style="color:#434f54">SXTB</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + SXTB(X0)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, X0, SXTB
 </span></span></code></pre></div>Если можно было догадаться что делают сдвиги, то с <code>SXTB</code> и
 другими расширениями уже не так очевидно. Сейчас не будем на
 этом детально останавливаться. Надеюсь, что сможем изучить
 как работают расширения позже.</li>
 <li><strong>Число и сдвиг</strong>. Мы уже встречали эту форму, когда
 разбирались с <code>MOVK</code>.
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#d35400">MOV</span> <span style="color:#434f54">X1</span>, <span style="color:#8a7b52">0xAB00</span>, <span style="color:#434f54">LSL</span> <span style="color:#95a5a6">#16
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      MOV X1, <span style="color:#ff0;font-weight:bold">0xAB00</span>, LSL <span style="color:#007f7f">#16
 </span></span></span></code></pre></div></li>
 </ol>
 <p>Попробуем <code>MOV</code> на практике:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#434f54">.global</span> <span style="color:#434f54">_start</span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">.align</span> <span style="color:#8a7b52">2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#007f7f">.global</span> _start
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">.align</span> <span style="color:#ff0;font-weight:bold">2</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">_start:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">; помещаем число 0x1234FEDC4F5D6E3A в регистр X2
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x6E3A
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x4F5D, LSL #16
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0xFEDC, LSL #32
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOVK</span> <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#0x1234, LSL #48
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">; копируем содержимое W2 в W1
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">W1</span>, <span style="color:#434f54">W2</span>
+</span></span><span style="display:flex;"><span>_start:
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">; помещаем число 0x1234FEDC4F5D6E3A в регистр X2
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X2, <span style="color:#007f7f">#0x6E3A
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOVK X2, <span style="color:#007f7f">#0x4F5D, LSL #16
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOVK X2, <span style="color:#007f7f">#0xFEDC, LSL #32
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOVK X2, <span style="color:#007f7f">#0x1234, LSL #48
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">; копируем содержимое W2 в W1
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV W1, W2
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">; пробуем мнемоники сдвигов и вращений
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">LSL</span>	<span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#1 ; логический сдвиг влево
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">LSR</span>	<span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#1 ; логический сдвиг вправо
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">ASR</span>	<span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#1 ; арифметический сдвиг вправо
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">ROR</span>	<span style="color:#434f54">X1</span>, <span style="color:#434f54">X2</span>, <span style="color:#95a5a6">#1 ; сдвиг вправо (вращение)
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#95a5a6">; выходим
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X0</span>, <span style="color:#95a5a6">#0 ; код 0
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">MOV</span> <span style="color:#434f54">X16</span>, <span style="color:#95a5a6">#1 ; номер системного вызова &#34;exit&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>  <span style="color:#d35400">SVC</span> <span style="color:#95a5a6">#0x80 ; просим ядро завершить программу
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">; пробуем мнемоники сдвигов и вращений
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  LSL	X1, X2, <span style="color:#007f7f">#1 ; логический сдвиг влево
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  LSR	X1, X2, <span style="color:#007f7f">#1 ; логический сдвиг вправо
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  ASR	X1, X2, <span style="color:#007f7f">#1 ; арифметический сдвиг вправо
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  ROR	X1, X2, <span style="color:#007f7f">#1 ; сдвиг вправо (вращение)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">; выходим
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X0, <span style="color:#007f7f">#0 ; код 0
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  MOV X16, <span style="color:#007f7f">#1 ; номер системного вызова &#34;exit&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  SVC <span style="color:#007f7f">#0x80 ; просим ядро завершить программу
 </span></span></span></code></pre></div><p>Пора начать использовать мейк-файлы:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#434f54">OBJS</span> <span style="color:#728e00">=</span> mov.o
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>OBJS = mov.o
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717">ifdef</span> <span style="color:#a61717">DEBUG</span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">DEBUGFLGS</span> <span style="color:#728e00">=</span> -g
-</span></span><span style="display:flex;"><span><span style="color:#a61717">else</span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">DEBUGFLGS</span> <span style="color:#728e00">=</span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717">endif</span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">ifdef</span> <span style="color:#f00">DEBUG</span>
+</span></span><span style="display:flex;"><span>DEBUGFLGS = -g
+</span></span><span style="display:flex;"><span><span style="color:#f00">else</span>
+</span></span><span style="display:flex;"><span>DEBUGFLGS =
+</span></span><span style="display:flex;"><span><span style="color:#f00">endif</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">LDFLAGS</span> <span style="color:#728e00">=</span> -lSystem -syslibroot <span style="color:#7f8c8d">`</span>xcrun -sdk macosx --show-sdk-path<span style="color:#7f8c8d">`</span> -e _start -arch arm64
+</span></span><span style="display:flex;"><span>LDFLAGS = -lSystem -syslibroot <span style="color:#0ff;font-weight:bold">`</span>xcrun -sdk macosx --show-sdk-path<span style="color:#0ff;font-weight:bold">`</span> -e _start -arch arm64
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">%.o </span><span style="color:#728e00">:</span> %.<span style="color:#434f54">s</span>
-</span></span><span style="display:flex;"><span>	as <span style="color:#728e00">$(</span>DEBUGFLGS<span style="color:#728e00">)</span> $&lt; -o <span style="color:#434f54">$@</span>
+</span></span><span style="display:flex;"><span>%.o : %.s
+</span></span><span style="display:flex;"><span>	as <span style="color:#fff;font-weight:bold">$(</span>DEBUGFLGS<span style="color:#fff;font-weight:bold">)</span> $&lt; -o $@
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">all</span><span style="color:#728e00">:</span> <span style="color:#434f54">mov</span>
+</span></span><span style="display:flex;"><span>all: mov
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">mov</span><span style="color:#728e00">:</span> <span style="color:#728e00">$(</span><span style="color:#434f54">OBJS</span><span style="color:#728e00">)</span>
-</span></span><span style="display:flex;"><span>	ld -o mov <span style="color:#728e00">$(</span>LDFLAGS<span style="color:#728e00">)</span> <span style="color:#728e00">$(</span>OBJS<span style="color:#728e00">)</span>
+</span></span><span style="display:flex;"><span>mov: <span style="color:#fff;font-weight:bold">$(</span>OBJS<span style="color:#fff;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>	ld -o mov <span style="color:#fff;font-weight:bold">$(</span>LDFLAGS<span style="color:#fff;font-weight:bold">)</span> <span style="color:#fff;font-weight:bold">$(</span>OBJS<span style="color:#fff;font-weight:bold">)</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">clean</span><span style="color:#728e00">:</span>
+</span></span><span style="display:flex;"><span>clean:
 </span></span><span style="display:flex;"><span>	rm *.o mov
 </span></span></code></pre></div><p>А теперь посмотрим что получилось <code>objdump</code>&lsquo;ом:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>objdump -s -d -M no-aliases mov.o
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>objdump -s -d -M no-aliases mov.o
 </span></span></code></pre></div><p>Покажет нам следующее:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mov.o:	file format mach-o arm64
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mov.o:	file format mach-o arm64
 </span></span><span style="display:flex;"><span>Contents of section __TEXT,__text:
-</span></span><span style="display:flex;"><span> <span style="color:#8a7b52">0000</span> 42c78dd2 a2eba9f2 82dbdff2 8246e2f2  B............F..
-</span></span><span style="display:flex;"><span> <span style="color:#8a7b52">0010</span> e103022a 41f87fd3 41fc41d3 41fc4193  ...*A...A.A.A.A.
-</span></span><span style="display:flex;"><span> <span style="color:#8a7b52">0020</span> 4104c293 000080d2 300080d2 011000d4  A.......0.......
+</span></span><span style="display:flex;"><span> <span style="color:#ff0;font-weight:bold">0000</span> 42c78dd2 a2eba9f2 82dbdff2 8246e2f2  B............F..
+</span></span><span style="display:flex;"><span> <span style="color:#ff0;font-weight:bold">0010</span> e103022a 41f87fd3 41fc41d3 41fc4193  ...*A...A.A.A.A.
+</span></span><span style="display:flex;"><span> <span style="color:#ff0;font-weight:bold">0020</span> 4104c293 000080d2 300080d2 011000d4  A.......0.......
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Disassembly of section __TEXT,__text:
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8a7b52">0000000000000000</span> &lt;ltmp0&gt;:
-</span></span><span style="display:flex;"><span>       0: <span style="color:#8a7b52">42</span> c7 8d d2  	mov	x2, <span style="color:#95a5a6">#28218</span>
-</span></span><span style="display:flex;"><span>       4: a2 eb a9 f2  	movk	x2, <span style="color:#95a5a6">#20317, lsl #16</span>
-</span></span><span style="display:flex;"><span>       8: <span style="color:#8a7b52">82</span> db df f2  	movk	x2, <span style="color:#95a5a6">#65244, lsl #32</span>
-</span></span><span style="display:flex;"><span>       c: <span style="color:#8a7b52">82</span> <span style="color:#8a7b52">46</span> e2 f2  	movk	x2, <span style="color:#95a5a6">#4660, lsl #48</span>
-</span></span><span style="display:flex;"><span>      10: e1 <span style="color:#8a7b52">03</span> <span style="color:#8a7b52">02</span> 2a  	orr	w1, wzr, w2
-</span></span><span style="display:flex;"><span>      14: <span style="color:#8a7b52">41</span> f8 7f d3  	lsl	x1, x2, <span style="color:#95a5a6">#1</span>
-</span></span><span style="display:flex;"><span>      18: <span style="color:#8a7b52">41</span> <span style="color:#728e00">fc</span> <span style="color:#8a7b52">41</span> d3  	lsr	x1, x2, <span style="color:#95a5a6">#1</span>
-</span></span><span style="display:flex;"><span>      1c: <span style="color:#8a7b52">41</span> <span style="color:#728e00">fc</span> <span style="color:#8a7b52">41</span> <span style="color:#8a7b52">93</span>  	asr	x1, x2, <span style="color:#95a5a6">#1</span>
-</span></span><span style="display:flex;"><span>      20: <span style="color:#8a7b52">41</span> <span style="color:#8a7b52">04</span> c2 <span style="color:#8a7b52">93</span>  	extr	x1, x2, x2, <span style="color:#95a5a6">#1</span>
-</span></span><span style="display:flex;"><span>      24: <span style="color:#8a7b52">00</span> <span style="color:#8a7b52">00</span> <span style="color:#8a7b52">80</span> d2  	mov	x0, <span style="color:#95a5a6">#0</span>
-</span></span><span style="display:flex;"><span>      28: <span style="color:#8a7b52">30</span> <span style="color:#8a7b52">00</span> <span style="color:#8a7b52">80</span> d2  	mov	x16, <span style="color:#95a5a6">#1</span>
-</span></span><span style="display:flex;"><span>      2c: <span style="color:#8a7b52">01</span> <span style="color:#8a7b52">10</span> <span style="color:#8a7b52">00</span> d4  	svc	<span style="color:#95a5a6">#0x80</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff0;font-weight:bold">0000000000000000</span> &lt;ltmp0&gt;:
+</span></span><span style="display:flex;"><span>       0: <span style="color:#ff0;font-weight:bold">42</span> c7 8d d2  	mov	x2, <span style="color:#007f7f">#28218</span>
+</span></span><span style="display:flex;"><span>       4: a2 eb a9 f2  	movk	x2, <span style="color:#007f7f">#20317, lsl #16</span>
+</span></span><span style="display:flex;"><span>       8: <span style="color:#ff0;font-weight:bold">82</span> db df f2  	movk	x2, <span style="color:#007f7f">#65244, lsl #32</span>
+</span></span><span style="display:flex;"><span>       c: <span style="color:#ff0;font-weight:bold">82</span> <span style="color:#ff0;font-weight:bold">46</span> e2 f2  	movk	x2, <span style="color:#007f7f">#4660, lsl #48</span>
+</span></span><span style="display:flex;"><span>      10: e1 <span style="color:#ff0;font-weight:bold">03</span> <span style="color:#ff0;font-weight:bold">02</span> 2a  	orr	w1, wzr, w2
+</span></span><span style="display:flex;"><span>      14: <span style="color:#ff0;font-weight:bold">41</span> f8 7f d3  	lsl	x1, x2, <span style="color:#007f7f">#1</span>
+</span></span><span style="display:flex;"><span>      18: <span style="color:#ff0;font-weight:bold">41</span> <span style="color:#fff;font-weight:bold">fc</span> <span style="color:#ff0;font-weight:bold">41</span> d3  	lsr	x1, x2, <span style="color:#007f7f">#1</span>
+</span></span><span style="display:flex;"><span>      1c: <span style="color:#ff0;font-weight:bold">41</span> <span style="color:#fff;font-weight:bold">fc</span> <span style="color:#ff0;font-weight:bold">41</span> <span style="color:#ff0;font-weight:bold">93</span>  	asr	x1, x2, <span style="color:#007f7f">#1</span>
+</span></span><span style="display:flex;"><span>      20: <span style="color:#ff0;font-weight:bold">41</span> <span style="color:#ff0;font-weight:bold">04</span> c2 <span style="color:#ff0;font-weight:bold">93</span>  	extr	x1, x2, x2, <span style="color:#007f7f">#1</span>
+</span></span><span style="display:flex;"><span>      24: <span style="color:#ff0;font-weight:bold">00</span> <span style="color:#ff0;font-weight:bold">00</span> <span style="color:#ff0;font-weight:bold">80</span> d2  	mov	x0, <span style="color:#007f7f">#0</span>
+</span></span><span style="display:flex;"><span>      28: <span style="color:#ff0;font-weight:bold">30</span> <span style="color:#ff0;font-weight:bold">00</span> <span style="color:#ff0;font-weight:bold">80</span> d2  	mov	x16, <span style="color:#007f7f">#1</span>
+</span></span><span style="display:flex;"><span>      2c: <span style="color:#ff0;font-weight:bold">01</span> <span style="color:#ff0;font-weight:bold">10</span> <span style="color:#ff0;font-weight:bold">00</span> d4  	svc	<span style="color:#007f7f">#0x80</span>
 </span></span></code></pre></div><p>Обратим внимание, например, что <code>MOV X0, #0</code> была транслирована в <code>ORR W1, WZR, W2</code>.</p>
 <h3 id="add-adc">
   ADD/ADC
@@ -433,28 +433,28 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 <p>Эти инструкции складывают второй и третий параметры и сохраняют
 результат сложения в первый: <code>Xd = Xs + Operand2</code>, где <code>Xd</code> и
 <code>Xs</code> могут совпадать.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">ADD</span><span style="color:#a61717">{</span><span style="color:#434f54">S</span><span style="color:#a61717">}</span> <span style="color:#434f54">Xd</span>, <span style="color:#434f54">Xs</span>, <span style="color:#434f54">Operand2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>ADD<span style="color:#f00">{</span>S<span style="color:#f00">}</span> Xd, Xs, Operand2
 </span></span></code></pre></div><p>Рассмотрим несколько примеров.</p>
 <ol>
 <li>
 <p>Сложение с константой. Число может быть до 12 бит (0-4095).</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#95a5a6">; X2 = X1 + 4000
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">ADD</span> <span style="color:#434f54">X2</span>, <span style="color:#434f54">X1</span>, <span style="color:#95a5a6">#4000
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + 4000
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, <span style="color:#007f7f">#4000
 </span></span></span></code></pre></div></li>
 <li>
 <p>Со сдвигом влево.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#95a5a6">; X2 = X1 + 0x20000
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">ADD</span> <span style="color:#434f54">X2</span>, <span style="color:#434f54">X1</span>, <span style="color:#95a5a6">#0x20, LSL 12
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + 0x20000
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, <span style="color:#007f7f">#0x20, LSL 12
 </span></span></span></code></pre></div></li>
 <li>
 <p>Простое сложение 2-х регистров.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#95a5a6">; X2 = X1 + X0
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">ADD</span> <span style="color:#434f54">X2</span>, <span style="color:#434f54">X1</span>, <span style="color:#434f54">X0</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + X0
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, X0
 </span></span></code></pre></div></li>
 <li>
 <p>Сложение регистра со сдвинутым значением в другом регистре.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#95a5a6">; X2 = X1 + (X0 * 4)
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>      <span style="color:#d35400">ADD</span> <span style="color:#434f54">X2</span>, <span style="color:#434f54">X1</span>, <span style="color:#434f54">X0</span>, <span style="color:#434f54">LSL</span> <span style="color:#8a7b52">2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>      <span style="color:#007f7f">; X2 = X1 + (X0 * 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>      ADD X2, X1, X0, LSL <span style="color:#ff0;font-weight:bold">2</span>
 </span></span></code></pre></div></li>
 </ol>
 <h3 id="sub-sbc">
@@ -464,7 +464,7 @@ with 64-bit ARM Assembly Language</a>.</em></p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">SUB</span><span style="color:#a61717">{</span><span style="color:#434f54">S</span><span style="color:#a61717">}</span> <span style="color:#434f54">Xd</span>, <span style="color:#434f54">Xs</span>, <span style="color:#434f54">Operand2</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>SUB<span style="color:#f00">{</span>S<span style="color:#f00">}</span> Xd, Xs, Operand2
 </span></span></code></pre></div><h2 id="память">
   Память
   <a class="heading-link" href="#%d0%bf%d0%b0%d0%bc%d1%8f%d1%82%d1%8c">
@@ -474,13 +474,13 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 </h2>
 <p>Для чтения и записи памяти используются инструкции <code>STR</code> и <code>LDR</code>
 соответственно.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">LDR</span> <span style="color:#434f54">X1</span>, <span style="color:#a61717">=</span><span style="color:#434f54">num</span> <span style="color:#95a5a6">; загружает адрес num в регистр X1
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">LDR</span> <span style="color:#434f54">X3</span>, <span style="color:#a61717">=</span><span style="color:#434f54">loc</span> <span style="color:#95a5a6">; загружает адрес loc в регистр X3
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span><span style="color:#d35400">LDR</span> <span style="color:#434f54">X2</span>, [<span style="color:#434f54">X3</span>] <span style="color:#95a5a6">; загружает слово по адресу X3 в X2
-</span></span></span><span style="display:flex;"><span><span style="color:#95a5a6"></span>
-</span></span><span style="display:flex;"><span><span style="color:#434f54">.data</span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">num</span> <span style="color:#434f54">.BYTE</span> <span style="color:#8a7b52">0x12</span>
-</span></span><span style="display:flex;"><span><span style="color:#d35400">loc</span> <span style="color:#434f54">.QUAD</span> <span style="color:#8a7b52">0x123456789ABCDEF0</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>LDR X1, <span style="color:#f00">=</span>num <span style="color:#007f7f">; загружает адрес num в регистр X1
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>LDR X3, <span style="color:#f00">=</span>loc <span style="color:#007f7f">; загружает адрес loc в регистр X3
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>LDR X2, [X3] <span style="color:#007f7f">; загружает слово по адресу X3 в X2
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">.data</span>
+</span></span><span style="display:flex;"><span>num .BYTE <span style="color:#ff0;font-weight:bold">0x12</span>
+</span></span><span style="display:flex;"><span>loc .QUAD <span style="color:#ff0;font-weight:bold">0x123456789ABCDEF0</span>
 </span></span></code></pre></div><h2 id="функции-и-стек">
   Функции и стек
   <a class="heading-link" href="#%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d0%b8-%d0%b8-%d1%81%d1%82%d0%b5%d0%ba">
@@ -494,13 +494,13 @@ with 64-bit ARM Assembly Language</a>.</em></p>
 <code>LDR</code> и <code>LDP</code> для считывания данных из стека в регистры.</p>
 <p>Чтобы скопировать в стек значение из регистра <code>X5</code>, в котором
 хранится число <code>1022</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">STR</span> <span style="color:#434f54">X5</span>, [<span style="color:#434f54">SP</span>, <span style="color:#95a5a6">#-16]!
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>STR X5, [SP, <span style="color:#007f7f">#-16]!
 </span></span></span></code></pre></div><figure><img src="https://vyorkin.org/ox-hugo/str1.png">
 </figure>
 
 <p>Чтобы загрузить в регистр <code>X4</code> значение из вершины стека, где
 лежит число <code>1022</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#d35400">LDR</span> <span style="color:#434f54">X4</span>, [<span style="color:#434f54">SP</span>], <span style="color:#95a5a6">#16
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>LDR X4, [SP], <span style="color:#007f7f">#16
 </span></span></span></code></pre></div><figure><img src="https://vyorkin.org/ox-hugo/ldr1.png">
 </figure>
 

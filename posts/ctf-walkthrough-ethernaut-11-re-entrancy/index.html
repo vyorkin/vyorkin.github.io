@@ -13,8 +13,38 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="The objective of this challenge is to steal all the funds from the contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
+<meta name="description" content="The objective of this challenge is to steal all the funds from
+the contract.
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+contract Reentrance {
+    mapping(address =&gt; uint256) public balances;
+
+    function donate(address _to) public payable {
+        balances[_to] &#43;= msg.value;
+    }
+
+    function balanceOf(address _who) public view returns (uint256 balance) {
+        return balances[_who];
+    }
+
+    function withdraw(uint256 _amount) public {
+        if (balances[msg.sender] &gt;= _amount) {
+            (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;);
+            if (result) {
+                _amount;
+            }
+
+            unchecked {
+                balances[msg.sender] -= _amount;
+            }
+        }
+    }
+
+    receive() external payable {}
+}
+">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -22,13 +52,13 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #11 Re-entrancy">
   <meta name="twitter:description" content="The objective of this challenge is to steal all the funds from the contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.sender] -= _amount; } } } receive() external payable {} } ">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-11-re-entrancy/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #11 Re-entrancy">
   <meta property="og:description" content="The objective of this challenge is to steal all the funds from the contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =&gt; uint256) public balances; function donate(address _to) public payable { balances[_to] &#43;= msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] &gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(&#34;&#34;); if (result) { _amount; } unchecked { balances[msg.sender] -= _amount; } } } receive() external payable {} } ">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -631,8 +661,6 @@ Thank you for reading!</p>
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -647,10 +675,6 @@ Thank you for reading!</p>
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

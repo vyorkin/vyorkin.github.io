@@ -13,8 +13,47 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallout { using SafeMath for uint256; mapping(address =&gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function allocate() public payable { allocations[msg.">
+<meta name="description" content="To complete this level we need to become owner of the contract
+below (slightly modified to be compatible with Solidity ^0.8.2):
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+import &#34;openzeppelin/utils/math/SafeMath.sol&#34;;
+
+contract Fallout {
+    using SafeMath for uint256;
+    mapping(address =&gt; uint256) allocations;
+    address payable public owner;
+
+    /* constructor */
+    function Fal1out() public payable {
+        owner = payable(msg.sender);
+        allocations[owner] = msg.value;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, &#34;caller is not the owner&#34;);
+        _;
+    }
+
+    function allocate() public payable {
+        allocations[msg.sender] = allocations[msg.sender].add(msg.value);
+    }
+
+    function sendAllocation(address payable allocator) public {
+        require(allocations[allocator] &gt; 0);
+        allocator.transfer(allocations[allocator]);
+    }
+
+    function collectAllocations() public onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+    function allocatorBalance(address allocator) public view returns (uint256) {
+        return allocations[allocator];
+    }
+}
+">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -22,13 +61,13 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #3 Fallout">
   <meta name="twitter:description" content="To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallout { using SafeMath for uint256; mapping(address =&gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function allocate() public payable { allocations[msg.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallout { using SafeMath for uint256; mapping(address =&gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function allocate() public payable { allocations[msg.sender] = allocations[msg.sender].add(msg.value); } function sendAllocation(address payable allocator) public { require(allocations[allocator] &gt; 0); allocator.transfer(allocations[allocator]); } function collectAllocations() public onlyOwner { payable(msg.sender).transfer(address(this).balance); } function allocatorBalance(address allocator) public view returns (uint256) { return allocations[allocator]; } } ">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-3-fallout/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #3 Fallout">
   <meta property="og:description" content="To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallout { using SafeMath for uint256; mapping(address =&gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function allocate() public payable { allocations[msg.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;openzeppelin/utils/math/SafeMath.sol&#34;; contract Fallout { using SafeMath for uint256; mapping(address =&gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function allocate() public payable { allocations[msg.sender] = allocations[msg.sender].add(msg.value); } function sendAllocation(address payable allocator) public { require(allocations[allocator] &gt; 0); allocator.transfer(allocations[allocator]); } function collectAllocations() public onlyOwner { payable(msg.sender).transfer(address(this).balance); } function allocatorBalance(address allocator) public view returns (uint256) { return allocations[allocator]; } } ">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -391,8 +430,6 @@ In Solidity <code>0.4.22</code> and above we use the <code>constructor</code> ke
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -407,10 +444,6 @@ In Solidity <code>0.4.22</code> and above we use the <code>constructor</code> ke
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

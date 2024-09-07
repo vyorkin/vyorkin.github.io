@@ -13,9 +13,32 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
+<meta name="description" content="We start with the 20 tokens. To complete this challenge we need
+to get some more.
 Here is the original Token contract:
-// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Link to heading Let&rsquo;s go line by line and see what we can come up with.">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+contract Token {
+    mapping(address =&gt; uint256) balances;
+    uint256 public totalSupply;
+
+    constructor(uint256 _initialSupply) {
+        balances[msg.sender] = totalSupply = _initialSupply;
+    }
+
+    function transfer(address _to, uint256 _value) public returns (bool) {
+        require(balances[msg.sender] - _value &gt;= 0);
+        balances[msg.sender] -= _value;
+        balances[_to] &#43;= _value;
+        return true;
+    }
+
+    function balanceOf(address _owner) public view returns (uint256 balance) {
+        return balances[_owner];
+    }
+}
+">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -24,14 +47,14 @@ Here is the original Token contract:
   <meta name="twitter:title" content="Ethernaut, #6 Token">
   <meta name="twitter:description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
-// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Link to heading Let’s go line by line and see what we can come up with.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } ">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-6-token/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #6 Token">
   <meta property="og:description" content="We start with the 20 tokens. To complete this challenge we need to get some more.
 Here is the original Token contract:
-// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Link to heading Let’s go line by line and see what we can come up with.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =&gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value &gt;= 0); balances[msg.sender] -= _value; balances[_to] &#43;= _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } ">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -415,8 +438,6 @@ here</a>. Let&rsquo;s continue to the <a href="https://vyorkin.org/posts/ctf-wal
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -431,10 +452,6 @@ here</a>. Let&rsquo;s continue to the <a href="https://vyorkin.org/posts/ctf-wal
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

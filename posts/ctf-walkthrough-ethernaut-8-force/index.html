@@ -13,9 +13,21 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="To complete this challenge we need to make the balance of the Force contract greater than zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts Link to heading The contract has nothing in it, except the ASCII-art of a cat. It doesn&rsquo;t have a receive, fallback function, or any other payable function:
-If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.">
+<meta name="description" content="To complete this challenge we need to make the balance of the
+Force contract greater than zero.
+ // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+contract Force {/*
+
+                   MEOW ?
+         /\_/\   /
+    ____/ o o \
+  /~____  =ø= /
+ (______)__m_m)
+
+*/}
+">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -23,15 +35,13 @@ If neither a receive Ether nor a payable fallback function is present, the contr
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #8 Force">
   <meta name="twitter:description" content="To complete this challenge we need to make the balance of the Force contract greater than zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts Link to heading The contract has nothing in it, except the ASCII-art of a cat. It doesn’t have a receive, fallback function, or any other payable function:
-If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} ">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-8-force/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #8 Force">
   <meta property="og:description" content="To complete this challenge we need to make the balance of the Force contract greater than zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} Thoughts Link to heading The contract has nothing in it, except the ASCII-art of a cat. It doesn’t have a receive, fallback function, or any other payable function:
-If neither a receive Ether nor a payable fallback function is present, the contract cannot receive Ether through regular transactions and throws an exception.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\_/\ / ____/ o o \ /~____ =ø= / (______)__m_m) */} ">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -380,8 +390,6 @@ I&rsquo;ll leave the code for this level
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -396,10 +404,6 @@ I&rsquo;ll leave the code for this level
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

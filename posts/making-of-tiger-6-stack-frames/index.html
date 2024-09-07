@@ -13,21 +13,40 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Intro Link to heading In this post we&rsquo;re going to add support for stack frames. Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.
-Stack Link to heading A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it&rsquo;s lowest memory address. We treat stack as a big array, with a special register &ndash; the stack pointer (SP).">
+<meta name="description" content="
+  Intro
+  
+    
+    Link to heading
+  
+
+In this post we&rsquo;re going to add support for stack frames.
+Here I&rsquo;ve made some notes while reading the chapter 6 to make sure I
+understand things clearly.
+
+  Stack
+  
+    
+    Link to heading
+  
+
+A stack is a region of memory that grows downward and shrinks
+upward (like icicles). The top of the stack is it&rsquo;s lowest
+memory address. We treat stack as a big array, with a
+special register &ndash; the stack pointer (SP).">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Making of Tiger #6, Stack frames">
-  <meta name="twitter:description" content="Intro Link to heading In this post we’re going to add support for stack frames. Here I’ve made some notes while reading the chapter 6 to make sure I understand things clearly.
+  <meta name="twitter:description" content=" Intro Link to heading In this post we’re going to add support for stack frames. Here I’ve made some notes while reading the chapter 6 to make sure I understand things clearly.
 Stack Link to heading A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it’s lowest memory address. We treat stack as a big array, with a special register – the stack pointer (SP).">
 
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-6-stack-frames/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Making of Tiger #6, Stack frames">
-  <meta property="og:description" content="Intro Link to heading In this post we’re going to add support for stack frames. Here I’ve made some notes while reading the chapter 6 to make sure I understand things clearly.
+  <meta property="og:description" content=" Intro Link to heading In this post we’re going to add support for stack frames. Here I’ve made some notes while reading the chapter 6 to make sure I understand things clearly.
 Stack Link to heading A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it’s lowest memory address. We treat stack as a big array, with a special register – the stack pointer (SP).">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
@@ -525,59 +544,59 @@ architecture.</p>
 </style>
 <div class="ox-hugo-table sane-table">
 <table>
-<thead>
-<tr>
-<th>Architecture</th>
-<th>Formals</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Pentium</td>
-<td><code>[InFrame 8; InFrame 12; InFrame 16]</code></td>
-</tr>
-<tr>
-<td>MIPS</td>
-<td><code>[InFrame 0; InReg t157; InReg t158]</code></td>
-</tr>
-<tr>
-<td>SPARC</td>
-<td><code>[InFrame 8; InReg t157; InReg t158]</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Architecture</th>
+          <th style="text-align: left">Formals</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Pentium</td>
+          <td style="text-align: left"><code>[InFrame 8; InFrame 12; InFrame 16]</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">MIPS</td>
+          <td style="text-align: left"><code>[InFrame 0; InReg t157; InReg t158]</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SPARC</td>
+          <td style="text-align: left"><code>[InFrame 8; InReg t157; InReg t158]</code></td>
+      </tr>
+  </tbody>
 </table>
 </div>
 <div class="ox-hugo-table sane-table">
 <table>
-<thead>
-<tr>
-<th>Pentium</th>
-<th>MIPS</th>
-<th>SPARC</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\( SF_{SP+0} \leftarrow FP \)</td>
-<td>\( SP \leftarrow SP-k \)</td>
-<td>SAVE \(\ SP \), \( -k \), \(\ SP \)</td>
-</tr>
-<tr>
-<td>\( FP \leftarrow SP \)</td>
-<td>\( SF_{SP+k+0} \leftarrow r_2 \)</td>
-<td>\( SF_{FP+68} \leftarrow i_0 \)</td>
-</tr>
-<tr>
-<td>\( SP \leftarrow SP-k \)</td>
-<td>\( t_{157} \leftarrow r_4 \)</td>
-<td>\( t_{157} \leftarrow i_1 \)</td>
-</tr>
-<tr>
-<td></td>
-<td>\( t_{157} \leftarrow r_5 \)</td>
-<td>\( t_{158 }\leftarrow i_2 \)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Pentium</th>
+          <th style="text-align: left">MIPS</th>
+          <th style="text-align: left">SPARC</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\( SF_{SP+0} \leftarrow FP \)</td>
+          <td style="text-align: left">\( SP \leftarrow SP-k \)</td>
+          <td style="text-align: left">SAVE \(\ SP \), \( -k \), \(\ SP \)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\( FP \leftarrow SP \)</td>
+          <td style="text-align: left">\( SF_{SP+k+0} \leftarrow r_2 \)</td>
+          <td style="text-align: left">\( SF_{FP+68} \leftarrow i_0 \)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\( SP \leftarrow SP-k \)</td>
+          <td style="text-align: left">\( t_{157} \leftarrow r_4 \)</td>
+          <td style="text-align: left">\( t_{157} \leftarrow i_1 \)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left">\( t_{157} \leftarrow r_5 \)</td>
+          <td style="text-align: left">\( t_{158 }\leftarrow i_2 \)</td>
+      </tr>
+  </tbody>
 </table>
 </div>
 <ul>
@@ -1084,8 +1103,6 @@ it&rsquo;s work.</p>
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -1100,10 +1117,6 @@ it&rsquo;s work.</p>
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

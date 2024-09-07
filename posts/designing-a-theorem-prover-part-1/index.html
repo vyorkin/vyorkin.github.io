@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <title>
   Designing a Theorem Prover, Part 1 · transcendental kyberautism
 </title>
@@ -13,46 +13,54 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Intro Link to heading I&rsquo;m going to work through the folderol by Lawrence C Paulson (1990).
-Automated Theorem Proving Link to heading There are 2 terms that have different meaning:
-Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the development of formal proofs by human-machine collaboration. Usually in the form of keeping track of what you need to prove and what you have proved. For example: Coq, Lean, Agda, Isabelle, F*.">
+<meta name="description" content="
+
+  Intro
+  
+    
+    Link to heading
+  
+
+In this series, I’ll be working through the
+folderol (1990) by Lawrence
+C Paulson and
+trying to use its insights to design a theorem prover in OCaml. He calls
+the prover folderol and I will do the same. His prover follows
+automatic strategy but interactive and prints trace of its rules
+as evidence.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 1">
-  <meta name="twitter:description" content="Intro Link to heading I’m going to work through the folderol by Lawrence C Paulson (1990).
-Automated Theorem Proving Link to heading There are 2 terms that have different meaning:
-Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the development of formal proofs by human-machine collaboration. Usually in the form of keeping track of what you need to prove and what you have proved. For example: Coq, Lean, Agda, Isabelle, F*.">
+  <meta name="twitter:description" content=" Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
 
-<meta property="og:url" content="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 1">
-  <meta property="og:description" content="Intro Link to heading I’m going to work through the folderol by Lawrence C Paulson (1990).
-Automated Theorem Proving Link to heading There are 2 terms that have different meaning:
-Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the development of formal proofs by human-machine collaboration. Usually in the form of keeping track of what you need to prove and what you have proved. For example: Coq, Lean, Agda, Isabelle, F*.">
+  <meta property="og:description" content=" Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-09-03T13:40:00+03:00">
-    <meta property="article:modified_time" content="2024-09-03T13:40:00+03:00">
+    <meta property="article:published_time" content="2024-09-08T01:02:00+03:00">
+    <meta property="article:modified_time" content="2024-09-08T01:02:00+03:00">
     <meta property="article:tag" content="Folderol">
 
 
 
 
-<link rel="canonical" href="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
 
 
-<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
   
-  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -61,26 +69,25 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
   
     
     
-    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
 
 
 
 
   
-  
-  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
 
 
-<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
 
-<link rel="manifest" href="http://localhost:1313/site.webmanifest">
-<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
@@ -110,7 +117,7 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
     <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="http://localhost:1313/">
+    <a class="navigation-title" href="https://vyorkin.org/">
       transcendental kyberautism
     </a>
     
@@ -123,11 +130,11 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
         
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
             </li>
           
         
@@ -145,14 +152,14 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
                 
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/ru-ru/">ru</a>
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
             
           
             
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/de-de/">de</a>
+                <a href="https://vyorkin.org/de-de/">de</a>
               </li>
             
           
@@ -170,7 +177,7 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:1313/posts/designing-a-theorem-prover-part-1/">
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
               Designing a Theorem Prover, Part 1
             </a>
           </h1>
@@ -179,8 +186,8 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="September 3, 2024">
-                September 3, 2024
+              <time datetime="September 8, 2024">
+                September 8, 2024
               </time>
             </span>
           </div>
@@ -189,7 +196,7 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="http://localhost:1313/tags/folderol/">Folderol</a>
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
     </span></div>
 
         </div>
@@ -197,16 +204,72 @@ Proof Assistant or Interactive Theorem Prover (wiki) – Assists with the develo
 
       <div class="post-content">
         
-        <h2 id="intro">
+        <style>
+.sane-table table {
+  font-size: 1.6rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+.sane-table th {
+}
+.sane-table th,
+.sane-table td {
+  text-align: center !important;
+  padding: 1.6rem 0.4rem;
+  border: 0;
+}
+
+.sane-table td {
+  min-width: 280px;
+}
+
+.sane-table td:last-child {
+  width: 280px;
+}
+</style>
+<h2 id="intro">
   Intro
   <a class="heading-link" href="#intro">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>I&rsquo;m going to work through the
-<a href="https://arxiv.org/pdf/cs/9301110"  class="external-link" target="_blank" rel="noopener">folderol</a> by Lawrence C
-Paulson (1990).</p>
+<p>In this series, I’ll be working through the
+<a href="https://arxiv.org/pdf/cs/9301110"  class="external-link" target="_blank" rel="noopener">folderol</a> (1990) by <a href="https://en.wikipedia.org/wiki/Lawrence_Paulson"  class="external-link" target="_blank" rel="noopener">Lawrence
+C Paulson</a> and
+trying to use its insights to design a theorem prover in OCaml. He calls
+the prover <strong>folderol</strong> and I will do the same. His prover follows
+automatic strategy but interactive and prints trace of its rules
+as evidence.</p>
+<p>To start off, let&rsquo;s see it in action. Here is how proof might look like when using folderol:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>&gt; read_goal <span style="color:#0ff;font-weight:bold">&#34;(P | Q) &amp; (P | R) --&gt; P | (Q &amp; R)&#34;</span>;
+</span></span><span style="display:flex;"><span>empty |- (P | Q) &amp; (P | R) --&gt; P | Q &amp; R
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>--&gt;:right
+</span></span><span style="display:flex;"><span>(P | Q) &amp; (P | R) |- P | (Q &amp; R)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>|:right
+</span></span><span style="display:flex;"><span>(P | Q) &amp; (P | R) |- Q &amp; R, P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>&amp;:left
+</span></span><span style="display:flex;"><span>P | R, P | Q |- Q &amp; R, P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>|:left
+</span></span><span style="display:flex;"><span>P P | Q, R |- Q &amp; R, P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>|:left
+</span></span><span style="display:flex;"><span>P Q, R |- Q &amp; R, P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; step();
+</span></span><span style="display:flex;"><span>&amp;:right
+</span></span><span style="display:flex;"><span>Q R
+</span></span><span style="display:flex;"><span>No more goals: proof finished
+</span></span></code></pre></div><p>Looks cool, right? So let&rsquo;s go – it&rsquo;s going to be a long journey ahead!</p>
 <h3 id="automated-theorem-proving">
   Automated Theorem Proving
   <a class="heading-link" href="#automated-theorem-proving">
@@ -214,60 +277,297 @@ Paulson (1990).</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>There are 2 terms that have different meaning:</p>
+<p>When we think about theorem provers, we need to distinguish
+between two key concepts:</p>
 <ol>
-<li><strong>Proof Assistant</strong> or <strong>Interactive Theorem Prover</strong>
+<li><strong>Proof Assistant</strong> / <strong>Interactive Theorem Prover</strong>
 (<a href="https://en.wikipedia.org/wiki/Proof_assistant"  class="external-link" target="_blank" rel="noopener">wiki</a>) –
-Assists with the development of formal proofs by
-human-machine collaboration. Usually in the form of keeping
-track of what you need to prove and what you have proved. For
-example: Coq, Lean, Agda, Isabelle, F*.</li>
+These systems assists with the development of formal proofs
+by human-machine collaboration. Usually in the form of
+keeping track of what you need to prove and what you have
+proved. <br />
+For example:
+<a href="https://en.wikipedia.org/wiki/Coq_%28software%29"  class="external-link" target="_blank" rel="noopener">Coq</a>,
+<a href="https://en.wikipedia.org/wiki/Lean_%28proof_assistant%29"  class="external-link" target="_blank" rel="noopener">Lean</a>,
+<a href="https://en.wikipedia.org/wiki/Isabelle_%28proof_assistant%29"  class="external-link" target="_blank" rel="noopener">Isabelle</a>,
+<a href="https://en.wikipedia.org/wiki/Agda_%28programming_language%29"  class="external-link" target="_blank" rel="noopener">Agda</a>
+(?),
+<a href="https://en.wikipedia.org/wiki/F*_%28programming_language%29"  class="external-link" target="_blank" rel="noopener">F*</a>
+(?).</li>
 <li><strong>Automated Theorem Prover</strong> – Uses AI (or other similar,
 relatively opaque algorithms) to come up with the steps to
 the proof.</li>
 </ol>
-<h3 id="general-properties">
-  General Properties
-  <a class="heading-link" href="#general-properties">
-    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
-    <span class="sr-only">Link to heading</span>
-  </a>
-</h3>
-<ul>
-<li>Works in classical <a href="https://en.wikipedia.org/wiki/First-order_logic"  class="external-link" target="_blank" rel="noopener">first-order logic</a> (<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0_%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0"  class="external-link" target="_blank" rel="noopener">ru</a>)</li>
-<li>Follows automatic strategy but interactive</li>
-<li>Prints trace of its rules as evidence</li>
-</ul>
-<p>There is no practical automatic proof procedure, even for most
+<blockquote class="quote2 quote2-note no-quote">There is no practical automatic proof procedure, even for most
 complete theories. Even if there were, interaction with the
-machine would still be necessary for exploring mathematics.</p>
-<h2 id="sequent-calculus">
-  Sequent Calculus
-  <a class="heading-link" href="#sequent-calculus">
-    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
-    <span class="sr-only">Link to heading</span>
-  </a>
-</h2>
-<h3 id="lk-inference-rules">
-  LK Inference Rules
-  <a class="heading-link" href="#lk-inference-rules">
+machine would still be necessary for exploring mathematics.
+</blockquote>
+
+<h3 id="framework">
+  Framework
+  <a class="heading-link" href="#framework">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p><strong>Structural</strong></p>
-<p>\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \,
-(\text{WL})\), \(\displaystyle \frac{\Gamma \vdash \Delta}{\Gamma \vdash \Delta, A}
-\, (\text{WR})\) – Thinning</p>
-<p>\(\displaystyle \frac{A, A, \Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \,
-(\text{CL})\), \(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta,
-A} \, (\text{CR})\) – Contraction</p>
-<p>\(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta}
-\, (\text{PL})\), \(\displaystyle \frac{\Gamma \vdash \Delta, A, B, \Lambda}{\Gamma
-\vdash \Delta, B, A, \Lambda} \, (\text{PR})\) – Permutation</p>
-<p>\(\displaystyle \frac{\Gamma \vdash \Delta, A \quad A, \Theta \vdash \Lambda}{\Gamma, \Theta
-\vdash \Delta, \Lambda} \, (\text{C})\) – Cut</p>
-<p><strong>Logical</strong></p>
+<p>Paulson&rsquo;s work relies on <a href="https://en.wikipedia.org/wiki/First-order_logic"  class="external-link" target="_blank" rel="noopener">First-Order
+Logic</a> (<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0_%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0"  class="external-link" target="_blank" rel="noopener">ru</a>)
+and uses Gentzen&rsquo;s <a href="https://en.wikipedia.org/wiki/Sequent_calculus"  class="external-link" target="_blank" rel="noopener">Sequent
+Calculus</a> (<a href="https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9#%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5_%D0%B3%D0%B5%D0%BD%D1%86%D0%B5%D0%BD%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B5_%D0%B8%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9"  class="external-link" target="_blank" rel="noopener">ru</a>)
+(LK) formal system. Let&rsquo;s begin by familiarizing ourselves with Sequent Calculus.</p>
+<blockquote class="quote2 quote2-question no-quote">A <strong>formal system</strong> is a framework for deriving theorems from axioms using specific rules.
+</blockquote>
+
+<h4 id="gentzen-s-sequent-calculus--lk">
+  Gentzen&rsquo;s Sequent Calculus (LK)
+  <a class="heading-link" href="#gentzen-s-sequent-calculus--lk">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>There are two main <em>styles</em> of <strong>proof calculus</strong> for expressing line-by-line logical arguments:</p>
+<p><strong>Hilbert Style</strong></p>
+<ul>
+<li>Uses unconditional tautology</li>
+<li>Rich axiom set</li>
+<li>Minimum number of inference rules</li>
+</ul>
+<p>Hilbert systems are known for their elegance but can be less intuitive due to the extensive use of axioms.</p>
+<p><strong>Gentzen Style</strong></p>
+<ul>
+<li>Uses conditional tautology</li>
+<li>Rich inference rules</li>
+<li>Represents proofs as derivation trees</li>
+<li>Preferred for proof theory research</li>
+</ul>
+<blockquote class="quote2 quote2-question no-quote">A <strong>proof calculus</strong> is like a blueprint for formal reasoning. It
+defines a general way to structure inferences, and by customizing its rules, you can create specific formal systems.
+</blockquote>
+
+<p>In sequent calculus, the focus shifts from proving absolute truths to demonstrating how one statement leads to another. This method centers on the logical flow from assumptions to conclusions.</p>
+<p>As I mentioned above in sequent calculus every line of proof is a <strong>conditional
+tautology</strong> or a <strong>sequent</strong>. <br />
+Yeah, there are 2 types of tautologies:</p>
+<ol>
+<li>
+<p><strong>Unconditional tautology</strong> – A statement that is true in all possible
+cases, regardless of the values of its variables:</p>
+<ul>
+<li>\(A \lor \neg A\) (law of excluded middle)</li>
+<li>\(A \rightarrow A\) (self-implication)</li>
+</ul>
+<p>Both of these tautologies are true <em>without any assumptions</em>. <br />
+So they can be written as \(\vdash A \lor \neg A\) and \(\vdash A \rightarrow A\) respectively.</p>
+</li>
+<li>
+<p><strong>Conditional tautology</strong> (aka <strong>Sequent</strong>) – A statement of the form &ldquo;If
+(certain assumptions), then (a certain conclusion)&rdquo;. We write
+these conditions as \(\Gamma \vdash \Delta\) (&quot;\(\Delta\) is derivable from \(\Gamma\)&quot;), where</p>
+<ul>
+<li>\(\vdash\) –
+<a href="https://en.wikipedia.org/wiki/Turnstile_%28symbol%29"  class="external-link" target="_blank" rel="noopener">Turnstyle</a>
+– \(P \vdash Q\) Means &ldquo;\(Q\) is provable from assumption \(P\)&rdquo;.</li>
+<li>\(\Gamma\) – Set of assumptions (premises) \(\displaystyle {A_{1},\ldots ,A_n}\) – &ldquo;Ancedent&rdquo;.</li>
+<li>\(\Delta\) – Conclusion \({B_{1},\ldots ,B_{k},}\) – &ldquo;Succedent&rdquo; or Consequent.</li>
+</ul>
+<p>Both \(\Gamma\) and \(\Delta\) are <em>unordered lists</em> of formulae.</p>
+<p>\(\Gamma \vdash \Delta\) is equivalent to \(\displaystyle {A_{1},\ldots ,A_{n}\vdash B_{1},\ldots,B_{k}}\) or \({\displaystyle \vdash (A_{1}\land \cdots \land A_{n})\rightarrow (B_{1}\lor \cdots \lor B_{k})}\) <br />
+(Whenever <span class="underline">every</span> \({A_i}\) is true, <span class="underline">at least one</span> \(B_i\) will also be true).</p>
+<p>If it&rsquo;s still not clear, here&rsquo;s a simple example of a sequent: \(A, B \vdash A \land B\).</p>
+</li>
+</ol>
+<p>So again, our Gentzen-style formal system deals with &ldquo;sequents&rdquo; of the form \(\Gamma \vdash \Delta\). <br /></p>
+<ol>
+<li>\(\Gamma \vdash \Delta\) is <em>true</em> – If <em>every</em> formula in \(\Gamma\) is <em>true</em> then <em>some</em> formula in \(\Delta\) is <em>true</em>: \({\displaystyle \vdash (A_{1}\land \cdots \land A_{n})\rightarrow (B_{1}\lor \cdots \lor B_{k})}\).</li>
+<li>In terms of refutation: \(\Gamma \vdash \Delta\) is <em>false</em> – if <em>all</em> formulas in \(\Gamma\) are <em>true</em> then <em>every</em> formula in \(\Delta\) is <em>false</em>.</li>
+</ol>
+<p>If conditions $1.$ and $2.$ are <em>contradictory</em> then the sequent
+\(\Gamma \vdash \Delta\) is <em>true</em>. <br />
+\(A \vdash A\) <em>basic</em> sequent is trivially <em>true</em>.</p>
+<h4 id="rules-of-inference">
+  Rules of inference
+  <a class="heading-link" href="#rules-of-inference">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>In sequent form rules of inference are written as the following expressions:</p>
+<p>\(\displaystyle \frac{S_1}{T}\) and \(\displaystyle \frac{S_1 \quad S_2}{T}\)</p>
+<p>They are interpreted as statements about deriving the lower
+sequent \(T\) from the upper sequent \(S_1\). <br />
+A proof is written in a tree-like form from top to bottom:</p>
+<p>\(\displaystyle \cfrac {\cfrac {S_{1} ; S_{2}}{T_{1}} \quad \cfrac {S_{3}}{T_{2}}}{U}\)</p>
+<p>Each line represents a direct inference — the transition from the upper sequents to the lower one according to one of the accepted rules of inference in the system.</p>
+<p>Two most popular types of sequent calculus are Gentzen-style
+systems <strong>LK</strong> and <strong>LJ</strong>. We&rsquo;re interested in LK.</p>
+<h4 id="lk">
+  LK
+  <a class="heading-link" href="#lk">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>LK system has 1 axiom and a rich set of inference rules.</p>
+<p><strong>Axiom</strong></p>
+<p>\(A \rightarrow A\)</p>
+<p><strong>Structural inference rules</strong></p>
+<div class="ox-hugo-table sane-table">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Rule L</th>
+          <th style="text-align: left">Rule R</th>
+          <th style="text-align: left">Name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{WL})\)</td>
+          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta}{\Gamma \vdash \Delta, A} \, (\text{WR})\)</td>
+          <td style="text-align: left">Weakening (Thinning)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \frac{A, A, \Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{CL})\)</td>
+          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta, A} \, (\text{CR})\)</td>
+          <td style="text-align: left">Contraction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta} \, (\text{PL})\)</td>
+          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta, A, B, \Lambda}{\Gamma \vdash \Delta, B, A, \Lambda} \, (\text{PR})\)</td>
+          <td style="text-align: left">Exchange (Permutation)</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<p>And finally the <strong>cut rule</strong> which allows you to remove (&ldquo;cut off&rdquo;) an intermediate statement \(A\):</p>
+<p>\(\displaystyle \frac{\Gamma \vdash \Delta, A \quad A, \Theta \vdash \Lambda}{\Gamma, \Theta \vdash \Delta, \Lambda} \, (\text{C})\)</p>
+<p>Structural rules, namely <strong>exchange/permutation</strong>, <strong>thinning</strong>, and
+<strong>contraction</strong>, make sequents behave like a <em>consequence</em>
+relation. <br />
+The weakening (thinning) inference rules like \(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{WL})\), in backwards reasoning, delete formula \(A\) from the goal. Since a formula should not be deleted unless it is known to be redundant, <strong><strong><strong>we will postpone all deletions</strong></strong></strong>.</p>
+<p>A goal is trivially <em>true</em> if it has the form \(\Gamma \vdash \Delta\) where there exists a common formula \(A \in \Gamma \cap \Delta\). <br />
+Accepting this as a basic sequent <em>makes thinning rules like
+\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{WL})\)
+unnecessary</em>. <br />
+Also <em>we don&rsquo;t need exchange rules</em> like \(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta}\) since we can simply ignore the order of formulae in a sequent.</p>
+<blockquote class="quote2 quote2-question no-quote"><p><strong>Backwards reasoning/proof</strong> means that we start with the statement we want to prove and try to simplify it step by step until we reach an axiom.</p>
+<p>Example in LK:</p>
+<ol>
+<li>We start with \(\displaystyle A \land B \vdash A\), we need to prove \(A \vdash A\)</li>
+<li>We apply the <strong>left conjunction</strong> rule: \(\displaystyle
+\cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\) <br />
+This rule allows us to move from \(A \land B \vdash A\)  to \(A
+\vdash A\). <br />
+The reasoning is that, if we can derive \(A\) from \(A\), then we can also derive \(A\) from \(A \land B\).</li>
+<li>So, applying \(\land L_1\) directly we get \(A\vdash A\)</li>
+</ol>
+<p>We started from the goal and worked backward, breaking it down into simpler components and using axioms. We used \(\land L_1\)​ to simplify the goal and then applied an axiom to complete the proof.</p>
+</blockquote>
+
+<p><strong>Logical inference rules</strong></p>
+<div class="ox-hugo-table sane-table">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Rule L</th>
+          <th style="text-align: left">Rule R</th>
+          <th style="text-align: left">Name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma \vdash A \lor B, \Delta} \quad (\lor R_1)\)</td>
+          <td style="text-align: left">Left introduction for conjunction, Right introduction for disjunction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta \qquad \Gamma, B \vdash \Delta}{\Gamma, A \lor B \vdash \Delta} \quad (\lor L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Gamma \vdash B, \Delta}{\Gamma \vdash A \land B, \Delta} \quad (\land R)\)</td>
+          <td style="text-align: left">Left introduction for disjunction, Right introduction for conjunction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Sigma, B \vdash \Pi}{\Gamma, \Sigma, A \rightarrow B \vdash \Delta, \Pi} \quad (\rightarrow L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash B, \Delta}{\Gamma \vdash A \rightarrow B, \Delta} \quad (\rightarrow R)\)</td>
+          <td style="text-align: left">Introduction for implication</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma, \lnot A \vdash \Delta} \quad (\lnot L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma \vdash \lnot A, \Delta} \quad (\lnot R)\)</td>
+          <td style="text-align: left">Introduction for negation</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x.A\vdash \Delta }}\quad (\forall L)\)</td>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma \vdash A[y/x],\Delta }{\Gamma \vdash \forall x. A,\Delta }}\quad (\forall R)\)</td>
+          <td style="text-align: left">Introduction for universal quantifier</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma ,A[y/x]\vdash \Delta }{\Gamma ,\exists x. A\vdash \Delta }}\quad (\exists L)\)</td>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</td>
+          <td style="text-align: left">Introduction for existential quantifier</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<p>The introduction rule for universal quantifier (\(\forall\)) tells us that if we can show that a statement is true for any arbitrary value of \(x\), then it is true for all \(x\). This is because checking an arbitrary value covers all possible values of the variable, as an arbitrary value is not tied to a specific number.</p>
+<p><strong>Conjunction</strong></p>
+<p>Here we have the <strong>right introduction for conjunction rule</strong>: <br />
+\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Gamma \vdash B, \Delta}{\Gamma \vdash A \land B, \Delta} \quad (\land R)\)</p>
+<p>For backwards proof, if the goal contains \(A \land B\) anywhere in
+the right part then we can produce 2 subgoals \(A\) and \(B\). <br />
+The more concise rule we can use for that is \(\displaystyle
+\frac{\vdash A \quad \vdash B}{\vdash A \land B}\). <br /></p>
+<p>The <strong>contraction rules</strong> like \(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta, A}\) in its simplified form \(\displaystyle \frac{\vdash A, A}{\vdash A}\) duplicate a formula.</p>
+<p>If we duplicate \(A \land B\) and apply our new \(\displaystyle
+\frac{\vdash A \quad \vdash B}{\vdash A \land B}\) we get: <br /></p>
+<ol>
+<li>Duplicate by applying the <strong>contraction</strong> rule: <br />
+\(\displaystyle \frac{\vdash A \land B, A \land B}{\vdash A \land B}\)</li>
+<li>Apply the <strong>right introduction for conjunction</strong> rule:
+\(\displaystyle \cfrac{\vdash A \quad \vdash B}{\vdash A \land B}\) <br />
+Applying the rule above we get: <br />
+\(\vdash A, A \land B \quad \vdash B, A \land B\) <br />
+which is equivalent to <br />
+\(\vdash A \quad \vdash B\) <br /></li>
+</ol>
+<p><strong>Quantifiers</strong></p>
+<p>The only formulae worth duplicating are: <br /></p>
+<ul>
+<li>\(\displaystyle \forall x. A\) (on the <em>left</em> side of a sequent)</li>
+<li>\(\displaystyle \exists x. A\) (on the <em>right</em> side of a sequent)</li>
+</ul>
+<p>Here they are: \(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x. A\vdash \Delta
+}}\quad (\forall L)\), \(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</p>
+<p>This is because using these formulas may require generating multiple different instances by substituting different terms. Paulson suggests adding contraction to the rules for both \(\forall L\) and \(\exists R\). This allows the formula \(\forall x. A\) or \(\exists x. A\) to be retained during each step, so that the rule can be applied again for different terms.</p>
+<p><strong>The \(\forall L\) rule</strong></p>
+<p>This rule is applied when the formula \(\forall x. A\) is on the left side of the sequent (in the assumptions).</p>
+<p>It works as follows:</p>
+<ul>
+<li>From a sequent containing \(\forall x. A\), a subgoal is generated where the formula \(A[t/x]\) is added to the left side of the sequent for some term \(t\).</li>
+<li>A copy of \(\forall x. A\) is retained in the subgoal so that the rule can be applied again with different terms.</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>To illustrate how \(\forall L\) can be used repeatedly, let&rsquo;s say we
+have the formula \(\forall x. P(x) \rightarrow P(f(x))\).</p>
+<p>To prove \(P(a) \rightarrow P(f(f(\dots f(a) \dots)))\), the \(\forall L\) rule would be applied \(n\) times, substituting first \(a\), then \(f(a)\), then \(f(f(a))\), and so on.</p>
+<p><strong>Explanation</strong></p>
+<p>We know: \(\forall x. P(x) \rightarrow P(f(x))\) <br />
+The goal: \(P(a)→P(f(f(…f(a)…)))\)</p>
+<ol>
+<li>Apply \(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x. A\vdash \Delta }}\quad (\forall L)\):
+Substituting \(x\) with \(a\) results in a new goal \(P(a) \rightarrow P(f(a))\).</li>
+<li>Repeat the \(\forall L\) rule:
+Now we have \(P(a) \rightarrow P(f(a))\) and we need to show \(P(f(a)) \rightarrow P(f(f(a)))\)</li>
+<li>Continue:
+Each application of the \(\forall L\) rule substitutes \(x\) with the result of applying \(f\) to the previous term. For instance, after substituting \(f(a)\), you get \(P(f(a)) \rightarrow P(f(f(a)))\). Applying the rule again gives \(P(f(f(a))) \rightarrow P(f(f(f(a))))\), and so forth.</li>
+<li>Repeat \(n\) times:
+By continuing this process \(n\) times, you generate a chain of implications, starting from \(P(a)\) and ending with \(P(f(f(\dots f(a) \dots)))\), where \(f\) is applied \(n\) times.</li>
+</ol>
+<p><strong>The \(\exists R\) rule</strong></p>
+<p>Similarly, this rule is applied to existential quantifiers on the right side of the sequent. The \(\exists R\) is retained in the subgoal so that it can be reused.</p>
+<p><strong>The problem of reusing quantifiers</strong></p>
+<p>Our theorem prover uses these quantified formulae in rotation. It never throws them away. Reusing quantified formulas can lead to infinite loops. For example, formula \(\forall x. P(x) \vdash Q\) could cause the prover to run forever because the universal quantifier is applied to different terms repeatedly. Because our prover keeps reusing \(\forall x\), the search space grows and becomes <strong>infinite</strong>, since it keeps generating new possibilities for \(x\). When a theorem prover tries to handle this, it might need to check if \(P(x)\) holds for many (or even infinitely many) possible values of \(x\). It could keep applying the rule that substitutes different terms for \(x\) over and over again, without ever reaching a conclusion. If there’s no clear stopping condition, this process could continue indefinitely.</p>
+<p>Now that we have a foundational framework, in the next post,
+I’ll delve into propositional logic. Stay tuned :P</p>
 
         
       </div>
@@ -327,7 +627,7 @@ A} \, (\text{CR})\) – Contraction</p>
 
   
   
-  <script src="http://localhost:1313/js/coder.js"></script>
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
   
 
   
@@ -336,8 +636,6 @@ A} \, (\text{CR})\) – Contraction</p>
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -352,10 +650,6 @@ A} \, (\text{CR})\) – Contraction</p>
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

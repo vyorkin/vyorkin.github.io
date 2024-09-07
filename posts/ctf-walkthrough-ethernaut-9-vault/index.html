@@ -14,8 +14,25 @@
 
 <meta name="author" content="Vasiliy Yorkin">
 <meta name="description" content="We need to unlock the Vault smart contract to pass the level.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let&rsquo;s look at the state variables:
-bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+contract Vault {
+    bool public locked;
+    bytes32 private password;
+
+    constructor(bytes32 _password) public {
+        locked = true;
+        password = _password;
+    }
+
+    function unlock(bytes32 _password) public {
+        if (password == _password) {
+            locked = false;
+        }
+    }
+}
+">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -23,15 +40,13 @@ bool public locked; bytes32 private password; In EVM storage is a key-value stor
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #9 Vault">
   <meta name="twitter:description" content="We need to unlock the Vault smart contract to pass the level.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let’s look at the state variables:
-bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } ">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-9-vault/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #9 Vault">
   <meta property="og:description" content="We need to unlock the Vault smart contract to pass the level.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let’s look at the state variables:
-bool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } ">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -356,8 +371,6 @@ challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king"
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -372,10 +385,6 @@ challenge: <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king"
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

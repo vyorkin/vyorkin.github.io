@@ -13,7 +13,7 @@
       <link>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</link>
       <pubDate>Sat, 07 Dec 2019 18:23:00 +0300</pubDate>
       <guid>https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/</guid>
-      <description>In order to understand things clearly and to learn Coq proof assistant at the same time, I&amp;rsquo;ve decided to do some proves while reading the TAPL book.&#xA;The code is on the GitHub.&#xA;For the excercises I want to use the ssreflect proof language instead of ltac. I&amp;rsquo;ll keep solutions to each chapter in a separate file. We&amp;rsquo;ll always work in the following context:&#xA;Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive.</description>
+      <description>&lt;p&gt;In order to understand things clearly and to learn Coq proof&#xA;assistant at the same time, I&amp;rsquo;ve decided to do some proves while&#xA;reading the TAPL book.&lt;/p&gt;&#xA;&lt;p&gt;The code is &lt;a href=&#34;https://github.com/vyorkin/tapl-coq&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;on the GitHub&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;For the excercises I want to use the &lt;a href=&#34;https://coq.inria.fr/refman/proof-engine/ssreflect-proof-language.html&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ssreflect&lt;/a&gt; proof language&#xA;instead of &lt;code&gt;ltac&lt;/code&gt;. I&amp;rsquo;ll keep solutions to each chapter in a&#xA;separate file. We&amp;rsquo;ll always work in the following context:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

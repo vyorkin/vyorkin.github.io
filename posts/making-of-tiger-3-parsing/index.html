@@ -13,21 +13,46 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
-Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir Link to heading While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.">
+<meta name="description" content="
+  Intro
+  
+    
+    Link to heading
+  
+
+In this chapter we’re going to build a parser for our Tiger
+language. First, let’s do a quick recap of some important
+concepts of the theory behind programming language parsers:
+
+Parser generator is the most common type of
+compiler-compiler’s. It takes some formal grammar (typically
+it is a context-free grammar in BNF or EBNF form), that
+defines a syntax of a programming language.
+
+
+  Tiger grammar with Menhir
+  
+    
+    Link to heading
+  
+
+While reading the current paragraph I highly recommend
+consulting the Tiger Language Reference Manual that has a
+precise description (along with a BNF notation) of everything
+we’re going to define below.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Making of Tiger #3, Parsing">
-  <meta name="twitter:description" content="Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+  <meta name="twitter:description" content=" Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
 Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir Link to heading While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/making-of-tiger-3-parsing/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Making of Tiger #3, Parsing">
-  <meta property="og:description" content="Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
+  <meta property="og:description" content=" Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:
 Parser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir Link to heading While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
@@ -687,8 +712,6 @@ language.</p>
 
 
   
-  
-    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
@@ -703,10 +726,6 @@ language.</p>
           gtag('config', 'G-F8R77TYF8B');
         }
       </script>
-    
-  
-
-
 
   
 

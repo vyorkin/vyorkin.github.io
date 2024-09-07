@@ -553,13 +553,14 @@ have the formula \(\forall x. P(x) \rightarrow P(f(x))\).</p>
 <p>We know: \(\forall x. P(x) \rightarrow P(f(x))\) <br />
 The goal: \(P(a)→P(f(f(…f(a)…)))\)</p>
 <ol>
-<li>Apply \(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x. A\vdash \Delta }}\quad (\forall L)\):
+<li>Apply \(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x.
+A\vdash \Delta }}\quad (\forall L)\): <br />
 Substituting \(x\) with \(a\) results in a new goal \(P(a) \rightarrow P(f(a))\).</li>
-<li>Repeat the \(\forall L\) rule:
+<li>Repeat the \(\forall L\) rule: <br />
 Now we have \(P(a) \rightarrow P(f(a))\) and we need to show \(P(f(a)) \rightarrow P(f(f(a)))\)</li>
-<li>Continue:
+<li>Continue: <br />
 Each application of the \(\forall L\) rule substitutes \(x\) with the result of applying \(f\) to the previous term. For instance, after substituting \(f(a)\), you get \(P(f(a)) \rightarrow P(f(f(a)))\). Applying the rule again gives \(P(f(f(a))) \rightarrow P(f(f(f(a))))\), and so forth.</li>
-<li>Repeat \(n\) times:
+<li>Repeat \(n\) times: <br />
 By continuing this process \(n\) times, you generate a chain of implications, starting from \(P(a)\) and ending with \(P(f(f(\dots f(a) \dots)))\), where \(f\) is applied \(n\) times.</li>
 </ol>
 <p><strong>The \(\exists R\) rule</strong></p>

@@ -564,8 +564,13 @@ By continuing this process \(n\) times, you generate a chain of implications, st
 </ol>
 <p><strong>The \(\exists R\) rule</strong></p>
 <p>Similarly, this rule is applied to existential quantifiers on the right side of the sequent. The \(\exists R\) is retained in the subgoal so that it can be reused.</p>
-<p><strong>The problem of reusing quantifiers</strong></p>
-<p>Our theorem prover uses these quantified formulae in rotation. It never throws them away. Reusing quantified formulas can lead to infinite loops. For example, formula \(\forall x. P(x) \vdash Q\) could cause the prover to run forever because the universal quantifier is applied to different terms repeatedly. Because our prover keeps reusing \(\forall x\), the search space grows and becomes <strong>infinite</strong>, since it keeps generating new possibilities for \(x\). When a theorem prover tries to handle this, it might need to check if \(P(x)\) holds for many (or even infinitely many) possible values of \(x\). It could keep applying the rule that substitutes different terms for \(x\) over and over again, without ever reaching a conclusion. If there’s no clear stopping condition, this process could continue indefinitely.</p>
+<blockquote class="quote2 quote2-warning no-quote"><p><strong>The problem of reusing quantifiers</strong>.</p>
+<p>Our theorem prover uses these quantified formulae in rotation.
+It never throws them away. Reusing quantified formulas can lead
+to infinite loops.</p>
+<p>For example, formula \(\forall x. P(x) \vdash Q\) could cause the prover to run forever because the universal quantifier is applied to different terms repeatedly. Because our prover keeps reusing \(\forall x\), the search space grows and becomes <strong>infinite</strong>, since it keeps generating new possibilities for \(x\). When a theorem prover tries to handle this, it might need to check if \(P(x)\) holds for many (or even infinitely many) possible values of \(x\). It could keep applying the rule that substitutes different terms for \(x\) over and over again, without ever reaching a conclusion. If there’s no clear stopping condition, this process could continue indefinitely.</p>
+</blockquote>
+
 <p>Now that we have a foundational framework, in the next post,
 we&rsquo;ll dive into propositional logic. \\ Stay tuned :P</p>
 

@@ -567,7 +567,7 @@ By continuing this process \(n\) times, you generate a chain of implications, st
 <p><strong>The problem of reusing quantifiers</strong></p>
 <p>Our theorem prover uses these quantified formulae in rotation. It never throws them away. Reusing quantified formulas can lead to infinite loops. For example, formula \(\forall x. P(x) \vdash Q\) could cause the prover to run forever because the universal quantifier is applied to different terms repeatedly. Because our prover keeps reusing \(\forall x\), the search space grows and becomes <strong>infinite</strong>, since it keeps generating new possibilities for \(x\). When a theorem prover tries to handle this, it might need to check if \(P(x)\) holds for many (or even infinitely many) possible values of \(x\). It could keep applying the rule that substitutes different terms for \(x\) over and over again, without ever reaching a conclusion. If there’s no clear stopping condition, this process could continue indefinitely.</p>
 <p>Now that we have a foundational framework, in the next post,
-I’ll delve into propositional logic. Stay tuned :P</p>
+we&rsquo;ll dive into propositional logic. \\ Stay tuned :P</p>
 
         
       </div>

@@ -228,8 +228,8 @@ Two different proofs below illustrate this.</p>
 <p>Rules can be chosen to limit subgoal creation. If a goal is a basic sequent, using other rules is pointless. <strong>The cost of a rule is the number of premises</strong>: 1-premise rules are cheaper than 2-premise ones. Therefore in the above example \(\land L\) is cheaper than \(\land R\).</p>
 <p>We will represent a goal in our theorem prover by a list of triples. Each triple includes:</p>
 <ul>
-<li>Formula – The specific formula involved.</li>
-<li>Side – Indicates whether the formula is on the Left side or the Right side of the sequent.</li>
+<li>Formula – Id of the specific formula.</li>
+<li>Side – Indicates whether the formula is on the <em>left</em> side or the <em>right</em> side of the sequent.</li>
 <li>Cost – The &ldquo;cost&rdquo; associated with applying the rule related to this formula.</li>
 </ul>
 <h2 id="rules">

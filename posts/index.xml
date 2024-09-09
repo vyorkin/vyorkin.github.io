@@ -6,8 +6,15 @@
     <description>Recent content in Posts on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Sep 2024 01:02:00 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2024 11:30:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 2</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</link>
+      <pubDate>Mon, 09 Sep 2024 11:30:00 +0300</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</guid>
+      <description>&lt;style&gt;&#xA;.sane-table th,&#xA;.sane-table td {&#xA;  border: 0;&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;h2 id=&#34;propositional-logic&#34;&gt;&#xA;  Propositional Logic&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#propositional-logic&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;In this short post we will explore how different proof&#xA;strategies, particularly in backwards reasoning, can impact the&#xA;efficiency of deriving conclusions. At the end, I&amp;rsquo;ll include a&#xA;table of Paulson&amp;rsquo;s rules for the folderol theorem prover.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Designing a Theorem Prover, Part 1</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-1/</link>

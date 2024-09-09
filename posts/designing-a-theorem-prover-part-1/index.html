@@ -525,7 +525,7 @@ The more concise rule we can use for that is \(\displaystyle
 \(\displaystyle \frac{\vdash A \land B, A \land B}{\vdash A \land B}\)</li>
 <li>Apply the <strong>right introduction for conjunction</strong> rule:
 \(\displaystyle \cfrac{\vdash A \quad \vdash B}{\vdash A \land B}\) <br />
-Applying the rule above we get: <br />
+Applying the rule above we get <br />
 \(\vdash A, A \land B \quad \vdash B, A \land B\) <br />
 which is equivalent to <br />
 \(\vdash A \quad \vdash B\) <br /></li>
@@ -533,11 +533,11 @@ which is equivalent to <br />
 <p><strong>Quantifiers</strong></p>
 <p>The only formulae worth duplicating are: <br /></p>
 <ul>
-<li>\(\displaystyle \forall x. A\) (on the <em>left</em> side of a sequent)</li>
-<li>\(\displaystyle \exists x. A\) (on the <em>right</em> side of a sequent)</li>
+<li>\(\displaystyle \forall x. A\) (on the <em>left</em> side of \(\forall L\))</li>
+<li>\(\displaystyle \exists x. A\) (on the <em>right</em> side of \(\exists R\))</li>
 </ul>
-<p>Here they are: \(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x. A\vdash \Delta
-}}\quad (\forall L)\), \(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</p>
+<p>\(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x. A\vdash
+\Delta}}\quad (\forall L)\), \(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</p>
 <p>This is because using these formulas may require generating multiple different instances by substituting different terms. Paulson suggests adding contraction to the rules for both \(\forall L\) and \(\exists R\). This allows the formula \(\forall x. A\) or \(\exists x. A\) to be retained during each step, so that the rule can be applied again for different terms.</p>
 <p><strong>The \(\forall L\) rule</strong></p>
 <p>This rule is applied when the formula \(\forall x. A\) is on the left side of the sequent (in the assumptions).</p>

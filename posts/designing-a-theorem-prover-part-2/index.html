@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Designing a Theorem Prover, Part 2 · transcendental kyberautism
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="
+
+  Propositional Logic
+  
+    
+    Link to heading
+  
+
+In this short post we will explore how different proof
+strategies, particularly in backwards reasoning, can impact the
+efficiency of deriving conclusions. At the end, I&rsquo;ll include a
+table of Paulson&rsquo;s rules for the folderol theorem prover.">
+<meta name="keywords" content="Vasiliy Yorkin">
+<meta name="fediverse:creator" content="" />
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Designing a Theorem Prover, Part 2">
+  <meta name="twitter:description" content=" Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.">
+
+<meta property="og:url" content="http://localhost:1313/posts/designing-a-theorem-prover-part-2/">
+  <meta property="og:site_name" content="transcendental kyberautism">
+  <meta property="og:title" content="Designing a Theorem Prover, Part 2">
+  <meta property="og:description" content=" Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-08T09:43:00+03:00">
+    <meta property="article:modified_time" content="2024-09-08T09:43:00+03:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/designing-a-theorem-prover-part-2/">
+
+
+<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
+  
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
+
+
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      transcendental kyberautism
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="http://localhost:1313/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="http://localhost:1313/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/designing-a-theorem-prover-part-2/">
+              Designing a Theorem Prover, Part 2
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="September 8, 2024">
+                September 8, 2024
+              </time>
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <style>
+.sane-table th,
+.sane-table td {
+  border: 0;
+}
+</style>
+<h2 id="propositional-logic">
+  Propositional Logic
+  <a class="heading-link" href="#propositional-logic">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In this short post we will explore how different proof
+strategies, particularly in backwards reasoning, can impact the
+efficiency of deriving conclusions. At the end, I&rsquo;ll include a
+table of Paulson&rsquo;s rules for the folderol theorem prover.</p>
+<p>Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\). <br /></p>
+<p>Instead of defining \(\neg A\) as \(A \to \bot\), we treat \(\neg\) as a basic operator on its own.</p>
+<p>In backwards proof, we break down complex conclusions step by step.
+The challenge is in choosing the most efficient path through the rules, as some routes can lead to significantly shorter proofs than others.</p>
+<p><strong>Example</strong></p>
+<p>Consider the simple example of proving: \(A \land B \vdash B \land A\).
+Two different proofs below illustrate this.</p>
+<p><strong>Proof 1</strong></p>
+<p>\(\displaystyle \cfrac {\cfrac {A, B \vdash B}{A \land B \vdash B} \quad (\land L) \qquad \cfrac {A, B \vdash A}{A \land B \vdash A} \quad (\land L)}{A \land B \vdash B \land A} \quad (\land R)\)</p>
+<p>As you can see, if \(\land R\) is used first then \(\land L\) must be used <em>twice</em>.</p>
+<p><strong>Proof 2</strong></p>
+<p>\(\displaystyle \cfrac {\cfrac {A, B \vdash B \qquad A, B \vdash A}{A, B \vdash B \land A} \quad (\land R)}{A \land B \vdash B \land A} \quad (\land L)\)</p>
+<p>The second proof is shorter because we used \(\land L\) first.</p>
+<p>Rules can be chosen to limit subgoal creation. If a goal is a basic sequent, using other rules is pointless. <strong>The cost of a rule is the number of premises</strong>: 1-premise rules are cheaper than 2-premise ones. Therefore in the above example \(\land L\) is cheaper than \(\land R\).</p>
+<p>We will represent a goal in our theorem prover by a list of triples. Each triple includes:</p>
+<ul>
+<li>Formula – The specific formula involved.</li>
+<li>Side – Indicates whether the formula is on the Left side or the Right side of the sequent.</li>
+<li>Cost – The &ldquo;cost&rdquo; associated with applying the rule related to this formula.</li>
+</ul>
+<h2 id="rules">
+  Rules
+  <a class="heading-link" href="#rules">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Finally here are the summary for our rules of propositional logic and quantifiers.</p>
+<p><strong>Propositional Logic Rules</strong></p>
+<div class="ox-hugo-table sane-table">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Rule L</th>
+          <th style="text-align: left">Rule R</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac {A, B \vdash}{A \land B \vdash} \quad (\land L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A \quad \vdash B}{\vdash A \land B} \quad (\land R)\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash \quad B \vdash}{A \lor B \vdash} \quad (\lor L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A, B}{\vdash A \lor B} \quad (\lor R)\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A \quad B \vdash}{A \rightarrow B \vdash} \quad (\rightarrow L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash B}{\vdash A \rightarrow B} \quad (\rightarrow R)\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac {A, B \vdash \quad \vdash A, B}{A \leftrightarrow B \vdash} \quad (\leftrightarrow L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash B \quad B \vdash A}{\vdash A \leftrightarrow B} \quad (\leftrightarrow R)\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A}{\neg A\vdash} \quad (\neg L)\)</td>
+          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash}{\vdash \neg A} \quad (\neg R)\)</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Propositional Logic Rules</strong></p>
+<div class="ox-hugo-table sane-table">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Rule L</th>
+          <th style="text-align: left">Rule R</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\forall x.A,A[t/x]\vdash }{\forall x.A\vdash }}\quad (\forall L)\)</td>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\vdash A[a/x]}{\vdash \forall x.A}}\quad (\forall R)\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(\displaystyle {\cfrac {A[a/x] \vdash}{\exists x.A \vdash}}\quad (\exists L)\)</td>
+          <td style="text-align: left">\(\displaystyle {\cfrac {\vdash \exists x.A, A[t/x]}{\vdash \exists x.A}}\quad (\exists R)\)</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<p>In the next post we&rsquo;ll take a look at quantifiers and
+unification ;)</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2024
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="http://localhost:1313/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

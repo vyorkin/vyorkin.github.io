@@ -53,7 +53,8 @@ contract Fallback {
         owner = payable(msg.sender);
     }
 }
-">
+I&rsquo;ve modified the original level code and removed the SafeMath
+usage since we&rsquo;re using solidity ^0.8.2.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -61,13 +62,13 @@ contract Fallback {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #2 Fallback">
   <meta name="twitter:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.value must be &lt; 0.001&#34;); contributions[msg.sender] &#43;= msg.value; if (contributions[msg.sender] &gt; contributions[owner]) { owner = payable(msg.sender); } } function getContribution() public view returns (uint256) { return contributions[msg.sender]; } function withdraw() public onlyOwner { owner.transfer(address(this).balance); } receive() external payable { require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0); owner = payable(msg.sender); } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.value must be &lt; 0.001&#34;); contributions[msg.sender] &#43;= msg.value; if (contributions[msg.sender] &gt; contributions[owner]) { owner = payable(msg.sender); } } function getContribution() public view returns (uint256) { return contributions[msg.sender]; } function withdraw() public onlyOwner { owner.transfer(address(this).balance); } receive() external payable { require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0); owner = payable(msg.sender); } } I’ve modified the original level code and removed the SafeMath usage since we’re using solidity ^0.8.2.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2-fallback/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #2 Fallback">
   <meta property="og:description" content="To complete this level we need become the owner of the contract and reduce its balance to zero.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.value must be &lt; 0.001&#34;); contributions[msg.sender] &#43;= msg.value; if (contributions[msg.sender] &gt; contributions[owner]) { owner = payable(msg.sender); } } function getContribution() public view returns (uint256) { return contributions[msg.sender]; } function withdraw() public onlyOwner { owner.transfer(address(this).balance); } receive() external payable { require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0); owner = payable(msg.sender); } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =&gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, &#34;caller is not the owner&#34;); _; } function contribute() public payable { require(msg.value &lt; 0.001 ether, &#34;msg.value must be &lt; 0.001&#34;); contributions[msg.sender] &#43;= msg.value; if (contributions[msg.sender] &gt; contributions[owner]) { owner = payable(msg.sender); } } function getContribution() public view returns (uint256) { return contributions[msg.sender]; } function withdraw() public onlyOwner { owner.transfer(address(this).balance); } receive() external payable { require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0); owner = payable(msg.sender); } } I’ve modified the original level code and removed the SafeMath usage since we’re using solidity ^0.8.2.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

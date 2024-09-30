@@ -210,6 +210,9 @@ as evidence.">
   border-collapse: collapse;
   width: 100%;
 }
+
+.colorscheme-dark .sane-table th,
+.colorscheme-dark .sane-table td,
 .sane-table th,
 .sane-table td {
   text-align: center !important;
@@ -268,13 +271,13 @@ as evidence.</p>
 </span></span><span style="display:flex;"><span>Q R
 </span></span><span style="display:flex;"><span>No more goals: proof finished
 </span></span></code></pre></div><p>Looks cool, right? So let&rsquo;s go – it&rsquo;s going to be a long journey ahead!</p>
-<h3 id="automated-theorem-proving">
+<h2 id="automated-theorem-proving">
   Automated Theorem Proving
   <a class="heading-link" href="#automated-theorem-proving">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>When we think about theorem provers, we need to distinguish
 between two key concepts:</p>
 <ol>
@@ -301,28 +304,31 @@ complete theories. Even if there were, interaction with the
 machine would still be necessary for exploring mathematics.
 </blockquote>
 
-<h3 id="framework">
+<h2 id="framework">
   Framework
   <a class="heading-link" href="#framework">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
-<p>Paulson&rsquo;s work relies on <a href="https://en.wikipedia.org/wiki/First-order_logic"  class="external-link" target="_blank" rel="noopener">First-Order
-Logic</a> (<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0_%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0"  class="external-link" target="_blank" rel="noopener">ru</a>)
-and uses Gentzen&rsquo;s <a href="https://en.wikipedia.org/wiki/Sequent_calculus"  class="external-link" target="_blank" rel="noopener">Sequent
-Calculus</a> (<a href="https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9#%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5_%D0%B3%D0%B5%D0%BD%D1%86%D0%B5%D0%BD%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B5_%D0%B8%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9"  class="external-link" target="_blank" rel="noopener">ru</a>)
-(LK) formal system. Let&rsquo;s begin by familiarizing ourselves with Sequent Calculus.</p>
+</h2>
 <blockquote class="quote2 quote2-question no-quote">A <strong>formal system</strong> is a framework for deriving theorems from axioms using specific rules.
 </blockquote>
 
-<h4 id="gentzen-s-sequent-calculus--lk">
+<p>Paulson&rsquo;s work relies on <a href="https://en.wikipedia.org/wiki/First-order_logic"  class="external-link" target="_blank" rel="noopener">First-Order
+Logic</a>
+(<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0_%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0"  class="external-link" target="_blank" rel="noopener">ru</a>)
+and uses Gentzen&rsquo;s <a href="https://en.wikipedia.org/wiki/Sequent_calculus"  class="external-link" target="_blank" rel="noopener">Sequent
+Calculus</a>
+(<a href="https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9#%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5_%D0%B3%D0%B5%D0%BD%D1%86%D0%B5%D0%BD%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B5_%D0%B8%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%B5%D0%BA%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%B9"  class="external-link" target="_blank" rel="noopener">ru</a>)
+(LK) formal system. I don&rsquo;t know anything about this shit, so
+let&rsquo;s begin by familiarizing ourselves with Sequent Calculus.</p>
+<h3 id="gentzen-s-sequent-calculus--lk">
   Gentzen&rsquo;s Sequent Calculus (LK)
   <a class="heading-link" href="#gentzen-s-sequent-calculus--lk">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h4>
+</h3>
 <p>There are two main <em>styles</em> of <strong>proof calculus</strong> for expressing line-by-line logical arguments:</p>
 <p><strong>Hilbert Style</strong></p>
 <ul>
@@ -334,7 +340,7 @@ Calculus</a> (<a href="https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%87%D0%B8%D1
 <p><strong>Gentzen Style</strong></p>
 <ul>
 <li>Uses conditional tautology (more on that below)</li>
-<li>Rich inference rules</li>
+<li>Rich inference rules, minimum number of axioms</li>
 <li>Represents proofs as derivation trees</li>
 <li>Preferred for proof theory research</li>
 </ul>
@@ -382,13 +388,13 @@ these conditions as \(\Gamma \vdash \Delta\) (&quot;\(\Delta\) is derivable from
 <p>If conditions $1.$ and $2.$ are <em>contradictory</em> then the sequent
 \(\Gamma \vdash \Delta\) is <em>true</em>. <br />
 \(A \vdash A\) <em>basic</em> sequent is trivially <em>true</em>.</p>
-<h4 id="rules-of-inference">
+<h3 id="rules-of-inference">
   Rules of inference
   <a class="heading-link" href="#rules-of-inference">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h4>
+</h3>
 <p>In sequent form rules of inference are written as:</p>
 <p>\(\displaystyle \frac{S_1}{T}\) and \(\displaystyle \frac{S_1 \quad S_2}{T}\)</p>
 <p>They are interpreted as statements about deriving the lower
@@ -398,17 +404,18 @@ A proof is written in a tree-like form from top to bottom:</p>
 <p>Each line represents a direct inference — the transition from the upper sequents to the lower one according to one of the accepted rules of inference in the system.</p>
 <p>Two most popular types of sequent calculus are Gentzen-style
 systems <strong>LK</strong> and <strong>LJ</strong>. We&rsquo;re interested in LK.</p>
-<h4 id="lk">
+<h3 id="lk">
   LK
   <a class="heading-link" href="#lk">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h4>
+</h3>
 <p>LK system has 1 axiom and a rich set of inference rules.</p>
 <p><strong>Axiom</strong></p>
 <p>\(A \rightarrow A\)</p>
 <p><strong>Structural inference rules</strong></p>
+<p>Let&rsquo;s start with a quick review of the structural inference rules:</p>
 <div class="ox-hugo-table sane-table">
 <table>
   <thead>
@@ -449,21 +456,15 @@ Accepting this as a basic sequent <em>makes thinning rules like
 unnecessary</em>. <br />
 Also <em>we don&rsquo;t need exchange rules</em> like \(\displaystyle \frac{\Gamma,
 A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta}\), we can simply ignore the order of formulae.</p>
-<blockquote class="quote2 quote2-question no-quote"><p><strong>Backwards reasoning/proof</strong> means that we start with the statement we want to prove and try to simplify it step by step until we reach an axiom.</p>
-<p>Example in LK:</p>
-<ol>
-<li>We start with \(\displaystyle A \land B \vdash A\), we need to prove \(A \vdash A\)</li>
-<li>We apply the <strong>left conjunction</strong> rule: \(\displaystyle
-\cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\) <br />
-This rule allows us to move from \(A \land B \vdash A\)  to \(A
-\vdash A\). <br />
-The reasoning is that, if we can derive \(A\) from \(A\), then we can also derive \(A\) from \(A \land B\).</li>
-<li>So, applying \(\land L_1\) directly we get \(A\vdash A\)</li>
-</ol>
-<p>We started from the goal and worked backward, breaking it down into simpler components and using axioms. We used \(\land L_1\)​ to simplify the goal and then applied an axiom to complete the proof.</p>
+<p>I wrote a quick explanation of
+<a href="https://vyorkin.org/posts/forwards-reasoning-vs-backwards-reasoning" >forwards
+reasoning versus backwards reasoning</a>.</p>
+<blockquote class="quote2 quote2-question no-quote">In backwards reasoning we read derivation trees from
+bottom to top \(\displaystyle \uparrow\)
 </blockquote>
 
 <p><strong>Logical inference rules</strong></p>
+<p>In Gentzen&rsquo;s LK we have the following logical inference rules:</p>
 <div class="ox-hugo-table sane-table">
 <table>
   <thead>
@@ -529,6 +530,15 @@ which is equivalent to <br />
 \(\vdash A \quad \vdash B\) <br /></li>
 </ol>
 <p><strong>Quantifiers</strong></p>
+<blockquote class="quote2 quote2-note no-quote"><p>In logic, we use quantifiers to talk about things like &ldquo;for all&rdquo;
+and &ldquo;there exists&rdquo;. <br /></p>
+<p>For example: <br /></p>
+<ul>
+<li>\(\forall x. P(x)\) means \(P\) is true for every \(x\).</li>
+<li>\(\exists y. P(y)\) means there&rsquo;s at least one \(y\) that makes \(P\) true.</li>
+</ul>
+</blockquote>
+
 <p>The only formulae worth duplicating are: <br /></p>
 <ul>
 <li>\(\displaystyle \forall x. A\) (on the <em>left</em> side of \(\forall L\))</li>

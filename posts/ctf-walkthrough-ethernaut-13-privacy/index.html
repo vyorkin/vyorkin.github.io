@@ -44,7 +44,14 @@ contract Privacy {
       ^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;  UU  UU
   */
 }
-">
+
+  Analysis
+  
+    
+    Link to heading
+  
+
+Let&rsquo;s review the unlock function:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -52,13 +59,13 @@ contract Privacy {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #13 Privacy">
   <meta name="twitter:description" content="The creator of this contract was careful enough to protect the sensitive areas of its storage. Unlock this contract to beat the level.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Privacy { bool public locked = true; uint256 public ID = block.timestamp; uint8 private flattening = 10; uint8 private denomination = 255; uint16 private awkwardness = uint16(block.timestamp); bytes32[3] private data; constructor(bytes32[3] memory _data) { data = _data; } function unlock(bytes16 _key) public { require(_key == bytes16(data[2])); locked = false; } /* A bunch of super advanced solidity algorithms... *&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^` .,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*., *.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^ ,---/V\ `*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*. ~|__(o.o) ^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39; UU UU */ } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Privacy { bool public locked = true; uint256 public ID = block.timestamp; uint8 private flattening = 10; uint8 private denomination = 255; uint16 private awkwardness = uint16(block.timestamp); bytes32[3] private data; constructor(bytes32[3] memory _data) { data = _data; } function unlock(bytes16 _key) public { require(_key == bytes16(data[2])); locked = false; } /* A bunch of super advanced solidity algorithms... *&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^` .,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*., *.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^ ,---/V\ `*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*. ~|__(o.o) ^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39; UU UU */ } Analysis Link to heading Let’s review the unlock function:">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-13-privacy/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #13 Privacy">
   <meta property="og:description" content="The creator of this contract was careful enough to protect the sensitive areas of its storage. Unlock this contract to beat the level.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Privacy { bool public locked = true; uint256 public ID = block.timestamp; uint8 private flattening = 10; uint8 private denomination = 255; uint16 private awkwardness = uint16(block.timestamp); bytes32[3] private data; constructor(bytes32[3] memory _data) { data = _data; } function unlock(bytes16 _key) public { require(_key == bytes16(data[2])); locked = false; } /* A bunch of super advanced solidity algorithms... *&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^` .,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*., *.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^ ,---/V\ `*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*. ~|__(o.o) ^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39; UU UU */ } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Privacy { bool public locked = true; uint256 public ID = block.timestamp; uint8 private flattening = 10; uint8 private denomination = 255; uint16 private awkwardness = uint16(block.timestamp); bytes32[3] private data; constructor(bytes32[3] memory _data) { data = _data; } function unlock(bytes16 _key) public { require(_key == bytes16(data[2])); locked = false; } /* A bunch of super advanced solidity algorithms... *&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^` .,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*., *.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^ ,---/V\ `*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*. ~|__(o.o) ^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39;^`*.,*&#39; UU UU */ } Analysis Link to heading Let’s review the unlock function:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

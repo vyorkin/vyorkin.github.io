@@ -31,7 +31,17 @@ contract Telephone {
         }
     }
 }
-">
+
+  Analysis
+  
+    
+    Link to heading
+  
+
+The changeOwner function requires that tx.origin != msg.sender.
+We know that tx.origin always refers to the EOA (externally
+owned account) that started the transaction irrespective of the
+stack of contracts invoked:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -39,13 +49,15 @@ contract Telephone {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #5 Telephone">
   <meta name="twitter:description" content="We need to claim ownership of the contract below to complete this level:
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis Link to heading The changeOwner function requires that tx.origin != msg.sender.
+We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-5-telephone/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #5 Telephone">
   <meta property="og:description" content="We need to claim ownership of the contract below to complete this level:
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis Link to heading The changeOwner function requires that tx.origin != msg.sender.
+We know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

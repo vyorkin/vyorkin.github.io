@@ -59,7 +59,27 @@ contract GatekeeperOne {
         return true;
     }
 }
-">
+
+  Analysis &amp; Exploit
+  
+    
+    Link to heading
+  
+
+ function enter(bytes8 _gateKey)
+    public
+    gateOne
+    gateTwo
+    gateThree(_gateKey)
+    returns (bool)
+{
+    entrant = tx.origin;
+    return true;
+}
+The enter function has 3 modifiers that perform some checks.
+The first two modifiers don&rsquo;t take any parameters and the last
+one expects the bytes8 _gateKey. On success, it assigns
+tx.origin to entrant and returns true.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -67,13 +87,13 @@ contract GatekeeperOne {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #14 Gatekeeper One">
   <meta name="twitter:description" content="To solve this challenge we must register as an entrant.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } } Analysis &amp; Exploit Link to heading function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } The enter function has 3 modifiers that perform some checks. The first two modifiers don’t take any parameters and the last one expects the bytes8 _gateKey. On success, it assigns tx.origin to entrant and returns true.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #14 Gatekeeper One">
   <meta property="og:description" content="To solve this challenge we must register as an entrant.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import &#34;forge-std/console2.sol&#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), &#34;GatekeeperOne: invalid gateThree part one&#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), &#34;GatekeeperOne: invalid gateThree part two&#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), &#34;GatekeeperOne: invalid gateThree part three&#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } } Analysis &amp; Exploit Link to heading function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } The enter function has 3 modifiers that perform some checks. The first two modifiers don’t take any parameters and the last one expects the bytes8 _gateKey. On success, it assigns tx.origin to entrant and returns true.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

@@ -24,7 +24,59 @@ More and more lending pools are offering flash loans. In this
 case, a new pool has launched that is offering flash loans of
 DVT tokens for free.
 Currently the pool has 1 million DVT tokens in balance. And you
-have nothing.">
+have nothing.
+But don&rsquo;t worry, you might be able to take them all from the
+pool. In a single transaction.
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.12;
+
+import {IERC20} from &#34;openzeppelin-contracts/token/ERC20/IERC20.sol&#34;;
+import {Address} from &#34;openzeppelin-contracts/utils/Address.sol&#34;;
+import {ReentrancyGuard} from &#34;openzeppelin-contracts/security/ReentrancyGuard.sol&#34;;
+
+/**
+ * @title TrusterLenderPool
+ * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
+ */
+contract TrusterLenderPool is ReentrancyGuard {
+    using Address for address;
+
+    IERC20 public immutable damnValuableToken;
+
+    error NotEnoughTokensInPool();
+    error FlashLoanHasNotBeenPaidBack();
+
+    constructor(address tokenAddress) {
+        damnValuableToken = IERC20(tokenAddress);
+    }
+
+    function flashLoan(
+        uint256 borrowAmount,
+        address borrower,
+        address target,
+        bytes calldata data
+    ) external nonReentrant {
+        uint256 balanceBefore = damnValuableToken.balanceOf(address(this));
+        if (balanceBefore &lt; borrowAmount) revert NotEnoughTokensInPool();
+
+        damnValuableToken.transfer(borrower, borrowAmount);
+        target.functionCall(data);
+
+        uint256 balanceAfter = damnValuableToken.balanceOf(address(this));
+        if (balanceAfter &lt; balanceBefore) revert FlashLoanHasNotBeenPaidBack();
+    }
+}
+
+  Analysis
+  
+    
+    Link to heading
+  
+
+The contract keeps a reference to the DVT ERC20 token, which is
+set in the constructor:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -32,13 +84,17 @@ have nothing.">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Damn Vulnerable DeFi, #3 Truster">
   <meta name="twitter:description" content=" Challenge Link to heading More and more lending pools are offering flash loans. In this case, a new pool has launched that is offering flash loans of DVT tokens for free.
-Currently the pool has 1 million DVT tokens in balance. And you have nothing.">
+Currently the pool has 1 million DVT tokens in balance. And you have nothing.
+But don’t worry, you might be able to take them all from the pool. In a single transaction.
+// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {IERC20} from &#34;openzeppelin-contracts/token/ERC20/IERC20.sol&#34;; import {Address} from &#34;openzeppelin-contracts/utils/Address.sol&#34;; import {ReentrancyGuard} from &#34;openzeppelin-contracts/security/ReentrancyGuard.sol&#34;; /** * @title TrusterLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz) */ contract TrusterLenderPool is ReentrancyGuard { using Address for address; IERC20 public immutable damnValuableToken; error NotEnoughTokensInPool(); error FlashLoanHasNotBeenPaidBack(); constructor(address tokenAddress) { damnValuableToken = IERC20(tokenAddress); } function flashLoan( uint256 borrowAmount, address borrower, address target, bytes calldata data ) external nonReentrant { uint256 balanceBefore = damnValuableToken.balanceOf(address(this)); if (balanceBefore &lt; borrowAmount) revert NotEnoughTokensInPool(); damnValuableToken.transfer(borrower, borrowAmount); target.functionCall(data); uint256 balanceAfter = damnValuableToken.balanceOf(address(this)); if (balanceAfter &lt; balanceBefore) revert FlashLoanHasNotBeenPaidBack(); } } Analysis Link to heading The contract keeps a reference to the DVT ERC20 token, which is set in the constructor:">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Damn Vulnerable DeFi, #3 Truster">
   <meta property="og:description" content=" Challenge Link to heading More and more lending pools are offering flash loans. In this case, a new pool has launched that is offering flash loans of DVT tokens for free.
-Currently the pool has 1 million DVT tokens in balance. And you have nothing.">
+Currently the pool has 1 million DVT tokens in balance. And you have nothing.
+But don’t worry, you might be able to take them all from the pool. In a single transaction.
+// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {IERC20} from &#34;openzeppelin-contracts/token/ERC20/IERC20.sol&#34;; import {Address} from &#34;openzeppelin-contracts/utils/Address.sol&#34;; import {ReentrancyGuard} from &#34;openzeppelin-contracts/security/ReentrancyGuard.sol&#34;; /** * @title TrusterLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz) */ contract TrusterLenderPool is ReentrancyGuard { using Address for address; IERC20 public immutable damnValuableToken; error NotEnoughTokensInPool(); error FlashLoanHasNotBeenPaidBack(); constructor(address tokenAddress) { damnValuableToken = IERC20(tokenAddress); } function flashLoan( uint256 borrowAmount, address borrower, address target, bytes calldata data ) external nonReentrant { uint256 balanceBefore = damnValuableToken.balanceOf(address(this)); if (balanceBefore &lt; borrowAmount) revert NotEnoughTokensInPool(); damnValuableToken.transfer(borrower, borrowAmount); target.functionCall(data); uint256 balanceAfter = damnValuableToken.balanceOf(address(this)); if (balanceAfter &lt; balanceBefore) revert FlashLoanHasNotBeenPaidBack(); } } Analysis Link to heading The contract keeps a reference to the DVT ERC20 token, which is set in the constructor:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

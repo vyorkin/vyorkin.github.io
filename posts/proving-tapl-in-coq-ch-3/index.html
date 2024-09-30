@@ -19,7 +19,13 @@ reading the TAPL book.
 The code is on the GitHub.
 For the excercises I want to use the ssreflect proof language
 instead of ltac. I&rsquo;ll keep solutions to each chapter in a
-separate file. We&rsquo;ll always work in the following context:">
+separate file. We&rsquo;ll always work in the following context:
+Set Implicit Arguments.
+Unset Strict Implicit.
+Unset Printing Implicit Defensive.
+From Coq Require Import ssreflect.
+I&rsquo;ll start with the operational semantics of boolean
+expressions. Here is the definition in Coq:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -28,14 +34,16 @@ separate file. We&rsquo;ll always work in the following context:">
   <meta name="twitter:title" content="Proving TAPL in Coq (ch 3, WIP)">
   <meta name="twitter:description" content="In order to understand things clearly and to learn Coq proof assistant at the same time, I’ve decided to do some proves while reading the TAPL book.
 The code is on the GitHub.
-For the excercises I want to use the ssreflect proof language instead of ltac. I’ll keep solutions to each chapter in a separate file. We’ll always work in the following context:">
+For the excercises I want to use the ssreflect proof language instead of ltac. I’ll keep solutions to each chapter in a separate file. We’ll always work in the following context:
+Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive. From Coq Require Import ssreflect. I’ll start with the operational semantics of boolean expressions. Here is the definition in Coq:">
 
 <meta property="og:url" content="https://vyorkin.org/posts/proving-tapl-in-coq-ch-3/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Proving TAPL in Coq (ch 3, WIP)">
   <meta property="og:description" content="In order to understand things clearly and to learn Coq proof assistant at the same time, I’ve decided to do some proves while reading the TAPL book.
 The code is on the GitHub.
-For the excercises I want to use the ssreflect proof language instead of ltac. I’ll keep solutions to each chapter in a separate file. We’ll always work in the following context:">
+For the excercises I want to use the ssreflect proof language instead of ltac. I’ll keep solutions to each chapter in a separate file. We’ll always work in the following context:
+Set Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive. From Coq Require Import ssreflect. I’ll start with the operational semantics of boolean expressions. Here is the definition in Coq:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

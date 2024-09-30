@@ -45,7 +45,14 @@ contract Delegation {
         }
     }
 }
-">
+
+  Analysis
+  
+    
+    Link to heading
+  
+
+We have two contracts: the Delegate and the Delegation.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -53,13 +60,13 @@ contract Delegation {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #7 Delegation">
   <meta name="twitter:description" content="The goals is to claim the ownership of the Delegate contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis Link to heading We have two contracts: the Delegate and the Delegation.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-7-delegation/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #7 Delegation">
   <meta property="og:description" content="The goals is to claim the ownership of the Delegate contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } ">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis Link to heading We have two contracts: the Delegate and the Delegation.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">

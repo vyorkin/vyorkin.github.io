@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</loc>
-    <lastmod>2024-09-09T11:30:00+03:00</lastmod>
+    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-3/</loc>
+    <lastmod>2024-09-29T20:19:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/tags/folderol/</loc>
+    <lastmod>2024-09-29T20:19:00+03:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2024-09-09T11:30:00+03:00</lastmod>
+    <lastmod>2024-09-29T20:19:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -18,8 +21,26 @@
                 href="https://vyorkin.org/posts/"
                 />
   </url><url>
+    <loc>https://vyorkin.org/tags/</loc>
+    <lastmod>2024-09-29T20:19:00+03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru-ru"
+                href="https://vyorkin.org/ru-ru/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de-de"
+                href="https://vyorkin.org/de-de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vyorkin.org/tags/"
+                />
+  </url><url>
     <loc>https://vyorkin.org/</loc>
-    <lastmod>2024-09-09T11:30:00+03:00</lastmod>
+    <lastmod>2024-09-29T20:19:00+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -36,29 +57,14 @@
                 href="https://vyorkin.org/"
                 />
   </url><url>
+    <loc>https://vyorkin.org/posts/forwards-reasoning-vs-backwards-reasoning/</loc>
+    <lastmod>2024-09-21T19:07:00+03:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</loc>
+    <lastmod>2024-09-09T11:30:00+03:00</lastmod>
+  </url><url>
     <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-1/</loc>
     <lastmod>2024-09-08T01:02:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/folderol/</loc>
-    <lastmod>2024-09-08T01:02:00+03:00</lastmod>
-  </url><url>
-    <loc>https://vyorkin.org/tags/</loc>
-    <lastmod>2024-09-08T01:02:00+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ru-ru"
-                href="https://vyorkin.org/ru-ru/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de-de"
-                href="https://vyorkin.org/de-de/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vyorkin.org/tags/"
-                />
   </url><url>
     <loc>https://vyorkin.org/tags/blockchain/</loc>
     <lastmod>2022-11-15T12:30:00+03:00</lastmod>

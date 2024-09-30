@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Designing a Theorem Prover, Part 3 · transcendental kyberautism
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="
+  Quantifiers and Unification
+  
+    
+    Link to heading
+  
+
+In this post, we’ll dive into the mechanics of quantifiers and
+unification in theorem proving.
+
+  Meta-Variables
+  
+    
+    Link to heading
+  
+
+In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left
+unspecified, meaning it can represent any expression. We will
+use special meta-variables like \(?a\), \(?b\), \(?c\), etc.,
+which act as placeholders for such terms. The backward rules
+will insert a fresh meta-variable, such as \(?b\), in place of \(t\)
+(term) in the subgoal.">
+<meta name="keywords" content="Vasiliy Yorkin">
+<meta name="fediverse:creator" content="" />
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Designing a Theorem Prover, Part 3">
+  <meta name="twitter:description" content=" Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
+Meta-Variables Link to heading In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left unspecified, meaning it can represent any expression. We will use special meta-variables like \(?a\), \(?b\), \(?c\), etc., which act as placeholders for such terms. The backward rules will insert a fresh meta-variable, such as \(?b\), in place of \(t\) (term) in the subgoal.">
+
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/">
+  <meta property="og:site_name" content="transcendental kyberautism">
+  <meta property="og:title" content="Designing a Theorem Prover, Part 3">
+  <meta property="og:description" content=" Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
+Meta-Variables Link to heading In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left unspecified, meaning it can represent any expression. We will use special meta-variables like \(?a\), \(?b\), \(?c\), etc., which act as placeholders for such terms. The backward rules will insert a fresh meta-variable, such as \(?b\), in place of \(t\) (term) in the subgoal.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-29T20:19:00+03:00">
+    <meta property="article:modified_time" content="2024-09-29T20:19:00+03:00">
+    <meta property="article:tag" content="Folderol">
+
+
+
+
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/">
+
+
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+
+  
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+
+
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="https://vyorkin.org/">
+      transcendental kyberautism
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/">
+              Designing a Theorem Prover, Part 3
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="September 29, 2024">
+                September 29, 2024
+              </time>
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="quantifiers-and-unification">
+  Quantifiers and Unification
+  <a class="heading-link" href="#quantifiers-and-unification">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In this post, we’ll dive into the mechanics of quantifiers and
+unification in theorem proving.</p>
+<h3 id="meta-variables">
+  Meta-Variables
+  <a class="heading-link" href="#meta-variables">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left
+unspecified, meaning it can represent any expression. We will
+use special <strong><strong>meta-variables</strong></strong> like \(?a\), \(?b\), \(?c\), etc.,
+which act as placeholders for such terms. The backward rules
+will insert a fresh meta-variable, such as \(?b\), in place of \(t\)
+(term) in the subgoal.</p>
+<blockquote class="quote2 quote2-note no-quote">\(?a\), \(?b\), \(?c\) – meta-variables.
+</blockquote>
+
+<h3 id="unification">
+  Unification
+  <a class="heading-link" href="#unification">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Folderol attempts to unify the left formula \(A_1\) and the right
+formula \(A_2\) for each new subgoal. Unification works by
+replacing the meta-variables in \(A_1\) and \(A_2\) to both sides
+identical, resulting in a single unified formula \(A\).</p>
+<p><strong><strong>Example 1</strong></strong></p>
+<p>\(A_1 := R(?a, f(x))\) <br />
+\(A_2 := R(g(?b), b)\)</p>
+<p>Both become: <br />
+\(A := R(g(f(x)), f(x))\) <br /></p>
+<p>By replacing: <br />
+\(?a \mapsto g(f(x))\) <br />
+\(?b \mapsto f(x)\)</p>
+<p><strong><strong>Example 2</strong></strong></p>
+<p>\(A_1 := R(?a, f(?c))\) <br />
+\(A_2 := R(g(?d), ?b)\)</p>
+<p>Become: <br />
+\(A := R(g(?d), f(?c))\)</p>
+<h3 id="parameters-and-quantifier-rules">
+  Parameters and Quantifier Rules
+  <a class="heading-link" href="#parameters-and-quantifier-rules">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>We need to avoid <span class="underline">variable capture</span> during substitution, which occurs when a free variable unintentionally becomes bound. This can lead to invalid inferences, like:</p>
+<p>\(\displaystyle {\cfrac {\vdash \forall x. \exists y. y \neq x}{\vdash \exists y. y \neq y}}\quad (\forall R)\)</p>
+<p>To prevent this, we define two distinct sets: <span class="underline">parameters</span>
+(\(a, b, c, \dots\)) and <span class="underline">variables</span> (\(x, y, z, \dots\)). <br /></p>
+<blockquote class="quote2 quote2-note no-quote"><p>\(a, b, c, \dots\) – parameters <br />
+\(x, y, z, \dots\) – variables</p>
+<p><em><strong><strong>Parameters</strong></strong> remain unbound, while <strong><strong>variables</strong></strong> must always be bound</em>.</p>
+</blockquote>
+
+<blockquote class="quote2 quote2-warning no-quote">When applying the \(\forall R\) or \(\exists L\) rule we should replace the
+bound variables like \(x\), \(y\), \(z\) with <em>fresh</em> parameters like
+\(a\), \(b\), \(c\).
+</blockquote>
+
+<p>Btw under this distinction subformula may not necessarily be a
+valid formula by itself. For a example in \(\forall x. \exists y. y \neq x\), the subformula \(\exists y. y \neq x\) has variable \(x\) unbound. <br /></p>
+<p>When applying the rule \((\forall R)\) we replace the bound variable \(x\)
+with a fresh parameter, say \(a\), yielding the conclusion:
+\(\displaystyle \vdash \exists y. y \neq a\). But we&rsquo;ll soon see that it&rsquo;s more complicated than it appears&hellip;</p>
+<h3 id="enforcement-of-provisos-of-quantifier-rules">
+  Enforcement of Provisos of Quantifier Rules
+  <a class="heading-link" href="#enforcement-of-provisos-of-quantifier-rules">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<blockquote class="quote2 quote2-question no-quote"><strong>Proviso</strong> is a statement in an agreement, saying that a
+particular thing must happen before another can.
+</blockquote>
+
+<p>When we&rsquo;re using quantifier rules, we have to be careful and
+make sure that we don&rsquo;t accidentally mess things up by reusing
+or misusing the variables. Even though we try to introduce fresh
+new variables each time we apply a rule, sometimes things get
+tricky. When we replace meta-variables, it might accidentally
+change the thing we&rsquo;re trying to prove.</p>
+<blockquote class="quote2 quote2-warning no-quote">The danger of instantiation of meta-variables is that it can change the conclusion.
+</blockquote>
+
+<p>Let&rsquo;s consider the following formula: <br />
+\(\displaystyle \forall x. R(x, x) \vdash \exists y. \forall x. R(x, y)\)</p>
+<p>To see why it is not valid think of \(R\) as some kind of
+<span class="underline">relation</span>. For example, let \(R(x, y)\) mean \(x = y\). <br />
+Why it is not valid? If \(R(x, y)\) means \(x\) equals \(y\), then you can&rsquo;t make that work for all \(x\) and one \(y\). That&rsquo;s like saying everyone is equal to the same person, which doesn&rsquo;t make sense.</p>
+<p>A derivation using meta-variables (and deleting some quantifiers
+for a better readability) might look like:</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(?c, ?c) \vdash R(b, ?a)}{\forall x. R(x, x) \vdash R(b, ?a)} \quad (\forall L)}{\forall x. R(x, x) \vdash \forall x. R(x, ?a)} \quad (\forall R)}{\forall x. R(x, x) \vdash \exists y. \forall x. R(x, y)} \quad (\exists R)}\)</p>
+<blockquote class="quote2 quote2-note no-quote">When applying rules \((\exists L)\) and \((\forall R)\) we replace terms \(t\) with meta-variables \(?a\), \(?b\), \(?c\). <br />
+When applying rules \((\forall R)\) and \((\exists R)\) we replace variables \(x\), \(y\), \(z\) with parameters \(a\), \(b\), \(c\).
+</blockquote>
+
+<p>From the first sight it may seem like replacing \(?c\) and \(?a\) by \(b\) completes the proof:
+\(\displaystyle R(b, b) \vdash R(b, b)\)</p>
+<p>However, this introduces a <em>circularity</em>: assigning \(b\) to \(?a\)
+means that \(b\) appears in the conclusion of the rule \((\forall R)\),
+which violates the proviso that \(b\) must not appear in the
+conclusion. <br />
+Hence the second inference is a nonsense:
+\(\displaystyle \cfrac {R(b, b) \vdash R(b, b)}{\forall x. R(x, x) \vdash R(b, ?a)}\)</p>
+<p>We&rsquo;re using meta-variables as placeholders so we could swap them out later. If we&rsquo;re not careful, when we swap out these placeholders, we might accidentally create a loop — where the thing we&rsquo;re trying to avoid ends up in the conclusion anyway.</p>
+<p>To address this issue, we introduce the concept of <em>dependency</em>. If a parameter \(b\) depends on a meta-variable \(?a\), we write this as \(b[?a]\). This means that \(b\) must be distinct from any parameters in terms substituted for \(?a\).</p>
+<p>Our theorem prover should implement an <em>&ldquo;occurs check&rdquo;</em> to prevent circular assignments.
+Variable \(?a\) is unifiable with term \(t\) only if \(?a\) does not
+occur in \(t\). For example, if \(t\) contains \(b[?a]\), and you&rsquo;re trying to assign \(?a\) to \(t\), the occurs check will prevent this circularity.</p>
+<blockquote class="quote2 quote2-note no-quote">Carefully managing dependencies of parameters is critical to ensuring valid proofs.
+</blockquote>
+
+<p>To apply \((\exists L)\) or \((\forall R)\) we choose a fresh parameter \(b\) that depends on all meta-variables in the goal, say \(?a_1, \dots, ?a_n\). The emphasize the dependency we write \(b[?a_1, \dots, ?a_n]\).</p>
+<h3 id="no-second-order-dependence">
+  No Second-Order Dependence
+  <a class="heading-link" href="#no-second-order-dependence">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>TODO</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2024
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

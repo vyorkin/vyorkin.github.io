@@ -295,6 +295,7 @@ with a fresh parameter, say \(a\), yielding the conclusion:
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
+<p>In this chapter Paulson uses the term &ldquo;Proviso&rdquo; a lot.</p>
 <blockquote class="quote2 quote2-question no-quote"><strong>Proviso</strong> is a statement in an agreement, saying that a
 particular thing must happen before another can.
 </blockquote>
@@ -316,8 +317,9 @@ Why it is not valid? If \(R(x, y)\) means \(x\) equals \(y\), then you can&rsquo
 <p>A derivation using meta-variables (and deleting some quantifiers
 for a better readability) might look like:</p>
 <p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(?c, ?c) \vdash R(b, ?a)}{\forall x. R(x, x) \vdash R(b, ?a)} \quad (\forall L)}{\forall x. R(x, x) \vdash \forall x. R(x, ?a)} \quad (\forall R)}{\forall x. R(x, x) \vdash \exists y. \forall x. R(x, y)} \quad (\exists R)}\)</p>
-<blockquote class="quote2 quote2-note no-quote">When applying rules \((\exists L)\) and \((\forall R)\) we replace terms \(t\) with meta-variables \(?a\), \(?b\), \(?c\). <br />
-When applying rules \((\forall R)\) and \((\exists R)\) we replace variables \(x\), \(y\), \(z\) with parameters \(a\), \(b\), \(c\).
+<blockquote class="quote2 quote2-note no-quote">When applying rules \((\forall L)\) and \((\exists R)\) we replace terms \(t\)
+with meta-variables \(?a\), \(?b\), \(?c\). <br />
+When applying rules \((\forall R)\) and \((\exists L)\) we replace variables \(x\), \(y\), \(z\) with parameters \(a\), \(b\), \(c\).
 </blockquote>
 
 <p>From the first sight it may seem like replacing \(?c\) and \(?a\) by \(b\) completes the proof:
@@ -330,13 +332,20 @@ Hence the second inference is a nonsense:
 \(\displaystyle \cfrac {R(b, b) \vdash R(b, b)}{\forall x. R(x, x) \vdash R(b, ?a)}\)</p>
 <p>We&rsquo;re using meta-variables as placeholders so we could swap them out later. If we&rsquo;re not careful, when we swap out these placeholders, we might accidentally create a loop — where the thing we&rsquo;re trying to avoid ends up in the conclusion anyway.</p>
 <p>To address this issue, we introduce the concept of <em>dependency</em>. If a parameter \(b\) depends on a meta-variable \(?a\), we write this as \(b[?a]\). This means that \(b\) must be distinct from any parameters in terms substituted for \(?a\).</p>
-<p>Our theorem prover should implement an <em>&ldquo;occurs check&rdquo;</em> to prevent circular assignments.
-Variable \(?a\) is unifiable with term \(t\) only if \(?a\) does not
-occur in \(t\). For example, if \(t\) contains \(b[?a]\), and you&rsquo;re trying to assign \(?a\) to \(t\), the occurs check will prevent this circularity.</p>
-<blockquote class="quote2 quote2-note no-quote">Carefully managing dependencies of parameters is critical to ensuring valid proofs.
+<p>Variable \(?a\) is unifiable with term \(t\) only if \(?a\) does not occur in \(t\). If a parameter \(b\) depends on a meta-variable \(?a\), we write this as \(b[?a]\). Assigning \(b[?a]\) to \(?a\) creates a clear loop. If some term \(t\) includes \(b[?a]\), the system will see that \(?a\) depends on itself, the occurs check will prevent this circularity. The assignment \(?a \mapsto t\), which would cause \(b\) to show up in the conclusion, isn&rsquo;t allowed.</p>
+<blockquote class="quote2 quote2-note no-quote">To apply \((\exists L)\) or \((\forall R)\) we choose a fresh parameter \(b\) that
+depends on all meta-variables in the goal, say \(?a_1, \dots, ?a_n\).
+The emphasize the dependency we write \(b[?a_1, \dots, ?a_n]\).
 </blockquote>
 
-<p>To apply \((\exists L)\) or \((\forall R)\) we choose a fresh parameter \(b\) that depends on all meta-variables in the goal, say \(?a_1, \dots, ?a_n\). The emphasize the dependency we write \(b[?a_1, \dots, ?a_n]\).</p>
+<p>For comparison here is an example of a valid sequent:</p>
+<p>\(\displaystyle \forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)\)</p>
+<p>The derivation tree looks like this:</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(?c, ?c) \vdash R(?a, b)}{\forall x. R(x, x) \vdash R(?a, b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
+<p>Here the parameter \(a\) does not depend on meta-variables \(?b\)
+and \(?c\) since these <strong>appear above</strong> it. <br />
+By assigning \(?c \mapsto a\) and \(?b \mapsto a\), we get a valid proof:</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(a, a) \vdash R(a, b)}{\forall x. R(x, x) \vdash R(a, b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
 <h3 id="no-second-order-dependence">
   No Second-Order Dependence
   <a class="heading-link" href="#no-second-order-dependence">
@@ -344,7 +353,21 @@ occur in \(t\). For example, if \(t\) contains \(b[?a]\), and you&rsquo;re tryin
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p>TODO</p>
+<ul>
+<li>
+<p>When using these rules, choose a new parameter that hasn’t been used anywhere else in the proof. This new parameter should depend on all the meta-variables in the conclusion.</p>
+</li>
+<li>
+<p>We can only replace \(?a\) with \(t\) if \(t\) doesn’t depend on \(?a\). This way, every parameter \(b\) in \(t\) also doesn’t depend on \(?a\), which keeps the rule’s conditions intact.</p>
+</li>
+<li>
+<p>To replace \(?a\) with \(t\), change every instance of \(?a\) to \(t\) in the proof. Also, change any parameter that depends on \(?a\) to depend on the meta-variables in \(t\).</p>
+</li>
+</ul>
+<p>Even though we don’t need to separate meta-variables from parameters logically, doing so helps us and Folderol know which variables can be substituted.</p>
+<p>Alright, now that we have a solid foundation. In the next post, we&rsquo;ll
+start translating these theoretical concepts into
+implementation. Stay tuned!</p>
 
         
       </div>

@@ -353,6 +353,18 @@ By assigning \(?c \mapsto a\) and \(?b \mapsto a\), we get a valid proof:</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
+<p>Let&rsquo;s start with an example:</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\vdash P(?a, b[?a]) \quad \cfrac {\vdash Q(b[?a], c)}{\vdash \forall y. Q(b[?a], y)} \quad (\forall R)}{\vdash P(?a, b[?a]) \land (\forall y. Q(b[?a], y))} \quad (\land R)}{\vdash \forall x. P(?a, x) \land (\forall y. Q(x, y))} \quad (\forall R)}\)</p>
+<p>Even though \(b[?a]\) depends on \(?a\), it doesn&rsquo;t mean that \(?a\) should directly appear in the proof.
+In the derivation tree above, the formula \(\forall y.\, Q(b[?a], y)\) shows that \(b\) depends on \(?a\), but we don’t see \(?a\) in the formula itself. The dependency is there, but it’s just not always explicit.</p>
+<p>We can do \(?a \mapsto c\) without breaking any rules. As long as \(c\) isn&rsquo;t present the conclusion we shouldn&rsquo;t make \(c\) depend on \(?a\).</p>
+<h3 id="summary">
+  Summary
+  <a class="heading-link" href="#summary">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
 <ul>
 <li>
 <p>When using these rules, choose a new parameter that hasn’t been used anywhere else in the proof. This new parameter should depend on all the meta-variables in the conclusion.</p>

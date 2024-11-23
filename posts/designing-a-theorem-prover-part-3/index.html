@@ -41,13 +41,13 @@ will insert a fresh meta-variable, such as \(?b\), in place of \(t\)
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 3">
-  <meta name="twitter:description" content=" Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
+  <meta name="twitter:description" content="Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
 Meta-Variables Link to heading In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left unspecified, meaning it can represent any expression. We will use special meta-variables like \(?a\), \(?b\), \(?c\), etc., which act as placeholders for such terms. The backward rules will insert a fresh meta-variable, such as \(?b\), in place of \(t\) (term) in the subgoal.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 3">
-  <meta property="og:description" content=" Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
+  <meta property="og:description" content="Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.
 Meta-Variables Link to heading In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left unspecified, meaning it can represent any expression. We will use special meta-variables like \(?a\), \(?b\), \(?c\), etc., which act as placeholders for such terms. The backward rules will insert a fresh meta-variable, such as \(?b\), in place of \(t\) (term) in the subgoal.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
@@ -222,13 +222,13 @@ Meta-Variables Link to heading In the backward rules \(\forall L\) and \(\exists
 </h2>
 <p>In this post, we’ll dive into the mechanics of quantifiers and
 unification in theorem proving.</p>
-<h3 id="meta-variables">
+<h2 id="meta-variables">
   Meta-Variables
   <a class="heading-link" href="#meta-variables">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left
 unspecified, meaning it can represent any expression. We will
 use special <strong><strong>meta-variables</strong></strong> like \(?a\), \(?b\), \(?c\), etc.,
@@ -238,13 +238,13 @@ will insert a fresh meta-variable, such as \(?b\), in place of \(t\)
 <blockquote class="quote2 quote2-note no-quote">\(?a\), \(?b\), \(?c\) – meta-variables.
 </blockquote>
 
-<h3 id="unification">
+<h2 id="unification">
   Unification
   <a class="heading-link" href="#unification">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>Folderol attempts to unify the left formula \(A_1\) and the right
 formula \(A_2\) for each new subgoal. Unification works by
 replacing the meta-variables in \(A_1\) and \(A_2\) to both sides
@@ -262,13 +262,13 @@ identical, resulting in a single unified formula \(A\).</p>
 \(A_2 := R(g(?d), ?b)\)</p>
 <p>Become: <br />
 \(A := R(g(?d), f(?c))\)</p>
-<h3 id="parameters-and-quantifier-rules">
+<h2 id="parameters-and-quantifier-rules">
   Parameters and Quantifier Rules
   <a class="heading-link" href="#parameters-and-quantifier-rules">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>We need to avoid <span class="underline">variable capture</span> during substitution, which occurs when a free variable unintentionally becomes bound. This can lead to invalid inferences, like:</p>
 <p>\(\displaystyle {\cfrac {\vdash \forall x. \exists y. y \neq x}{\vdash \exists y. y \neq y}}\quad (\forall R)\)</p>
 <p>To prevent this, we define two distinct sets: <span class="underline">parameters</span>
@@ -288,13 +288,13 @@ valid formula by itself. For a example in \(\forall x. \exists y. y \neq x\), th
 <p>When applying the rule \((\forall R)\) we replace the bound variable \(x\)
 with a fresh parameter, say \(a\), yielding the conclusion:
 \(\displaystyle \vdash \exists y. y \neq a\). But we&rsquo;ll soon see that it&rsquo;s more complicated than it appears&hellip;</p>
-<h3 id="enforcement-of-provisos-of-quantifier-rules">
+<h2 id="enforcement-of-provisos-of-quantifier-rules">
   Enforcement of Provisos of Quantifier Rules
   <a class="heading-link" href="#enforcement-of-provisos-of-quantifier-rules">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>In this chapter Paulson uses the term &ldquo;Proviso&rdquo; a lot.</p>
 <blockquote class="quote2 quote2-question no-quote"><strong>Proviso</strong> is a statement in an agreement, saying that a
 particular thing must happen before another can.
@@ -346,25 +346,25 @@ The emphasize the dependency we write \(b[?a_1, \dots, ?a_n]\).
 and \(?c\) since these <strong>appear above</strong> it. <br />
 By assigning \(?c \mapsto a\) and \(?b \mapsto a\), we get a valid proof:</p>
 <p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(a, a) \vdash R(a, b)}{\forall x. R(x, x) \vdash R(a, b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
-<h3 id="no-second-order-dependence">
+<h2 id="no-second-order-dependence">
   No Second-Order Dependence
   <a class="heading-link" href="#no-second-order-dependence">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <p>Let&rsquo;s start with an example:</p>
 <p>\(\displaystyle {\cfrac {\cfrac {\vdash P(?a, b[?a]) \quad \cfrac {\vdash Q(b[?a], c)}{\vdash \forall y. Q(b[?a], y)} \quad (\forall R)}{\vdash P(?a, b[?a]) \land (\forall y. Q(b[?a], y))} \quad (\land R)}{\vdash \forall x. P(?a, x) \land (\forall y. Q(x, y))} \quad (\forall R)}\)</p>
 <p>Even though \(b[?a]\) depends on \(?a\), it doesn&rsquo;t mean that \(?a\) should directly appear in the proof.
 In the derivation tree above, the formula \(\forall y.\, Q(b[?a], y)\) shows that \(b\) depends on \(?a\), but we don’t see \(?a\) in the formula itself. The dependency is there, but it’s just not always explicit.</p>
 <p>We can do \(?a \mapsto c\) without breaking any rules. As long as \(c\) isn&rsquo;t present the conclusion we shouldn&rsquo;t make \(c\) depend on \(?a\).</p>
-<h3 id="summary">
+<h2 id="summary">
   Summary
   <a class="heading-link" href="#summary">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
-</h3>
+</h2>
 <ul>
 <li>
 <p>When using these rules, choose a new parameter that hasn’t been used anywhere else in the proof. This new parameter should depend on all the meta-variables in the conclusion.</p>

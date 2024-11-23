@@ -32,14 +32,14 @@ Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 2">
-  <meta name="twitter:description" content=" Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.
-Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\). ">
+  <meta name="twitter:description" content="Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.
+Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\).">
 
 <meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-2/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 2">
-  <meta property="og:description" content=" Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.
-Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\). ">
+  <meta property="og:description" content="Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I’ll include a table of Paulson’s rules for the folderol theorem prover.
+Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\).">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -256,30 +256,30 @@ Two different proofs below illustrate this.</p>
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Rule L</th>
-          <th style="text-align: left">Rule R</th>
+          <th>Rule L</th>
+          <th>Rule R</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac {A, B \vdash}{A \land B \vdash} \quad (\land L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A \quad \vdash B}{\vdash A \land B} \quad (\land R)\)</td>
+          <td>\(\displaystyle \cfrac {A, B \vdash}{A \land B \vdash} \quad (\land L)\)</td>
+          <td>\(\displaystyle \cfrac {\vdash A \quad \vdash B}{\vdash A \land B} \quad (\land R)\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash \quad B \vdash}{A \lor B \vdash} \quad (\lor L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A, B}{\vdash A \lor B} \quad (\lor R)\)</td>
+          <td>\(\displaystyle \cfrac {A \vdash \quad B \vdash}{A \lor B \vdash} \quad (\lor L)\)</td>
+          <td>\(\displaystyle \cfrac {\vdash A, B}{\vdash A \lor B} \quad (\lor R)\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A \quad B \vdash}{A \rightarrow B \vdash} \quad (\rightarrow L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash B}{\vdash A \rightarrow B} \quad (\rightarrow R)\)</td>
+          <td>\(\displaystyle \cfrac {\vdash A \quad B \vdash}{A \rightarrow B \vdash} \quad (\rightarrow L)\)</td>
+          <td>\(\displaystyle \cfrac {A \vdash B}{\vdash A \rightarrow B} \quad (\rightarrow R)\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac {A, B \vdash \quad \vdash A, B}{A \leftrightarrow B \vdash} \quad (\leftrightarrow L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash B \quad B \vdash A}{\vdash A \leftrightarrow B} \quad (\leftrightarrow R)\)</td>
+          <td>\(\displaystyle \cfrac {A, B \vdash \quad \vdash A, B}{A \leftrightarrow B \vdash} \quad (\leftrightarrow L)\)</td>
+          <td>\(\displaystyle \cfrac {A \vdash B \quad B \vdash A}{\vdash A \leftrightarrow B} \quad (\leftrightarrow R)\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac {\vdash A}{\neg A\vdash} \quad (\neg L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac {A \vdash}{\vdash \neg A} \quad (\neg R)\)</td>
+          <td>\(\displaystyle \cfrac {\vdash A}{\neg A\vdash} \quad (\neg L)\)</td>
+          <td>\(\displaystyle \cfrac {A \vdash}{\vdash \neg A} \quad (\neg R)\)</td>
       </tr>
   </tbody>
 </table>
@@ -291,18 +291,18 @@ arbitrary value.</p>
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Rule L</th>
-          <th style="text-align: left">Rule R</th>
+          <th>Rule L</th>
+          <th>Rule R</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\forall x.A,A[t/x]\vdash }{\forall x.A\vdash }}\quad (\forall L)\)</td>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\vdash A[a/x]}{\vdash \forall x.A}}\quad (\forall R) \star\)</td>
+          <td>\(\displaystyle {\cfrac {\forall x.A,A[t/x]\vdash }{\forall x.A\vdash }}\quad (\forall L)\)</td>
+          <td>\(\displaystyle {\cfrac {\vdash A[a/x]}{\vdash \forall x.A}}\quad (\forall R) \star\)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle {\cfrac {A[a/x] \vdash}{\exists x.A \vdash}}\quad (\exists L) \star\)</td>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\vdash \exists x.A, A[t/x]}{\vdash \exists x.A}}\quad (\exists R)\)</td>
+          <td>\(\displaystyle {\cfrac {A[a/x] \vdash}{\exists x.A \vdash}}\quad (\exists L) \star\)</td>
+          <td>\(\displaystyle {\cfrac {\vdash \exists x.A, A[t/x]}{\vdash \exists x.A}}\quad (\exists R)\)</td>
       </tr>
   </tbody>
 </table>

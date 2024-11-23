@@ -34,12 +34,12 @@ as evidence.">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 1">
-  <meta name="twitter:description" content=" Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
+  <meta name="twitter:description" content="Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-1/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 1">
-  <meta property="og:description" content=" Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
+  <meta property="og:description" content="Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -420,26 +420,26 @@ systems <strong>LK</strong> and <strong>LJ</strong>. We&rsquo;re interested in L
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Rule L</th>
-          <th style="text-align: left">Rule R</th>
-          <th style="text-align: left">Name</th>
+          <th>Rule L</th>
+          <th>Rule R</th>
+          <th>Name</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{WL})\)</td>
-          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta}{\Gamma \vdash \Delta, A} \, (\text{WR})\)</td>
-          <td style="text-align: left">Weakening (Thinning)</td>
+          <td>\(\displaystyle \frac{\Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{WL})\)</td>
+          <td>\(\displaystyle \frac{\Gamma \vdash \Delta}{\Gamma \vdash \Delta, A} \, (\text{WR})\)</td>
+          <td>Weakening (Thinning)</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \frac{A, A, \Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{CL})\)</td>
-          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta, A} \, (\text{CR})\)</td>
-          <td style="text-align: left">Contraction</td>
+          <td>\(\displaystyle \frac{A, A, \Gamma \vdash \Delta}{A, \Gamma \vdash \Delta} \, (\text{CL})\)</td>
+          <td>\(\displaystyle \frac{\Gamma \vdash \Delta, A, A}{\Gamma \vdash \Delta, A} \, (\text{CR})\)</td>
+          <td>Contraction</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta} \, (\text{PL})\)</td>
-          <td style="text-align: left">\(\displaystyle \frac{\Gamma \vdash \Delta, A, B, \Lambda}{\Gamma \vdash \Delta, B, A, \Lambda} \, (\text{PR})\)</td>
-          <td style="text-align: left">Exchange (Permutation)</td>
+          <td>\(\displaystyle \frac{\Gamma, A, B, \Theta \vdash \Delta}{\Gamma, B, A, \Theta \vdash \Delta} \, (\text{PL})\)</td>
+          <td>\(\displaystyle \frac{\Gamma \vdash \Delta, A, B, \Lambda}{\Gamma \vdash \Delta, B, A, \Lambda} \, (\text{PR})\)</td>
+          <td>Exchange (Permutation)</td>
       </tr>
   </tbody>
 </table>
@@ -469,41 +469,41 @@ bottom to top \(\displaystyle \uparrow\)
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Rule L</th>
-          <th style="text-align: left">Rule R</th>
-          <th style="text-align: left">Name</th>
+          <th>Rule L</th>
+          <th>Rule R</th>
+          <th>Name</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma \vdash A \lor B, \Delta} \quad (\lor R_1)\)</td>
-          <td style="text-align: left">Left introduction for conjunction, Right introduction for disjunction</td>
+          <td>\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\)</td>
+          <td>\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma \vdash A \lor B, \Delta} \quad (\lor R_1)\)</td>
+          <td>Left introduction for conjunction, Right introduction for disjunction</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta \qquad \Gamma, B \vdash \Delta}{\Gamma, A \lor B \vdash \Delta} \quad (\lor L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Gamma \vdash B, \Delta}{\Gamma \vdash A \land B, \Delta} \quad (\land R)\)</td>
-          <td style="text-align: left">Left introduction for disjunction, Right introduction for conjunction</td>
+          <td>\(\displaystyle \cfrac{\Gamma, A \vdash \Delta \qquad \Gamma, B \vdash \Delta}{\Gamma, A \lor B \vdash \Delta} \quad (\lor L)\)</td>
+          <td>\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Gamma \vdash B, \Delta}{\Gamma \vdash A \land B, \Delta} \quad (\land R)\)</td>
+          <td>Left introduction for disjunction, Right introduction for conjunction</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Sigma, B \vdash \Pi}{\Gamma, \Sigma, A \rightarrow B \vdash \Delta, \Pi} \quad (\rightarrow L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash B, \Delta}{\Gamma \vdash A \rightarrow B, \Delta} \quad (\rightarrow R)\)</td>
-          <td style="text-align: left">Introduction for implication</td>
+          <td>\(\displaystyle \cfrac{\Gamma \vdash A, \Delta \qquad \Sigma, B \vdash \Pi}{\Gamma, \Sigma, A \rightarrow B \vdash \Delta, \Pi} \quad (\rightarrow L)\)</td>
+          <td>\(\displaystyle \cfrac{\Gamma, A \vdash B, \Delta}{\Gamma \vdash A \rightarrow B, \Delta} \quad (\rightarrow R)\)</td>
+          <td>Introduction for implication</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma, \lnot A \vdash \Delta} \quad (\lnot L)\)</td>
-          <td style="text-align: left">\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma \vdash \lnot A, \Delta} \quad (\lnot R)\)</td>
-          <td style="text-align: left">Introduction for negation</td>
+          <td>\(\displaystyle \cfrac{\Gamma \vdash A, \Delta}{\Gamma, \lnot A \vdash \Delta} \quad (\lnot L)\)</td>
+          <td>\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma \vdash \lnot A, \Delta} \quad (\lnot R)\)</td>
+          <td>Introduction for negation</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x.A\vdash \Delta }}\quad (\forall L)\)</td>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma \vdash A[y/x],\Delta }{\Gamma \vdash \forall x. A,\Delta }}\quad (\forall R)\)</td>
-          <td style="text-align: left">Introduction for universal quantifier</td>
+          <td>\(\displaystyle {\cfrac {\Gamma ,A[t/x]\vdash \Delta }{\Gamma ,\forall x.A\vdash \Delta }}\quad (\forall L)\)</td>
+          <td>\(\displaystyle {\cfrac {\Gamma \vdash A[y/x],\Delta }{\Gamma \vdash \forall x. A,\Delta }}\quad (\forall R)\)</td>
+          <td>Introduction for universal quantifier</td>
       </tr>
       <tr>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma ,A[y/x]\vdash \Delta }{\Gamma ,\exists x. A\vdash \Delta }}\quad (\exists L)\)</td>
-          <td style="text-align: left">\(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</td>
-          <td style="text-align: left">Introduction for existential quantifier</td>
+          <td>\(\displaystyle {\cfrac {\Gamma ,A[y/x]\vdash \Delta }{\Gamma ,\exists x. A\vdash \Delta }}\quad (\exists L)\)</td>
+          <td>\(\displaystyle {\cfrac {\Gamma \vdash A[t/x],\Delta }{\Gamma \vdash \exists x. A,\Delta }}\quad (\exists R)\)</td>
+          <td>Introduction for existential quantifier</td>
       </tr>
   </tbody>
 </table>

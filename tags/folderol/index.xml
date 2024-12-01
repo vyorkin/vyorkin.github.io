@@ -6,8 +6,15 @@
     <description>Recent content in Folderol on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 29 Sep 2024 20:19:00 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 30 Nov 2024 20:36:00 +0700</lastBuildDate>
     <atom:link href="https://vyorkin.org/tags/folderol/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 4</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-4/</link>
+      <pubDate>Sat, 30 Nov 2024 20:36:00 +0700</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-4/</guid>
+      <description>&lt;h2 id=&#34;terms&#34;&gt;&#xA;  Terms&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#terms&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;One of the first design steps is choosing how to represent&#xA;&lt;strong&gt;&lt;strong&gt;terms&lt;/strong&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;strong&gt;formulas&lt;/strong&gt;&lt;/strong&gt;. &lt;br /&gt;&#xA;We have 3 kinds of variables – &lt;strong&gt;&lt;strong&gt;meta-variables&lt;/strong&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;strong&gt;parameters&lt;/strong&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;strong&gt;bound variables&lt;/strong&gt;&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;strong&gt;Meta-variables&lt;/strong&gt;&lt;/strong&gt;, which we’ll now simply call “variables,” are represented by names like \(x\), \(y\). &lt;br /&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;strong&gt;Parameters&lt;/strong&gt;&lt;/strong&gt; have a name and a list of variables that represent quantifier rule provisos. &lt;br /&gt;&lt;/li&gt;&#xA;&lt;li&gt;For &lt;strong&gt;&lt;strong&gt;bound variables&lt;/strong&gt;&lt;/strong&gt; we&amp;rsquo;ll use &lt;strong&gt;&lt;strong&gt;De Bruijn indexes&lt;/strong&gt;&lt;/strong&gt; that&#xA;eliminate all bound variable names. This makes formulas like \(\forall x. \forall y. P(x)\) and \(\forall y. \forall x. P(y)\) equivalent.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote class=&#34;quote2 quote2-question no-quote&#34;&gt;&lt;p&gt;&lt;strong&gt;What Are De Bruijn Indexes?&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Designing a Theorem Prover, Part 3</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-3/</link>

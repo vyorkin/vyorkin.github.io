@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <title>
   Designing a Theorem Prover, Part 4 · transcendental kyberautism
 </title>
@@ -13,40 +13,58 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="Personal blog of Vasiliy Yorkin about software engineering, blockchain security and DeFi">
+<meta name="description" content="
+  Terms
+  
+    
+    Link to heading
+  
+
+One of the first design steps is choosing how to represent
+terms and formulas. 
+We have 3 kinds of variables – meta-variables, parameters and bound variables.
+
+Meta-variables, which we’ll now simply call “variables,” are represented by names like \(x\), \(y\). 
+Parameters have a name and a list of variables that represent quantifier rule provisos. 
+For bound variables we&rsquo;ll use De Bruijn indexes that
+eliminate all bound variable names. This makes formulas like \(\forall x. \forall y. P(x)\) and \(\forall y. \forall x. P(y)\) equivalent.
+
+What Are De Bruijn Indexes?">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 4">
-  <meta name="twitter:description" content="Personal blog of Vasiliy Yorkin about software engineering, blockchain security and DeFi">
+  <meta name="twitter:description" content="Terms Link to heading One of the first design steps is choosing how to represent terms and formulas. We have 3 kinds of variables – meta-variables, parameters and bound variables.
+Meta-variables, which we’ll now simply call “variables,” are represented by names like \(x\), \(y\). Parameters have a name and a list of variables that represent quantifier rule provisos. For bound variables we’ll use De Bruijn indexes that eliminate all bound variable names. This makes formulas like \(\forall x. \forall y. P(x)\) and \(\forall y. \forall x. P(y)\) equivalent. What Are De Bruijn Indexes?">
 
-<meta property="og:url" content="http://localhost:1313/posts/designing-a-theorem-prover-part-4/">
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-4/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 4">
-  <meta property="og:description" content="Personal blog of Vasiliy Yorkin about software engineering, blockchain security and DeFi">
+  <meta property="og:description" content="Terms Link to heading One of the first design steps is choosing how to represent terms and formulas. We have 3 kinds of variables – meta-variables, parameters and bound variables.
+Meta-variables, which we’ll now simply call “variables,” are represented by names like \(x\), \(y\). Parameters have a name and a list of variables that represent quantifier rule provisos. For bound variables we’ll use De Bruijn indexes that eliminate all bound variable names. This makes formulas like \(\forall x. \forall y. P(x)\) and \(\forall y. \forall x. P(y)\) equivalent. What Are De Bruijn Indexes?">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-10-18T23:42:00+07:00">
-    <meta property="article:modified_time" content="2024-10-18T23:42:00+07:00">
+    <meta property="article:published_time" content="2024-11-30T20:36:00+07:00">
+    <meta property="article:modified_time" content="2024-11-30T20:36:00+07:00">
     <meta property="article:tag" content="Folderol">
 
 
 
 
-<link rel="canonical" href="http://localhost:1313/posts/designing-a-theorem-prover-part-4/">
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-4/">
 
 
-<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
   
-  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -55,26 +73,25 @@
   
     
     
-    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
 
 
 
 
   
-  
-  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
 
 
-<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
 
-<link rel="manifest" href="http://localhost:1313/site.webmanifest">
-<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
@@ -104,7 +121,7 @@
     <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="http://localhost:1313/">
+    <a class="navigation-title" href="https://vyorkin.org/">
       transcendental kyberautism
     </a>
     
@@ -117,11 +134,11 @@
         
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
             </li>
           
         
@@ -139,14 +156,14 @@
                 
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/ru-ru/">ru</a>
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
             
           
             
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/de-de/">de</a>
+                <a href="https://vyorkin.org/de-de/">de</a>
               </li>
             
           
@@ -164,7 +181,7 @@
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:1313/posts/designing-a-theorem-prover-part-4/">
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-4/">
               Designing a Theorem Prover, Part 4
             </a>
           </h1>
@@ -173,8 +190,8 @@
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="October 18, 2024">
-                October 18, 2024
+              <time datetime="November 30, 2024">
+                November 30, 2024
               </time>
             </span>
           </div>
@@ -183,7 +200,7 @@
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="http://localhost:1313/tags/folderol/">Folderol</a>
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
     </span></div>
 
         </div>
@@ -191,7 +208,212 @@
 
       <div class="post-content">
         
-        
+        <h2 id="terms">
+  Terms
+  <a class="heading-link" href="#terms">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>One of the first design steps is choosing how to represent
+<strong><strong>terms</strong></strong> and <strong><strong>formulas</strong></strong>. <br />
+We have 3 kinds of variables – <strong><strong>meta-variables</strong></strong>, <strong><strong>parameters</strong></strong> and <strong><strong>bound variables</strong></strong>.</p>
+<ol>
+<li><strong><strong>Meta-variables</strong></strong>, which we’ll now simply call “variables,” are represented by names like \(x\), \(y\). <br /></li>
+<li><strong><strong>Parameters</strong></strong> have a name and a list of variables that represent quantifier rule provisos. <br /></li>
+<li>For <strong><strong>bound variables</strong></strong> we&rsquo;ll use <strong><strong>De Bruijn indexes</strong></strong> that
+eliminate all bound variable names. This makes formulas like \(\forall x. \forall y. P(x)\) and \(\forall y. \forall x. P(y)\) equivalent.</li>
+</ol>
+<blockquote class="quote2 quote2-question no-quote"><p><strong>What Are De Bruijn Indexes?</strong></p>
+<p><strong><strong>de Bruijn indexes</strong></strong> are a way to represent variables in expressions without using explicit names. The key Idea is that instead of naming variables like \(x\), \(y\), or \(z\), we number them based on their <strong><strong>distance</strong></strong> (or &ldquo;depth&rdquo;) from the <strong><strong>binding site</strong></strong>. The binding site is where a variable is introduced, such as in a lambda abstraction (\(\lambda\)) or a quantifier (\(\forall\), \(\exists\)). Variables are numbered starting from 0, with 0 referring to the most recently introduced binding. The next binding is 1, and so on.</p>
+<p>Examples of equivalent formulas:</p>
+<ul>
+<li>
+<p>\(\forall x. \forall y. P(x)\) ~ \(\forall \forall P(1)\) (Because \(y\) has depth \(0\) and \(x\) has depth \(1\))</p>
+</li>
+<li>
+<p>\(\forall y. \forall x. P(y)\) ~ \(\forall \forall P(1)\)</p>
+</li>
+<li>
+<p>\(\forall x. \forall y. P(y)\) ~ \(\forall \forall P(0)\)</p>
+</li>
+<li>
+<p>\(\forall x. \forall x. P(x)\) ~ \(\forall \forall P(0)\)</p>
+</li>
+<li>
+<p>\(\exists x. ((\exists y. Q(y)) \land S(x))\) ~ \(\exists((\exists Q(0)) \land S(0))\) - Different variables, same index.</p>
+</li>
+<li>
+<p>\(\forall x. (Q(x) \lor \exists z. R(z, x))\) ~ \(\forall(Q(0) \lor \exists R(0, 1))\) - Same variables, different indices.</p>
+</li>
+</ul>
+</blockquote>
+
+<p>We also have a function application, which represented by
+the name of the function paired with the list of its arguments.</p>
+<p>Here is how type definition in OCaml:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.mli *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t =
+</span></span><span style="display:flex;"><span>  | Var <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span>  <span style="color:#007f7f">(** Meta-variable. *)</span>
+</span></span><span style="display:flex;"><span>  | Param <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * <span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">list</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Parameters like [b[?a1, ..., ?an]].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Each parameter has a name and a list of variables that represent provisos of quantifier rules. *)</span>
+</span></span><span style="display:flex;"><span>  | Bound <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">int</span>  <span style="color:#007f7f">(** Bound variable. *)</span>
+</span></span><span style="display:flex;"><span>  | Function <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * t <span style="color:#fff;font-weight:bold">list</span>  <span style="color:#007f7f">(** Function application. *)</span>
+</span></span><span style="display:flex;"><span>[@@deriving eq, show]
+</span></span></code></pre></div><h2 id="formulas">
+  Formulas
+  <a class="heading-link" href="#formulas">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>There are 3 kinds of formulas:</p>
+<p><strong><strong>Predicate / Atomic Formula</strong></strong></p>
+<p>\(P(t_1, \dots, t_n)\) <br />
+Represented by the name and the list of arguments (terms).</p>
+<p><strong><strong>Connective</strong></strong></p>
+<p>\(A \land B, A \lor B, A \rightarrow B, A \leftrightarrow B\), \(\neg A\) <br />
+In the examples above \(A\) and \(B\) are formulas. <br />
+We&rsquo;re going to represent this by the connective and the list of subformulas.</p>
+<p><strong><strong>Quantified formula</strong></strong></p>
+<p>\(\forall x.A\), \(\exists x. A\) <br />
+Represented by the type of quantifier, the name of bound
+variable and the body. <br />
+Note that we keep the name of a bound variable only for showing results, since we use De Bruijn notation.</p>
+<p>This leads to the following type definition in OCaml:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.mli *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t =
+</span></span><span style="display:flex;"><span>  | Pred <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * Term.t <span style="color:#fff;font-weight:bold">list</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Atomic formulas (predicates): [P(t1, ..., tn)].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the name and the list of arguments (terms). *)</span>
+</span></span><span style="display:flex;"><span>  | Conn <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * t <span style="color:#fff;font-weight:bold">list</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Connectives like [A &amp; B], [A | B], [A -&gt; B], [A &lt;-&gt; B], [!B] and so on.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the connetive name and the list of its subformulas. *)</span>
+</span></span><span style="display:flex;"><span>  | Quant <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * <span style="color:#fff;font-weight:bold">string</span> * t
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Quantified formulae like [\exists x.A] and [\forall x.A].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the type of quantifier,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      the name of bound variable (used only for printing) and the body. *)</span>
+</span></span><span style="display:flex;"><span>[@@deriving eq, show]
+</span></span></code></pre></div><h2 id="abstraction-and-substitution">
+  Abstraction and Substitution
+  <a class="heading-link" href="#abstraction-and-substitution">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>We need an abstraction because, in de Bruijn notation, no formula should contain free variables. If \(x\) is a free variable in \(A\), we cannot simply make it quantified by attaching \(\forall x\). Instead, we use an abstraction. Abstraction replaces occurrences of \(t\) by a bound variable. if \(A\) is a formula, \(t\) is a term, and \(x\) is a bound variable not present in \(A\), then \(\forall x. A [x/t]\) and \(\exists x. A [x/t]\) are formulas.</p>
+<p><strong><strong>Example</strong></strong></p>
+<p>Abstract \((\forall z. R(z, a) \leftrightarrow P(a)\) over \(a\) to get \(\exists x. (\forall z. R(z, x)) \leftrightarrow P(x)\).</p>
+<p><strong><strong>Step 1</strong></strong> (abstract):
+\[
+abs(0)[\forall R(0, a) \leftrightarrow P(a)] = \\
+abs(0)[\forall R(0, a) \leftrightarrow abs(0)[P(a)]] = \\
+(\forall abs(1)[R(0, a)] \leftrightarrow P(0)) = \\
+(\forall R(0, 1)) \leftrightarrow P(0)
+\]</p>
+<p><strong><strong>Step 2</strong></strong> (attach \(\exists\) quantifier):
+\[
+\exists (\forall R(0, 1)) \leftrightarrow P(0)
+\]</p>
+<p>We need substitution as well to replace occurrences of the bound
+variable by \(t\). <br />
+So basically it does the opposite thing.</p>
+<h2 id="implementation">
+  Implementation
+  <a class="heading-link" href="#implementation">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>For now my <code>dune</code> file have only a few dependencies:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>(library
+</span></span><span style="display:flex;"><span> (name folderol)
+</span></span><span style="display:flex;"><span> (inline_tests)
+</span></span><span style="display:flex;"><span> (libraries core)
+</span></span><span style="display:flex;"><span> (preprocess (pps ppx_deriving.show ppx_deriving.eq ppx_inline_test)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(env (dev (flags (:standard -warn-error -A))))
+</span></span></code></pre></div><p>I added one extra dependency <code>ppx_inline_test</code> which is used for
+testing.</p>
+<p>In OCaml the type signatures for <code>abstract</code> and
+<code>subst_bound_var</code> functions might look like :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.mli *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> abstract : Term.t -&gt; t -&gt; t
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Replaces occurences of [Term.t] by a bound variable. *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> subst_bound_var : Term.t -&gt; t -&gt; t
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Replaces occurences of a bound variable by [Term.t]. *)</span>
+</span></span></code></pre></div><p>And the implementation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> abstract term formula =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> abs ix = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>    | Pred (name, args) -&gt;
+</span></span><span style="display:flex;"><span>        Pred (name, List.map args ~f:(Term.replace (term, Term.Bound ix)))
+</span></span><span style="display:flex;"><span>    | Conn (name, subformulas) -&gt; Conn (name, List.map subformulas ~f:(abs ix))
+</span></span><span style="display:flex;"><span>    | Quant (quantifier, var_name, body) -&gt;
+</span></span><span style="display:flex;"><span>        Quant (quantifier, var_name, abs (ix + 1) body)
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  abs 0 formula
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> subst_bound_var term formula =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> subst ix = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>    | Pred (name, args) -&gt;
+</span></span><span style="display:flex;"><span>        Pred (name, List.map args ~f:(Term.replace (Term.Bound ix, term)))
+</span></span><span style="display:flex;"><span>    | Conn (name, subformulas) -&gt; Conn (name, List.map subformulas ~f:(subst ix))
+</span></span><span style="display:flex;"><span>    | Quant (quantifier, var_name, body) -&gt;
+</span></span><span style="display:flex;"><span>        Quant (quantifier, var_name, subst (ix + 1) body)
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  subst 0 formula
+</span></span></code></pre></div><p>Notice that we use an extra function to recursively traverse the given term and replace all occurrences of the specified term with a new one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.mli *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> replace : t * t -&gt; t -&gt; t
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Traverses the given term recursively
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    and replaces all occurrences of [old_term] with [new_term].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param old_term The term to be replaced.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param new_term The term to replace [old_term] with.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param term The term to traverse and modify.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    If [old_term] is not found in [term],
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    the original term is returned unmodified. *)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> replace (old_term, new_term) term =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> term = old_term <span style="color:#fff;font-weight:bold">then</span> new_term
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">match</span> term <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>    | Function (name, args) -&gt;
+</span></span><span style="display:flex;"><span>        Function (name, List.map args ~f:(replace (old_term, new_term)))
+</span></span><span style="display:flex;"><span>    | _ -&gt; term
+</span></span></code></pre></div><p>I added 8 basic &ldquo;inline&rdquo; tests to ensure everything functions as
+expected. Here&rsquo;s an example test:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;abstract with nested formula&#34;</span> =
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> term = Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> formula =
+</span></span><span style="display:flex;"><span>  Conn
+</span></span><span style="display:flex;"><span>    ( <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>,
+</span></span><span style="display:flex;"><span>      [
+</span></span><span style="display:flex;"><span>        Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]);
+</span></span><span style="display:flex;"><span>        Quant (<span style="color:#0ff;font-weight:bold">&#34;forall&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]));
+</span></span><span style="display:flex;"><span>      ] )
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> expected =
+</span></span><span style="display:flex;"><span>  Conn
+</span></span><span style="display:flex;"><span>    ( <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>,
+</span></span><span style="display:flex;"><span>      [
+</span></span><span style="display:flex;"><span>        Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Bound 0 ]);
+</span></span><span style="display:flex;"><span>        Quant (<span style="color:#0ff;font-weight:bold">&#34;forall&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Bound 1 ]));
+</span></span><span style="display:flex;"><span>      ] )
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>expected = abstract term formula
+</span></span></code></pre></div><p>That&rsquo;s it for now! Next time, we’ll focus on lexing and parsing formulas.</p>
+
         
       </div>
 
@@ -250,7 +472,7 @@
 
   
   
-  <script src="http://localhost:1313/js/coder.js"></script>
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
   
 
   

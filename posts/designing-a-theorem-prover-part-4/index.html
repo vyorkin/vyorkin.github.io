@@ -306,7 +306,7 @@ Note that we keep the name of a bound variable only for showing results, since w
 </h2>
 <p>We need an abstraction because, in de Bruijn notation, no formula should contain free variables. If \(x\) is a free variable in \(A\), we cannot simply make it quantified by attaching \(\forall x\). Instead, we use an abstraction. Abstraction replaces occurrences of \(t\) by a bound variable. if \(A\) is a formula, \(t\) is a term, and \(x\) is a bound variable not present in \(A\), then \(\forall x. A [x/t]\) and \(\exists x. A [x/t]\) are formulas.</p>
 <p><strong><strong>Example</strong></strong></p>
-<p>Abstract \((\forall z. R(z, a) \leftrightarrow P(a)\) over \(a\) to get \(\exists x. (\forall z. R(z, x)) \leftrightarrow P(x)\).</p>
+<p>Abstract \(\forall z. R(z, a) \leftrightarrow P(a)\) over \(a\) to get \(\exists x. (\forall z. R(z, x)) \leftrightarrow P(x)\).</p>
 <p><strong><strong>Step 1</strong></strong> (abstract):
 \[
 abs(0)[\forall R(0, a) \leftrightarrow P(a)] = \\

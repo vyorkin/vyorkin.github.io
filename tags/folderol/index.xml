@@ -25,7 +25,7 @@
     <item>
       <title>Designing a Theorem Prover, Part 3</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-3/</link>
-      <pubDate>Sun, 29 Sep 2024 20:19:00 +0300</pubDate>
+      <pubDate>Sun, 29 Sep 2024 20:19:00 +0700</pubDate>
       <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-3/</guid>
       <description>&lt;h2 id=&#34;quantifiers-and-unification&#34;&gt;&#xA;  Quantifiers and Unification&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#quantifiers-and-unification&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;In this post, we’ll dive into the mechanics of quantifiers and&#xA;unification in theorem proving.&lt;/p&gt;&#xA;&lt;h2 id=&#34;meta-variables&#34;&gt;&#xA;  Meta-Variables&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#meta-variables&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;In the backward rules \(\forall L\) and \(\exists R\), the term \(t\) is left&#xA;unspecified, meaning it can represent any expression. We will&#xA;use special &lt;strong&gt;&lt;strong&gt;meta-variables&lt;/strong&gt;&lt;/strong&gt; like \(?a\), \(?b\), \(?c\), etc.,&#xA;which act as placeholders for such terms. The backward rules&#xA;will insert a fresh meta-variable, such as \(?b\), in place of \(t\)&#xA;(term) in the subgoal.&lt;/p&gt;</description>
     </item>

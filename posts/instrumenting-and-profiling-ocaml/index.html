@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=50381&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <title>
   Instrumenting and profiling OCaml programs · transcendental kyberautism
 </title>
@@ -39,7 +39,7 @@ the hot spots.">
   <meta name="twitter:description" content="Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
 Note the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.">
 
-<meta property="og:url" content="http://localhost:50381/posts/instrumenting-and-profiling-ocaml/">
+<meta property="og:url" content="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Instrumenting and profiling OCaml programs">
   <meta property="og:description" content="Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.
@@ -57,17 +57,17 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
 
 
 
-<link rel="canonical" href="http://localhost:50381/posts/instrumenting-and-profiling-ocaml/">
+<link rel="canonical" href="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
 
 
-<link rel="preload" href="http://localhost:50381/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:50381/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:50381/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
   
-  <link rel="stylesheet" href="http://localhost:50381/css/coder.css" media="screen">
+  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
 
 
 
@@ -76,7 +76,7 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
   
     
     
-    <link rel="stylesheet" href="http://localhost:50381/css/coder-dark.css" media="screen">
+    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
   
 
 
@@ -84,18 +84,18 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
 
   
   
-  <link rel="stylesheet" href="http://localhost:50381/custom.css" media="screen">
+  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
 
 
-<link rel="icon" type="image/svg+xml" href="http://localhost:50381/images/favicon.svg" sizes="any">
-<link rel="icon" type="image/png" href="http://localhost:50381/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="http://localhost:50381/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
 
-<link rel="apple-touch-icon" href="http://localhost:50381/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:50381/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
 
-<link rel="manifest" href="http://localhost:50381/site.webmanifest">
-<link rel="mask-icon" href="http://localhost:50381/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
@@ -125,7 +125,7 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
     <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="http://localhost:50381/">
+    <a class="navigation-title" href="http://localhost:1313/">
       transcendental kyberautism
     </a>
     
@@ -138,11 +138,11 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
         
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:50381/about/">about</a>
+              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:50381/posts/">posts</a>
+              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
             </li>
           
         
@@ -160,14 +160,14 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
                 
               
               <li class="navigation-item">
-                <a href="http://localhost:50381/ru-ru/">ru</a>
+                <a href="http://localhost:1313/ru-ru/">ru</a>
               </li>
             
           
             
               
               <li class="navigation-item">
-                <a href="http://localhost:50381/de-de/">de</a>
+                <a href="http://localhost:1313/de-de/">de</a>
               </li>
             
           
@@ -185,7 +185,7 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:50381/posts/instrumenting-and-profiling-ocaml/">
+            <a class="title-link" href="http://localhost:1313/posts/instrumenting-and-profiling-ocaml/">
               Instrumenting and profiling OCaml programs
             </a>
           </h1>
@@ -204,19 +204,19 @@ Note the difference between profiling and benchmarking: we use (micro-)benchmark
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="http://localhost:50381/tags/ocaml/">Ocaml</a>
+      <a href="http://localhost:1313/tags/ocaml/">Ocaml</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:50381/tags/benchmarking/">Benchmarking</a>
+      <a href="http://localhost:1313/tags/benchmarking/">Benchmarking</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:50381/tags/profiling/">Profiling</a>
+      <a href="http://localhost:1313/tags/profiling/">Profiling</a>
     </span>
       <span class="separator">•</span>
     <span class="tag">
-      <a href="http://localhost:50381/tags/performance/">Performance</a>
+      <a href="http://localhost:1313/tags/performance/">Performance</a>
     </span></div>
 
         </div>
@@ -398,7 +398,7 @@ looks good.</p>
 
   
   
-  <script src="http://localhost:50381/js/coder.js"></script>
+  <script src="http://localhost:1313/js/coder.js"></script>
   
 
   

@@ -294,7 +294,8 @@ bound variables like \(x\), \(y\), \(z\) with <em>fresh</em> parameters like
 </blockquote>
 
 <p>Btw under this distinction subformula may not necessarily be a
-valid formula by itself. For a example in \(\forall x. \exists y. y \neq x\), the subformula \(\exists y. y \neq x\) has variable \(x\) unbound. <br /></p>
+valid formula by itself. <br />
+For a example in \(\forall x. \exists y. y \neq x\), the subformula \(\exists y. y \neq x\) has variable \(x\) unbound. <br /></p>
 <p>When applying the rule \((\forall R)\) we replace the bound variable \(x\)
 with a fresh parameter, say \(a\), yielding the conclusion:
 \(\displaystyle \vdash \exists y. y \neq a\). But we&rsquo;ll soon see that it&rsquo;s more complicated than it appears&hellip;</p>
@@ -337,7 +338,7 @@ When applying rules \((\forall R)\) and \((\exists L)\) we replace variables \(x
 <p>However, this introduces a <em>circularity</em>: assigning \(b\) to \(?a\)
 means that \(b\) appears in the conclusion of the rule \((\forall R)\),
 which violates the proviso that \(b\) must not appear in the
-conclusion. <br />
+conclusion \(R(b, ?a)\). <br />
 Hence the second inference is a nonsense:
 \(\displaystyle \cfrac {R(b, b) \vdash R(b, b)}{\forall x. R(x, x) \vdash R(b, ?a)}\)</p>
 <p>We&rsquo;re using meta-variables as placeholders so we could swap them out later. If we&rsquo;re not careful, when we swap out these placeholders, we might accidentally create a loop — where the thing we&rsquo;re trying to avoid ends up in the conclusion anyway.</p>
@@ -351,11 +352,11 @@ The emphasize the dependency we write \(b[?a_1, \dots, ?a_n]\).
 <p>For comparison here is an example of a valid sequent:</p>
 <p>\(\displaystyle \forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)\)</p>
 <p>The derivation tree looks like this:</p>
-<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(?c, ?c) \vdash R(?a, b)}{\forall x. R(x, x) \vdash R(?a, b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(?c, ?c) \vdash R(a, ?b)}{\forall x. R(x, x) \vdash R(a, ?b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
 <p>Here the parameter \(a\) does not depend on meta-variables \(?b\)
 and \(?c\) since these <strong>appear above</strong> it. <br />
 By assigning \(?c \mapsto a\) and \(?b \mapsto a\), we get a valid proof:</p>
-<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(a, a) \vdash R(a, b)}{\forall x. R(x, x) \vdash R(a, b)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
+<p>\(\displaystyle {\cfrac {\cfrac {\cfrac {R(a, a) \vdash R(a, a)}{\forall x. R(x, x) \vdash R(a, a)} \quad (\forall L)}{\forall x. R(x, x) \vdash \exists y. R(a, y)} \quad (\exists R)}{\forall x. R(x, x) \vdash \forall x. \exists y. R(x, y)} \quad (\forall R)}\)</p>
 <h2 id="no-second-order-dependence">
   No Second-Order Dependence
   <a class="heading-link" href="#no-second-order-dependence">

@@ -6,14 +6,21 @@
     <description>Recent content in Posts on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Dec 2024 19:27:00 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 12 Dec 2024 18:07:00 +0700</lastBuildDate>
     <atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 6</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-6/</link>
+      <pubDate>Thu, 12 Dec 2024 18:07:00 +0700</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-6/</guid>
+      <description>&lt;p&gt;As we saw in &lt;a href=&#34;https://vyorkin.org/posts/designing-a-theorem-prover-part-3/#unification&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Part 3&lt;/a&gt;, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.&lt;/p&gt;&#xA;&lt;p&gt;The key assumptions:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;strong&gt;Distinctness&lt;/strong&gt;&lt;/strong&gt;. &lt;br /&gt;&#xA;All functions and constants in the terms are distinct (unless explicitly stated otherwise).&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;strong&gt;Equality rules&lt;/strong&gt;&lt;/strong&gt;. &lt;br /&gt;&#xA;The only valid equalities are:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Reflexivity (\(t = t\)): Any term is always equal to itself.&lt;/li&gt;&#xA;&lt;li&gt;Substitution of equals for equals: if two terms \(a\) and \(b\) are equal (\(a = b\)), then one can replace the other.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Basically we need to solve a set of equations \(\{t_1 = u_1, \dots, t_n&#xA;= u_n\}\). &lt;br /&gt;&#xA;Each term can be a function application, a parameter, or a meta-variable:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Designing a Theorem Prover, Part 5</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-5/</link>
       <pubDate>Tue, 10 Dec 2024 19:27:00 +0700</pubDate>
       <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-5/</guid>
-      <description>&lt;h2 id=&#34;parsing-and-pretty-printing&#34;&gt;&#xA;  Parsing and Pretty-printing&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#parsing-and-pretty-printing&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;I don&amp;rsquo;t really enjoy writing parsers. Moreover, parsers and pretty-printing are not exactly related to working through Paulson&amp;rsquo;s paper, but one way or another, I&amp;rsquo;ll have to do it to get a working version of the theorem prover. So let&amp;rsquo;s get started, the time has come.&lt;/p&gt;&#xA;&lt;h3 id=&#34;refactoring&#34;&gt;&#xA;  Refactoring&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#refactoring&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;Before working on lexing, parsing and pretty-printing, let&amp;rsquo;s refactor our code to introduce more explicit types for logical connectives and quantifiers. We&amp;rsquo;ll start by defining simple sum-types for &lt;code&gt;connective&lt;/code&gt; and &lt;code&gt;quantifier&lt;/code&gt;:&lt;/p&gt;</description>
+      <description>&lt;p&gt;I don&amp;rsquo;t really enjoy writing parsers. Moreover, parsers and pretty-printing are not exactly related to working through Paulson&amp;rsquo;s paper, but one way or another, I&amp;rsquo;ll have to do it to get a working version of the theorem prover. So let&amp;rsquo;s get started, the time has come.&lt;/p&gt;&#xA;&lt;h2 id=&#34;refactoring&#34;&gt;&#xA;  Refactoring&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#refactoring&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Before working on lexing, parsing and pretty-printing, let&amp;rsquo;s refactor our code to introduce more explicit types for logical connectives and quantifiers. We&amp;rsquo;ll start by defining simple sum-types for &lt;code&gt;connective&lt;/code&gt; and &lt;code&gt;quantifier&lt;/code&gt;:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Designing a Theorem Prover, Part 4</title>
@@ -39,7 +46,7 @@
     <item>
       <title>Designing a Theorem Prover, Part 2</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</link>
-      <pubDate>Mon, 09 Sep 2024 11:30:00 +0300</pubDate>
+      <pubDate>Mon, 09 Sep 2024 11:30:00 +0700</pubDate>
       <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-2/</guid>
       <description>&lt;style&gt;&#xA;.colorscheme-dark .sane-table th,&#xA;.colorscheme-dark .sane-table td,&#xA;.sane-table th,&#xA;.sane-table td {&#xA;  border: 0;&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;h2 id=&#34;propositional-logic&#34;&gt;&#xA;  Propositional Logic&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#propositional-logic&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;In this short post we will explore how different proof&#xA;strategies, particularly in backwards reasoning, can impact the&#xA;efficiency of deriving conclusions. At the end, I&amp;rsquo;ll include a&#xA;table of Paulson&amp;rsquo;s rules for the folderol theorem prover.&lt;/p&gt;&#xA;&lt;p&gt;Propositional logic works with the connectives \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\), and \(\neg\). &lt;br /&gt;&lt;/p&gt;</description>
     </item>

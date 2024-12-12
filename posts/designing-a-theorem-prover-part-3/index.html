@@ -272,7 +272,16 @@ formula \(A\).</p>
 </h2>
 <p>We need to avoid <span class="underline">variable capture</span> during substitution, which occurs when a free variable unintentionally becomes bound. This can lead to invalid inferences, like:</p>
 <p>\(\displaystyle {\cfrac {\vdash \forall x. \exists y. y \neq x}{\vdash \exists y. y \neq y}}\quad (\forall R)\)</p>
-<p>To prevent this, we define two distinct sets: <span class="underline">parameters</span>
+<p>When using the rule \(\forall R\), we say:
+<em>To prove \(\forall x. A(x)\), the formula \(A(x)\) must hold for any arbitrary \(x\)</em>.
+However, during substitution, if we choose \(x\) as the arbitrary term, <strong><strong>variable capture</strong></strong> occurs:</p>
+<ul>
+<li>In \(\forall x. \exists y. y \neq x\) variable \(y\) is free.</li>
+<li>Substituting \(x = y\) causes \(y \neq x\) to turn into \(y \neq y\).</li>
+</ul>
+<p>And we end up \(\vdash \exists y. y \neq y\). This is clearly a
+contradiction, as \(y \neq y\) is always false. <br />
+To prevent this, we define two distinct sets: <span class="underline">parameters</span>
 (\(a, b, c, \dots\)) and <span class="underline">variables</span> (\(x, y, z, \dots\)). <br /></p>
 <blockquote class="quote2 quote2-note no-quote"><p>\(a, b, c, \dots\) – parameters <br />
 \(x, y, z, \dots\) – variables</p>

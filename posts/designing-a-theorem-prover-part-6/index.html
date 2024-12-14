@@ -13,7 +13,14 @@
 
 
 <meta name="author" content="Vasiliy Yorkin">
-<meta name="description" content="As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
+<meta name="description" content="
+  Unifier
+  
+    
+    Link to heading
+  
+
+As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
 The key assumptions:
 
 Distinctness. 
@@ -35,21 +42,21 @@ Each term can be a function application, a parameter, or a meta-variable:">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Designing a Theorem Prover, Part 6">
-  <meta name="twitter:description" content="As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
+  <meta name="twitter:description" content="Unifier Link to heading As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
 The key assumptions:
 Distinctness. All functions and constants in the terms are distinct (unless explicitly stated otherwise). Equality rules. The only valid equalities are: Reflexivity (\(t = t\)): Any term is always equal to itself. Substitution of equals for equals: if two terms \(a\) and \(b\) are equal (\(a = b\)), then one can replace the other. Basically we need to solve a set of equations \(\{t_1 = u_1, \dots, t_n = u_n\}\). Each term can be a function application, a parameter, or a meta-variable:">
 
 <meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-6/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 6">
-  <meta property="og:description" content="As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
+  <meta property="og:description" content="Unifier Link to heading As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.
 The key assumptions:
 Distinctness. All functions and constants in the terms are distinct (unless explicitly stated otherwise). Equality rules. The only valid equalities are: Reflexivity (\(t = t\)): Any term is always equal to itself. Substitution of equals for equals: if two terms \(a\) and \(b\) are equal (\(a = b\)), then one can replace the other. Basically we need to solve a set of equations \(\{t_1 = u_1, \dots, t_n = u_n\}\). Each term can be a function application, a parameter, or a meta-variable:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-12T18:07:00+07:00">
-    <meta property="article:modified_time" content="2024-12-12T18:07:00+07:00">
+    <meta property="article:published_time" content="2024-12-14T22:25:00+07:00">
+    <meta property="article:modified_time" content="2024-12-14T22:25:00+07:00">
     <meta property="article:tag" content="Folderol">
 
 
@@ -191,8 +198,8 @@ Distinctness. All functions and constants in the terms are distinct (unless expl
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="December 12, 2024">
-                December 12, 2024
+              <time datetime="December 14, 2024">
+                December 14, 2024
               </time>
             </span>
           </div>
@@ -209,7 +216,14 @@ Distinctness. All functions and constants in the terms are distinct (unless expl
 
       <div class="post-content">
         
-        <p>As we saw in <a href="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/#unification"  class="external-link" target="_blank" rel="noopener">Part 3</a>, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.</p>
+        <h2 id="unifier">
+  Unifier
+  <a class="heading-link" href="#unifier">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>As we saw in <a href="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/#unification"  class="external-link" target="_blank" rel="noopener">Part 3</a>, unification is the process of finding substitutions for variables in two terms \(t\) and \(u\) to make equation \(t = u\) true.</p>
 <p>The key assumptions:</p>
 <ol>
 <li><strong><strong>Distinctness</strong></strong>. <br />
@@ -333,6 +347,73 @@ Step 1:</p>
 Two most general unifiers can differ up to variable renaming.
 </blockquote>
 
+<h2 id="parameter-dependencies">
+  Parameter dependencies
+  <a class="heading-link" href="#parameter-dependencies">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In <a href="https://vyorkin.org/posts/designing-a-theorem-prover-part-3/"  class="external-link" target="_blank" rel="noopener">Part 3</a>
+we introduced the concept of <em>dependency</em>: <br />
+If a parameter \(b\) depends on a meta-variable \(?a\), we write
+this as \(b[?a]\).</p>
+<blockquote class="quote2 quote2-note no-quote">Parameter \(b\) generated in a quantifier rule has the form
+\(b[?a_1, \dots , ?a_n]\), <br />
+where the \(?a_i\) are all the variables in the conclusion.
+</blockquote>
+
+<p><strong>Occurs check</strong> ensures that no variable depends on itself. <br />
+If a variable refers to itself, the equation is <strong>unsolvable</strong>, as it would lead to infinite recursion.</p>
+<p>For example: <br />
+\(?a = g(?c) \quad ?c = b[?a]\) <br />
+Substituting \(?c \mapsto b[?a]\) in the first equation gives: <br />
+\(?a = g(b[?a])\) <br />
+Here, \(?a\) indirectly refers to itself through \(b[?a]\), making the equation unsolvable.</p>
+<p>Now let&rsquo;s see how parameter substitution works. <br /></p>
+<h2 id="substitutions-in-parameters">
+  Substitutions in Parameters
+  <a class="heading-link" href="#substitutions-in-parameters">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>When generating a parameter like \(b[?a_1, \dots ?a_n]\), a <strong>dependency check</strong> ensures that all variables \(?a_i\) from the conclusion are present in the parameter. This step is essential to maintain the logical dependencies between variables.</p>
+<blockquote class="quote2 quote2-note no-quote">When \(?a_i\) is replaced by a term \(t\), any occurrence of \(?a_i\) in \(b[?a_1, \dots,?a_n]\) is replaced by the meta-variables present in \(t\). But if \(t\) itself depends on \(?a_i\)​ it leads to an infinite loop.
+</blockquote>
+
+<p>Let’s go through examples from Paulson&rsquo;s paper:</p>
+<p><strong>Unsolvable</strong></p>
+<p>\(?a = g(?c) \quad ?c = b[?a]\) <br />
+Here, &ldquo;\(?a_i\)&rdquo; is \(?a\), and the &ldquo;term \(t\)&rdquo; is \(g(?c)\). <br />
+So we should replace any occurrence of \(?a\) in \(b[?a]\) by
+meta-variables present in \(g(?c)\). <br />
+We have only one such meta-variable – \(?c\). <br />
+Substituting \(?a \mapsto ?c\) in \(b[?a]\) gives: <br />
+\(?a = g(?c) \quad ?c = b[?c]\) <br />
+This is unsolvable because \(?c\) appears within \(g(?c)\), creating a cyclic dependency that cannot be resolved.</p>
+<p><strong>Solvable</strong></p>
+<p>Now let&rsquo;s consider a case where \(?a\) uses parameter \(d[?c]\): <br />
+\(?a = d[?c] \quad ?c = b[?a]\) <br />
+Substituting \(?a = d[?c]\) into \(?c = b[?a]\) gives: <br />
+\(?a = d[?c] \quad ?c = b\) <br />
+Here, the dependency is broken because \(?c\) does not appear in
+\(d[?c]\). <br />
+So \(b[d[?c]]\) is just \(b\). This is a solvable since \(?c\) no
+longer depends on itself. <br /></p>
+<p>Let’s break this down to clarify why \(b[d[?c]]\) simplifies to just \(b\).
+The parameter \(d[?c]\) represents a dependency on \(?c\), but it doesn’t mean that \(d[?c]\) literally contains \(?c\) in its structure. We can think of \(d[?c]\) as a &ldquo;container labeled with \(?c\)&rdquo; but the contents of the container do not contain \(?c\). If \(d[?c]\) were truly dependent on \(?c\), for example \(d[?c] = g(?c)\), where \(g\) is some function of \(?c\) (like in the unsolvable example above), then substituting \(d[?c]\) into \(b\) would result in \(b[g(?c)]\), where \(?c\) persists in the &ldquo;computation&rdquo;. But in our solvable case, \(d[?c]\) doesn’t actually use \(?c\), so \(b[d[?c]]\) simplifies to \(b\).</p>
+<h2 id="wrapping-up">
+  Wrapping Up
+  <a class="heading-link" href="#wrapping-up">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In this part we looked into some details of how unification
+works and tried to understand the importance of occurs checks
+and parameter dependencies. Next time, we&rsquo;ll attempt to turn this theory
+into practice by writing unification code in OCaml ;)</p>
 
         
       </div>

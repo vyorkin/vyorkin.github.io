@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Designing a Theorem Prover, Part 7 · transcendental kyberautism
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Vasiliy Yorkin">
+<meta name="description" content="
+  Environment
+  
+    
+    Link to heading
+  
+
+Our unification algorithm maintains the environment which is
+defined like this: 
+\(\{(?a_1, t_1), \dots, (?a_k, t_k) \}\), where \(\forall i: a_i \neq t_i\)
+We will evaluate each term in this env and replace meta-variable \(?a_i\) with \(t_i\) when necessary. When we encounter an \(?a_i\) we will do the replacement and work with \(t_i\) recursively. This process will eventually stop, as the occurs check prevents loops such as \({(?b, f (?a)), (?a, g(?b))}\).">
+<meta name="keywords" content="Vasiliy Yorkin">
+<meta name="fediverse:creator" content="" />
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Designing a Theorem Prover, Part 7">
+  <meta name="twitter:description" content="Environment Link to heading Our unification algorithm maintains the environment which is defined like this: \(\{(?a_1, t_1), \dots, (?a_k, t_k) \}\), where \(\forall i: a_i \neq t_i\)
+We will evaluate each term in this env and replace meta-variable \(?a_i\) with \(t_i\) when necessary. When we encounter an \(?a_i\) we will do the replacement and work with \(t_i\) recursively. This process will eventually stop, as the occurs check prevents loops such as \({(?b, f (?a)), (?a, g(?b))}\).">
+
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-7/">
+  <meta property="og:site_name" content="transcendental kyberautism">
+  <meta property="og:title" content="Designing a Theorem Prover, Part 7">
+  <meta property="og:description" content="Environment Link to heading Our unification algorithm maintains the environment which is defined like this: \(\{(?a_1, t_1), \dots, (?a_k, t_k) \}\), where \(\forall i: a_i \neq t_i\)
+We will evaluate each term in this env and replace meta-variable \(?a_i\) with \(t_i\) when necessary. When we encounter an \(?a_i\) we will do the replacement and work with \(t_i\) recursively. This process will eventually stop, as the occurs check prevents loops such as \({(?b, f (?a)), (?a, g(?b))}\).">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-26T18:03:00+07:00">
+    <meta property="article:modified_time" content="2024-12-26T18:03:00+07:00">
+    <meta property="article:tag" content="Folderol">
+
+
+
+
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-7/">
+
+
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+
+  
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+
+
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
+
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="https://vyorkin.org/">
+      transcendental kyberautism
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
+              </li>
+            
+          
+            
+              
+              <li class="navigation-item">
+                <a href="https://vyorkin.org/de-de/">de</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-7/">
+              Designing a Theorem Prover, Part 7
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="December 26, 2024">
+                December 26, 2024
+              </time>
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="environment">
+  Environment
+  <a class="heading-link" href="#environment">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Our unification algorithm maintains the environment which is
+defined like this: <br />
+\(\{(?a_1, t_1), \dots, (?a_k, t_k) \}\), where \(\forall i: a_i \neq t_i\)</p>
+<p>We will evaluate each term in this env and replace meta-variable \(?a_i\) with \(t_i\) when necessary. When we encounter an \(?a_i\) we will do the replacement and work with \(t_i\) recursively. This process will eventually stop, as the occurs check prevents loops such as \({(?b, f (?a)), (?a, g(?b))}\).</p>
+<p>In code we&rsquo;ll represent environment as <code>Base.Map.t</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> Env = <span style="color:#fff;font-weight:bold">struct</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">open</span> Base
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">type</span> t = (<span style="color:#fff;font-weight:bold">string</span>, Term.t, String.comparator_witness) Map.t
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> empty = Map.empty (<span style="color:#fff;font-weight:bold">module</span> String)
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> add env (var, term) = Map.add_exn env ~key:var ~data:term
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> find env var = Map.find env var
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
+</span></span></code></pre></div><p>Here is the interface of our <code>Unification</code> module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.mli *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Module representing the environment for unification.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    The environment is used to avoid repeatedly substituting meta-variables
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    throughout the equations every time a meta-variable is assigned. Instead,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    it maintains a mapping of meta-variable -&gt; term assignments and resolves
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    terms on-the-fly.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    Keeping environment allows us to ensure that cycles are
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    prevented using occurs check which disallows assignments like [(?b, f(?a)), (?a, g(?b))]. *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> Env : <span style="color:#fff;font-weight:bold">sig</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">type</span> t
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Type representing the environment,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      which maps meta-variables to terms. *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">val</span> empty : t
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Empty environment with no variable assignments. *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">val</span> add : t -&gt; <span style="color:#fff;font-weight:bold">string</span> * Term.t -&gt; t
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Adds an assignment [var] -&gt; [term] to the environment [env]. *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">val</span> find : t -&gt; <span style="color:#fff;font-weight:bold">string</span> -&gt; Term.t option
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Looks up the assignment for [var] in [env]. *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> unify : Env.t -&gt; Formula.t * Formula.t -&gt; (Env.t, <span style="color:#fff;font-weight:bold">string</span>) result
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Attempts to unify two atomic formulas [f1] and [f2] under the environment [env].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  This function only handles atomic formulas, which are predicates of the form
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  [P(t1, ..., tn)] and [Q(u1, ..., un)].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  - If the predicates [p1] and [p2] of [f1] and [f2] are the same, it delegates
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    to [unify_terms] to unify their terms [ts] and [us].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  - If the predicates [p1] and [p2] differ, it returns an error indicating
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    the mismatch.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  - If either [f1] or [f2] is not an atomic formula, it returns an error
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    indicating that only predicates are supported.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param env The current environment for unification.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param f1 The first atomic formula to unify.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param f2 The second atomic formula to unify.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @return The updated env if unification succeeds, or an error message if it fails.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @raise Error if the predicates differ or if non-atomic formulas are provided.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Example:
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  {[
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    let env = [] in
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    let f1 = Formula.Pred (&#34;P&#34;, [Term.Var &#34;x&#34;; Term.Const 1]) in
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    let f2 = Formula.Pred (&#34;P&#34;, [Term.Const 2; Term.Const 1]) in
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    match unify env (f1, f2) with
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    | Ok new_env -&gt; (* Unification succeeded, work with new_env *)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    | Error msg -&gt; (* Handle unification failure *)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  ]}
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
+</span></span></code></pre></div><p>We&rsquo;ll do the \(?a \mapsto term\) (<code>meta-variable -&gt; term</code>)
+replacement by calling function <br />
+<code>chase_var: Env.t -&gt; Term.t -&gt; Term.t</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Resolves the given term (if it is a variable)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    by repeatedly replacing it with its assignment in the environment [env].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    For example, if [env] contains mappings ?a -&gt; ?b and ?b -&gt; ?c,
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    then [chase_var env (Term.Var &#34;a&#34;)] will return [Term.Var &#34;c&#34;].
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param env The environment mapping variables to terms.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param term The term to resolve.
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @return The resolved term, or the input term if no resolution is possible. *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> chase_var env = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | Term.Var var -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> term = Env.find env var <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Option.fold ~none:(Term.Var var) ~some:(chase_var env) term
+</span></span><span style="display:flex;"><span>  | term -&gt; term
+</span></span></code></pre></div><p>Here are a few inline tests to demonstrate how <code>chase_var</code> works:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;chase_var: nonexistent variable&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> var = Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  chase_var env var = var
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;chase_var: basic variable resolution&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.add Env.empty (<span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>, Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [])) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = chase_var env (Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  term = Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;chase_var: chained variable resolution&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.add Env.empty (<span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>, Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [])) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.add env (<span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = chase_var env (Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  term = Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [])
+</span></span></code></pre></div><p>Our main unification function has the following type signature: <br />
+<code>val unify : Env.t -&gt; Formula.t * Formula.t -&gt; (Env.t, string) result</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> unify env (f1, f2) =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> (f1, f2) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Formula.Pred (p1, ts), Formula.Pred (p2, us) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> p1 = p2 <span style="color:#fff;font-weight:bold">then</span> unify_terms env (ts, us)
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        Error
+</span></span><span style="display:flex;"><span>          (Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;Can not unify different predicates %s and %s&#34;</span> p1 p2)
+</span></span><span style="display:flex;"><span>  | _, _ -&gt;
+</span></span><span style="display:flex;"><span>      Error
+</span></span><span style="display:flex;"><span>        (Printf.sprintf
+</span></span><span style="display:flex;"><span>           <span style="color:#0ff;font-weight:bold">&#34;Only atomic formulas (predicates) are supported. Given: %s and %s&#34;</span>
+</span></span><span style="display:flex;"><span>           (Formula.to_string f1) (Formula.to_string f2))
+</span></span></code></pre></div><p>As you can see If the predicates <code>p1</code> and <code>p2</code> of <code>f1</code> and <code>f2</code>
+are the same, we call the <code>unify_terms</code> to unify their terms
+<code>ts</code> and <code>us</code>. Here is how <code>unify_terms</code> looks like: <br />
+<code>val unify_terms : Env.t -&gt; Term.t list * Term.t list -&gt; (Env.t, string) result</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+</span></span><span style="display:flex;"><span>and unify_terms env (ts, us) =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">open</span> Base.Result.Let_syntax <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> (ts, us) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | [], [] -&gt; Ok env
+</span></span><span style="display:flex;"><span>  | t :: ts, u :: us -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span>%bind env&#39; = unify_term env (t, u) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      unify_terms env&#39; (ts, us)
+</span></span><span style="display:flex;"><span>  | _, _ -&gt; Error <span style="color:#0ff;font-weight:bold">&#34;Lists of terms have different length&#34;</span>
+</span></span></code></pre></div><p>The <code>unify_terms</code> function unifies (recursively) two lists of terms (<code>ts</code> and <code>us</code>) within a given <code>env</code>:</p>
+<ul>
+<li>If both lists are empty, then unification is successful and it returns the current <code>env</code>.</li>
+<li>If the lists have the same length, it processes each pair of terms by calling the <code>unify_term</code> and updating the environment as it goes.</li>
+<li>If the lists have different lengths, it returns an error.</li>
+</ul>
+<p>At the beginning we open the <code>Base.Result.Let_syntax</code>. That&rsquo;s because we&rsquo;re using <a href="https://github.com/janestreet/ppx_let"  class="external-link" target="_blank" rel="noopener">ppx_let</a> (monadic let-bindings) to simplify things a bit by propagating errors during unification.</p>
+<p>Next comes the <code>unify_term</code> function: <br />
+<code>val unify_term : Env.t -&gt; Term.t * Term.t -&gt; (Env.t, string) result</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+</span></span><span style="display:flex;"><span>and unify_term env (t, u) =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> (t, u) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Term.Var v, t -&gt; unify_var env (chase_var env (Term.Var v), chase_var env t)
+</span></span><span style="display:flex;"><span>  | t, Term.Var v -&gt; unify_var env (chase_var env t, chase_var env (Term.Var v))
+</span></span><span style="display:flex;"><span>  | Term.Param (a, _), Param (b, _) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> a = b <span style="color:#fff;font-weight:bold">then</span> Ok env
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        Error
+</span></span><span style="display:flex;"><span>          (Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;Can not unify different parameters %s and %s&#34;</span> a b)
+</span></span><span style="display:flex;"><span>  | Term.Function (f, ts), Term.Function (g, us) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> f = g <span style="color:#fff;font-weight:bold">then</span> unify_terms env (ts, us)
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        Error (Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;Can not unify different functions %s and %s&#34;</span> f g)
+</span></span><span style="display:flex;"><span>  | t, u -&gt;
+</span></span><span style="display:flex;"><span>      Error
+</span></span><span style="display:flex;"><span>        (Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;Can not unify terms %s and %s&#34;</span> (Term.to_string t)
+</span></span><span style="display:flex;"><span>           (Term.to_string u))
+</span></span></code></pre></div><p>It attempts to unify two terms, <code>t</code> and <code>u</code> using the given <code>env</code>.
+Here&rsquo;s how it does that:</p>
+<ul>
+<li>If one term is a meta-variable (<code>Term.Var</code>) and the other is any term, it resolves the meta-variable using <code>chase_var</code> and delegates to <code>unify_var</code> for unification.</li>
+<li>If both terms are parameters (<code>Term.Param</code>), it compares their names. If the names are the same, then unification succeeds (and we leave the <code>env</code> as is), otherwise they can not be unified so we return an error.</li>
+<li>If both terms are functions (<code>Term.Function</code>), it checks if their names match. When names match, it recursively unifies their argument lists using <code>unify_terms</code>, otherwise it returns an error.</li>
+<li>For any other combination of terms, unification fails, returning an error with a detailed message.</li>
+</ul>
+<p>We already discussed the <code>chase_var</code> function, so now let&rsquo;s have
+a look at the <code>unify_var</code> that has the following signature: <br /></p>
+<p><code>val unify_var : Env.t -&gt; Term.t * Term.t -&gt; (Env.t, string) result</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+</span></span><span style="display:flex;"><span>and unify_var env (var, term) =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> (var, term) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Var _, t <span style="color:#fff;font-weight:bold">when</span> var = t -&gt; Ok env
+</span></span><span style="display:flex;"><span>  | Var v, t -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> occurs_in env v t <span style="color:#fff;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>        Error (Printf.sprintf <span style="color:#0ff;font-weight:bold">&#34;Occurs check failed for variable: %s&#34;</span> v)
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span> Ok (Env.add env (v, t))
+</span></span><span style="display:flex;"><span>  | t, u -&gt; unify_term env (t, u)
+</span></span></code></pre></div><p>It unifies a meta-variable term (<code>var</code>) with another term (<code>term</code>) within the given environment (<code>env</code>):</p>
+<ul>
+<li>If the meta-variable and the term are the same, unification is trivial, and it returns the current environment unchanged.</li>
+<li>If the meta-variable occurs within the term (directly or indirectly, e.g., through references in the environment), it returns an error, as unification would create a cyclic dependency.</li>
+<li>If the meta-variable does not occur in the term, it adds the <code>meta-variable -&gt; term</code> mapping to the environment</li>
+<li>For any other combination of terms, it delegates to <code>unify_term</code></li>
+</ul>
+<p><strong>Occurs check</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Returns [true] if [var] occurs in the given term. *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> occurs_in env var = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | Term.Var var&#39; -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> var&#39; = var <span style="color:#fff;font-weight:bold">then</span> true
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">let</span> term = Env.find env var <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>        Option.fold ~none:false ~some:(occurs_in env var) term
+</span></span><span style="display:flex;"><span>  | Term.Param (_, vars) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> terms = List.map (<span style="color:#fff;font-weight:bold">fun</span> s -&gt; Term.Var s) vars <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      occurs_in_any_of env var terms
+</span></span><span style="display:flex;"><span>  | Term.Function (_, terms) -&gt; occurs_in_any_of env var terms
+</span></span><span style="display:flex;"><span>  | _ -&gt; false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Returns [true] if [var] occurs in any of the given [terms]. *)</span>
+</span></span><span style="display:flex;"><span>and occurs_in_any_of env var terms =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = List.find_opt (<span style="color:#fff;font-weight:bold">fun</span> term -&gt; occurs_in env var term) terms <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  Option.is_some term
+</span></span></code></pre></div><p>Here are some tests to illustrate the use cases:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;occurs_in: variable does not occur&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;p&#34;</span>, [ <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span> ]); Term.Var <span style="color:#0ff;font-weight:bold">&#34;z&#34;</span> ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  occurs_in env <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> term = false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;occurs_in: variable occurs directly&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>; Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span> ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  occurs_in env <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> term
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;occurs_in: variable occurs in nested Function&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term =
+</span></span><span style="display:flex;"><span>    Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]); Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span> ])
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  occurs_in env <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> term
+</span></span></code></pre></div><p>Finally, we want to have tests for the top-level <code>unify</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;unify: successful predicate unification&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* P(x, p(a)) = P(f(), p(a))
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: x -&gt; f() *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>; Term.Param (<span style="color:#0ff;font-weight:bold">&#34;p&#34;</span>, [ <span style="color:#0ff;font-weight:bold">&#34;a&#34;</span> ]) ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 =
+</span></span><span style="display:flex;"><span>    Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, []); Term.Param (<span style="color:#0ff;font-weight:bold">&#34;p&#34;</span>, [ <span style="color:#0ff;font-weight:bold">&#34;a&#34;</span> ]) ])
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> unify env (f1, f2) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Ok env&#39; -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> resolved = chase_var env&#39; (Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      resolved = Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [])
+</span></span><span style="display:flex;"><span>  | Error _ -&gt; false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;unify: mismatched predicate names&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* P(x) != Q(f())
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: Error *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, []) ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> unify env (f1, f2) <span style="color:#fff;font-weight:bold">with</span> Ok _ -&gt; false | Error _ -&gt; true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;unify: occurs check failure&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* P(x) = P(f(x))
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: Error &#34;Occurs check failed&#34; *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) ]) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> unify env (f1, f2) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Ok _ -&gt; false
+</span></span><span style="display:flex;"><span>  | Error msg -&gt; String.starts_with msg ~prefix:<span style="color:#0ff;font-weight:bold">&#34;Occurs check failed&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;unify: multiple variables in deep structure&#34;</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* P(f(x, g(y, z)), h(w)) = P(f(a, g(b, c)), h(d))
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: x -&gt; a, y -&gt; b, z -&gt; c, w -&gt; d *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 =
+</span></span><span style="display:flex;"><span>    Formula.Pred
+</span></span><span style="display:flex;"><span>      ( <span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>,
+</span></span><span style="display:flex;"><span>        [
+</span></span><span style="display:flex;"><span>          Term.Function
+</span></span><span style="display:flex;"><span>            ( <span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>,
+</span></span><span style="display:flex;"><span>              [
+</span></span><span style="display:flex;"><span>                Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>; Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>; Term.Var <span style="color:#0ff;font-weight:bold">&#34;z&#34;</span> ]);
+</span></span><span style="display:flex;"><span>              ] );
+</span></span><span style="display:flex;"><span>          Term.Function (<span style="color:#0ff;font-weight:bold">&#34;h&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;w&#34;</span> ]);
+</span></span><span style="display:flex;"><span>        ] )
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 =
+</span></span><span style="display:flex;"><span>    Formula.Pred
+</span></span><span style="display:flex;"><span>      ( <span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>,
+</span></span><span style="display:flex;"><span>        [
+</span></span><span style="display:flex;"><span>          Term.Function
+</span></span><span style="display:flex;"><span>            ( <span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>,
+</span></span><span style="display:flex;"><span>              [
+</span></span><span style="display:flex;"><span>                Term.Param (<span style="color:#0ff;font-weight:bold">&#34;a&#34;</span>, []);
+</span></span><span style="display:flex;"><span>                Term.Function
+</span></span><span style="display:flex;"><span>                  (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;b&#34;</span>, []); Term.Param (<span style="color:#0ff;font-weight:bold">&#34;c&#34;</span>, []) ]);
+</span></span><span style="display:flex;"><span>              ] );
+</span></span><span style="display:flex;"><span>          Term.Function (<span style="color:#0ff;font-weight:bold">&#34;h&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;d&#34;</span>, []) ]);
+</span></span><span style="display:flex;"><span>        ] )
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> unify env (f1, f2) <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>  | Ok env&#39; -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> x = chase_var env&#39; (Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> y = chase_var env&#39; (Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> z = chase_var env&#39; (Term.Var <span style="color:#0ff;font-weight:bold">&#34;z&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> w = chase_var env&#39; (Term.Var <span style="color:#0ff;font-weight:bold">&#34;w&#34;</span>) <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      x = Term.Param (<span style="color:#0ff;font-weight:bold">&#34;a&#34;</span>, [])
+</span></span><span style="display:flex;"><span>      &amp;&amp; y = Term.Param (<span style="color:#0ff;font-weight:bold">&#34;b&#34;</span>, [])
+</span></span><span style="display:flex;"><span>      &amp;&amp; z = Term.Param (<span style="color:#0ff;font-weight:bold">&#34;c&#34;</span>, [])
+</span></span><span style="display:flex;"><span>      &amp;&amp; w = Term.Param (<span style="color:#0ff;font-weight:bold">&#34;d&#34;</span>, [])
+</span></span><span style="display:flex;"><span>  | Error _ -&gt; false
+</span></span></code></pre></div><p>That&rsquo;s it for today. We got a working unification.
+I&rsquo;m not very happy with these inline tests, so before moving forward, I&rsquo;ll probably rewrite them using <code>alcotest</code>.</p>
+<p>Till next time!</p>
+
+        
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      1985 -
+    
+    2024
+     Vasiliy Yorkin 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F8R77TYF8B');
+        }
+      </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

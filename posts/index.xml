@@ -6,8 +6,15 @@
     <description>Recent content in Posts on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Dec 2024 22:25:00 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 26 Dec 2024 18:03:00 +0700</lastBuildDate>
     <atom:link href="https://vyorkin.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 7</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-7/</link>
+      <pubDate>Thu, 26 Dec 2024 18:03:00 +0700</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-7/</guid>
+      <description>&lt;h2 id=&#34;environment&#34;&gt;&#xA;  Environment&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#environment&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Our unification algorithm maintains the environment which is&#xA;defined like this: &lt;br /&gt;&#xA;\(\{(?a_1, t_1), \dots, (?a_k, t_k) \}\), where \(\forall i: a_i \neq t_i\)&lt;/p&gt;&#xA;&lt;p&gt;We will evaluate each term in this env and replace meta-variable \(?a_i\) with \(t_i\) when necessary. When we encounter an \(?a_i\) we will do the replacement and work with \(t_i\) recursively. This process will eventually stop, as the occurs check prevents loops such as \({(?b, f (?a)), (?a, g(?b))}\).&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Designing a Theorem Prover, Part 6</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-6/</link>

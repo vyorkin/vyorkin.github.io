@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-7/</loc>
-    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
+    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-9/</loc>
+    <lastmod>2025-01-11T16:50:00+07:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/tags/folderol/</loc>
-    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
+    <lastmod>2025-01-11T16:50:00+07:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/</loc>
-    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
+    <lastmod>2025-01-11T16:50:00+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -22,7 +22,7 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/tags/</loc>
-    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
+    <lastmod>2025-01-11T16:50:00+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -40,7 +40,7 @@
                 />
   </url><url>
     <loc>https://vyorkin.org/</loc>
-    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
+    <lastmod>2025-01-11T16:50:00+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru-ru"
@@ -56,6 +56,12 @@
                 hreflang="en"
                 href="https://vyorkin.org/"
                 />
+  </url><url>
+    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-8/</loc>
+    <lastmod>2025-01-08T16:44:00+07:00</lastmod>
+  </url><url>
+    <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-7/</loc>
+    <lastmod>2024-12-26T18:03:00+07:00</lastmod>
   </url><url>
     <loc>https://vyorkin.org/posts/designing-a-theorem-prover-part-6/</loc>
     <lastmod>2024-12-14T22:25:00+07:00</lastmod>

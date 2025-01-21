@@ -3,7 +3,7 @@
 
 <head>
   <title>
-  Forwards versus Backwards Reasoning · transcendental kyberautism
+  Designing a Theorem Prover, Part 9 · transcendental kyberautism
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,51 +14,44 @@
 
 <meta name="author" content="Vasiliy Yorkin">
 <meta name="description" content="
-  Forwards Reasoning
+  Quantifier Unification
   
     
     Link to heading
   
 
-We start with axioms, and step by step build up a proof until we reach the desired conclusion.
-Example in Gentzen&rsquo;s LK:
-
-We start with a single axiom: \(A \vdash A\). 
-It means: any formula implies itself, so this sequent is always true.
-We apply the left introduction for conjunction rule:
-\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad
-(\land L_1)\) 
-We get: \(\displaystyle A \land B \vdash A\)
-
-We started from axioms or known facts and builded towards the conclusion.
-We applied \(\land L_1\) directly on the axiom.">
+For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let&rsquo;s look at a specific example that Paulson discusses in his paper.
+Why can&rsquo;t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting
+\(?a\) to \(x\)? 
+It seems intuitive at first glance, but it&rsquo;s a trap.
+Think about what these two formulas actually mean:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Forwards versus Backwards Reasoning">
-  <meta name="twitter:description" content="Forwards Reasoning Link to heading We start with axioms, and step by step build up a proof until we reach the desired conclusion.
-Example in Gentzen’s LK:
-We start with a single axiom: \(A \vdash A\). It means: any formula implies itself, so this sequent is always true. We apply the left introduction for conjunction rule: \(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\) We get: \(\displaystyle A \land B \vdash A\) We started from axioms or known facts and builded towards the conclusion. We applied \(\land L_1\) directly on the axiom.">
+  <meta name="twitter:title" content="Designing a Theorem Prover, Part 9">
+  <meta name="twitter:description" content="Quantifier Unification Link to heading For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let’s look at a specific example that Paulson discusses in his paper.
+Why can’t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting \(?a\) to \(x\)? It seems intuitive at first glance, but it’s a trap.
+Think about what these two formulas actually mean:">
 
-<meta property="og:url" content="https://vyorkin.org/posts/forwards-reasoning-vs-backwards-reasoning/">
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
   <meta property="og:site_name" content="transcendental kyberautism">
-  <meta property="og:title" content="Forwards versus Backwards Reasoning">
-  <meta property="og:description" content="Forwards Reasoning Link to heading We start with axioms, and step by step build up a proof until we reach the desired conclusion.
-Example in Gentzen’s LK:
-We start with a single axiom: \(A \vdash A\). It means: any formula implies itself, so this sequent is always true. We apply the left introduction for conjunction rule: \(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\) We get: \(\displaystyle A \land B \vdash A\) We started from axioms or known facts and builded towards the conclusion. We applied \(\land L_1\) directly on the axiom.">
+  <meta property="og:title" content="Designing a Theorem Prover, Part 9">
+  <meta property="og:description" content="Quantifier Unification Link to heading For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let’s look at a specific example that Paulson discusses in his paper.
+Why can’t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting \(?a\) to \(x\)? It seems intuitive at first glance, but it’s a trap.
+Think about what these two formulas actually mean:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-09-21T19:07:00+03:00">
-    <meta property="article:modified_time" content="2024-09-21T19:07:00+03:00">
+    <meta property="article:published_time" content="2025-01-11T16:50:00+07:00">
+    <meta property="article:modified_time" content="2025-01-11T16:50:00+07:00">
     <meta property="article:tag" content="Folderol">
 
 
 
 
-<link rel="canonical" href="https://vyorkin.org/posts/forwards-reasoning-vs-backwards-reasoning/">
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
 
 
 <link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -185,8 +178,8 @@ We start with a single axiom: \(A \vdash A\). It means: any formula implies itse
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="https://vyorkin.org/posts/forwards-reasoning-vs-backwards-reasoning/">
-              Forwards versus Backwards Reasoning
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
+              Designing a Theorem Prover, Part 9
             </a>
           </h1>
         </div>
@@ -194,8 +187,8 @@ We start with a single axiom: \(A \vdash A\). It means: any formula implies itse
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="September 21, 2024">
-                September 21, 2024
+              <time datetime="January 11, 2025">
+                January 11, 2025
               </time>
             </span>
           </div>
@@ -212,46 +205,72 @@ We start with a single axiom: \(A \vdash A\). It means: any formula implies itse
 
       <div class="post-content">
         
-        <h2 id="forwards-reasoning">
-  Forwards Reasoning
-  <a class="heading-link" href="#forwards-reasoning">
+        <h2 id="quantifier-unification">
+  Quantifier Unification
+  <a class="heading-link" href="#quantifier-unification">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>We <strong>start with axioms</strong>, and step by step build up a proof until we reach the desired conclusion.</p>
-<p>Example in Gentzen&rsquo;s LK:</p>
+<p>For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let&rsquo;s look at a specific example that Paulson discusses in his paper.</p>
+<p>Why can&rsquo;t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting
+\(?a\) to \(x\)? <br />
+It seems intuitive at first glance, but it&rsquo;s a trap.</p>
+<p>Think about what these two formulas actually mean:</p>
+<ul>
+<li>\(\exists x.P(x)\) – means &ldquo;there exists some \(x\) for which \(P(x)\) is true&rdquo;</li>
+<li>\(\exists x.P(?a)\) – means &ldquo;there exists some \(x\), and \(P\) holds for some specific value \(?a\)&rdquo;</li>
+</ul>
+<p>These are fundamentally different logical statements:</p>
 <ol>
-<li>We start with a single axiom: \(A \vdash A\). <br />
-It means: any formula implies itself, so this sequent is always <strong>true</strong>.</li>
-<li>We apply the <strong>left introduction for conjunction</strong> rule:
-\(\displaystyle \cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad
-(\land L_1)\) <br />
-We get: \(\displaystyle A \land B \vdash A\)</li>
+<li>\(\exists x.P(x)\) – &ldquo;exists an \(x\) such that \(P(x)\)&rdquo;</li>
+<li>\(\forall x.P(?a)\) – &ldquo;exists an \(x\), and P holds for \(?a\)&rdquo;</li>
 </ol>
-<p>We started from axioms or known facts and builded towards the conclusion.
-We applied \(\land L_1\) directly on the axiom.</p>
-<h2 id="backwards-reasoning">
-  Backwards Reasoning
-  <a class="heading-link" href="#backwards-reasoning">
+<p>What if we simply map \(?a\) to \(x\): <br />
+\(?a := x\) <br />
+Well, then we get \(\exists x.P(x)\) but we&rsquo;ve just created a scope
+violation. <br />
+We&rsquo;re trying to make ?a reference a variable that only exists
+inside the quantifier. <br />
+It&rsquo;s like trying to reference a variable outside its scope in
+programming:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> x = 1 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> f = <span style="color:#fff;font-weight:bold">fun</span> y -&gt; x + y <span style="color:#fff;font-weight:bold">in</span>  <span style="color:#007f7f">(* x refers to x = 1 *)</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> x = 2 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>f 0                        <span style="color:#007f7f">(* still returns 1, not 2 *)</span>
+</span></span></code></pre></div><p>Paulson made an interesting choice in Folderol – it only unifies atomic formulas. No quantifiers involved. At first, this might seem limiting, but if you&rsquo;re building an educational system like folderol, sticking to atomic formulas might be the wise choice.</p>
+<h2 id="occurs-check">
+  Occurs check
+  <a class="heading-link" href="#occurs-check">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p><strong>Backwards reasoning/proof</strong> means that we start with the statement we want to prove and try to simplify it step by step until we reach an axiom.</p>
-<p>Example in Gentzen&rsquo;s LK:</p>
-<ol>
-<li>We start with \(\displaystyle A \land B \vdash A\), we need to
-reach axiom \(A \vdash A\)</li>
-<li>We apply the <strong>left conjunction</strong> rule: \(\displaystyle
-\cfrac{\Gamma, A \vdash \Delta}{\Gamma, A \land B \vdash \Delta} \quad (\land L_1)\) <br />
-This rule allows us to move from \(A \land B \vdash A\)  to \(A
-\vdash A\). <br />
-The reasoning is that, if we can derive \(A\) from \(A\), then we can also derive \(A\) from \(A \land B\).</li>
-<li>So, applying \(\land L_1\) directly we get \(A\vdash A\)</li>
-</ol>
-<p>We started from the goal and worked backward. We used \(\land L_1\)​ to
-simplify the goal and the completed the proof by reaching our axiom.</p>
+<p>Do we really need an occurs check? <br />
+Some systems (like Prolog) skip the occurs check to go faster, but that can lead to problems – like circular data structures or getting stuck in an endless loop.</p>
+<blockquote class="quote2 quote2-warning no-quote">I don&rsquo;t know (and I don&rsquo;t really care) if modern Prolog skips
+the occurs check in 2025, <br />
+but that&rsquo;s what Paulson wrote in 1990.
+</blockquote>
+
+<p>Folderol uses a naive unification algorithm. While it might
+require exponential time in some edge cases, it usually performs
+well enough. Paulson mentions that there is a more sophisticated
+approach by
+<a href="https://dl.acm.org/doi/pdf/10.1145/357162.357169"  class="external-link" target="_blank" rel="noopener">Martelli and
+Montanari (1982)</a> which avoids the occurs check through
+equation sorting, but it&rsquo;s mainly of theoretical interest (I
+haven&rsquo;t read it and probably never will lol).</p>
+<h2 id="instantiation-of-terms">
+  Instantiation of Terms
+  <a class="heading-link" href="#instantiation-of-terms">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>In Paulson&rsquo;s <strong>Folderol</strong>, substitutions during unification aren&rsquo;t applied immediately. Instead, they are delayed because it is simply more efficient. Delaying substitutions avoids repeatedly rewriting large terms. Instead, we just pass around the environment from one unification to another, accumulating substitutions as we go.</p>
+<p>For simplicity and efficiency reasons, in folderol we use environments only during unification. After unification is complete, we should &ldquo;instantiate&rdquo; the entire proof. This means we should goe through the proof and apply all the substitutions recorded in the environment.</p>
+<p>Paulson introduces a recursive function, <code>inst_term</code>, that performs the meta-variable substitution:</p>
 
         
       </div>

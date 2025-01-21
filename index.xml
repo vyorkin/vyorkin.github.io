@@ -6,15 +6,8 @@
     <description>Recent content on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 11 Jan 2025 16:50:00 +0700</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jan 2025 16:44:00 +0700</lastBuildDate>
     <atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Designing a Theorem Prover, Part 9</title>
-      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-9/</link>
-      <pubDate>Sat, 11 Jan 2025 16:50:00 +0700</pubDate>
-      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-9/</guid>
-      <description>&lt;h2 id=&#34;quantifier-unification&#34;&gt;&#xA;  Quantifier Unification&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#quantifier-unification&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let&amp;rsquo;s look at a specific example that Paulson discusses in his paper.&lt;/p&gt;&#xA;&lt;p&gt;Why can&amp;rsquo;t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting&#xA;\(?a\) to \(x\)? &lt;br /&gt;&#xA;It seems intuitive at first glance, but it&amp;rsquo;s a trap.&lt;/p&gt;&#xA;&lt;p&gt;Think about what these two formulas actually mean:&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Designing a Theorem Prover, Part 8</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-8/</link>

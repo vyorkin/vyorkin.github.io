@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <title>
   Designing a Theorem Prover, Part 9 · transcendental kyberautism
 </title>
@@ -35,7 +35,7 @@ Think about what these two formulas actually mean:">
 Why can’t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting \(?a\) to \(x\)? It seems intuitive at first glance, but it’s a trap.
 Think about what these two formulas actually mean:">
 
-<meta property="og:url" content="http://localhost:1313/posts/designing-a-theorem-prover-part-9/">
+<meta property="og:url" content="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Designing a Theorem Prover, Part 9">
   <meta property="og:description" content="Quantifier Unification Link to heading For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let’s look at a specific example that Paulson discusses in his paper.
@@ -44,22 +44,24 @@ Think about what these two formulas actually mean:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-01-22T02:28:00+07:00">
+    <meta property="article:modified_time" content="2025-01-22T02:28:00+07:00">
     <meta property="article:tag" content="Folderol">
 
 
 
 
-<link rel="canonical" href="http://localhost:1313/posts/designing-a-theorem-prover-part-9/">
+<link rel="canonical" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
 
 
-<link rel="preload" href="http://localhost:1313/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="http://localhost:1313/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
 
   
   
-  <link rel="stylesheet" href="http://localhost:1313/css/coder.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -68,26 +70,25 @@ Think about what these two formulas actually mean:">
   
     
     
-    <link rel="stylesheet" href="http://localhost:1313/css/coder-dark.css" media="screen">
+    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
 
 
 
 
   
-  
-  <link rel="stylesheet" href="http://localhost:1313/custom.css" media="screen">
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
 
 
-<link rel="icon" type="image/svg+xml" href="http://localhost:1313/images/favicon.svg" sizes="any">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="http://localhost:1313/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://vyorkin.org/images/favicon-16x16.png" sizes="16x16">
 
-<link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="https://vyorkin.org/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://vyorkin.org/images/apple-touch-icon.png">
 
-<link rel="manifest" href="http://localhost:1313/site.webmanifest">
-<link rel="mask-icon" href="http://localhost:1313/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="https://vyorkin.org/site.webmanifest">
+<link rel="mask-icon" href="https://vyorkin.org/images/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
@@ -117,7 +118,7 @@ Think about what these two formulas actually mean:">
     <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="http://localhost:1313/">
+    <a class="navigation-title" href="https://vyorkin.org/">
       transcendental kyberautism
     </a>
     
@@ -130,11 +131,11 @@ Think about what these two formulas actually mean:">
         
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/about/">about</a>
+              <a class="navigation-link " href="https://vyorkin.org/about/">about</a>
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link " href="http://localhost:1313/posts/">posts</a>
+              <a class="navigation-link " href="https://vyorkin.org/posts/">posts</a>
             </li>
           
         
@@ -152,14 +153,14 @@ Think about what these two formulas actually mean:">
                 
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/ru-ru/">ru</a>
+                <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
             
           
             
               
               <li class="navigation-item">
-                <a href="http://localhost:1313/de-de/">de</a>
+                <a href="https://vyorkin.org/de-de/">de</a>
               </li>
             
           
@@ -177,7 +178,7 @@ Think about what these two formulas actually mean:">
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:1313/posts/designing-a-theorem-prover-part-9/">
+            <a class="title-link" href="https://vyorkin.org/posts/designing-a-theorem-prover-part-9/">
               Designing a Theorem Prover, Part 9
             </a>
           </h1>
@@ -186,8 +187,8 @@ Think about what these two formulas actually mean:">
           <div class="date">
             <span class="posted-on">
               <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="January 1, 0001">
-                January 1, 0001
+              <time datetime="January 22, 2025">
+                January 22, 2025
               </time>
             </span>
           </div>
@@ -196,7 +197,7 @@ Think about what these two formulas actually mean:">
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
-      <a href="http://localhost:1313/tags/folderol/">Folderol</a>
+      <a href="https://vyorkin.org/tags/folderol/">Folderol</a>
     </span></div>
 
         </div>
@@ -229,7 +230,7 @@ It seems intuitive at first glance, but it&rsquo;s a trap.</p>
 \(?a := x\) <br />
 Well, then we get \(\exists x.P(x)\) but we&rsquo;ve just created a scope
 violation. <br />
-We&rsquo;re trying to make ?a reference a variable that only exists
+We&rsquo;re trying to make \(?a\) reference a variable that only exists
 inside the quantifier. <br />
 It&rsquo;s like trying to reference a variable outside its scope in
 programming:</p>
@@ -270,7 +271,34 @@ haven&rsquo;t read it and probably never will lol).</p>
 <p>In Paulson&rsquo;s <strong>Folderol</strong>, substitutions during unification aren&rsquo;t applied immediately. Instead, they are delayed because it is simply more efficient. Delaying substitutions avoids repeatedly rewriting large terms. Instead, we just pass around the environment from one unification to another, accumulating substitutions as we go.</p>
 <p>For simplicity and efficiency reasons, in folderol we use environments only during unification. After unification is complete, we should &ldquo;instantiate&rdquo; the entire proof. This means we should goe through the proof and apply all the substitutions recorded in the environment.</p>
 <p>Paulson introduces a recursive function, <code>inst_term</code>, that performs the meta-variable substitution:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> inst_term env = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | Term.Function (name, args) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> args&#39; = List.map ~f:(inst_term env) args <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Term.Function (name, args&#39;)
+</span></span><span style="display:flex;"><span>  | Term.Param (name, var_names) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> vars =
+</span></span><span style="display:flex;"><span>        var_names
+</span></span><span style="display:flex;"><span>        |&gt; List.map ~f:(<span style="color:#fff;font-weight:bold">fun</span> v -&gt; inst_term env (Term.Var v))
+</span></span><span style="display:flex;"><span>        |&gt; List.fold ~init:<span style="color:#fff;font-weight:bold">[]</span> ~f:Term.variable_names
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Term.Param (name, vars)
+</span></span><span style="display:flex;"><span>  | Term.Var name -&gt; (
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">match</span> find env name <span style="color:#fff;font-weight:bold">with</span>
+</span></span><span style="display:flex;"><span>      | Some term -&gt; inst_term env term
+</span></span><span style="display:flex;"><span>      | None -&gt; Term.Var name)
+</span></span><span style="display:flex;"><span>  | term -&gt; term
+</span></span></code></pre></div><p>Same with formulas:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> inst_formula env = <span style="color:#fff;font-weight:bold">function</span>
+</span></span><span style="display:flex;"><span>  | Formula.Pred (name, terms) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> terms&#39; = List.map ~f:(inst_term env) terms <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Formula.Pred (name, terms&#39;)
+</span></span><span style="display:flex;"><span>  | Formula.Conn (conn, subformulas) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> subformulas&#39; = List.map ~f:(inst_formula env) subformulas <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Formula.Conn (conn, subformulas&#39;)
+</span></span><span style="display:flex;"><span>  | Formula.Quant (quant, var_name, body) -&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> body&#39; = inst_formula env body <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>      Formula.Quant (quant, var_name, body&#39;)
+</span></span></code></pre></div>
         
       </div>
 
@@ -329,7 +357,7 @@ haven&rsquo;t read it and probably never will lol).</p>
 
   
   
-  <script src="http://localhost:1313/js/coder.js"></script>
+  <script src="https://vyorkin.org/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
   
 
   

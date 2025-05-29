@@ -328,10 +328,10 @@ Lwt это одна из наиболее популярных OCaml библи�
   </a>
 </h3>
 <p>У нас есть следующий синтаксический сахар:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt i = f () <span style="color:#fff;font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt i = f <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>...
 </span></span></code></pre></div><p>Что эквивалентно следующему фрагменту:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>Lwt.bind (f ()) (<span style="color:#fff;font-weight:bold">fun</span> i -&gt; ...)
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>Lwt.bind (f <span style="color:#fff;font-weight:bold">()</span>) (<span style="color:#fff;font-weight:bold">fun</span> i -&gt; ...)
 </span></span></code></pre></div><h3 id="примеры">
   Примеры
   <a class="heading-link" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">
@@ -342,12 +342,12 @@ Lwt это одна из наиболее популярных OCaml библи�
 <p><em>Следующие примеры я взял из официального туториала</em></p>
 <p>Чтение из STDIN без Lwt, выполнение блокируется пока не
 поступит пользовательский ввод:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> () =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> line : <span style="color:#fff;font-weight:bold">string</span> = Pervasives.read_line () <span style="color:#fff;font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">()</span> =
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> line : <span style="color:#fff;font-weight:bold">string</span> = Pervasives.read_line <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>  print_endline <span style="color:#0ff;font-weight:bold">&#34;Now unblocked!&#34;</span>;
 </span></span><span style="display:flex;"><span>  ignore line
 </span></span></code></pre></div><p>С промисами Lwt выполнение продолжается:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> () =
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">()</span> =
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> line_promise : <span style="color:#fff;font-weight:bold">string</span> Lwt.t = Lwt_io.(read_line stdin) <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>  print_endline <span style="color:#0ff;font-weight:bold">&#34;Execution just continues...&#34;</span>;
 </span></span><span style="display:flex;"><span>  ignore line_promise
@@ -355,7 +355,7 @@ Lwt это одна из наиболее популярных OCaml библи�
 сразу завершает работу так и не дождавшись пользовательского
 ввода. Чтобы заблокироваться и подождать пока промис выполнится
 мы можем использовать ф-цию <code>Lwt_main.run</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> () =
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">()</span> =
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> line_promise : <span style="color:#fff;font-weight:bold">string</span> Lwt.t = Lwt_io.(read_line stdin) <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>  print_endline <span style="color:#0ff;font-weight:bold">&#34;Execution just continues...&#34;</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> line : <span style="color:#fff;font-weight:bold">string</span> = Lwt_main.run line_promise <span style="color:#fff;font-weight:bold">in</span>
@@ -374,30 +374,30 @@ Lwt это одна из наиболее популярных OCaml библи�
 туториала, тк я слишком ленивый, чтобы придумывать их самому.</p>
 <p>Пример функции, которая печатает “tic” каждую секунду, не
 блокируя другие “потоки”:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> tic () =
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> tic <span style="color:#fff;font-weight:bold">()</span> =
 </span></span><span style="display:flex;"><span>  print_endline <span style="color:#0ff;font-weight:bold">&#34;tic&#34;</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span>%lwt () = Lwt_unix.sleep 1.0 <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  tic ()
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span>%lwt <span style="color:#fff;font-weight:bold">()</span> = Lwt_unix.sleep 1.0 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span>  tic <span style="color:#fff;font-weight:bold">()</span>
 </span></span></code></pre></div><p>Пример запуска нескольких “потоков” и ожидание их результатов.</p>
 <p>Допустим у нас есть пара ф-ций <code>f</code> и <code>g</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> f : <span style="color:#fff;font-weight:bold">unit</span> -&gt; <span style="color:#fff;font-weight:bold">unit</span> Lwt.t
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> g : <span style="color:#fff;font-weight:bold">unit</span> -&gt; <span style="color:#fff;font-weight:bold">unit</span> Lwt.t
 </span></span></code></pre></div><p>Следующий код запустит их вычисления последовательно:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt () = f () <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt () = g () <span style="color:#fff;font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt <span style="color:#fff;font-weight:bold">()</span> = f <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt <span style="color:#fff;font-weight:bold">()</span> = g <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>...
 </span></span></code></pre></div><p>А вот так мы можем запустить обе ф-ции конкурентно и сразу же
 подождать их завершения:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> p1 = f () <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> p2 = g () <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt () = p1 <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt () = p2 <span style="color:#fff;font-weight:bold">in</span>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> p1 = f <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> p2 = g <span style="color:#fff;font-weight:bold">()</span> <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt <span style="color:#fff;font-weight:bold">()</span> = p1 <span style="color:#fff;font-weight:bold">in</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%lwt <span style="color:#fff;font-weight:bold">()</span> = p2 <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>...
 </span></span></code></pre></div><p>Пример ф-ции, которая выполняет все вычисления из списка
 конкрурентно:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> map f l =
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> l <span style="color:#fff;font-weight:bold">with</span>
-</span></span><span style="display:flex;"><span>  | [] -&gt; Lwt.return []
+</span></span><span style="display:flex;"><span>  | <span style="color:#fff;font-weight:bold">[]</span> -&gt; Lwt.return <span style="color:#fff;font-weight:bold">[]</span>
 </span></span><span style="display:flex;"><span>  | v :: r -&gt;
 </span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> t = f v <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span> rt = map f r <span style="color:#fff;font-weight:bold">in</span>
@@ -408,7 +408,7 @@ Lwt это одна из наиболее популярных OCaml библи�
 предыдущее вычисление из списка, прежде чем запустить следующее:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> map_serial f l =
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">match</span> l <span style="color:#fff;font-weight:bold">with</span>
-</span></span><span style="display:flex;"><span>  | [] -&gt; return []
+</span></span><span style="display:flex;"><span>  | <span style="color:#fff;font-weight:bold">[]</span> -&gt; return <span style="color:#fff;font-weight:bold">[]</span>
 </span></span><span style="display:flex;"><span>  | v :: r -&gt;
 </span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span>%lwt v&#39; = f v <span style="color:#fff;font-weight:bold">in</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">let</span>%lwt l&#39; = map_serial f r <span style="color:#fff;font-weight:bold">in</span>

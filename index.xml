@@ -6,8 +6,15 @@
     <description>Recent content on transcendental kyberautism</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 Jan 2025 16:44:00 +0700</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jan 2025 02:28:00 +0700</lastBuildDate>
     <atom:link href="https://vyorkin.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Designing a Theorem Prover, Part 9</title>
+      <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-9/</link>
+      <pubDate>Wed, 22 Jan 2025 02:28:00 +0700</pubDate>
+      <guid>https://vyorkin.org/posts/designing-a-theorem-prover-part-9/</guid>
+      <description>&lt;h2 id=&#34;quantifier-unification&#34;&gt;&#xA;  Quantifier Unification&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#quantifier-unification&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let&amp;rsquo;s look at a specific example that Paulson discusses in his paper.&lt;/p&gt;&#xA;&lt;p&gt;Why can&amp;rsquo;t we unify \(\exists x.P(x)\) with \(\exists x.P(?a)\) by simply setting&#xA;\(?a\) to \(x\)? &lt;br /&gt;&#xA;It seems intuitive at first glance, but it&amp;rsquo;s a trap.&lt;/p&gt;&#xA;&lt;p&gt;Think about what these two formulas actually mean:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Designing a Theorem Prover, Part 8</title>
       <link>https://vyorkin.org/posts/designing-a-theorem-prover-part-8/</link>
@@ -265,7 +272,7 @@
       <link>https://vyorkin.org/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/about/</guid>
-      <description>&lt;p&gt;Hey there! I&amp;rsquo;m Vasiliy Yorkin, and this is my personal site.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m a software engineer with a strong passion for DeFi,&#xA;cryptocurrencies, and blockchain security. I believe that decentralized finance&#xA;has a great potential of completely disrupting traditional&#xA;finance, but right now, it&amp;rsquo;s still full of risks.&#xA;That&amp;rsquo;s why making Web3 safer is becoming more important every day.&lt;/p&gt;&#xA;&lt;p&gt;Lately, I&amp;rsquo;ve been diving into MEV in my spare time — it&amp;rsquo;s what I&amp;rsquo;m currently researching.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Hey there! I&amp;rsquo;m Vasiliy Yorkin, and this is my little corner of&#xA;the shitty place they call Internet.&#xA;I make things with computers and explore the Universe.&#xA;When AGI finally takes over this damn world, hopefully it&#xA;will spare me and let me live out this mortal life.&#xA;I&amp;rsquo;m into statically typed functional programming, compilers, type theory,&#xA;and formal verification. Here I share some of what I do.&#xA;Most of my open source work is available on &lt;a href=&#34;https://github.com/vyorkin&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

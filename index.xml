@@ -272,7 +272,7 @@
       <link>https://vyorkin.org/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/about/</guid>
-      <description>&lt;p&gt;Hey there! I&amp;rsquo;m Vasiliy Yorkin, and this is my little corner of&#xA;the shitty place they call Internet.&lt;/p&gt;&#xA;&lt;p&gt;I make things with computers and explore the Universe.&lt;/p&gt;&#xA;&lt;p&gt;When AGI finally takes over this damn world, hopefully it&#xA;will spare me and let me live out this mortal life.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m into statically typed functional programming, compilers, type theory,&#xA;and formal verification. Here I share some of what I do.&lt;/p&gt;&#xA;&lt;p&gt;Most of my open source work is available on &lt;a href=&#34;https://github.com/vyorkin&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Hey there! I&amp;rsquo;m Vasiliy Yorkin, and this is my little corner of&#xA;the shitty place they call Internet.&lt;br&gt;&#xA;I make things with computers and explore the Universe.&lt;br&gt;&#xA;When AGI finally takes over this damn world, hopefully it&#xA;will spare me and let me live out this mortal life.&lt;br&gt;&#xA;I&amp;rsquo;m into statically typed functional programming, compilers, type theory,&#xA;and formal verification.&lt;br&gt;&#xA;Here I share some of what I do.&lt;br&gt;&#xA;Most of my open source work is available on &lt;a href=&#34;https://github.com/vyorkin&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

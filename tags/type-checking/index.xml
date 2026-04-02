@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Type Checking on transcendental kyberautism</title>
+    <link>http://localhost:52944/tags/type-checking/</link>
+    <description>Recent content in Type Checking on transcendental kyberautism</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:52944/tags/type-checking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making of Tiger #5, Semantic Analysis</title>
+      <link>http://localhost:52944/posts/making-of-tiger-5-semantic-analysis/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:52944/posts/making-of-tiger-5-semantic-analysis/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;&#xA;  Intro&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#intro&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;I really enjoyed working through this chapter, but at the same&#xA;time implementing the type-checking phase was a bit more&#xA;difficult than working on AST, parser or lexer from the previous&#xA;chapters.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

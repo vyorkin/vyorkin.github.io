@@ -70,26 +70,22 @@ Alcotest Link to heading To use Alcotest, you need to provide a pp function for 
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -115,9 +111,7 @@ Alcotest Link to heading To use Alcotest, you need to provide a pp function for 
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -156,8 +150,6 @@ Alcotest Link to heading To use Alcotest, you need to provide a pp function for 
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -167,6 +159,8 @@ Alcotest Link to heading To use Alcotest, you need to provide a pp function for 
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -226,38 +220,38 @@ Alcotest Link to heading To use Alcotest, you need to provide a pp function for 
   </a>
 </h2>
 <p>To use Alcotest, you need to provide a <code>pp</code> function for pretty-printing and an <code>equals</code> function for equality checks. The <code>testable</code> function in Alcotest handles wrapping your type for testing, requiring only these two functions.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> Env : <span style="color:#fff;font-weight:bold">sig</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">val</span> pp : Format.formatter -&gt; t -&gt; <span style="color:#fff;font-weight:bold">unit</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Prints the env [t] using the format output function [fmt].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      @param fmt The formatter to which the formatted env is output.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">      @param t The env to be formatted. *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">val</span> equal : t -&gt; t -&gt; <span style="color:#fff;font-weight:bold">bool</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(** Returns [true] if two environments are equal. *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* unification.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nc">Env</span> <span class="o">:</span> <span class="k">sig</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">pp</span> <span class="o">:</span> <span class="nn">Format</span><span class="p">.</span><span class="n">formatter</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(** Prints the env [t] using the format output function [fmt].
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">      @param fmt The formatter to which the formatted env is output.
+</span></span></span><span class="line"><span class="cl"><span class="c">      @param t The env to be formatted. *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">equal</span> <span class="o">:</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(** Returns [true] if two environments are equal. *)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
 </span></span></code></pre></div><p>To implement pretty-printing we&rsquo;ll use the <code>Format</code> module.
 Equality is just an alias for <code>Map.equal Term.equal</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">module</span> Env = <span style="color:#fff;font-weight:bold">struct</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> pp fmt env =
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> pp_binding fmt (key, term) =
-</span></span><span style="display:flex;"><span>      Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%s -&gt; %s&#34;</span> key (Term.to_string term)
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> bindings = Map.to_alist env <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;{%a}&#34;</span>
-</span></span><span style="display:flex;"><span>      (Format.pp_print_list
-</span></span><span style="display:flex;"><span>         ~pp_sep:(<span style="color:#fff;font-weight:bold">fun</span> fmt <span style="color:#fff;font-weight:bold">()</span> -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;, &#34;</span>)
-</span></span><span style="display:flex;"><span>         pp_binding)
-</span></span><span style="display:flex;"><span>      bindings
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> equal = Map.equal Term.equal
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* unification.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nc">Env</span> <span class="o">=</span> <span class="k">struct</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">pp</span> <span class="n">fmt</span> <span class="n">env</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">pp_binding</span> <span class="n">fmt</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">term</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%s -&gt; %s&#34;</span> <span class="n">key</span> <span class="o">(</span><span class="nn">Term</span><span class="p">.</span><span class="n">to_string</span> <span class="n">term</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">bindings</span> <span class="o">=</span> <span class="nn">Map</span><span class="p">.</span><span class="n">to_alist</span> <span class="n">env</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;{%a}&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_list</span>
+</span></span><span class="line"><span class="cl">         <span class="o">~</span><span class="n">pp_sep</span><span class="o">:(</span><span class="k">fun</span> <span class="n">fmt</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;, &#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">         <span class="n">pp_binding</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">bindings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">equal</span> <span class="o">=</span> <span class="nn">Map</span><span class="p">.</span><span class="n">equal</span> <span class="nn">Term</span><span class="p">.</span><span class="n">equal</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
 </span></span></code></pre></div><h2 id="testsuite">
   Testsuite
   <a class="heading-link" href="#testsuite">
@@ -266,82 +260,82 @@ Equality is just an alias for <code>Map.equal Term.equal</code>.</p>
   </a>
 </h2>
 <p>We need a a couple of helper functions and testables as well:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* helpers *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> pp_error ppf err = Format.pp_print_string ppf err
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> error = Alcotest.testable pp_error ( = )
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* testables *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> term_testable = Alcotest.testable Term.pp Term.equal
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> env_testable = Alcotest.testable Env.pp Env.equal
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* helpers *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">pp_error</span> <span class="n">ppf</span> <span class="n">err</span> <span class="o">=</span> <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_string</span> <span class="n">ppf</span> <span class="n">err</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">error</span> <span class="o">=</span> <span class="nn">Alcotest</span><span class="p">.</span><span class="n">testable</span> <span class="n">pp_error</span> <span class="o">(</span> <span class="o">=</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* testables *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">term_testable</span> <span class="o">=</span> <span class="nn">Alcotest</span><span class="p">.</span><span class="n">testable</span> <span class="nn">Term</span><span class="p">.</span><span class="n">pp</span> <span class="nn">Term</span><span class="p">.</span><span class="n">equal</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">env_testable</span> <span class="o">=</span> <span class="nn">Alcotest</span><span class="p">.</span><span class="n">testable</span> <span class="nn">Env</span><span class="p">.</span><span class="n">pp</span> <span class="nn">Env</span><span class="p">.</span><span class="n">equal</span>
 </span></span></code></pre></div><p>Here is the new <a href="https://github.com/vyorkin/folderol/blob/main/test/testsuite.ml"  class="external-link" target="_blank" rel="noopener">testsuite</a> and a few example tests for unification module:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification_test.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> test_unify_occurs_check_failure <span style="color:#fff;font-weight:bold">()</span> =
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* equation: P(x) = P(f(x))
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: Error &#34;Occurs check failed for variable x&#34; *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) ]) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> result_env = unify env (f1, f2) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> expected_error = <span style="color:#0ff;font-weight:bold">&#34;Occurs check failed for variable x&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  Alcotest.(check (result env_testable error))
-</span></span><span style="display:flex;"><span>    <span style="color:#0ff;font-weight:bold">&#34;unify: occurs check failure&#34;</span> (Error expected_error) result_env
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* unification_test.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">test_unify_occurs_check_failure</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(* equation: P(x) = P(f(x))
+</span></span></span><span class="line"><span class="cl"><span class="c">     expected: Error &#34;Occurs check failed for variable x&#34; *)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">env</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">empty</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f1</span> <span class="o">=</span> <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">])</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f2</span> <span class="o">=</span> <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;f&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">])</span> <span class="o">])</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">result_env</span> <span class="o">=</span> <span class="n">unify</span> <span class="n">env</span> <span class="o">(</span><span class="n">f1</span><span class="o">,</span> <span class="n">f2</span><span class="o">)</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">expected_error</span> <span class="o">=</span> <span class="s2">&#34;Occurs check failed for variable x&#34;</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Alcotest</span><span class="p">.</span><span class="o">(</span><span class="n">check</span> <span class="o">(</span><span class="n">result</span> <span class="n">env_testable</span> <span class="n">error</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;unify: occurs check failure&#34;</span> <span class="o">(</span><span class="nc">Error</span> <span class="n">expected_error</span><span class="o">)</span> <span class="n">result_env</span>
 </span></span></code></pre></div><p>Notice how we test the negative case above ^</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification_test.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> test_unify_unifies_nested_functions <span style="color:#fff;font-weight:bold">()</span> =
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* equation: P(f(x)) = P(f(g()))
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: x -&gt; g() *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 = Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]) ]) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 =
-</span></span><span style="display:flex;"><span>    Formula.Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>) ]) ])
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> result_env = unify env (f1, f2) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> expected_env = Env.add Env.empty (<span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>, Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>)) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  Alcotest.(check (result env_testable error))
-</span></span><span style="display:flex;"><span>    <span style="color:#0ff;font-weight:bold">&#34;unify: unifies nested functions&#34;</span> (Ok expected_env) result_env
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* unification_test.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> test_unify_unifies_nested_functions_with_variables <span style="color:#fff;font-weight:bold">()</span> =
-</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">(* equation: P(f(x, g(y)), z) = P(f(a, g(b)), h(c))
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">     expected: x -&gt; a, y -&gt; b, z -&gt; h(c) *)</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> env = Env.empty <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f1 =
-</span></span><span style="display:flex;"><span>    Formula.Pred
-</span></span><span style="display:flex;"><span>      ( <span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>,
-</span></span><span style="display:flex;"><span>        [
-</span></span><span style="display:flex;"><span>          Term.Function
-</span></span><span style="display:flex;"><span>            (<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>; Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span> ]) ]);
-</span></span><span style="display:flex;"><span>          Term.Var <span style="color:#0ff;font-weight:bold">&#34;z&#34;</span>;
-</span></span><span style="display:flex;"><span>        ] )
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> f2 =
-</span></span><span style="display:flex;"><span>    Formula.Pred
-</span></span><span style="display:flex;"><span>      ( <span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>,
-</span></span><span style="display:flex;"><span>        [
-</span></span><span style="display:flex;"><span>          Term.Function
-</span></span><span style="display:flex;"><span>            ( <span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>,
-</span></span><span style="display:flex;"><span>              [
-</span></span><span style="display:flex;"><span>                Term.Param (<span style="color:#0ff;font-weight:bold">&#34;a&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>);
-</span></span><span style="display:flex;"><span>                Term.Function (<span style="color:#0ff;font-weight:bold">&#34;g&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;b&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>) ]);
-</span></span><span style="display:flex;"><span>              ] );
-</span></span><span style="display:flex;"><span>          Term.Function (<span style="color:#0ff;font-weight:bold">&#34;h&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;c&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>) ]);
-</span></span><span style="display:flex;"><span>        ] )
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> result_env = unify env (f1, f2) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> expected_env =
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> e = Env.empty <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> e = Env.add e (<span style="color:#0ff;font-weight:bold">&#34;x&#34;</span>, Term.Param (<span style="color:#0ff;font-weight:bold">&#34;a&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>)) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> e = Env.add e (<span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Term.Param (<span style="color:#0ff;font-weight:bold">&#34;b&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>)) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">let</span> e = Env.add e (<span style="color:#0ff;font-weight:bold">&#34;z&#34;</span>, Term.Function (<span style="color:#0ff;font-weight:bold">&#34;h&#34;</span>, [ Term.Param (<span style="color:#0ff;font-weight:bold">&#34;c&#34;</span>, <span style="color:#fff;font-weight:bold">[]</span>) ])) <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>    e
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  Alcotest.(check (result env_testable error))
-</span></span><span style="display:flex;"><span>    <span style="color:#0ff;font-weight:bold">&#34;unify: nested function unification with variables&#34;</span> (Ok expected_env)
-</span></span><span style="display:flex;"><span>    result_env
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* unification_test.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">test_unify_unifies_nested_functions</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(* equation: P(f(x)) = P(f(g()))
+</span></span></span><span class="line"><span class="cl"><span class="c">     expected: x -&gt; g() *)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">env</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">empty</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f1</span> <span class="o">=</span> <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;f&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">])</span> <span class="o">])</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f2</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;f&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;g&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">])</span> <span class="o">])</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">result_env</span> <span class="o">=</span> <span class="n">unify</span> <span class="n">env</span> <span class="o">(</span><span class="n">f1</span><span class="o">,</span> <span class="n">f2</span><span class="o">)</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">expected_env</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">add</span> <span class="nn">Env</span><span class="p">.</span><span class="n">empty</span> <span class="o">(</span><span class="s2">&#34;x&#34;</span><span class="o">,</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;g&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">))</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Alcotest</span><span class="p">.</span><span class="o">(</span><span class="n">check</span> <span class="o">(</span><span class="n">result</span> <span class="n">env_testable</span> <span class="n">error</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;unify: unifies nested functions&#34;</span> <span class="o">(</span><span class="nc">Ok</span> <span class="n">expected_env</span><span class="o">)</span> <span class="n">result_env</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* unification_test.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">test_unify_unifies_nested_functions_with_variables</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="c">(* equation: P(f(x, g(y)), z) = P(f(a, g(b)), h(c))
+</span></span></span><span class="line"><span class="cl"><span class="c">     expected: x -&gt; a, y -&gt; b, z -&gt; h(c) *)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">env</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">empty</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f1</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span> <span class="s2">&#34;P&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span>
+</span></span><span class="line"><span class="cl">            <span class="o">(</span><span class="s2">&#34;f&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span><span class="o">;</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;g&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;y&#34;</span> <span class="o">])</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;z&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">f2</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">Formula</span><span class="p">.</span><span class="nc">Pred</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span> <span class="s2">&#34;P&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span>
+</span></span><span class="line"><span class="cl">            <span class="o">(</span> <span class="s2">&#34;f&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">              <span class="o">[</span>
+</span></span><span class="line"><span class="cl">                <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;a&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;g&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;b&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">              <span class="o">]</span> <span class="o">);</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;h&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;c&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">result_env</span> <span class="o">=</span> <span class="n">unify</span> <span class="n">env</span> <span class="o">(</span><span class="n">f1</span><span class="o">,</span> <span class="n">f2</span><span class="o">)</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">expected_env</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">empty</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">add</span> <span class="n">e</span> <span class="o">(</span><span class="s2">&#34;x&#34;</span><span class="o">,</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;a&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">))</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">add</span> <span class="n">e</span> <span class="o">(</span><span class="s2">&#34;y&#34;</span><span class="o">,</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;b&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">))</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">add</span> <span class="n">e</span> <span class="o">(</span><span class="s2">&#34;z&#34;</span><span class="o">,</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Function</span> <span class="o">(</span><span class="s2">&#34;h&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Param</span> <span class="o">(</span><span class="s2">&#34;c&#34;</span><span class="o">,</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">]))</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="n">e</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Alcotest</span><span class="p">.</span><span class="o">(</span><span class="n">check</span> <span class="o">(</span><span class="n">result</span> <span class="n">env_testable</span> <span class="n">error</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;unify: nested function unification with variables&#34;</span> <span class="o">(</span><span class="nc">Ok</span> <span class="n">expected_env</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result_env</span>
 </span></span></code></pre></div><p>I also moved <code>Env</code> out of <code>Unification</code> module.
 You can find the remaining tests in the <a href="https://github.com/vyorkin/folderol/blob/main/test/unification_test.ml"  class="external-link" target="_blank" rel="noopener">repository</a>. <br />
 Next time, as we continue through Paulson&rsquo;s paper, I want to focus on term instantiation and inference.</p>
@@ -392,7 +386,7 @@ Next time, as we continue through Paulson&rsquo;s paper, I want to focus on term
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -408,6 +402,11 @@ Next time, as we continue through Paulson&rsquo;s paper, I want to focus on term
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -416,7 +415,7 @@ Next time, as we continue through Paulson&rsquo;s paper, I want to focus on term
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

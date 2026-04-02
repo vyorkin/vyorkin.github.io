@@ -53,64 +53,64 @@
     <item>
       <title>Compilers</title>
       <link>https://vyorkin.org/tags/compilers/</link>
-      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/compilers/</guid>
       <description></description>
     </item>
     <item>
       <title>Memory</title>
       <link>https://vyorkin.org/tags/memory/</link>
-      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/memory/</guid>
       <description></description>
     </item>
     <item>
       <title>Ocaml</title>
       <link>https://vyorkin.org/tags/ocaml/</link>
-      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/ocaml/</guid>
       <description></description>
     </item>
     <item>
       <title>Stack</title>
       <link>https://vyorkin.org/tags/stack/</link>
-      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/stack/</guid>
       <description></description>
     </item>
     <item>
       <title>Tiger</title>
       <link>https://vyorkin.org/tags/tiger/</link>
-      <pubDate>Sat, 21 Sep 2019 16:53:00 +0300</pubDate>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/tiger/</guid>
       <description></description>
     </item>
     <item>
       <title>Menhir</title>
       <link>https://vyorkin.org/tags/menhir/</link>
-      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/menhir/</guid>
       <description></description>
     </item>
     <item>
       <title>Parsing</title>
       <link>https://vyorkin.org/tags/parsing/</link>
-      <pubDate>Sun, 08 Sep 2019 15:58:00 +0300</pubDate>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/parsing/</guid>
       <description></description>
     </item>
     <item>
       <title>Lexing</title>
       <link>https://vyorkin.org/tags/lexing/</link>
-      <pubDate>Fri, 23 Aug 2019 00:01:00 +0300</pubDate>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       <guid>https://vyorkin.org/tags/lexing/</guid>
       <description></description>
     </item>
     <item>
-      <title>Ocamllex</title>
-      <link>https://vyorkin.org/tags/ocamllex/</link>
-      <pubDate>Fri, 23 Aug 2019 00:01:00 +0300</pubDate>
-      <guid>https://vyorkin.org/tags/ocamllex/</guid>
+      <title>Ocamlex</title>
+      <link>https://vyorkin.org/tags/ocamlex/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://vyorkin.org/tags/ocamlex/</guid>
       <description></description>
     </item>
   </channel>

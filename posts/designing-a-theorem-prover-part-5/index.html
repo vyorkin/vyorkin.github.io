@@ -53,26 +53,22 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -98,9 +94,7 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -139,8 +133,6 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -150,6 +142,8 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -209,43 +203,43 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
   </a>
 </h2>
 <p>Before working on lexing, parsing and pretty-printing, let&rsquo;s refactor our code to introduce more explicit types for logical connectives and quantifiers. We&rsquo;ll start by defining simple sum-types for <code>connective</code> and <code>quantifier</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> connective = Conj | Disj | Impl | Iff | Not [@@deriving eq, show]
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> quantifier = Forall | Exists [@@deriving eq, show]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="k">type</span> <span class="n">connective</span> <span class="o">=</span> <span class="nc">Conj</span> <span class="o">|</span> <span class="nc">Disj</span> <span class="o">|</span> <span class="nc">Impl</span> <span class="o">|</span> <span class="nc">Iff</span> <span class="o">|</span> <span class="nc">Not</span> <span class="o">[@@</span><span class="n">deriving</span> <span class="n">eq</span><span class="o">,</span> <span class="n">show</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="n">quantifier</span> <span class="o">=</span> <span class="nc">Forall</span> <span class="o">|</span> <span class="nc">Exists</span> <span class="o">[@@</span><span class="n">deriving</span> <span class="n">eq</span><span class="o">,</span> <span class="n">show</span><span class="o">]</span>
 </span></span></code></pre></div><p>Then we want to update the formula type to make use of these new definitions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* formula.ml *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">type</span> t =
-</span></span><span style="display:flex;"><span>  | Pred <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span> * Term.t <span style="color:#fff;font-weight:bold">list</span>
-</span></span><span style="display:flex;"><span>  | Conn <span style="color:#fff;font-weight:bold">of</span> connective * t <span style="color:#fff;font-weight:bold">list</span>
-</span></span><span style="display:flex;"><span>  | Quant <span style="color:#fff;font-weight:bold">of</span> quantifier * <span style="color:#fff;font-weight:bold">string</span> * t
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* formula.ml *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Pred</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="nn">Term</span><span class="p">.</span><span class="n">t</span> <span class="kt">list</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Conn</span> <span class="k">of</span> <span class="n">connective</span> <span class="o">*</span> <span class="n">t</span> <span class="kt">list</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Quant</span> <span class="k">of</span> <span class="n">quantifier</span> <span class="o">*</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">t</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
 </span></span></code></pre></div><p>And update our tests to use the new types. Here&rsquo;s a single test as an example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* formula.ml *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span>%test <span style="color:#0ff;font-weight:bold">&#34;abstract with nested formula&#34;</span> =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> term = Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> formula =
-</span></span><span style="display:flex;"><span>    Conn
-</span></span><span style="display:flex;"><span>      ( Conj, <span style="color:#007f7f">(* instead of &#34;&amp;&#34; *)</span>
-</span></span><span style="display:flex;"><span>        [
-</span></span><span style="display:flex;"><span>          Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ]);
-</span></span><span style="display:flex;"><span>          Quant (Forall, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Var <span style="color:#0ff;font-weight:bold">&#34;x&#34;</span> ])); <span style="color:#007f7f">(* instead of &#34;forall&#34; *)</span>
-</span></span><span style="display:flex;"><span>        ] )
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> expected =
-</span></span><span style="display:flex;"><span>    Conn
-</span></span><span style="display:flex;"><span>      ( Conj,
-</span></span><span style="display:flex;"><span>        [
-</span></span><span style="display:flex;"><span>          Pred (<span style="color:#0ff;font-weight:bold">&#34;P&#34;</span>, [ Term.Bound 0 ]);
-</span></span><span style="display:flex;"><span>          Quant (Forall, <span style="color:#0ff;font-weight:bold">&#34;y&#34;</span>, Pred (<span style="color:#0ff;font-weight:bold">&#34;Q&#34;</span>, [ Term.Bound 1 ]));
-</span></span><span style="display:flex;"><span>        ] )
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  expected = abstract term formula
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* formula.ml *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span><span class="o">%</span><span class="n">test</span> <span class="s2">&#34;abstract with nested formula&#34;</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">term</span> <span class="o">=</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">formula</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Conn</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span> <span class="nc">Conj</span><span class="o">,</span> <span class="c">(* instead of &#34;&amp;&#34; *)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>
+</span></span><span class="line"><span class="cl">          <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">          <span class="nc">Quant</span> <span class="o">(</span><span class="nc">Forall</span><span class="o">,</span> <span class="s2">&#34;y&#34;</span><span class="o">,</span> <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;Q&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Var</span> <span class="s2">&#34;x&#34;</span> <span class="o">]));</span> <span class="c">(* instead of &#34;forall&#34; *)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">expected</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Conn</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span> <span class="nc">Conj</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>
+</span></span><span class="line"><span class="cl">          <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;P&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">0</span> <span class="o">]);</span>
+</span></span><span class="line"><span class="cl">          <span class="nc">Quant</span> <span class="o">(</span><span class="nc">Forall</span><span class="o">,</span> <span class="s2">&#34;y&#34;</span><span class="o">,</span> <span class="nc">Pred</span> <span class="o">(</span><span class="s2">&#34;Q&#34;</span><span class="o">,</span> <span class="o">[</span> <span class="nn">Term</span><span class="p">.</span><span class="nc">Bound</span> <span class="n">1</span> <span class="o">]));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="n">expected</span> <span class="o">=</span> <span class="n">abstract</span> <span class="n">term</span> <span class="n">formula</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
 </span></span></code></pre></div><p>We can now begin working on parsing formulas.</p>
 <h2 id="parsing">
   Parsing
@@ -256,120 +250,120 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
 </h2>
 <p>We&rsquo;ll focus on smth that can parse a single formula. By the end of this section, we should have a working example of parsing formulas with quantifiers, connectives, and terms.</p>
 <p>Before we can parse the input, we need to tokenize it. The lexer is responsible for reading an input stream and converting it into a series of tokens. Here, we&rsquo;ll define various tokens that represent different elements of our formula language, such as connectives (<code>AND</code>, <code>OR</code>, etc.), quantifiers (\(\forall\), \(\exists\)), and other syntactic elements like parentheses and commas.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* lexer.mll *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">open</span> Lexing
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">open</span> Parser
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">exception</span> LexingError <span style="color:#fff;font-weight:bold">of</span> <span style="color:#fff;font-weight:bold">string</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Regular expressions *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> whitespaces = [<span style="color:#0ff;font-weight:bold">&#39; &#39;</span> <span style="color:#0ff;font-weight:bold">&#39;\t&#39;</span>]+
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> newline = <span style="color:#0ff;font-weight:bold">&#39;\r&#39;</span> | <span style="color:#0ff;font-weight:bold">&#39;\n&#39;</span> | <span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">\r\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> digit = [<span style="color:#0ff;font-weight:bold">&#39;0&#39;</span>-<span style="color:#0ff;font-weight:bold">&#39;9&#39;</span>]
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> uint = digit+
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">string</span> = [<span style="color:#0ff;font-weight:bold">&#39;a&#39;</span>-<span style="color:#0ff;font-weight:bold">&#39;z&#39;</span> <span style="color:#0ff;font-weight:bold">&#39;A&#39;</span>-<span style="color:#0ff;font-weight:bold">&#39;Z&#39;</span>]+
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* Lexing rules / Productions *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>rule read = parse
-</span></span><span style="display:flex;"><span>  | whitespaces { read lexbuf }
-</span></span><span style="display:flex;"><span>  | newline { new_line lexbuf; read lexbuf }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;(&#34;</span> { LPAREN }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span> { RPAREN }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;.&#34;</span> { DOT }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;,&#34;</span> { COMMA }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;?&#34;</span> { QUESTION }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;|-&#34;</span> { TURNSTYLE }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;∧&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&amp;&#34;</span> { CONJ }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;∨&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;|&#34;</span> { DISJ }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;→&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;--&gt;&#34;</span> { IMPL }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;↔&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;&lt;-&gt;&#34;</span> { IFF }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;¬&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;~&#34;</span> { NOT }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;∀&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;FORALL&#34;</span> { FORALL }
-</span></span><span style="display:flex;"><span>  | <span style="color:#0ff;font-weight:bold">&#34;∃&#34;</span> | <span style="color:#0ff;font-weight:bold">&#34;EXISTS&#34;</span> { EXISTS }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  | uint <span style="color:#fff;font-weight:bold">as</span> ix { IX(int_of_string ix) }
-</span></span><span style="display:flex;"><span>  | <span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">as</span> str { STRING(str) }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  | _   { <span style="color:#fff;font-weight:bold">raise</span> (LexingError (<span style="color:#0ff;font-weight:bold">&#34;Unexpected character: &#34;</span> ^ Lexing.lexeme lexbuf)) }
-</span></span><span style="display:flex;"><span>  | eof { EOF }
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* lexer.mll *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">open</span> <span class="nc">Lexing</span>
+</span></span><span class="line"><span class="cl">  <span class="k">open</span> <span class="nc">Parser</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">exception</span> <span class="nc">LexingError</span> <span class="k">of</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* Regular expressions *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">whitespaces</span> <span class="o">=</span> <span class="o">[</span><span class="sc">&#39; &#39;</span> <span class="sc">&#39;\t&#39;</span><span class="o">]+</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">newline</span> <span class="o">=</span> <span class="sc">&#39;\r&#39;</span> <span class="o">|</span> <span class="sc">&#39;\n&#39;</span> <span class="o">|</span> <span class="s2">&#34;</span><span class="se">\r\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">digit</span> <span class="o">=</span> <span class="o">[</span><span class="sc">&#39;0&#39;</span><span class="o">-</span><span class="sc">&#39;9&#39;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">uint</span> <span class="o">=</span> <span class="n">digit</span><span class="o">+</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">[</span><span class="sc">&#39;a&#39;</span><span class="o">-</span><span class="sc">&#39;z&#39;</span> <span class="sc">&#39;A&#39;</span><span class="o">-</span><span class="sc">&#39;Z&#39;</span><span class="o">]+</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* Lexing rules / Productions *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rule</span> <span class="n">read</span> <span class="o">=</span> <span class="n">parse</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">whitespaces</span> <span class="o">{</span> <span class="n">read</span> <span class="n">lexbuf</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">newline</span> <span class="o">{</span> <span class="n">new_line</span> <span class="n">lexbuf</span><span class="o">;</span> <span class="n">read</span> <span class="n">lexbuf</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;(&#34;</span> <span class="o">{</span> <span class="nc">LPAREN</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;)&#34;</span> <span class="o">{</span> <span class="nc">RPAREN</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;.&#34;</span> <span class="o">{</span> <span class="nc">DOT</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;,&#34;</span> <span class="o">{</span> <span class="nc">COMMA</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;?&#34;</span> <span class="o">{</span> <span class="nc">QUESTION</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;|-&#34;</span> <span class="o">{</span> <span class="nc">TURNSTYLE</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;∧&#34;</span> <span class="o">|</span> <span class="s2">&#34;&amp;&#34;</span> <span class="o">{</span> <span class="nc">CONJ</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;∨&#34;</span> <span class="o">|</span> <span class="s2">&#34;|&#34;</span> <span class="o">{</span> <span class="nc">DISJ</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;→&#34;</span> <span class="o">|</span> <span class="s2">&#34;--&gt;&#34;</span> <span class="o">{</span> <span class="nc">IMPL</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;↔&#34;</span> <span class="o">|</span> <span class="s2">&#34;&lt;-&gt;&#34;</span> <span class="o">{</span> <span class="nc">IFF</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;¬&#34;</span> <span class="o">|</span> <span class="s2">&#34;~&#34;</span> <span class="o">{</span> <span class="nc">NOT</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;∀&#34;</span> <span class="o">|</span> <span class="s2">&#34;FORALL&#34;</span> <span class="o">{</span> <span class="nc">FORALL</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="s2">&#34;∃&#34;</span> <span class="o">|</span> <span class="s2">&#34;EXISTS&#34;</span> <span class="o">{</span> <span class="nc">EXISTS</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">uint</span> <span class="k">as</span> <span class="n">ix</span> <span class="o">{</span> <span class="nc">IX</span><span class="o">(</span><span class="n">int_of_string</span> <span class="n">ix</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="kt">string</span> <span class="k">as</span> <span class="n">str</span> <span class="o">{</span> <span class="nc">STRING</span><span class="o">(</span><span class="n">str</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="o">_</span>   <span class="o">{</span> <span class="k">raise</span> <span class="o">(</span><span class="nc">LexingError</span> <span class="o">(</span><span class="s2">&#34;Unexpected character: &#34;</span> <span class="o">^</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">lexeme</span> <span class="n">lexbuf</span><span class="o">))</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">eof</span> <span class="o">{</span> <span class="nc">EOF</span> <span class="o">}</span>
 </span></span></code></pre></div><p>The regular expressions match parts of the input string (e.g., digits for indices, strings for variable names), and the lexer generates corresponding tokens.</p>
 <p>Once we have the tokens, the next step is to parse them into a structured representation. Here is a simple parser that can handle formulas with quantifiers and logical connectives:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* parser.mly *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>%token &lt;<span style="color:#fff;font-weight:bold">int</span>&gt;      IX
-</span></span><span style="display:flex;"><span>%token &lt;<span style="color:#fff;font-weight:bold">string</span>&gt;   STRING <span style="color:#0ff;font-weight:bold">&#34;string&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>%token LPAREN     <span style="color:#0ff;font-weight:bold">&#34;(&#34;</span>
-</span></span><span style="display:flex;"><span>%token RPAREN     <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span>
-</span></span><span style="display:flex;"><span>%token DOT        <span style="color:#0ff;font-weight:bold">&#34;.&#34;</span>
-</span></span><span style="display:flex;"><span>%token COMMA      <span style="color:#0ff;font-weight:bold">&#34;,&#34;</span>
-</span></span><span style="display:flex;"><span>%token QUESTION   <span style="color:#0ff;font-weight:bold">&#34;?&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>%token TURNSTYLE  <span style="color:#0ff;font-weight:bold">&#34;|-&#34;</span>
-</span></span><span style="display:flex;"><span>%token CONJ       <span style="color:#0ff;font-weight:bold">&#34;∧&#34;</span> <span style="color:#007f7f">(* &#34;&amp;&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token DISJ       <span style="color:#0ff;font-weight:bold">&#34;∨&#34;</span> <span style="color:#007f7f">(* &#34;|&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token IMPL       <span style="color:#0ff;font-weight:bold">&#34;→&#34;</span> <span style="color:#007f7f">(* &#34;--&gt;&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token IFF        <span style="color:#0ff;font-weight:bold">&#34;↔&#34;</span> <span style="color:#007f7f">(* &#34;&lt;-&gt;&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token NOT        <span style="color:#0ff;font-weight:bold">&#34;¬&#34;</span> <span style="color:#007f7f">(* &#34;~&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token FORALL     <span style="color:#0ff;font-weight:bold">&#34;∀&#34;</span> <span style="color:#007f7f">(* &#34;FORALL&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token EXISTS     <span style="color:#0ff;font-weight:bold">&#34;∃&#34;</span> <span style="color:#007f7f">(* &#34;EXISTS&#34; *)</span>
-</span></span><span style="display:flex;"><span>%token EOF
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>%left IFF
-</span></span><span style="display:flex;"><span>%left IMPL
-</span></span><span style="display:flex;"><span>%left DISJ
-</span></span><span style="display:flex;"><span>%left CONJ
-</span></span><span style="display:flex;"><span>%right NOT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>%start &lt;Formula.t&gt; main
-</span></span><span style="display:flex;"><span>%{
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">open</span> Formula
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">open</span> Term
-</span></span><span style="display:flex;"><span>%}
-</span></span><span style="display:flex;"><span>%%
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>main:
-</span></span><span style="display:flex;"><span>  | formula EOF { $1 }
-</span></span><span style="display:flex;"><span>  ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>formula:
-</span></span><span style="display:flex;"><span>  | q_formula { $1 }
-</span></span><span style="display:flex;"><span>  | l_formula { $1 }
-</span></span><span style="display:flex;"><span>  ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>q_formula:
-</span></span><span style="display:flex;"><span>  | FORALL STRING DOT formula { Quant(Forall, $2, $4) }
-</span></span><span style="display:flex;"><span>  | EXISTS STRING DOT formula { Quant(Exists, $2, $4) }
-</span></span><span style="display:flex;"><span>  ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>l_formula:
-</span></span><span style="display:flex;"><span>  | l_formula IMPL l_formula  { Conn(Impl, [$1; $3]) }
-</span></span><span style="display:flex;"><span>  | l_formula CONJ l_formula  { Conn(Conj, [$1; $3]) }
-</span></span><span style="display:flex;"><span>  | l_formula DISJ l_formula  { Conn(Disj, [$1; $3]) }
-</span></span><span style="display:flex;"><span>  | l_formula IFF  l_formula  { Conn(Iff, [$1; $3]) }
-</span></span><span style="display:flex;"><span>  | NOT l_formula             { Conn(Not, [$2]) }
-</span></span><span style="display:flex;"><span>  | STRING <span style="color:#0ff;font-weight:bold">&#34;(&#34;</span> terms <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span>      { Pred($1, $3) }
-</span></span><span style="display:flex;"><span>  | LPAREN formula RPAREN     { $2 }
-</span></span><span style="display:flex;"><span>  ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>terms:
-</span></span><span style="display:flex;"><span>  | term              { [$1] }
-</span></span><span style="display:flex;"><span>  | term COMMA terms  { $1 :: $3 }
-</span></span><span style="display:flex;"><span>  ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>term:
-</span></span><span style="display:flex;"><span>  | STRING                { Var($1) }
-</span></span><span style="display:flex;"><span>  | QUESTION STRING       { Param($2, <span style="color:#fff;font-weight:bold">[]</span>) } <span style="color:#007f7f">(* Meta-variable *)</span>
-</span></span><span style="display:flex;"><span>  | IX                    { Bound($1) }
-</span></span><span style="display:flex;"><span>  | STRING <span style="color:#0ff;font-weight:bold">&#34;(&#34;</span> terms <span style="color:#0ff;font-weight:bold">&#34;)&#34;</span>  { Function($1, $3) }
-</span></span><span style="display:flex;"><span>  ;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* parser.mly *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>      <span class="nc">IX</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span>   <span class="nc">STRING</span> <span class="s2">&#34;string&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">LPAREN</span>     <span class="s2">&#34;(&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">RPAREN</span>     <span class="s2">&#34;)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">DOT</span>        <span class="s2">&#34;.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">COMMA</span>      <span class="s2">&#34;,&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">QUESTION</span>   <span class="s2">&#34;?&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">TURNSTYLE</span>  <span class="s2">&#34;|-&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">CONJ</span>       <span class="s2">&#34;∧&#34;</span> <span class="c">(* &#34;&amp;&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">DISJ</span>       <span class="s2">&#34;∨&#34;</span> <span class="c">(* &#34;|&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">IMPL</span>       <span class="s2">&#34;→&#34;</span> <span class="c">(* &#34;--&gt;&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">IFF</span>        <span class="s2">&#34;↔&#34;</span> <span class="c">(* &#34;&lt;-&gt;&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">NOT</span>        <span class="s2">&#34;¬&#34;</span> <span class="c">(* &#34;~&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">FORALL</span>     <span class="s2">&#34;∀&#34;</span> <span class="c">(* &#34;FORALL&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">EXISTS</span>     <span class="s2">&#34;∃&#34;</span> <span class="c">(* &#34;EXISTS&#34; *)</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">token</span> <span class="nc">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">left</span> <span class="nc">IFF</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">left</span> <span class="nc">IMPL</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">left</span> <span class="nc">DISJ</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">left</span> <span class="nc">CONJ</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">right</span> <span class="nc">NOT</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="n">start</span> <span class="o">&lt;</span><span class="nn">Formula</span><span class="p">.</span><span class="n">t</span><span class="o">&gt;</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl"><span class="o">%{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">open</span> <span class="nc">Formula</span>
+</span></span><span class="line"><span class="cl">  <span class="k">open</span> <span class="nc">Term</span>
+</span></span><span class="line"><span class="cl"><span class="o">%}</span>
+</span></span><span class="line"><span class="cl"><span class="o">%%</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">main</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">formula</span> <span class="nc">EOF</span> <span class="o">{</span> <span class="o">$</span><span class="n">1</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">formula</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">q_formula</span> <span class="o">{</span> <span class="o">$</span><span class="n">1</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">l_formula</span> <span class="o">{</span> <span class="o">$</span><span class="n">1</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">q_formula</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">FORALL</span> <span class="nc">STRING</span> <span class="nc">DOT</span> <span class="n">formula</span> <span class="o">{</span> <span class="nc">Quant</span><span class="o">(</span><span class="nc">Forall</span><span class="o">,</span> <span class="o">$</span><span class="n">2</span><span class="o">,</span> <span class="o">$</span><span class="n">4</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">EXISTS</span> <span class="nc">STRING</span> <span class="nc">DOT</span> <span class="n">formula</span> <span class="o">{</span> <span class="nc">Quant</span><span class="o">(</span><span class="nc">Exists</span><span class="o">,</span> <span class="o">$</span><span class="n">2</span><span class="o">,</span> <span class="o">$</span><span class="n">4</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">l_formula</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">l_formula</span> <span class="nc">IMPL</span> <span class="n">l_formula</span>  <span class="o">{</span> <span class="nc">Conn</span><span class="o">(</span><span class="nc">Impl</span><span class="o">,</span> <span class="o">[$</span><span class="n">1</span><span class="o">;</span> <span class="o">$</span><span class="n">3</span><span class="o">])</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">l_formula</span> <span class="nc">CONJ</span> <span class="n">l_formula</span>  <span class="o">{</span> <span class="nc">Conn</span><span class="o">(</span><span class="nc">Conj</span><span class="o">,</span> <span class="o">[$</span><span class="n">1</span><span class="o">;</span> <span class="o">$</span><span class="n">3</span><span class="o">])</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">l_formula</span> <span class="nc">DISJ</span> <span class="n">l_formula</span>  <span class="o">{</span> <span class="nc">Conn</span><span class="o">(</span><span class="nc">Disj</span><span class="o">,</span> <span class="o">[$</span><span class="n">1</span><span class="o">;</span> <span class="o">$</span><span class="n">3</span><span class="o">])</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">l_formula</span> <span class="nc">IFF</span>  <span class="n">l_formula</span>  <span class="o">{</span> <span class="nc">Conn</span><span class="o">(</span><span class="nc">Iff</span><span class="o">,</span> <span class="o">[$</span><span class="n">1</span><span class="o">;</span> <span class="o">$</span><span class="n">3</span><span class="o">])</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">NOT</span> <span class="n">l_formula</span>             <span class="o">{</span> <span class="nc">Conn</span><span class="o">(</span><span class="nc">Not</span><span class="o">,</span> <span class="o">[$</span><span class="n">2</span><span class="o">])</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">STRING</span> <span class="s2">&#34;(&#34;</span> <span class="n">terms</span> <span class="s2">&#34;)&#34;</span>      <span class="o">{</span> <span class="nc">Pred</span><span class="o">($</span><span class="n">1</span><span class="o">,</span> <span class="o">$</span><span class="n">3</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">LPAREN</span> <span class="n">formula</span> <span class="nc">RPAREN</span>     <span class="o">{</span> <span class="o">$</span><span class="n">2</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">terms</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">term</span>              <span class="o">{</span> <span class="o">[$</span><span class="n">1</span><span class="o">]</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">term</span> <span class="nc">COMMA</span> <span class="n">terms</span>  <span class="o">{</span> <span class="o">$</span><span class="n">1</span> <span class="o">::</span> <span class="o">$</span><span class="n">3</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">term</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">STRING</span>                <span class="o">{</span> <span class="nc">Var</span><span class="o">($</span><span class="n">1</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">QUESTION</span> <span class="nc">STRING</span>       <span class="o">{</span> <span class="nc">Param</span><span class="o">($</span><span class="n">2</span><span class="o">,</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">}</span> <span class="c">(* Meta-variable *)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">IX</span>                    <span class="o">{</span> <span class="nc">Bound</span><span class="o">($</span><span class="n">1</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">STRING</span> <span class="s2">&#34;(&#34;</span> <span class="n">terms</span> <span class="s2">&#34;)&#34;</span>  <span class="o">{</span> <span class="nc">Function</span><span class="o">($</span><span class="n">1</span><span class="o">,</span> <span class="o">$</span><span class="n">3</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">;</span>
 </span></span></code></pre></div><ul>
 <li><code>main</code> – the starting point of the parser, which expects a <code>formula</code> followed by the <code>EOF</code> token.</li>
 <li><code>formula</code> – this can either be a quantified formula (<code>q_formula</code>) or a logical formula (<code>l_formula</code>).</li>
@@ -393,162 +387,162 @@ Refactoring Link to heading Before working on lexing, parsing and pretty-printin
 <li><code>term_to_string</code> – Converts a term to its string representation.</li>
 </ul>
 <!--listend-->
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* term.mli *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> pp_term : Format.formatter -&gt; t -&gt; <span style="color:#fff;font-weight:bold">unit</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Prints the term [t] using the format output function [fmt].
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param fmt The formatter to which the formatted term is output.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param t The term to be formatted.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> term_to_string : t -&gt; <span style="color:#fff;font-weight:bold">string</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Prints a term.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param term The term to convert to a string.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @return A string representing the term.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* term.ml *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> pp_term fmt = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>  | Var x -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%s&#34;</span> x
-</span></span><span style="display:flex;"><span>  | Param (name, vars) -&gt;
-</span></span><span style="display:flex;"><span>      Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%s(%a)&#34;</span> name
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">fun</span> fmt vars -&gt;
-</span></span><span style="display:flex;"><span>          Format.open_hvbox 0;
-</span></span><span style="display:flex;"><span>          Format.pp_print_list ~pp_sep:pp_comma Format.pp_print_string fmt vars;
-</span></span><span style="display:flex;"><span>          Format.close_box <span style="color:#fff;font-weight:bold">()</span>)
-</span></span><span style="display:flex;"><span>        vars
-</span></span><span style="display:flex;"><span>  | Bound ix -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%d&#34;</span> ix
-</span></span><span style="display:flex;"><span>  | Function (name, args) -&gt;
-</span></span><span style="display:flex;"><span>      Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%s(%a)&#34;</span> name
-</span></span><span style="display:flex;"><span>        (<span style="color:#fff;font-weight:bold">fun</span> fmt args -&gt;
-</span></span><span style="display:flex;"><span>          Format.open_hvbox 2;
-</span></span><span style="display:flex;"><span>          Format.pp_print_list ~pp_sep:pp_comma pp_term fmt args;
-</span></span><span style="display:flex;"><span>          Format.close_box <span style="color:#fff;font-weight:bold">()</span>)
-</span></span><span style="display:flex;"><span>        args
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> term_to_string term = format_to_string pp_term term
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* term.mli *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">pp_term</span> <span class="o">:</span> <span class="nn">Format</span><span class="p">.</span><span class="n">formatter</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  Prints the term [t] using the format output function [fmt].
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param fmt The formatter to which the formatted term is output.
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param t The term to be formatted.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">term_to_string</span> <span class="o">:</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  Prints a term.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param term The term to convert to a string.
+</span></span></span><span class="line"><span class="cl"><span class="c">  @return A string representing the term.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* term.ml *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="k">rec</span> <span class="n">pp_term</span> <span class="n">fmt</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Var</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%s&#34;</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Param</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">vars</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%s(%a)&#34;</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="o">(</span><span class="k">fun</span> <span class="n">fmt</span> <span class="n">vars</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">open_hvbox</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_list</span> <span class="o">~</span><span class="n">pp_sep</span><span class="o">:</span><span class="n">pp_comma</span> <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_string</span> <span class="n">fmt</span> <span class="n">vars</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">close_box</span> <span class="bp">()</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vars</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Bound</span> <span class="n">ix</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%d&#34;</span> <span class="n">ix</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Function</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%s(%a)&#34;</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="o">(</span><span class="k">fun</span> <span class="n">fmt</span> <span class="n">args</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">open_hvbox</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_list</span> <span class="o">~</span><span class="n">pp_sep</span><span class="o">:</span><span class="n">pp_comma</span> <span class="n">pp_term</span> <span class="n">fmt</span> <span class="n">args</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">close_box</span> <span class="bp">()</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">args</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">term_to_string</span> <span class="n">term</span> <span class="o">=</span> <span class="n">format_to_string</span> <span class="n">pp_term</span> <span class="n">term</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
 </span></span></code></pre></div><p>Pretty-printing formulas works similarly but includes additional helpers for printing connectives and quantifiers.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* formula.mli *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> pp_formula : Format.formatter -&gt; t -&gt; <span style="color:#fff;font-weight:bold">unit</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Prints a formula using the given [fmt] formatter.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param fmt The formatter used to print the formula.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param formula The formula to format.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> formula_to_string : t -&gt; <span style="color:#fff;font-weight:bold">string</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Prints a formula.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @param formula The formula to convert to a string.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  @return A string representing the formula.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* formula.mli *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">pp_formula</span> <span class="o">:</span> <span class="nn">Format</span><span class="p">.</span><span class="n">formatter</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  Prints a formula using the given [fmt] formatter.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param fmt The formatter used to print the formula.
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param formula The formula to format.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">formula_to_string</span> <span class="o">:</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  Prints a formula.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  @param formula The formula to convert to a string.
+</span></span></span><span class="line"><span class="cl"><span class="c">  @return A string representing the formula.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
 </span></span></code></pre></div><p>Helper functions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* formula.ml *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> pp_connective fmt = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>  | Conj -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;∧&#34;</span>
-</span></span><span style="display:flex;"><span>  | Disj -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;∨&#34;</span>
-</span></span><span style="display:flex;"><span>  | Impl -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;→&#34;</span>
-</span></span><span style="display:flex;"><span>  | Iff -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;↔&#34;</span>
-</span></span><span style="display:flex;"><span>  | Not -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;¬&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> pp_quantifier fmt = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>  | Forall -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;∀&#34;</span>
-</span></span><span style="display:flex;"><span>  | Exists -&gt; Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;∃&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* formula.ml *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">pp_connective</span> <span class="n">fmt</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Conj</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;∧&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Disj</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;∨&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Impl</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;→&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Iff</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;↔&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Not</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;¬&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">pp_quantifier</span> <span class="n">fmt</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Forall</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;∀&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Exists</span> <span class="o">-&gt;</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;∃&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
 </span></span></code></pre></div><p>The implementation:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* formula.ml *)</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> is_pred = <span style="color:#fff;font-weight:bold">function</span> Pred _ -&gt; <span style="color:#fff;font-weight:bold">true</span> | _ -&gt; <span style="color:#fff;font-weight:bold">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">rec</span> pp_formula fmt = <span style="color:#fff;font-weight:bold">function</span>
-</span></span><span style="display:flex;"><span>  | Pred (name, terms) -&gt;
-</span></span><span style="display:flex;"><span>      Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%s(%a)&#34;</span> name
-</span></span><span style="display:flex;"><span>        (Format.pp_print_list ~pp_sep:pp_comma Term.pp_term)
-</span></span><span style="display:flex;"><span>        terms
-</span></span><span style="display:flex;"><span>  | Conn (connective, subformulas) -&gt; (
-</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">match</span> connective <span style="color:#fff;font-weight:bold">with</span>
-</span></span><span style="display:flex;"><span>      | Not -&gt; pp_not fmt (List.hd_exn subformulas)
-</span></span><span style="display:flex;"><span>      | conn -&gt;
-</span></span><span style="display:flex;"><span>          Format.open_vbox 0;
-</span></span><span style="display:flex;"><span>          (Format.pp_print_list
-</span></span><span style="display:flex;"><span>             ~pp_sep:(<span style="color:#fff;font-weight:bold">fun</span> fmt <span style="color:#fff;font-weight:bold">()</span> -&gt;
-</span></span><span style="display:flex;"><span>               Format.pp_print_space fmt <span style="color:#fff;font-weight:bold">()</span>;
-</span></span><span style="display:flex;"><span>               pp_connective fmt conn;
-</span></span><span style="display:flex;"><span>               Format.pp_print_space fmt <span style="color:#fff;font-weight:bold">()</span>)
-</span></span><span style="display:flex;"><span>             pp_formula)
-</span></span><span style="display:flex;"><span>            fmt subformulas;
-</span></span><span style="display:flex;"><span>          Format.close_box <span style="color:#fff;font-weight:bold">()</span>)
-</span></span><span style="display:flex;"><span>  | Quant (quantifier, var, body) -&gt;
-</span></span><span style="display:flex;"><span>      Format.open_hovbox 2;
-</span></span><span style="display:flex;"><span>      Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;%a%s.&#34;</span> pp_quantifier quantifier var;
-</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">if</span> is_pred body <span style="color:#fff;font-weight:bold">then</span> pp_formula fmt body
-</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">else</span> Format.fprintf fmt <span style="color:#0ff;font-weight:bold">&#34;(%a)&#34;</span> (<span style="color:#fff;font-weight:bold">fun</span> fmt body -&gt; pp_formula fmt body) body;
-</span></span><span style="display:flex;"><span>      Format.close_box <span style="color:#fff;font-weight:bold">()</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* formats a negation of a formula *)</span>
-</span></span><span style="display:flex;"><span>and pp_not fmt subformula =
-</span></span><span style="display:flex;"><span>  pp_connective fmt Not;
-</span></span><span style="display:flex;"><span>  Format.open_box 0;
-</span></span><span style="display:flex;"><span>  pp_formula fmt subformula;
-</span></span><span style="display:flex;"><span>  Format.close_box <span style="color:#fff;font-weight:bold">()</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> formula_to_string = format_to_string pp_formula
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(* ... *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* formula.ml *)</span>
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">is_pred</span> <span class="o">=</span> <span class="k">function</span> <span class="nc">Pred</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">true</span> <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="k">rec</span> <span class="n">pp_formula</span> <span class="n">fmt</span> <span class="o">=</span> <span class="k">function</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Pred</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">terms</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%s(%a)&#34;</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_list</span> <span class="o">~</span><span class="n">pp_sep</span><span class="o">:</span><span class="n">pp_comma</span> <span class="nn">Term</span><span class="p">.</span><span class="n">pp_term</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">terms</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Conn</span> <span class="o">(</span><span class="n">connective</span><span class="o">,</span> <span class="n">subformulas</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">      <span class="k">match</span> <span class="n">connective</span> <span class="k">with</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="nc">Not</span> <span class="o">-&gt;</span> <span class="n">pp_not</span> <span class="n">fmt</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">hd_exn</span> <span class="n">subformulas</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">open_vbox</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_list</span>
+</span></span><span class="line"><span class="cl">             <span class="o">~</span><span class="n">pp_sep</span><span class="o">:(</span><span class="k">fun</span> <span class="n">fmt</span> <span class="bp">()</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">               <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_space</span> <span class="n">fmt</span> <span class="bp">()</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">               <span class="n">pp_connective</span> <span class="n">fmt</span> <span class="n">conn</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">               <span class="nn">Format</span><span class="p">.</span><span class="n">pp_print_space</span> <span class="n">fmt</span> <span class="bp">()</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">             <span class="n">pp_formula</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fmt</span> <span class="n">subformulas</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nn">Format</span><span class="p">.</span><span class="n">close_box</span> <span class="bp">()</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="nc">Quant</span> <span class="o">(</span><span class="n">quantifier</span><span class="o">,</span> <span class="n">var</span><span class="o">,</span> <span class="n">body</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">open_hovbox</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;%a%s.&#34;</span> <span class="n">pp_quantifier</span> <span class="n">quantifier</span> <span class="n">var</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">is_pred</span> <span class="n">body</span> <span class="k">then</span> <span class="n">pp_formula</span> <span class="n">fmt</span> <span class="n">body</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">fmt</span> <span class="s2">&#34;(%a)&#34;</span> <span class="o">(</span><span class="k">fun</span> <span class="n">fmt</span> <span class="n">body</span> <span class="o">-&gt;</span> <span class="n">pp_formula</span> <span class="n">fmt</span> <span class="n">body</span><span class="o">)</span> <span class="n">body</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nn">Format</span><span class="p">.</span><span class="n">close_box</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* formats a negation of a formula *)</span>
+</span></span><span class="line"><span class="cl"><span class="ow">and</span> <span class="n">pp_not</span> <span class="n">fmt</span> <span class="n">subformula</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp_connective</span> <span class="n">fmt</span> <span class="nc">Not</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Format</span><span class="p">.</span><span class="n">open_box</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp_formula</span> <span class="n">fmt</span> <span class="n">subformula</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Format</span><span class="p">.</span><span class="n">close_box</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">formula_to_string</span> <span class="o">=</span> <span class="n">format_to_string</span> <span class="n">pp_formula</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">(* ... *)</span>
 </span></span></code></pre></div><p>The <code>is_pred</code> helps determine if the body of a quantified formula is a predicate. In the code snippet above, the body of a quantified formula (<code>Quant</code>) is printed in one of two ways:</p>
 <ul>
 <li>If the body is a predicate (<code>Pred</code>), we print it directly using <code>pp_formula fmt body</code>.</li>
 <li>If the body is not a predicate, we wrap it in parentheses using <code>Format.fprintf fmt &quot;(%a)&quot;</code>.</li>
 </ul>
 <p>The <code>Pretty_print</code> module contains helper functions for the common formatting logic:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* pretty_print.mli *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> pp_comma : Format.formatter -&gt; <span style="color:#fff;font-weight:bold">unit</span> -&gt; <span style="color:#fff;font-weight:bold">unit</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Print a comma, typically used for separating elements in a list or similar structures.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">val</span> format_to_string : (Format.formatter -&gt; <span style="color:#fff;font-weight:bold">&#39;</span>a -&gt; <span style="color:#fff;font-weight:bold">unit</span>) -&gt; <span style="color:#fff;font-weight:bold">&#39;</span>a -&gt; <span style="color:#fff;font-weight:bold">string</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">(**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  [format_to_string pp v] formats a value [v] using the provided pretty-printing function [pp],
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  and returns the result as a string. This function handles buffer management and ensures that
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  the formatted value is properly flushed to the string.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  - [pp] is a pretty-printing function that takes a [Format.formatter] and a value of type [&#39;a] and prints it.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  - [v] is the value to be formatted.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">  Returns the string representation of the formatted value.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* pretty_print.mli *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">pp_comma</span> <span class="o">:</span> <span class="nn">Format</span><span class="p">.</span><span class="n">formatter</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  Print a comma, typically used for separating elements in a list or similar structures.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">format_to_string</span> <span class="o">:</span> <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">formatter</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">unit</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="c">(**
+</span></span></span><span class="line"><span class="cl"><span class="c">  [format_to_string pp v] formats a value [v] using the provided pretty-printing function [pp],
+</span></span></span><span class="line"><span class="cl"><span class="c">  and returns the result as a string. This function handles buffer management and ensures that
+</span></span></span><span class="line"><span class="cl"><span class="c">  the formatted value is properly flushed to the string.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  - [pp] is a pretty-printing function that takes a [Format.formatter] and a value of type [&#39;a] and prints it.
+</span></span></span><span class="line"><span class="cl"><span class="c">  - [v] is the value to be formatted.
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">  Returns the string representation of the formatted value.
+</span></span></span><span class="line"><span class="cl"><span class="c">*)</span>
 </span></span></code></pre></div><p>The implementation is nothing special:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#007f7f">(* pretty_print.ml *)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> pp_comma ppf <span style="color:#fff;font-weight:bold">()</span> = Format.fprintf ppf <span style="color:#0ff;font-weight:bold">&#34;, &#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> format_to_string pp v =
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> <span style="color:#fff;font-weight:bold">open</span> Format <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> buffer = Buffer.create 16 <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">let</span> fmt = formatter_of_buffer buffer <span style="color:#fff;font-weight:bold">in</span>
-</span></span><span style="display:flex;"><span>  pp_open_hvbox fmt 0;
-</span></span><span style="display:flex;"><span>  pp fmt v;
-</span></span><span style="display:flex;"><span>  pp_close_box fmt <span style="color:#fff;font-weight:bold">()</span>;
-</span></span><span style="display:flex;"><span>  pp_print_flush fmt <span style="color:#fff;font-weight:bold">()</span>;
-</span></span><span style="display:flex;"><span>  Buffer.contents buffer
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl"><span class="c">(* pretty_print.ml *)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">pp_comma</span> <span class="n">ppf</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Format</span><span class="p">.</span><span class="n">fprintf</span> <span class="n">ppf</span> <span class="s2">&#34;, &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="n">format_to_string</span> <span class="n">pp</span> <span class="n">v</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="k">open</span> <span class="nc">Format</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">buffer</span> <span class="o">=</span> <span class="nn">Buffer</span><span class="p">.</span><span class="n">create</span> <span class="n">16</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="n">fmt</span> <span class="o">=</span> <span class="n">formatter_of_buffer</span> <span class="n">buffer</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp_open_hvbox</span> <span class="n">fmt</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp</span> <span class="n">fmt</span> <span class="n">v</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp_close_box</span> <span class="n">fmt</span> <span class="bp">()</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pp_print_flush</span> <span class="n">fmt</span> <span class="bp">()</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nn">Buffer</span><span class="p">.</span><span class="n">contents</span> <span class="n">buffer</span>
 </span></span></code></pre></div><p>I added some inline tests, which can be found in the <a href="https://github.com/vyorkin/folderol/tree/main"  class="external-link" target="_blank" rel="noopener">repository</a>.</p>
 <p>That&rsquo;s all for parsing and pretty-printing. <br />
 Now we can finally get to the fun part of Paulson&rsquo;s paper – unification!</p>
@@ -599,7 +593,7 @@ Now we can finally get to the fun part of Paulson&rsquo;s paper – unification!
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -615,6 +609,11 @@ Now we can finally get to the fun part of Paulson&rsquo;s paper – unification!
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -623,7 +622,7 @@ Now we can finally get to the fun part of Paulson&rsquo;s paper – unification!
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

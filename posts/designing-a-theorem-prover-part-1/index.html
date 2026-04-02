@@ -57,26 +57,22 @@ as evidence.">
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -102,9 +98,7 @@ as evidence.">
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -143,8 +137,6 @@ as evidence.">
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -154,6 +146,8 @@ as evidence.">
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -243,33 +237,33 @@ the prover <strong>folderol</strong> and I will do the same. His prover follows
 automatic strategy but interactive and prints trace of its rules
 as evidence.</p>
 <p>To start off, let&rsquo;s see it in action. Here is how proof might look like when using folderol:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>&gt; read_goal <span style="color:#0ff;font-weight:bold">&#34;(P | Q) &amp; (P | R) --&gt; P | (Q &amp; R)&#34;</span>;
-</span></span><span style="display:flex;"><span>empty |- (P | Q) &amp; (P | R) --&gt; P | Q &amp; R
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>--&gt;:right
-</span></span><span style="display:flex;"><span>(P | Q) &amp; (P | R) |- P | (Q &amp; R)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>|:right
-</span></span><span style="display:flex;"><span>(P | Q) &amp; (P | R) |- Q &amp; R, P
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>&amp;:left
-</span></span><span style="display:flex;"><span>P | R, P | Q |- Q &amp; R, P
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>|:left
-</span></span><span style="display:flex;"><span>P P | Q, R |- Q &amp; R, P
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>|:left
-</span></span><span style="display:flex;"><span>P Q, R |- Q &amp; R, P
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; step();
-</span></span><span style="display:flex;"><span>&amp;:right
-</span></span><span style="display:flex;"><span>Q R
-</span></span><span style="display:flex;"><span>No more goals: proof finished
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">read_goal</span> <span class="s">&#34;(P | Q) &amp; (P | R) --&gt; P | (Q &amp; R)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">empty</span> <span class="o">|-</span> <span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">Q</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">R</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">P</span> <span class="o">|</span> <span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">--&gt;:</span><span class="nf">right</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">Q</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">R</span><span class="p">)</span> <span class="o">|-</span> <span class="n">P</span> <span class="o">|</span> <span class="p">(</span><span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">|:</span><span class="nf">right</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">Q</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P</span> <span class="o">|</span> <span class="n">R</span><span class="p">)</span> <span class="o">|-</span> <span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="n">P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">&amp;:</span><span class="n">left</span>
+</span></span><span class="line"><span class="cl"><span class="n">P</span> <span class="o">|</span> <span class="n">R</span><span class="p">,</span> <span class="n">P</span> <span class="o">|</span> <span class="n">Q</span> <span class="o">|-</span> <span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="n">P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">|:</span><span class="n">left</span>
+</span></span><span class="line"><span class="cl"><span class="n">P</span> <span class="n">P</span> <span class="o">|</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">|-</span> <span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="n">P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">|:</span><span class="n">left</span>
+</span></span><span class="line"><span class="cl"><span class="n">P</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">|-</span> <span class="n">Q</span> <span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="n">P</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nf">step</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">&amp;:</span><span class="n">right</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q</span> <span class="n">R</span>
+</span></span><span class="line"><span class="cl"><span class="n">No</span> <span class="n">more</span> <span class="nl">goals</span><span class="p">:</span> <span class="n">proof</span> <span class="n">finished</span>
 </span></span></code></pre></div><p>Looks cool, right? So let&rsquo;s go – it&rsquo;s going to be a long journey ahead!</p>
 <h2 id="automated-theorem-proving">
   Automated Theorem Proving
@@ -631,7 +625,7 @@ Stay tuned 😉</p>
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -647,6 +641,11 @@ Stay tuned 😉</p>
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -655,7 +654,7 @@ Stay tuned 😉</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

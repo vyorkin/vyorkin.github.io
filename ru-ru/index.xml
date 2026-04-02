@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>transcendental kyberautism</title>
+    <title>трансцендентальный кибераутизм</title>
     <link>https://vyorkin.org/ru-ru/</link>
-    <description>Recent content on transcendental kyberautism</description>
+    <description>Recent content on трансцендентальный кибераутизм</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
-    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
+    <lastBuildDate>Sun, 02 Nov 2025 08:12:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/ru-ru/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Кунг-фу Петух</title>
+      <link>https://vyorkin.org/ru-ru/posts/kung-fu-coq/</link>
+      <pubDate>Sun, 02 Nov 2025 08:12:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/posts/kung-fu-coq/</guid>
+      <description>&lt;script&#xA;  type=&#34;text/javascript&#34;&#xA;  defer&#xA;  src=&#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js?config=TeX-AMS_CHTML&#34;&#xA;&gt;&lt;/script&gt;&#xA;&lt;script type=&#34;text/javascript&#34; src=&#34;alectryon.js&#34;&gt;&lt;/script&gt;&#xA;&lt;link&#xA;  rel=&#34;stylesheet&#34;&#xA;  href=&#34;https://cdnjs.cloudflare.com/ajax/libs/IBM-type/0.5.4/css/ibm-type.min.css&#34;&#xA;  integrity=&#34;sha512-sky5cf9Ts6FY1kstGOBHSybfKqdHR41M0Ldb0BjNiv3ifltoQIsg0zIaQ+wwdwgQ0w9vKFW7Js50lxH9vqNSSw==&#34;&#xA;  crossorigin=&#34;anonymous&#34;&#xA;/&gt;&#xA;&lt;link&#xA;  rel=&#34;stylesheet&#34;&#xA;  href=&#34;https://cdnjs.cloudflare.com/ajax/libs/firacode/5.2.0/fira_code.min.css&#34;&#xA;  integrity=&#34;sha512-MbysAYimH1hH2xYzkkMHB6MqxBqfP0megxsCLknbYqHVwXTCg9IqHbk+ZP/vnhO8UEW6PaXAkKe2vQ+SWACxxA==&#34;&#xA;  crossorigin=&#34;anonymous&#34;&#xA;/&gt;&#xA;&lt;div class=&#34;alectryon-root alectryon-centered&#34;&gt;&#xA;  &lt;div class=&#34;document&#34; id=&#34;coq-mathcomp-mathcomp-analysis&#34;&gt;&#xA;    &lt;h1 class=&#34;title&#34;&gt;Погружение трансцендентального сознания в Coq, MathComp и MathComp-Analysis.&lt;/h1&gt;&#xA;    &lt;input&#xA;      type=&#34;checkbox&#34;&#xA;      class=&#34;alectryon-toggle&#34;&#xA;      id=&#34;alectryon-toggle-0&#34;&#xA;    /&gt;&lt;label for=&#34;alectryon-toggle-0&#34; class=&#34;alectryon-toggle-label&#34;&#xA;      &gt;Показывать все цели и вывод&lt;/label&#xA;    &gt;&#xA;    &lt;div class=&#34;alectryon-container docutils container&#34;&gt;&#xA;      &lt;div class=&#34;math&#34;&gt;&#xA;        \begin{equation*} \newcommand{\eqdef}{\overset{\mathrm{def}}{=}}&#xA;        \end{equation*}&#xA;      &lt;/div&gt;&#xA;      &lt;div class=&#34;section&#34; id=&#34;section-2&#34;&gt;&#xA;        &lt;h1&gt;&#xA;          Глава 1. Краткое представление о Петушаре, Мелкомасштабном отражении и&#xA;          Математических компонентах&#xA;        &lt;/h1&gt;&#xA;        &lt;p&gt;&#xA;          Цель этой главы — дать представление о некоторых теорем-пруверах,&#xA;          построенных на основе теории зависимых типов.&#xA;        &lt;/p&gt;&#xA;        &lt;div class=&#34;section&#34; id=&#34;section-3&#34;&gt;&#xA;          &lt;h2&gt;1.1 Немного истории&lt;/h2&gt;&#xA;          &lt;p&gt;&#xA;            Феномен появления такой штуки как теорем-прувер является одним из&#xA;            результатов исследований основ математики, ведущихся с прошлого&#xA;            века. Тема глубокая, в двух словах не пояснить, но поговаривают, что&#xA;            началось всё с обнаружения противоречий в &lt;em&gt;ранней&lt;/em&gt; теории&#xA;            множеств, в которую закралась залупа под названием&#xA;            &lt;a&#xA;              class=&#34;reference external&#34;&#xA;              href=&#34;https://en.wikipedia.org/wiki/Russell%27s_paradox&#34;&#xA;              &gt;парадокс Рассела&lt;/a&#xA;            &gt;. Ты по-любому про неё слышал, даже если не знаешь что такое&#xA;            &amp;quot;матёрый&amp;quot;. Короче, проблема известна:&#xA;          &lt;/p&gt;</description>
+    </item>
     <item>
       <title>Зелёные потоки в 200 строчек на Rust. Часть 1</title>
       <link>https://vyorkin.org/ru-ru/posts/exploring-async-basics/</link>

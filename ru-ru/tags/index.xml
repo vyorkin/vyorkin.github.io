@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on transcendental kyberautism</title>
+    <title>Tags on трансцендентальный кибераутизм</title>
     <link>https://vyorkin.org/ru-ru/tags/</link>
-    <description>Recent content in Tags on transcendental kyberautism</description>
+    <description>Recent content in Tags on трансцендентальный кибераутизм</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
-    <lastBuildDate>Wed, 13 Jul 2022 16:19:00 +0300</lastBuildDate>
+    <lastBuildDate>Sun, 02 Nov 2025 08:12:00 +0300</lastBuildDate>
     <atom:link href="https://vyorkin.org/ru-ru/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Coq</title>
+      <link>https://vyorkin.org/ru-ru/tags/coq/</link>
+      <pubDate>Sun, 02 Nov 2025 08:12:00 +0300</pubDate>
+      <guid>https://vyorkin.org/ru-ru/tags/coq/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Arm64</title>
       <link>https://vyorkin.org/ru-ru/tags/arm64/</link>
@@ -41,13 +48,6 @@
       <link>https://vyorkin.org/ru-ru/tags/ocaml/</link>
       <pubDate>Sun, 31 Oct 2021 12:40:00 +0300</pubDate>
       <guid>https://vyorkin.org/ru-ru/tags/ocaml/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Coq</title>
-      <link>https://vyorkin.org/ru-ru/tags/coq/</link>
-      <pubDate>Sun, 31 Oct 2021 12:39:00 +0300</pubDate>
-      <guid>https://vyorkin.org/ru-ru/tags/coq/</guid>
       <description></description>
     </item>
   </channel>

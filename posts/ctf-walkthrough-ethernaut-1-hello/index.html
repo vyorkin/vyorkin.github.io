@@ -14,20 +14,15 @@
 
 <meta name="author" content="Vasiliy Yorkin">
 <meta name="description" content="
-
-
-
   Intro
   
     
     Link to heading
   
 
-The Ethernaut CTF game
-exists for more than 3 years already and has 26 challenges. The
-first one is a kind of introductory challenge that gives you
-steps on what you need to set up. If you have
-Metamask and open the browser&rsquo;s
+The Ethernaut CTF game exists for more than 3 years already and has 26
+challenges. The first one is a kind of introductory challenge that gives you
+steps on what you need to set up. If you have Metamask and open the browser&rsquo;s
 console, you should see greeting messages:
 
 
@@ -39,11 +34,9 @@ console, you should see greeting messages:
     Link to heading
   
 
-Originally, this game runs on the Rinkeby test network, but
-we&rsquo;re going to play it locally. As I mentioned in the
-first post, we will use
-Foundry toolchain and here is
-the initial/empty project layout:">
+Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play
+it locally. As I mentioned in the first post, we will use Foundry toolchain and
+here is the initial/empty project layout:">
 <meta name="keywords" content="Vasiliy Yorkin">
 <meta name="fediverse:creator" content="" />
 
@@ -61,11 +54,10 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2022-07-21T14:48:00+03:00">
-    <meta property="article:modified_time" content="2022-07-21T14:48:00+03:00">
+    <meta property="article:published_time" content="2022-07-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-07-21T00:00:00+00:00">
     <meta property="article:tag" content="Blockchain">
     <meta property="article:tag" content="Security">
-    <meta property="article:tag" content="Ethernaut">
 
 
 
@@ -77,26 +69,22 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -122,9 +110,7 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -163,8 +149,6 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -174,6 +158,8 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -212,7 +198,12 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
             </span>
           </div>
           
-          
+          <div class="categories">
+  <i class="fa-solid fa-folder" aria-hidden="true"></i>
+    <a href="https://vyorkin.org/categories/ctf/">Ctf</a>
+      <span class="separator">•</span>
+    <a href="https://vyorkin.org/categories/ethernaut/">Ethernaut</a></div>
+
           <div class="tags">
   <i class="fa-solid fa-tag" aria-hidden="true"></i>
     <span class="tag">
@@ -221,10 +212,6 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
       <span class="separator">•</span>
     <span class="tag">
       <a href="https://vyorkin.org/tags/security/">Security</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="https://vyorkin.org/tags/ethernaut/">Ethernaut</a>
     </span></div>
 
         </div>
@@ -232,21 +219,16 @@ Set up Link to heading Originally, this game runs on the Rinkeby test network, b
 
       <div class="post-content">
         
-        <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello.jpg">
-</figure>
-
-<h2 id="intro">
+        <h2 id="intro">
   Intro
   <a class="heading-link" href="#intro">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p><a href="https://ethernaut.openzeppelin.com/"  class="external-link" target="_blank" rel="noopener">The Ethernaut</a> CTF game
-exists for more than 3 years already and has 26 challenges. The
-first one is a kind of introductory challenge that gives you
-steps on what you need to set up. If you have
-<a href="https://metamask.io/"  class="external-link" target="_blank" rel="noopener">Metamask</a> and open the browser&rsquo;s
+<p><a href="https://ethernaut.openzeppelin.com/"  class="external-link" target="_blank" rel="noopener">The Ethernaut</a> CTF game exists for more than 3 years already and has 26
+challenges. The first one is a kind of introductory challenge that gives you
+steps on what you need to set up. If you have <a href="https://metamask.io/"  class="external-link" target="_blank" rel="noopener">Metamask</a> and open the browser&rsquo;s
 console, you should see greeting messages:</p>
 <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-console.png">
 </figure>
@@ -258,32 +240,28 @@ console, you should see greeting messages:</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>Originally, this game runs on the Rinkeby test network, but
-we&rsquo;re going to play it locally. As I mentioned in the
-<a href="https://vyorkin.org/posts/ctf-walkthrough-intro" >first post</a>, we will use
-<a href="https://book.getfoundry.sh/"  class="external-link" target="_blank" rel="noopener">Foundry</a> toolchain and here is
-the initial/empty project layout:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>tree --gitignore
-</span></span><span style="display:flex;"><span>.
-</span></span><span style="display:flex;"><span>├── foundry.toml
-</span></span><span style="display:flex;"><span>├── lib
-</span></span><span style="display:flex;"><span>│   └── forge-std
-</span></span><span style="display:flex;"><span>├── remappings.txt
-</span></span><span style="display:flex;"><span>├── script
-</span></span><span style="display:flex;"><span>│   └── Contract.s.sol
-</span></span><span style="display:flex;"><span>├── src
-</span></span><span style="display:flex;"><span>│   └── Contract.sol
-</span></span><span style="display:flex;"><span>└── test
-</span></span><span style="display:flex;"><span>    └── Contract.t.sol
+<p>Originally, this game runs on the Rinkeby test network, but we&rsquo;re going to play
+it locally. As I mentioned in the <a href="https://vyorkin.org/posts/ctf-walkthrough-intro" >first post</a>, we will use <a href="https://book.getfoundry.sh/"  class="external-link" target="_blank" rel="noopener">Foundry</a> toolchain and
+here is the initial/empty project layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tree --gitignore
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── foundry.toml
+</span></span><span class="line"><span class="cl">├── lib
+</span></span><span class="line"><span class="cl">│   └── forge-std
+</span></span><span class="line"><span class="cl">├── remappings.txt
+</span></span><span class="line"><span class="cl">├── script
+</span></span><span class="line"><span class="cl">│   └── Contract.s.sol
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   └── Contract.sol
+</span></span><span class="line"><span class="cl">└── test
+</span></span><span class="line"><span class="cl">    └── Contract.t.sol
 </span></span></code></pre></div><p>To make imports easier in the <code>remappings.txt</code> I have these 3
 lines:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>forge-std/=lib/forge-std/src/
-</span></span><span style="display:flex;"><span>ds-test/=lib/forge-std/lib/ds-test/src/
-</span></span><span style="display:flex;"><span>openzeppelin/=lib/openzeppelin-contracts/contracts/
-</span></span></code></pre></div><p>The
-<a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-0"  class="external-link" target="_blank" rel="noopener">step-0
-branch</a> represents the current state of the solutions repo.
-This is our starting point.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">forge-std/=lib/forge-std/src/
+</span></span><span class="line"><span class="cl">ds-test/=lib/forge-std/lib/ds-test/src/
+</span></span><span class="line"><span class="cl">openzeppelin/=lib/openzeppelin-contracts/contracts/
+</span></span></code></pre></div><p>The <a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-0"  class="external-link" target="_blank" rel="noopener">step-0 branch</a> represents the current state of the solutions repo. This is
+our starting point.</p>
 <h2 id="framework">
   Framework
   <a class="heading-link" href="#framework">
@@ -291,39 +269,35 @@ This is our starting point.</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>Next, we need to have some kind of framework that will run the
-game. Googling for &ldquo;ethernaut foundry github&rdquo; shows these two repositories:</p>
+<p>Next, we need to have some kind of framework that will run the game. Googling
+for &ldquo;ethernaut foundry github&rdquo; shows these two repositories:</p>
 <ul>
-<li><a href="https://github.com/ciaranmcveigh5/ethernaut-x-foundry"  class="external-link" target="_blank" rel="noopener">ethernaut-x-foundry</a>
-by <a href="https://github.com/ciaranmcveigh5"  class="external-link" target="_blank" rel="noopener">ciaranmcveigh5</a></li>
-<li><a href="https://github.com/StErMi/foundry-ethernaut"  class="external-link" target="_blank" rel="noopener">foundry-ethernaut</a>
-by <a href="https://github.com/StErMi"  class="external-link" target="_blank" rel="noopener">StErMi</a></li>
+<li><a href="https://github.com/ciaranmcveigh5/ethernaut-x-foundry"  class="external-link" target="_blank" rel="noopener">ethernaut-x-foundry</a> by <a href="https://github.com/ciaranmcveigh5"  class="external-link" target="_blank" rel="noopener">ciaranmcveigh5</a></li>
+<li><a href="https://github.com/StErMi/foundry-ethernaut"  class="external-link" target="_blank" rel="noopener">foundry-ethernaut</a> by <a href="https://github.com/StErMi"  class="external-link" target="_blank" rel="noopener">StErMi</a></li>
 </ul>
 <p>I will use them for inspiration.</p>
-<p>The <code>Ethernaut.sol</code> is the game&rsquo;s main smart contract. It is
-responsible for generating level instances. When we ask for a
-new level instance, <code>Ethernaut.sol</code> deploys it to a new <code>address</code>
-and returns it.</p>
-<p>The <code>LevelFactory.sol</code> is the base smart contract for every game
-level factory. We use level factories to deploy levels and check
-player&rsquo;s exploits:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: UNLICENSED
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">13</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin/access/Ownable.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">abstract</span> <span style="color:#fff;font-weight:bold">contract</span> LevelFactory <span style="color:#fff;font-weight:bold">is</span> Ownable {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> createInstance(<span style="color:#fff;font-weight:bold">address</span> _player)
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">public</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">virtual</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">address</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> validateInstance(<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> _instance, <span style="color:#fff;font-weight:bold">address</span> _player)
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">public</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">virtual</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>);
-</span></span><span style="display:flex;"><span>}
+<p>The <code>Ethernaut.sol</code> is the game&rsquo;s main smart contract. It is responsible for
+generating level instances. When we ask for a new level instance, <code>Ethernaut.sol</code>
+deploys it to a new <code>address</code> and returns it.</p>
+<p>The <code>LevelFactory.sol</code> is the base smart contract for every game level factory. We
+use level factories to deploy levels and check player&rsquo;s exploits:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;openzeppelin/access/Ownable.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="kd">contract</span> <span class="nc">LevelFactory</span> <span class="k">is</span> <span class="n">Ownable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">createInstance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_player</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">validateInstance</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_instance</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_player</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>It contains two functions:</p>
 <ul>
 <li><code>createInstance</code> &ndash; Deploys a new level for a given player and
@@ -331,20 +305,6 @@ returns the <code>address</code> of the deployed level instance.</li>
 <li><code>validateInstance</code> &ndash; Validates state of the level contract
 instance after exploit. In other words it checks the win conditions.</li>
 </ul>
-<div class="mermaid">
-%%{init: {'theme':'neutral'}}%%
-classDiagram
-class LevelFactory {
-    +createInstance(address player) address
-    +validateInstance(address payable instance, address player) bool
-}
-LevelFactory <|-- Level1Factory
-LevelFactory <|-- Level2Factory
-LevelFactory <|-- Level3Factory
-
-</div>
-
-
 <p>The interaction diagram for a successful exploit scenario:</p>
 <div class="mermaid">
 %%{init: {'theme':'neutral'}}%%
@@ -354,239 +314,210 @@ sequenceDiagram
     participant LF as LevelFactory
     participant L as Level
 
-P->>E: createLevelInstance(levelFactory)
-E->>LF: createInstance(player)
-LF->>LF: prepare ctor args for Level
-LF->>+L: new(args)
-L-->>LF: address
-LF-->>E: address(level)
-E->>E: emit LevelInstanceCreatedLog
+P-&gt;&gt;E: createLevelInstance(levelFactory)
+E-&gt;&gt;LF: createInstance(player)
+LF-&gt;&gt;LF: prepare ctor args for Level
+LF-&gt;&gt;+L: new(args)
+L--&gt;&gt;LF: address
+LF--&gt;&gt;E: address(level)
+E-&gt;&gt;E: emit LevelInstanceCreatedLog
 E-)P: address(level)
-P->>L: exploit
-P->>E: submitLevelInstance(level)
-E->>LF: validateInstance(level, player)
-LF-->>LF: check win conditions
-LF-->>E: true
-E->>E: emit LevelCompletedLog
-E-->>P: true
+P-&gt;&gt;L: exploit
+P-&gt;&gt;E: submitLevelInstance(level)
+E-&gt;&gt;LF: validateInstance(level, player)
+LF--&gt;&gt;LF: check win conditions
+LF--&gt;&gt;E: true
+E-&gt;&gt;E: emit LevelCompletedLog
+E--&gt;&gt;P: true
 
 </div>
 
 
 <p>Now, let&rsquo;s have a closer look at the <code>Ethernaut.sol</code> contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#007f7f">// SPDX-License-Identifier: UNLICENSED
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">13</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> <span style="color:#0ff;font-weight:bold">&#34;./LevelFactory.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin/access/Ownable.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Ethernaut <span style="color:#fff;font-weight:bold">is</span> Ownable {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ----------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// Owner interaction
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ----------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; <span style="color:#fff;font-weight:bold">bool</span>) registeredLevels;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// Only registered levels will be allowed to
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// generate and validate level instances.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">function</span> registerLevel(LevelFactory _level) <span style="color:#fff;font-weight:bold">public</span> onlyOwner {
-</span></span><span style="display:flex;"><span>        registeredLevels[<span style="color:#fff;font-weight:bold">address</span>(_level)] = <span style="color:#fff;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ----------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// Get/submit level instances
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ----------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">struct</span> EmittedInstanceData {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">address</span> player;
-</span></span><span style="display:flex;"><span>        LevelFactory level;
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bool</span> completed;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">mapping</span>(<span style="color:#fff;font-weight:bold">address</span> =&gt; EmittedInstanceData) emittedInstances;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">event</span> LevelInstanceCreatedLog(<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">indexed</span> player, <span style="color:#fff;font-weight:bold">address</span> instance);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">event</span> LevelCompletedLog(<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">indexed</span> player, LevelFactory level);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> createLevelInstance(LevelFactory _level)
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">public</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">payable</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">address</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Ensure level is registered.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">require</span>(registeredLevels[<span style="color:#fff;font-weight:bold">address</span>(_level)]);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Get level factory to create an instance.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">address</span> instance = _level.createInstance{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Store emitted instance relationship with player and level.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        emittedInstances[instance] = EmittedInstanceData(
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>,
-</span></span><span style="display:flex;"><span>            _level,
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">false</span>
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Retrieve created instance via logs.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        emit LevelInstanceCreatedLog(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, instance);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Return data - not possible to read emitted events via solidity.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">return</span> instance;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> submitLevelInstance(<span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> _instance)
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">public</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Get player and level.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        EmittedInstanceData <span style="color:#fff;font-weight:bold">storage</span> <span style="color:#fff;font-weight:bold">data</span> = emittedInstances[_instance];
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Instance was emitted for this player.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">data</span>.player == <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Not already submitted.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">require</span>(<span style="color:#fff;font-weight:bold">data</span>.completed == <span style="color:#fff;font-weight:bold">false</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Have the level check the instance.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">if</span> (<span style="color:#fff;font-weight:bold">data</span>.level.validateInstance(_instance, <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>)) {
-</span></span><span style="display:flex;"><span>            <span style="color:#007f7f">// Register instance as completed.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>            <span style="color:#fff;font-weight:bold">data</span>.completed = <span style="color:#fff;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#007f7f">// Notify success via logs.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>            emit LevelCompletedLog(<span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">sender</span>, <span style="color:#fff;font-weight:bold">data</span>.level);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#007f7f">// Return data - not possible to read emitted events
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Return data - not possible to read emitted events via solidity.
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">false</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;./LevelFactory.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;openzeppelin/access/Ownable.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Ethernaut</span> <span class="k">is</span> <span class="n">Ownable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ----------------------------------
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// Owner interaction
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// ----------------------------------
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="n">registeredLevels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Only registered levels will be allowed to
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// generate and validate level instances.
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">registerLevel</span><span class="p">(</span><span class="n">LevelFactory</span> <span class="n">_level</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registeredLevels</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">_level</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ----------------------------------
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// Get/submit level instances
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// ----------------------------------
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">struct</span> <span class="nc">EmittedInstanceData</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">player</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LevelFactory</span> <span class="n">level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">completed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">EmittedInstanceData</span><span class="p">)</span> <span class="n">emittedInstances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">LevelInstanceCreatedLog</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">player</span><span class="p">,</span> <span class="kt">address</span> <span class="n">instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">LevelCompletedLog</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">player</span><span class="p">,</span> <span class="n">LevelFactory</span> <span class="n">level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">createLevelInstance</span><span class="p">(</span><span class="n">LevelFactory</span> <span class="n">_level</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Ensure level is registered.
+</span></span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">registeredLevels</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">_level</span><span class="p">)]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get level factory to create an instance.
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">_level</span><span class="p">.</span><span class="n">createInstance</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Store emitted instance relationship with player and level.
+</span></span></span><span class="line"><span class="cl">        <span class="n">emittedInstances</span><span class="p">[</span><span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">EmittedInstanceData</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_level</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Retrieve created instance via logs.
+</span></span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">LevelInstanceCreatedLog</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Return data - not possible to read emitted events via solidity.
+</span></span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">instance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">submitLevelInstance</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_instance</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get player and level.
+</span></span></span><span class="line"><span class="cl">        <span class="n">EmittedInstanceData</span> <span class="k">storage</span> <span class="nb">data</span> <span class="o">=</span> <span class="n">emittedInstances</span><span class="p">[</span><span class="n">_instance</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Instance was emitted for this player.
+</span></span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">data</span><span class="p">.</span><span class="n">player</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Not already submitted.
+</span></span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">data</span><span class="p">.</span><span class="n">completed</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Have the level check the instance.
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">data</span><span class="p">.</span><span class="n">level</span><span class="p">.</span><span class="n">validateInstance</span><span class="p">(</span><span class="n">_instance</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Register instance as completed.
+</span></span></span><span class="line"><span class="cl">            <span class="nb">data</span><span class="p">.</span><span class="n">completed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Notify success via logs.
+</span></span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">LevelCompletedLog</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="nb">data</span><span class="p">.</span><span class="n">level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Return data - not possible to read emitted events
+</span></span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Return data - not possible to read emitted events via solidity.
+</span></span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>It has 2 mappings, 3 functions and emits 2 types of events:</p>
-<div class="mermaid">
-%%{init: {'theme':'neutral'}}%%
-classDiagram
-class Ethernaut {
-    mapping~address => bool~ registeredLevels
-    mapping~address => EmittedInstanceData~ emittedInstances
-
-    +registerLevel(LevelFactory level)
-    +createLevelInstance(LevelFactory level) address
-    +submitLevelinstance(address payable instance) bool
-}
-class EmittedInstanceData {
-    +address player
-    +LevelFactory level
-    +bool completed
-}
-class LevelInstanceCreatedLog
-class LevelCompletedLog
-Ethernaut .. EmittedInstanceData
-Ethernaut .. LevelInstanceCreatedLog : when new level instance deployed
-Ethernaut .. LevelCompletedLog : when player have passed the level
-
-</div>
-
-
 <ul>
-<li><code>registerLevel</code> &ndash; Registers <code>LevelFactory</code> to be allowed for
-generating and validating level instances.</li>
-<li><code>createLevelInstance</code> &ndash; Ensures that a given <code>LevelFactory</code>
-is registered, deploys a new level instance and stores it&rsquo;s  in
-the <code>emittedInstances</code> mapping. It also emits the
-<code>LevelInstanceCreatedLog</code> event that can be used to read the
+<li><code>registerLevel</code> &ndash; Registers <code>LevelFactory</code> to be allowed for generating and
+validating level instances.</li>
+<li><code>createLevelInstance</code> &ndash; Ensures that a given <code>LevelFactory</code> is registered,
+deploys a new level instance and stores it&rsquo;s in the <code>emittedInstances</code> mapping.
+It also emits the <code>LevelInstanceCreatedLog</code> event that can be used to read the
 address of deployed instance on the client side.</li>
-<li><code>submitLevelInstance</code> &ndash; Checks the given level instance and
-emits the <code>LevelCompletedLog</code> event in case of success.</li>
+<li><code>submitLevelInstance</code> &ndash; Checks the given level instance and emits the
+<code>LevelCompletedLog</code> event in case of success.</li>
 </ul>
 <p>Let&rsquo;s keep files for each level in separate directories:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>└── src
-</span></span><span style="display:flex;"><span>    ├── game
-</span></span><span style="display:flex;"><span>    │   ├── Ethernaut.sol
-</span></span><span style="display:flex;"><span>    │   └── LevelFactory.sol
-</span></span><span style="display:flex;"><span>    ├── levels
-</span></span><span style="display:flex;"><span>    │   ├── Fallback
-</span></span><span style="display:flex;"><span>    │   │   ├── Fallback.sol
-</span></span><span style="display:flex;"><span>    │   │   └── FallbackFactory.sol
-</span></span><span style="display:flex;"><span>    │   └── Hello
-</span></span><span style="display:flex;"><span>    │       └── Instance.sol
-</span></span><span style="display:flex;"><span>    └── test
-</span></span><span style="display:flex;"><span>        ├── Fallback.t.sol
-</span></span><span style="display:flex;"><span>        └── common
-</span></span><span style="display:flex;"><span>            ├── LevelTest.sol
-</span></span><span style="display:flex;"><span>            └── Utils.sol
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">└── src
+</span></span><span class="line"><span class="cl">    ├── game
+</span></span><span class="line"><span class="cl">    │   ├── Ethernaut.sol
+</span></span><span class="line"><span class="cl">    │   └── LevelFactory.sol
+</span></span><span class="line"><span class="cl">    ├── levels
+</span></span><span class="line"><span class="cl">    │   ├── Fallback
+</span></span><span class="line"><span class="cl">    │   │   ├── Fallback.sol
+</span></span><span class="line"><span class="cl">    │   │   └── FallbackFactory.sol
+</span></span><span class="line"><span class="cl">    │   └── Hello
+</span></span><span class="line"><span class="cl">    │       └── Instance.sol
+</span></span><span class="line"><span class="cl">    └── test
+</span></span><span class="line"><span class="cl">        ├── Fallback.t.sol
+</span></span><span class="line"><span class="cl">        └── common
+</span></span><span class="line"><span class="cl">            ├── LevelTest.sol
+</span></span><span class="line"><span class="cl">            └── Utils.sol
 </span></span></code></pre></div><ul>
 <li><code>{Level}.sol</code> &ndash; Contains the main game logic.</li>
-<li><code>{Level}Factory.sol</code> &ndash; Extends the <code>LevelFactory.sol</code>
-abstract base contract and implements construction and
-validation logic for a specific level.</li>
+<li><code>{Level}Factory.sol</code> &ndash; Extends the <code>LevelFactory.sol</code> abstract base contract and
+implements construction and validation logic for a specific level.</li>
 </ul>
-<p>We&rsquo;ll keep tests in the <code>./src/test</code> folder and have the naming
-convention <code>{Level}.t.sol</code>. Our contracts for testing exploits will follow the
-same structure, so it makes sense to have some base contract
-which I called <code>LevelTest</code> (the idea is based on the
-<a href="https://github.com/StErMi/foundry-ethernaut/blob/main/test/utils/BaseTest.sol"  class="external-link" target="_blank" rel="noopener">BaseTest</a>
-by StErMi):</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Test} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;forge-std/Test.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Vm} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;forge-std/Vm.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Utils} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;./Utils.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Ethernaut} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;../../game/Ethernaut.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {LevelFactory} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;../../game/LevelFactory.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">abstract</span> <span style="color:#fff;font-weight:bold">contract</span> LevelTest <span style="color:#fff;font-weight:bold">is</span> Test {
-</span></span><span style="display:flex;"><span>    Utils <span style="color:#fff;font-weight:bold">internal</span> utils;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    Ethernaut <span style="color:#fff;font-weight:bold">private</span> ethernaut;
-</span></span><span style="display:flex;"><span>    LevelFactory <span style="color:#fff;font-weight:bold">internal</span> levelFactory;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">internal</span> levelAddress;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span>[] <span style="color:#fff;font-weight:bold">internal</span> users;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">internal</span> owner;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">address</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">internal</span> player;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> setUp() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">virtual</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">require</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">address</span>(levelFactory) != <span style="color:#fff;font-weight:bold">address</span>(<span style="color:#ff0;font-weight:bold">0</span>),
-</span></span><span style="display:flex;"><span>            <span style="color:#0ff;font-weight:bold">&#34;levelFactory is not initialized&#34;</span>
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        utils = <span style="color:#fff;font-weight:bold">new</span> Utils();
-</span></span><span style="display:flex;"><span>        ethernaut = <span style="color:#fff;font-weight:bold">new</span> Ethernaut();
-</span></span><span style="display:flex;"><span>        ethernaut.registerLevel(levelFactory);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        users = utils.createUsers(<span style="color:#ff0;font-weight:bold">2</span>);
-</span></span><span style="display:flex;"><span>        owner = users[<span style="color:#ff0;font-weight:bold">0</span>];
-</span></span><span style="display:flex;"><span>        player = users[<span style="color:#ff0;font-weight:bold">1</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        vm.label(owner, <span style="color:#0ff;font-weight:bold">&#34;owner&#34;</span>);
-</span></span><span style="display:flex;"><span>        vm.label(player, <span style="color:#0ff;font-weight:bold">&#34;player&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> create() <span style="color:#fff;font-weight:bold">external</span> <span style="color:#fff;font-weight:bold">payable</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">address</span>) {
-</span></span><span style="display:flex;"><span>        vm.prank(player);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> ethernaut.createLevelInstance{<span style="color:#fff;font-weight:bold">value</span>: <span style="color:#fff;font-weight:bold">msg</span>.<span style="color:#fff;font-weight:bold">value</span>}(levelFactory);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> run() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        init();
-</span></span><span style="display:flex;"><span>        exploit();
-</span></span><span style="display:flex;"><span>        check();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> init() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">virtual</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">virtual</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> check() <span style="color:#fff;font-weight:bold">internal</span> {
-</span></span><span style="display:flex;"><span>        vm.startPrank(player);
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bool</span> exploited = ethernaut.submitLevelInstance(levelAddress);
-</span></span><span style="display:flex;"><span>        assertTrue(exploited, <span style="color:#0ff;font-weight:bold">&#34;Not exploited&#34;</span>);
-</span></span><span style="display:flex;"><span>        vm.stopPrank();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<p>We&rsquo;ll keep tests in the <code>./src/test</code> folder and have the naming convention
+<code>{Level}.t.sol</code>. Our contracts for testing exploits will follow the same
+structure, so it makes sense to have some base contract which I called <code>LevelTest</code>
+(the idea is based on the <a href="https://github.com/StErMi/foundry-ethernaut/blob/main/test/utils/BaseTest.sol"  class="external-link" target="_blank" rel="noopener">BaseTest</a> by StErMi):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Test</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Vm</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;forge-std/Vm.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Utils</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./Utils.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Ethernaut</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../../game/Ethernaut.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">LevelFactory</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../../game/LevelFactory.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="kd">contract</span> <span class="nc">LevelTest</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Utils</span> <span class="k">internal</span> <span class="n">utils</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Ethernaut</span> <span class="k">private</span> <span class="n">ethernaut</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LevelFactory</span> <span class="k">internal</span> <span class="n">levelFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="k">internal</span> <span class="n">levelAddress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span><span class="p">[]</span> <span class="k">internal</span> <span class="n">users</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="k">internal</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">payable</span> <span class="k">internal</span> <span class="n">player</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">levelFactory</span><span class="p">)</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;levelFactory is not initialized&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">utils</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Utils</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ethernaut</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Ethernaut</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ethernaut</span><span class="p">.</span><span class="n">registerLevel</span><span class="p">(</span><span class="n">levelFactory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">users</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">createUsers</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">player</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="s">&#34;owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s">&#34;player&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">create</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ethernaut</span><span class="p">.</span><span class="n">createLevelInstance</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="n">levelFactory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exploit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">check</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">init</span><span class="p">()</span> <span class="k">internal</span> <span class="k">virtual</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">exploit</span><span class="p">()</span> <span class="k">internal</span> <span class="k">virtual</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">check</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">exploited</span> <span class="o">=</span> <span class="n">ethernaut</span><span class="p">.</span><span class="n">submitLevelInstance</span><span class="p">(</span><span class="n">levelAddress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">exploited</span><span class="p">,</span> <span class="s">&#34;Not exploited&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>In the <code>setUp</code> function we:</p>
 <ul>
 <li>Check that the derived contract has initialized the <code>levelFactory</code>.</li>
@@ -611,44 +542,44 @@ initial balance.</li>
 <li>Override the <code>init</code> and <code>exploit</code> functions.</li>
 </ol>
 <p>Here is how a typical test contract (<code>Foo.t.sol</code>) might look like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Ethernaut} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;../game/Ethernaut.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Foo} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;../levels/Foo/Foo.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {FooFactory} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;../levels/Foo/FooFactory.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {LevelTest} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;./common/LevelTest.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> FooTest <span style="color:#fff;font-weight:bold">is</span> LevelTest {
-</span></span><span style="display:flex;"><span>    Foo <span style="color:#fff;font-weight:bold">private</span> level;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Initialize level factory
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        levelFactory = <span style="color:#fff;font-weight:bold">new</span> FooFactory();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// This test-prefixed function gets called when we run &#34;forge test&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">function</span> testFoo() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        run();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> init() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Our setup code goes here
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>        levelAddress = <span style="color:#fff;font-weight:bold">payable</span>(<span style="color:#fff;font-weight:bold">this</span>.create());
-</span></span><span style="display:flex;"><span>        level = Foo(levelAddress);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        assertEq(level.owner(), <span style="color:#fff;font-weight:bold">address</span>(levelFactory));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> exploit() <span style="color:#fff;font-weight:bold">internal</span> <span style="color:#fff;font-weight:bold">override</span> {
-</span></span><span style="display:flex;"><span>        vm.startPrank(player);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">// Our exploit code goes here
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
-</span></span><span style="display:flex;"><span>        vm.stopPrank();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Ethernaut</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../game/Ethernaut.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Foo</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../levels/Foo/Foo.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">FooFactory</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../levels/Foo/FooFactory.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">LevelTest</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./common/LevelTest.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">FooTest</span> <span class="k">is</span> <span class="n">LevelTest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Foo</span> <span class="k">private</span> <span class="n">level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Initialize level factory
+</span></span></span><span class="line"><span class="cl">        <span class="n">levelFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FooFactory</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// This test-prefixed function gets called when we run &#34;forge test&#34;
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testFoo</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">init</span><span class="p">()</span> <span class="k">internal</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Our setup code goes here
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">levelAddress</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">this</span><span class="p">.</span><span class="n">create</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">level</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">levelAddress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">owner</span><span class="p">(),</span> <span class="kt">address</span><span class="p">(</span><span class="n">levelFactory</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">exploit</span><span class="p">()</span> <span class="k">internal</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Our exploit code goes here
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>This is our framework. The
 <a href="https://github.com/vyorkin/ethernaut-solutions/tree/step-1"  class="external-link" target="_blank" rel="noopener">step-1</a>
 branch reflects the current state of our repository. I&rsquo;ll copy
@@ -662,16 +593,15 @@ repository</a> as we go.</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>The first challenge requires us to find a secret password. We
-only need browser&rsquo;s console and Metamask to solve it. Let&rsquo;s take
-a look at the <code>contract</code>. It has the following methods:</p>
+<p>The first challenge requires us to find a secret password. We only need
+browser&rsquo;s console and Metamask to solve it. Let&rsquo;s take a look at the <code>contract</code>.
+It has the following methods:</p>
 <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello1.jpg">
 </figure>
 
-<p>Notice that the <code>authenticate</code> function takes a password and the
-contract has the <code>password</code> getter function which returns, well,
-a password. All we need to do is to call the <code>authenticate</code>
-function with that password string.</p>
+<p>Notice that the <code>authenticate</code> function takes a password and the contract has the
+<code>password</code> getter function which returns, well, a password. All we need to do is
+to call the <code>authenticate</code> function with that password string.</p>
 <p>Then we can submit the solution:</p>
 <figure><img src="https://vyorkin.org/ox-hugo/ethernaut-hello2.jpg">
 </figure>
@@ -681,71 +611,70 @@ function with that password string.</p>
 </figure>
 
 <p>After submitting we get the message on the web page:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Congratulations! You have completed the tutorial. Have a look at
-</span></span><span style="display:flex;"><span>the Solidity code for the contract you just interacted with below.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>You are now ready to complete all the levels of the game, and as
-</span></span><span style="display:flex;"><span>of now, you&#39;re on your own.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Godspeed!!
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Congratulations! You have completed the tutorial. Have a look at
+</span></span><span class="line"><span class="cl">the Solidity code for the contract you just interacted with below.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You are now ready to complete all the levels of the game, and as
+</span></span><span class="line"><span class="cl">of now, you&#39;re on your own.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Godspeed!!
 </span></span></code></pre></div><p>And the code of the challenge contract:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span> <span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> ^<span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">6</span>.<span style="color:#ff0;font-weight:bold">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> Instance {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">public</span> password;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint8</span> <span style="color:#fff;font-weight:bold">public</span> infoNum = <span style="color:#ff0;font-weight:bold">42</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">public</span> theMethodName = <span style="color:#0ff;font-weight:bold">&#34;The method name is method7123949.&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bool</span> <span style="color:#fff;font-weight:bold">private</span> cleared = <span style="color:#fff;font-weight:bold">false</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// constructor
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span> _password) <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        password = _password;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> info() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;You will find what you need in info1().&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> info1() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#39;Try info2(), but with &#34;hello&#34; as a parameter.&#39;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> info2(<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span> param) <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodePacked</span>(param)) ==
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodePacked</span>(<span style="color:#0ff;font-weight:bold">&#34;hello&#34;</span>))
-</span></span><span style="display:flex;"><span>        ) {
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#0ff;font-weight:bold">&#34;The property infoNum holds the &#34;</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#0ff;font-weight:bold">&#34;number of the next info method to call.&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;Wrong parameter.&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> info42() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;theMethodName is the name of the next method.&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> method7123949() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">pure</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;If you know the password, submit it to authenticate().&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> authenticate(<span style="color:#fff;font-weight:bold">string</span> <span style="color:#fff;font-weight:bold">memory</span> passkey) <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodePacked</span>(passkey)) ==
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">keccak256</span>(<span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodePacked</span>(password))
-</span></span><span style="display:flex;"><span>        ) {
-</span></span><span style="display:flex;"><span>            cleared = <span style="color:#fff;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> getCleared() <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">view</span> <span style="color:#fff;font-weight:bold">returns</span> (<span style="color:#fff;font-weight:bold">bool</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> cleared;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>As you can see we&rsquo;ve skipped a lot of hints. We didn&rsquo;t call any
-of those <code>infoX</code> functions %)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Instance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="k">public</span> <span class="n">password</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8</span> <span class="k">public</span> <span class="n">infoNum</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="k">public</span> <span class="n">theMethodName</span> <span class="o">=</span> <span class="s">&#34;The method name is method7123949.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">private</span> <span class="n">cleared</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_password</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">_password</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">info</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;You will find what you need in info1().&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">info1</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#39;Try info2(), but with &#34;hello&#34; as a parameter.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">info2</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">param</span><span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">param</span><span class="p">))</span> <span class="o">==</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;The property infoNum holds the &#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;number of the next info method to call.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;Wrong parameter.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">info42</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;theMethodName is the name of the next method.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">method7123949</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;If you know the password, submit it to authenticate().&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">authenticate</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">passkey</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">passkey</span><span class="p">))</span> <span class="o">==</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cleared</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getCleared</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">cleared</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As you can see we&rsquo;ve skipped a lot of hints. We didn&rsquo;t call any of those <code>infoX</code>
+functions %)</p>
 <h2 id="on-a-final-note">
   On a final note
   <a class="heading-link" href="#on-a-final-note">
@@ -807,7 +736,7 @@ challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -829,6 +758,11 @@ challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -837,7 +771,7 @@ challenge &ndash; <a href="https://vyorkin.org/posts/ctf-walkthrough-ethernaut-2
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

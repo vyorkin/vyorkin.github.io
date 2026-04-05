@@ -1,0 +1,236 @@
+[
+    {
+      "title": "Designing a Theorem Prover, Part 9",
+      "url": "/posts/designing-a-theorem-prover-part-9/",
+      "tags": ["Folderol"],
+      "summary": " Quantifier Unification Link to heading For now our little theorem prover can unify only atomic formulas (predicates). When we encounter quantifiers everything gets more interesting. Let\u0026rsquo;s look at a specific example that Paulson discusses in his paper.\nWhy can\u0026rsquo;t we unify \\(\\exists x.P(x)\\) with \\(\\exists x.P(?a)\\) by simply setting \\(?a\\) to \\(x\\)? It seems intuitive at first glance, but it\u0026rsquo;s a trap.\nThink about what these two formulas actually mean:\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 8",
+      "url": "/posts/designing-a-theorem-prover-part-8/",
+      "tags": ["Folderol"],
+      "summary": "As our codebase grows, maintaining clarity and organization becomes more important. It’s time to move beyond inline tests and switch to Alcotest.\nAlcotest Link to heading To use Alcotest, you need to provide a pp function for pretty-printing and an equals function for equality checks. The testable function in Alcotest handles wrapping your type for testing, requiring only these two functions.\n(* unification.mli *) module Env : sig (* ... *) val pp : Format.formatter -\u0026gt; t -\u0026gt; unit (** Prints the env [t] using the format output function [fmt]. @param fmt The formatter to which the formatted env is output. @param t The env to be formatted. *) val equal : t -\u0026gt; t -\u0026gt; bool (** Returns [true] if two environments are equal. *) end To implement pretty-printing we\u0026rsquo;ll use the Format module. Equality is just an alias for Map.equal Term.equal.\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 7",
+      "url": "/posts/designing-a-theorem-prover-part-7/",
+      "tags": ["Folderol"],
+      "summary": " Environment Link to heading Our unification algorithm maintains the environment which is defined like this: \\(\\{(?a_1, t_1), \\dots, (?a_k, t_k) \\}\\), where \\(\\forall i: a_i \\neq t_i\\)\nWe will evaluate each term in this env and replace meta-variable \\(?a_i\\) with \\(t_i\\) when necessary. When we encounter an \\(?a_i\\) we will do the replacement and work with \\(t_i\\) recursively. This process will eventually stop, as the occurs check prevents loops such as \\({(?b, f (?a)), (?a, g(?b))}\\).\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 6",
+      "url": "/posts/designing-a-theorem-prover-part-6/",
+      "tags": ["Folderol"],
+      "summary": " Unifier Link to heading As we saw in Part 3, unification is the process of finding substitutions for variables in two terms \\(t\\) and \\(u\\) to make equation \\(t = u\\) true.\nThe key assumptions:\nDistinctness. All functions and constants in the terms are distinct (unless explicitly stated otherwise). Equality rules. The only valid equalities are: Reflexivity (\\(t = t\\)): Any term is always equal to itself. Substitution of equals for equals: if two terms \\(a\\) and \\(b\\) are equal (\\(a = b\\)), then one can replace the other. Basically we need to solve a set of equations \\(\\{t_1 = u_1, \\dots, t_n = u_n\\}\\). Each term can be a function application, a parameter, or a meta-variable:\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 5",
+      "url": "/posts/designing-a-theorem-prover-part-5/",
+      "tags": ["Folderol"],
+      "summary": "I don\u0026rsquo;t really enjoy writing parsers. Moreover, parsers and pretty-printing are not exactly related to working through Paulson\u0026rsquo;s paper, but one way or another, I\u0026rsquo;ll have to do it to get a working version of the theorem prover. So let\u0026rsquo;s get started, the time has come.\nRefactoring Link to heading Before working on lexing, parsing and pretty-printing, let\u0026rsquo;s refactor our code to introduce more explicit types for logical connectives and quantifiers. We\u0026rsquo;ll start by defining simple sum-types for connective and quantifier:\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 4",
+      "url": "/posts/designing-a-theorem-prover-part-4/",
+      "tags": ["Folderol"],
+      "summary": " Terms Link to heading One of the first design steps is choosing how to represent terms and formulas. We have 3 kinds of variables – meta-variables, parameters and bound variables.\nMeta-variables, which we’ll now simply call “variables,” are represented by names like \\(x\\), \\(y\\). Parameters have a name and a list of variables that represent quantifier rule provisos. For bound variables we\u0026rsquo;ll use De Bruijn indexes that eliminate all bound variable names. This makes formulas like \\(\\forall x. \\forall y. P(x)\\) and \\(\\forall y. \\forall x. P(y)\\) equivalent. What Are De Bruijn Indexes?\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 3",
+      "url": "/posts/designing-a-theorem-prover-part-3/",
+      "tags": ["Folderol"],
+      "summary": " Quantifiers and Unification Link to heading In this post, we’ll dive into the mechanics of quantifiers and unification in theorem proving.\nMeta-Variables Link to heading In the backward rules \\(\\forall L\\) and \\(\\exists R\\), the term \\(t\\) is left unspecified, meaning it can represent any expression. We will use special meta-variables like \\(?a\\), \\(?b\\), \\(?c\\), etc., which act as placeholders for such terms. The backward rules will insert a fresh meta-variable, such as \\(?b\\), in place of \\(t\\) (term) in the subgoal.\n"
+    },
+    {
+      "title": "Forwards versus Backwards Reasoning",
+      "url": "/posts/forwards-reasoning-vs-backwards-reasoning/",
+      "tags": ["Folderol"],
+      "summary": " Forwards Reasoning Link to heading We start with axioms, and step by step build up a proof until we reach the desired conclusion.\nExample in Gentzen\u0026rsquo;s LK:\nWe start with a single axiom: \\(A \\vdash A\\). It means: any formula implies itself, so this sequent is always true. We apply the left introduction for conjunction rule: \\(\\displaystyle \\cfrac{\\Gamma, A \\vdash \\Delta}{\\Gamma, A \\land B \\vdash \\Delta} \\quad (\\land L_1)\\) We get: \\(\\displaystyle A \\land B \\vdash A\\) We started from axioms or known facts and builded towards the conclusion. We applied \\(\\land L_1\\) directly on the axiom.\n"
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 2",
+      "url": "/posts/designing-a-theorem-prover-part-2/",
+      "tags": ["Folderol"],
+      "summary": " Propositional Logic Link to heading In this short post we will explore how different proof strategies, particularly in backwards reasoning, can impact the efficiency of deriving conclusions. At the end, I\u0026rsquo;ll include a table of Paulson\u0026rsquo;s rules for the folderol theorem prover.\nPropositional logic works with the connectives \\(\\land\\), \\(\\lor\\), \\(\\to\\), \\(\\leftrightarrow\\), and \\(\\neg\\). "
+    },
+    {
+      "title": "Designing a Theorem Prover, Part 1",
+      "url": "/posts/designing-a-theorem-prover-part-1/",
+      "tags": ["Folderol"],
+      "summary": " Intro Link to heading In this series, I’ll be working through the folderol (1990) by Lawrence C Paulson and trying to use its insights to design a theorem prover in OCaml. He calls the prover folderol and I will do the same. His prover follows automatic strategy but interactive and prints trace of its rules as evidence.\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #8 Puppet",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-8-puppet/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Challenge Link to heading There\u0026rsquo;s a huge lending pool borrowing Damn Valuable Tokens (DVTs), where you first need to deposit twice the borrow amount in ETH as collateral. The pool currently has 100000 DVTs in liquidity.\nThere\u0026rsquo;s a DVT market opened in an description Uniswap v1 exchange, currently with 10 ETH and 10 DVT in liquidity.\nStarting with 25 ETH and 1000 DVTs in balance, you must steal all tokens from the lending pool.\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #6 Selfie",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-6-selfie/",
+      "tags": ["Blockchain","Security"],
+      "summary": "After a short break, I\u0026rsquo;m back and excited to keep going with these CTF walkthrough series.\nThe current challenge is Selfie:\nChallenge Link to heading A new cool lending pool has launched! It\u0026rsquo;s now offering flash loans of DVT tokens. Wow, and it even includes a really fancy governance mechanism to control it. What could go wrong, right? You start with no DVT tokens in balance, and the pool has 1.5 million. Your objective: take them all. Looks like we might be able to abuse the governance using a flash loan to drain all the funds. We\u0026rsquo;ll see ;)\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #5 The rewarder",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-5-the-rewarder/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Challenge Link to heading Today we\u0026rsquo;re going to take a look at The Rewarder challenge:\nThere\u0026rsquo;s a pool offering rewards in tokens every 5 days for those who deposit their DVT tokens into it. Alice, Bob, Charlie and David have already deposited some DVT tokens, and have won their rewards! You don\u0026rsquo;t have any DVT tokens. But in the upcoming round, you must claim most rewards for yourself. Oh, by the way, rumours say a new pool has just landed on mainnet. Isn\u0026rsquo;t it offering DVT tokens in flash loans? Analysis Link to heading Let\u0026rsquo;s explore the smart contracts! For this challenge we have 5 of them:\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #4 Side entrance",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-4-side-entrance/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Challenge Link to heading A surprisingly simple lending pool allows anyone to deposit ETH, and withdraw it at any point in time. This very simple lending pool has 1000 ETH in balance already, and is offering free flash loans using the deposited ETH to promote their system. You must take all ETH from the lending pool. Here is the lending pool contract:\n// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {Address} from \u0026#34;openzeppelin-contracts/utils/Address.sol\u0026#34;; interface IFlashLoanEtherReceiver { function execute() external payable; } /** * @title SideEntranceLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz) */ contract SideEntranceLenderPool { using Address for address payable; mapping(address =\u0026gt; uint256) private balances; error NotEnoughETHInPool(); error FlashLoanHasNotBeenPaidBack(); function deposit() external payable { balances[msg.sender] += msg.value; } function withdraw() external { uint256 amountToWithdraw = balances[msg.sender]; balances[msg.sender] = 0; payable(msg.sender).sendValue(amountToWithdraw); } function flashLoan(uint256 amount) external { uint256 balanceBefore = address(this).balance; if (balanceBefore \u0026lt; amount) revert NotEnoughETHInPool(); IFlashLoanEtherReceiver(msg.sender).execute{value: amount}(); if (address(this).balance \u0026lt; balanceBefore) revert FlashLoanHasNotBeenPaidBack(); } } Side entrance lender pool\u0026hellip;🤔 Sounds like a \u0026ldquo;lender pool with a back door\u0026rdquo; 😂\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #3 Truster",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-3-truster/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Challenge Link to heading More and more lending pools are offering flash loans. In this case, a new pool has launched that is offering flash loans of DVT tokens for free.\nCurrently the pool has 1 million DVT tokens in balance. And you have nothing.\nBut don\u0026rsquo;t worry, you might be able to take them all from the pool. In a single transaction.\n// SPDX-License-Identifier: MIT pragma solidity 0.8.12; import {IERC20} from \u0026#34;openzeppelin-contracts/token/ERC20/IERC20.sol\u0026#34;; import {Address} from \u0026#34;openzeppelin-contracts/utils/Address.sol\u0026#34;; import {ReentrancyGuard} from \u0026#34;openzeppelin-contracts/security/ReentrancyGuard.sol\u0026#34;; /** * @title TrusterLenderPool * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz) */ contract TrusterLenderPool is ReentrancyGuard { using Address for address; IERC20 public immutable damnValuableToken; error NotEnoughTokensInPool(); error FlashLoanHasNotBeenPaidBack(); constructor(address tokenAddress) { damnValuableToken = IERC20(tokenAddress); } function flashLoan( uint256 borrowAmount, address borrower, address target, bytes calldata data ) external nonReentrant { uint256 balanceBefore = damnValuableToken.balanceOf(address(this)); if (balanceBefore \u0026lt; borrowAmount) revert NotEnoughTokensInPool(); damnValuableToken.transfer(borrower, borrowAmount); target.functionCall(data); uint256 balanceAfter = damnValuableToken.balanceOf(address(this)); if (balanceAfter \u0026lt; balanceBefore) revert FlashLoanHasNotBeenPaidBack(); } } Analysis Link to heading The contract keeps a reference to the DVT ERC20 token, which is set in the constructor:\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #2 Naive Receiver",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-2-naive-receiver/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Challenge Link to heading There\u0026rsquo;s a lending pool offering quite expensive flash loans of Ether, which has 1000 ETH in balance.\nYou also see that a user has deployed a contract with 10 ETH in balance, capable of interacting with the lending pool and receiving flash loans of ETH.\nDrain all ETH funds from the user\u0026rsquo;s contract. Doing it in a single transaction is a big plus ;)\n"
+    },
+    {
+      "title": "Damn Vulnerable DeFi, #1 Unstoppable",
+      "url": "/posts/ctf-walkthrough-damn-vulnerable-defi-1-unstoppable/",
+      "tags": ["Blockchain","Security"],
+      "summary": "There are only a few days left to prepare for the Paradigm CTF 2022. Hence I\u0026rsquo;m going to spend this time solving the Damn Vulnerable DeFi challenges and then concentrate on playing the Paradigm CTF 2021. Intro Link to heading Damn Vulnerable DeFi is a CTF that simulates DeFi vulnerabilities created by @tinchoabbate. This game has 13 different levels featuring popular DeFi primitives such as lash loans, price oracles, governance, lending pools, integrations with Uniswap v2, Gnosis Safe wallets, timelocks, NFTs, upgradeability patterns and more. It is fun and enojoyable way to learn DeFi-related offensive security. Needless to say it requires some level of understanding of high level concepts behind those DeFi protocols.\n"
+    },
+    {
+      "title": "Ethernaut, #14 Gatekeeper One",
+      "url": "/posts/ctf-walkthrough-ethernaut-14-gatekeeper-one/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "To solve this challenge we must register as an entrant.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import \u0026#34;forge-std/console2.sol\u0026#34;; contract GatekeeperOne { address public entrant; modifier gateOne() { require(msg.sender != tx.origin); _; } modifier gateTwo() { require(gasleft() % 8191 == 0); _; } modifier gateThree(bytes8 _gateKey) { require( uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), \u0026#34;GatekeeperOne: invalid gateThree part one\u0026#34; ); require( uint32(uint64(_gateKey)) != uint64(_gateKey), \u0026#34;GatekeeperOne: invalid gateThree part two\u0026#34; ); require( uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), \u0026#34;GatekeeperOne: invalid gateThree part three\u0026#34; ); _; } function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } } Analysis \u0026amp; Exploit Link to heading function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) { entrant = tx.origin; return true; } The enter function has 3 modifiers that perform some checks. The first two modifiers don\u0026rsquo;t take any parameters and the last one expects the bytes8 _gateKey. On success, it assigns tx.origin to entrant and returns true.\n"
+    },
+    {
+      "title": "Ethernaut, #13 Privacy",
+      "url": "/posts/ctf-walkthrough-ethernaut-13-privacy/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "The creator of this contract was careful enough to protect the sensitive areas of its storage. Unlock this contract to beat the level.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Privacy { bool public locked = true; uint256 public ID = block.timestamp; uint8 private flattening = 10; uint8 private denomination = 255; uint16 private awkwardness = uint16(block.timestamp); bytes32[3] private data; constructor(bytes32[3] memory _data) { data = _data; } function unlock(bytes16 _key) public { require(_key == bytes16(data[2])); locked = false; } /* A bunch of super advanced solidity algorithms... *\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^` .,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*., *.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^ ,---/V\\ `*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*. ~|__(o.o) ^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39;^`*.,*\u0026#39; UU UU */ } Analysis Link to heading Let\u0026rsquo;s review the unlock function:\n"
+    },
+    {
+      "title": "Ethernaut, #12 Elevator",
+      "url": "/posts/ctf-walkthrough-ethernaut-12-elevator/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "To solve this challenge we have to set the top state variable to true.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; interface Building { function isLastFloor(uint256) external returns (bool); } contract Elevator { bool public top; uint256 public floor; function goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } } Analysis Link to heading Let\u0026rsquo;s go over the goTo function:\nfunction goTo(uint256 _floor) public { Building building = Building(msg.sender); if (!building.isLastFloor(_floor)) { floor = _floor; top = building.isLastFloor(floor); } } It casts the msg.sender to Building, which means that it treats the msg.sender as a caller contract of the goTo function. Then it checks if we have not yet reached the top of our building: !building.isLastFloor(_floor). Finally, it sets the floor and asks the instance of the building contract if this is the last floor. Exploit Link to heading We can implement the Building in any way we want. Let\u0026rsquo;s make the isLastFloor return false when it is called first time and return true the second time. We\u0026rsquo;ll have a boolean flag for that:\n"
+    },
+    {
+      "title": "Ethernaut, #11 Re-entrancy",
+      "url": "/posts/ctf-walkthrough-ethernaut-11-re-entrancy/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "The objective of this challenge is to steal all the funds from the contract.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Reentrance { mapping(address =\u0026gt; uint256) public balances; function donate(address _to) public payable { balances[_to] += msg.value; } function balanceOf(address _who) public view returns (uint256 balance) { return balances[_who]; } function withdraw(uint256 _amount) public { if (balances[msg.sender] \u0026gt;= _amount) { (bool result, ) = msg.sender.call{value: _amount}(\u0026#34;\u0026#34;); if (result) { _amount; } unchecked { balances[msg.sender] -= _amount; } } } receive() external payable {} } Originally this level had the pragma solidity ^0.6.0 and used the SafeMath from OpenZeppelin, which provides wrappers over Solidity’s arithmetic operations. We use a is a slightly modified version of it that:\n"
+    },
+    {
+      "title": "Ethernaut, #10 King",
+      "url": "/posts/ctf-walkthrough-ethernaut-10-king/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "The goal of this level is to break the game defined by the King contract.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract King { address payable king; address payable public owner; uint256 public prize; constructor() payable { owner = payable(msg.sender); king = payable(msg.sender); prize = msg.value; } receive() external payable { require(msg.value \u0026gt;= prize || msg.sender == owner); king.transfer(msg.value); king = payable(msg.sender); prize = msg.value; } function _king() public view returns (address payable) { return king; } } Here is how the game checks if we passed:\naddress(instance).call{value: 0}(\u0026#34;\u0026#34;); return instance._king() != address(this); It tries to reclaim the kingship, hence \u0026ldquo;to break the game\u0026rdquo; means that we must prevent it from restoring the kingship.\n"
+    },
+    {
+      "title": "Ethernaut, #9 Vault",
+      "url": "/posts/ctf-walkthrough-ethernaut-9-vault/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "We need to unlock the Vault smart contract to pass the level.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Vault { bool public locked; bytes32 private password; constructor(bytes32 _password) public { locked = true; password = _password; } function unlock(bytes32 _password) public { if (password == _password) { locked = false; } } } Analysis Link to heading Let\u0026rsquo;s look at the state variables:\nbool public locked; bytes32 private password; In EVM storage is a key-value store that maps 256-bit words to 256-bit words and is accessed with EVM’s SSTORE~/~SLOAD instructions.\n"
+    },
+    {
+      "title": "Ethernaut, #8 Force",
+      "url": "/posts/ctf-walkthrough-ethernaut-8-force/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "To complete this challenge we need to make the balance of the Force contract greater than zero.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Force {/* MEOW ? /\\_/\\ / ____/ o o \\ /~____ =ø= / (______)__m_m) */} Thoughts Link to heading The contract has nothing in it, except the ASCII-art of a cat. It doesn\u0026rsquo;t have a receive, fallback function, or any other payable function:\n"
+    },
+    {
+      "title": "Ethernaut, #7 Delegation",
+      "url": "/posts/ctf-walkthrough-ethernaut-7-delegation/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "The goals is to claim the ownership of the Delegate contract.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Delegate { address public owner; constructor(address _owner) { owner = _owner; } function pwn() public { owner = msg.sender; } } contract Delegation { address public owner; Delegate delegate; constructor(address _delegateAddress) { delegate = Delegate(_delegateAddress); owner = msg.sender; } fallback() external { (bool result, ) = address(delegate).delegatecall(msg.data); if (result) { this; } } } Analysis Link to heading We have two contracts: the Delegate and the Delegation.\nDelegate\nIt has an owner that was set in the constructor. The pwn() public function can be used to change the ownership to the msg.sender. Delegation\n"
+    },
+    {
+      "title": "Ethernaut, #6 Token",
+      "url": "/posts/ctf-walkthrough-ethernaut-6-token/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "We start with the 20 tokens. To complete this challenge we need to get some more.\nHere is the original Token contract:\n// SPDX-License-Identifier: MIT pragma solidity ^0.6.0; contract Token { mapping(address =\u0026gt; uint256) balances; uint256 public totalSupply; constructor(uint256 _initialSupply) { balances[msg.sender] = totalSupply = _initialSupply; } function transfer(address _to, uint256 _value) public returns (bool) { require(balances[msg.sender] - _value \u0026gt;= 0); balances[msg.sender] -= _value; balances[_to] += _value; return true; } function balanceOf(address _owner) public view returns (uint256 balance) { return balances[_owner]; } } Analysis Link to heading Let\u0026rsquo;s go line by line and see what we can come up with.\nFirstly, let\u0026rsquo;s review the transfer function:\n"
+    },
+    {
+      "title": "Ethernaut, #5 Telephone",
+      "url": "/posts/ctf-walkthrough-ethernaut-5-telephone/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "We need to claim ownership of the contract below to complete this level:\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Telephone { address public owner; constructor() { owner = msg.sender; } function changeOwner(address _owner) public { if (tx.origin != msg.sender) { owner = _owner; } } } Analysis Link to heading The changeOwner function requires that tx.origin != msg.sender.\nWe know that tx.origin always refers to the EOA (externally owned account) that started the transaction irrespective of the stack of contracts invoked:\n"
+    },
+    {
+      "title": "Ethernaut, #4 Coin Flip",
+      "url": "/posts/ctf-walkthrough-ethernaut-4-coin-flip/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "To complete this challenge we need to predict the outcome of a coin flip game 10 times in a row. Here is the slightly altered version of the original smart contract:\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract CoinFlip { uint256 public consecutiveWins; uint256 lastHash; uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968; constructor() { consecutiveWins = 0; } function flip(bool _guess) public returns (bool) { uint256 blockValue = uint256(blockhash(block.number - 1)); if (lastHash == blockValue) { revert(); } lastHash = blockValue; uint256 coinFlip = blockValue / FACTOR; bool side = coinFlip == 1 ? true : false; if (side == _guess) { consecutiveWins++; return true; } else { consecutiveWins = 0; return false; } } } Analysis Link to heading The CoinFlip contract has 3 state variables:\n"
+    },
+    {
+      "title": "Ethernaut, #3 Fallout",
+      "url": "/posts/ctf-walkthrough-ethernaut-3-fallout/",
+      "tags": ["Blockchain","Security","Ethernaut"],
+      "summary": "To complete this level we need to become owner of the contract below (slightly modified to be compatible with Solidity ^0.8.2):\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; import \u0026#34;openzeppelin/utils/math/SafeMath.sol\u0026#34;; contract Fallout { using SafeMath for uint256; mapping(address =\u0026gt; uint256) allocations; address payable public owner; /* constructor */ function Fal1out() public payable { owner = payable(msg.sender); allocations[owner] = msg.value; } modifier onlyOwner() { require(msg.sender == owner, \u0026#34;caller is not the owner\u0026#34;); _; } function allocate() public payable { allocations[msg.sender] = allocations[msg.sender].add(msg.value); } function sendAllocation(address payable allocator) public { require(allocations[allocator] \u0026gt; 0); allocator.transfer(allocations[allocator]); } function collectAllocations() public onlyOwner { payable(msg.sender).transfer(address(this).balance); } function allocatorBalance(address allocator) public view returns (uint256) { return allocations[allocator]; } } I\u0026rsquo;ll skip the FalloutFactory contract because it is almost identical to the FallbackFactory from the previous challenge, except that in its validateInstance function it only checks that owner() == player.\n"
+    },
+    {
+      "title": "Ethernaut, #2 Fallback",
+      "url": "/posts/ctf-walkthrough-ethernaut-2-fallback/",
+      "tags": ["Blockchain","Security"],
+      "summary": "To complete this level we need become the owner of the contract and reduce its balance to zero.\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.2; contract Fallback { mapping(address =\u0026gt; uint256) public contributions; address payable public owner; constructor() { owner = payable(msg.sender); contributions[msg.sender] = 1000 * (1 ether); } modifier onlyOwner() { require(msg.sender == owner, \u0026#34;caller is not the owner\u0026#34;); _; } function contribute() public payable { require(msg.value \u0026lt; 0.001 ether, \u0026#34;msg.value must be \u0026lt; 0.001\u0026#34;); contributions[msg.sender] += msg.value; if (contributions[msg.sender] \u0026gt; contributions[owner]) { owner = payable(msg.sender); } } function getContribution() public view returns (uint256) { return contributions[msg.sender]; } function withdraw() public onlyOwner { owner.transfer(address(this).balance); } receive() external payable { require(msg.value \u0026gt; 0 \u0026amp;\u0026amp; contributions[msg.sender] \u0026gt; 0); owner = payable(msg.sender); } } I\u0026rsquo;ve modified the original level code and removed the SafeMath usage since we\u0026rsquo;re using solidity ^0.8.2.\n"
+    },
+    {
+      "title": "Ethernaut, #1 Hello Ethernaut",
+      "url": "/posts/ctf-walkthrough-ethernaut-1-hello/",
+      "tags": ["Blockchain","Security"],
+      "summary": " Intro Link to heading The Ethernaut CTF game exists for more than 3 years already and has 26 challenges. The first one is a kind of introductory challenge that gives you steps on what you need to set up. If you have Metamask and open the browser\u0026rsquo;s console, you should see greeting messages:\nSet up Link to heading Originally, this game runs on the Rinkeby test network, but we\u0026rsquo;re going to play it locally. As I mentioned in the first post, we will use Foundry toolchain and here is the initial/empty project layout:\n"
+    },
+    {
+      "title": "CTF walkthrough, Intro",
+      "url": "/posts/ctf-walkthrough-intro/",
+      "tags": ["Blockchain","Security"],
+      "summary": " CTF\u0026rsquo;s / War games Link to heading CTF\u0026rsquo;s (Capture The Flags) are games/challenges focused on the Ethereum blockchain that help you to learn security techniques and concepts. These are the five popular CTF\u0026rsquo;s worth solving (in this order) to master your Ethereum/Solidity offensive security skills:\nThe Ethernaut is a wargame by OpenZeppelin. CaptureTheEther Damn Vulnerable DeFi Paradigm CTF 2021 Paradigm CTF 2022 (upcoming) Each level/challenge is a set of vulnerable smart contracts that you need to exploit. Some of these are trivial, some require understanding of DeFi protocols and are based on a real security holes. There are overlapping/similar challenges in Ethernaut and CaptureTheEther, so you can do one or the other.\n"
+    },
+    {
+      "title": "Proving TAPL in Coq (ch 3, WIP)",
+      "url": "/posts/proving-tapl-in-coq-ch-3/",
+      "tags": ["Coq","Tapl"],
+      "summary": "In order to understand things clearly and to learn Coq proof assistant at the same time, I\u0026rsquo;ve decided to do some proves while reading the TAPL book.\nThe code is on the GitHub.\nFor the excercises I want to use the ssreflect proof language instead of ltac. I\u0026rsquo;ll keep solutions to each chapter in a separate file. We\u0026rsquo;ll always work in the following context:\nSet Implicit Arguments. Unset Strict Implicit. Unset Printing Implicit Defensive. From Coq Require Import ssreflect. I\u0026rsquo;ll start with the operational semantics of boolean expressions. Here is the definition in Coq:\n"
+    },
+    {
+      "title": "Instrumenting and profiling OCaml programs",
+      "url": "/posts/instrumenting-and-profiling-ocaml/",
+      "tags": ["Ocaml","Benchmarking","Profiling","Performance"],
+      "summary": " Intro Link to heading Profiling is rather a large topic, but basically it allows us to learn where the program spent its time and which functions called which other functions during its execution. We use that information to understand which pieces of our program are slower than we expected.\nNote the difference between profiling and benchmarking: we use (micro-)benchmarking to estimate the cost of executing an individual isolated pieces of code, but we use profiling to understand to properties of the whole program and possibly find the hot spots.\n"
+    },
+    {
+      "title": "Making of Tiger #6, Stack frames",
+      "url": "/posts/making-of-tiger-6-stack-frames/",
+      "tags": ["Compilers","Tiger","Ocaml","Stack","Memory"],
+      "summary": " Intro Link to heading In this post we\u0026rsquo;re going to add support for stack frames. Here I\u0026rsquo;ve made some notes while reading the chapter 6 to make sure I understand things clearly.\nStack Link to heading A stack is a region of memory that grows downward and shrinks upward (like icicles). The top of the stack is it\u0026rsquo;s lowest memory address. We treat stack as a big array, with a special register \u0026ndash; the stack pointer (SP).\n"
+    },
+    {
+      "title": "Making of Tiger #5, Semantic Analysis",
+      "url": "/posts/making-of-tiger-5-semantic-analysis/",
+      "tags": ["Compilers","Tiger","Ocaml","Type Checking"],
+      "summary": " Intro Link to heading I really enjoyed working through this chapter, but at the same time implementing the type-checking phase was a bit more difficult than working on AST, parser or lexer from the previous chapters.\n"
+    },
+    {
+      "title": "Making of Tiger #3, Parsing",
+      "url": "/posts/making-of-tiger-3-parsing/",
+      "tags": ["Compilers","Tiger","Ocaml","Parsing","Menhir"],
+      "summary": " Intro Link to heading In this chapter we’re going to build a parser for our Tiger language. First, let’s do a quick recap of some important concepts of the theory behind programming language parsers:\nParser generator is the most common type of compiler-compiler’s. It takes some formal grammar (typically it is a context-free grammar in BNF or EBNF form), that defines a syntax of a programming language. Tiger grammar with Menhir Link to heading While reading the current paragraph I highly recommend consulting the Tiger Language Reference Manual that has a precise description (along with a BNF notation) of everything we’re going to define below.\n"
+    },
+    {
+      "title": "Making of Tiger #2, Lexical Analysis",
+      "url": "/posts/making-of-tiger-2-lexical-analysis/",
+      "tags": ["Compilers","Tiger","Ocaml","Lexing","Ocamlex"],
+      "summary": " Intro Link to heading We need a way to translate a program written in one (human-friendly) language to another (machine-specific) language. Generally, this work is splitted into 2 parts: analysis and synthesis.\nThe synthesis-part (back end) is responsible for the code generation and optimizations.\nAnalysis-part (front end) is responsible for breaking the program apart to understand its structure and meaning. There are 3 commonly used analysis phases:\n"
+    },
+    {
+      "title": "Making of Tiger #1, Intro",
+      "url": "/posts/making-of-tiger-1-intro/",
+      "tags": ["Compilers","Tiger","Ocaml"],
+      "summary": "Recently I\u0026rsquo;ve started reading the book by Andrew W. Appel titled Modern compiler implementation in ML. I\u0026rsquo;ve picked it up because I\u0026rsquo;ve heard some really good reviews about the ML version of it. Also there are other editions available that use C and Java. Each chapter covers a single phase of the compilation process and comes with some initial ML code and programming excercies. At the end you will have a working optimizing compiler.\n"
+    }
+]
